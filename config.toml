@@ -17,11 +17,12 @@ languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"
 title = "知行合一"
 theme = "tranquilpeak"
-disqusShortname = "愚者"
+#disqusShortname = "愚者"
 publishDir= "docs"
 # googleAnalytics = "UA-123-45"
 paginate = 7
 canonifyurls = true
+disqusShortname = "fabletang-github-io"
 
 [permalinks]
   post = "/:year/:month/:slug/"
@@ -46,7 +47,7 @@ canonifyurls = true
   # twitter = "thibaudlepretre"
   # Your google plus profile id. E.g : +ThibaudLepretre or 114625208755123718311
   # googlePlus = "+ThibaudLepretre"
-  disqusShortname = "fabletang-github-io"
+#  disqusShortname = "fabletang-github-io"
 
 # Menu Configuration
 [[menu.main]]
@@ -102,7 +103,7 @@ canonifyurls = true
   # dateFormat = "2 January 2006"
   dateFormat = "2006-01-02 CST"
 
-  disqusShortname = "fabletang-github-io"
+  #disqusShortname = "fabletang-github-io"
 
   # Global keywords configuration. Following keywords will be add to every pages
   # keywords = ["development", "next-gen"]
