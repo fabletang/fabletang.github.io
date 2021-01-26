@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>project on 知行合一</title>
+    <link>https://fabletang.github.io/tags/project/</link>
+    <description>Recent content in project on 知行合一</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 06 Oct 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/tags/project/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于软件项目计划的看法</title>
+      <link>https://fabletang.github.io/2015/10/%E5%85%B3%E4%BA%8E%E8%BD%AF%E4%BB%B6%E9%A1%B9%E7%9B%AE%E8%AE%A1%E5%88%92%E7%9A%84%E7%9C%8B%E6%B3%95/</link>
+      <pubDate>Tue, 06 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/2015/10/%E5%85%B3%E4%BA%8E%E8%BD%AF%E4%BB%B6%E9%A1%B9%E7%9B%AE%E8%AE%A1%E5%88%92%E7%9A%84%E7%9C%8B%E6%B3%95/</guid>
+      <description>&amp;ldquo;凡事预则立 不预则废&amp;rdquo;,这是&amp;laquo;礼记&amp;raquo;中的名言,意思是任何事情不作计划就会失败。
+软件项目也一样必须作计划。但是实际情况是，软件项目很难预估资源和时间。软件开发中
+有个“公理”：20%的工作要花费80%的时间。二八原理。还有一个&amp;quot;20%的项目是成功，80%&amp;quot;
+将失败&amp;quot;。说明软件项目很难作出贴近实际的计划(schedule)。Why?
+特性: 软件项目大多是创造性，难度大，复杂程度高。就单单编程语言来说，在电脑领域已发 明了上千不同的编程语言，而且每年仍有新的编程语言诞生。
+资源: 软件项目的主要资源:人,是稀缺的。需要较高技能要求。</description>
+    </item>
+    
+  </channel>
+</rss>

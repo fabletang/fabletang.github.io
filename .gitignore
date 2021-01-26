@@ -1,0 +1,11 @@
+*.swp
+*~
+*.t2t~
+*#
+mytest
+tmp
+._*
+.DS_Store
+*.log
+public
+public/*

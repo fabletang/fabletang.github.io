@@ -1,0 +1,16 @@
+1.
+git clone https://github.com/fabletang/blog.git
+cd blog
+git branch -l && git checkout master
+git clone https://github.com/fabletang/blog.git public
+
+2. add post, hugo server -w
+
+3. hugo
+
+4. cd ~/blog && git add . && git commit -m "ssss"
+
+5. cd public && git add . && git commit -m "ssss"
+
+6. https://fabletang.github.com/blog
+

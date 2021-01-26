@@ -1,0 +1,20 @@
+MetadataFormat: "yaml"
+BaseURL: "http://fabletang.github.io/blog"
+LanguageCode: "zh_CN"
+Title: "Fable's blog"
+hasCJKLanguage: True
+
+Params:
+  Author: "Fable Tang"
+  DateForm: "Mon,2006-01-02"
+  GoogleAnalyticsUserID: "Your ID."
+  Github: "fabletang"
+  ShowRelatedPost: True
+  SyntaxHighlightTheme: "solarized_dark.min.css"
+
+Indexes:
+  tag: "tags"
+permalinks:
+  post: /blog/:year/:month/:day/:title/
+
+publishDir: docs
