@@ -1,16 +1,15 @@
 1.
-git clone https://github.com/fabletang/blog.git
+mkdir themes && cd themes
+git clone https://github.com/kakawait/hugo-tranquilpeak-theme.git tranquilpeak  # 将 Tranquilpeak 主题克隆至 "tranquilpeak" 目录。 
+
+git clone git@github.com:fabletang/fabletang.github.io.git blog
 cd blog
-git branch -l && git checkout master
-git clone https://github.com/fabletang/blog.git public
+vi ....
+hugo server -D
+
+git push
 
 2. add post, hugo server -w
 
-3. hugo
-
-4. cd ~/blog && git add . && git commit -m "ssss"
-
-5. cd public && git add . && git commit -m "ssss"
-
-6. https://fabletang.github.com/blog
+6. https://fabletang.github.io
 

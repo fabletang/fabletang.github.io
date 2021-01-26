@@ -5,7 +5,7 @@
 mytest
 tmp
 ._*
-.DS_Store
+**/.DS_Store
 *.log
 public
 public/*
