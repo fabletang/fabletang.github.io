@@ -141,6 +141,7 @@ canonifyurls = true
   # Otherwise put your image, for example `cover.jpg` in folder `static/images/`,
   # and use relative url : `images/cover.jpg`
   coverImage = "images/cover.jpg"
+ # coverSize= full
 
   # Display an image gallery at the end of a post which have photos variables (false: disabled, true: enabled)
   imageGallery = true
@@ -154,7 +155,7 @@ canonifyurls = true
   # Automatically select the cover image or the first photo from the gallery of a post if there is no thumbnail image as the thumbnail image
   # Set this value to `true` if you have old posts that use the cover image or the first photo as the thumbnail image
   # and set `autoThumbnailImage` to `false` on a post to overwrite this setting
-  autoThumbnailImage = true
+#  autoThumbnailImage = true
 
   # Your favicon path, default is "/favicon.png"
   favicon = "/favicon.ico"
@@ -211,4 +212,4 @@ canonifyurls = true
 
   # Customize copyright value "© 2017 <CUSTOMIZATION>. All Rights Reserved"
   # [params.footer]
-  #   copyright = "<a href=\"https://github.com/fabletang\">kakawait</a>"
+  #   copyright = "<a href=\"https://github.com/fabletang\">Fable Tang</a>"
