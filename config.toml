@@ -46,6 +46,7 @@ canonifyurls = true
   # twitter = "thibaudlepretre"
   # Your google plus profile id. E.g : +ThibaudLepretre or 114625208755123718311
   # googlePlus = "+ThibaudLepretre"
+  disqusShortname = "fabletang-github-io"
 
 # Menu Configuration
 [[menu.main]]
@@ -118,6 +119,7 @@ canonifyurls = true
 
   description = "知行合一"
 
+  #comments = false
   # Customization
   # Define the behavior of the sidebar
   # 1: Display extra large sidebar on extra large screen, large sidebar on large screen,
@@ -141,7 +143,7 @@ canonifyurls = true
   # Otherwise put your image, for example `cover.jpg` in folder `static/images/`,
   # and use relative url : `images/cover.jpg`
   coverImage = "images/cover.jpg"
- # coverSize= full
+  coverSize = 1
 
   # Display an image gallery at the end of a post which have photos variables (false: disabled, true: enabled)
   imageGallery = true
