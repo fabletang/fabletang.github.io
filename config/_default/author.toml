@@ -1,0 +1,6 @@
+name = "Fable Tang"
+avatar = "images/hai.png"
+# Avatar image. Default to "images/profile.webp".
+bio = "知行合一"
+company = ""
+location = "Earth"

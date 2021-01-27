@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grails框架介绍 - Hugo Bootstrap</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
+<meta name="description" content="grails introduce" /><meta itemprop="name" content="Grails框架介绍">
+<meta itemprop="description" content="grails introduce">
+<meta itemprop="datePublished" content="2014-12-25T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2014-12-25T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1237">
+
+
+
+<meta itemprop="keywords" content="java," />
+<meta property="og:title" content="Grails框架介绍" />
+<meta property="og:description" content="grails introduce" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fabletang.github.io/posts/2014-12-25-grails_intro/" />
+<meta property="article:published_time" content="2014-12-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2014-12-25T00:00:00+00:00" /><meta property="og:site_name" content="Hugo Bootstrap" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Grails框架介绍"/>
+<meta name="twitter:description" content="grails introduce"/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="https://fabletang.github.io/css/bundle.min.31ae5fde579e9e77d7cd6ec43c26b9999d493df060fca9a54f9da00676116d7c.css" integrity="sha256-Ma5f3leennfXzW7EPCa5mZ1JPfBg/KmlT52gBnYRbXw=" crossorigin="anonymous"><script src="https://fabletang.github.io/js/bundle.min.6fb648ca3b465f463b5da4164d1a0fb5633d57cc6eaa89ef96ea4f622e163686.js" integrity="sha256-b7ZIyjtGX0Y7XaQWTRoPtWM9V8xuqonvlupPYi4WNoY=" crossorigin="anonymous"></script>
+</head>
+  <body><header><nav class="navbar fixed-top navbar-expand-xl">
+  <div class="container">
+    <a class="navbar-brand" href="https://fabletang.github.io/">
+      <img class="logo" alt="Logo" src="https://fabletang.github.io/images/logo-blog.jpg" loading="lazy">Fable&#39;s Blog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-2 mb-2 mb-lg-0"><form class="search-bar d-flex mr-2" action="https://fabletang.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav mb-2 mb-lg-0 mr-2 ml-auto"><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/categories">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/tags">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/series">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li></ul>
+      <ul class="navbar-nav d-flex flex-row mb-2 mb-lg-0"><li class="nav-item mr-2">
+  <a class="nav-link" tabindex="0" data-trigger="click" id="languageSwitcher" data-toggle="popover"
+    data-placement="bottom" data-target="#languagesPopoverBody" data-html="true">
+    <i class="fas fa-fw fa-language" ></i>
+  </a>
+</li>
+<script type="text/html" id="languagesPopoverBody">
+  <ul class="languages list-group"><li class="language list-group-item">
+      <a href="https://fabletang.github.io/en/">English</a></li><li class="language list-group-item active">简体中文</li><li class="language list-group-item">
+      <a href="https://fabletang.github.io/zh-tw/">繁體中文</a></li></ul>
+</script>
+<li class="nav-item mr-2">
+  <a class="nav-link" tabindex="0" data-trigger="click" id="paletteSwitcher" data-toggle="popover" data-placement="bottom" 
+    data-target="#palettesPopoverBody" data-html="true">
+    <i class="fas fa-fw fa-palette" ></i>
+  </a>
+</li>
+<script type="text/html" id="palettesPopoverBody">
+  <ul class="palettes list-group"><li id="palette-blue" class="palette list-group-item bg-blue">
+      <a>蓝色</a>
+    </li><li id="palette-blue-gray" class="palette list-group-item bg-blue-gray">
+      <a>蓝灰色</a>
+    </li><li id="palette-brown" class="palette list-group-item bg-brown">
+      <a>棕色</a>
+    </li><li id="palette-cyan" class="palette list-group-item bg-cyan">
+      <a>青色</a>
+    </li><li id="palette-green" class="palette list-group-item bg-green">
+      <a>绿色</a>
+    </li><li id="palette-indigo" class="palette list-group-item bg-indigo">
+      <a>靛青色</a>
+    </li><li id="palette-orange" class="palette list-group-item bg-orange">
+      <a>橙色</a>
+    </li><li id="palette-pink" class="palette list-group-item bg-pink">
+      <a>粉色</a>
+    </li><li id="palette-purple" class="palette list-group-item bg-purple">
+      <a>紫色</a>
+    </li><li id="palette-red" class="palette list-group-item bg-red">
+      <a>红色</a>
+    </li><li id="palette-teal" class="palette list-group-item bg-teal">
+      <a>蓝绿色</a>
+    </li><li id="palette-yellow" class="palette list-group-item bg-yellow">
+      <a>黄色</a>
+    </li></ul>
+</script>
+
+<li class="nav-item mr-2">
+  <a class="nav-link" tabindex="0" data-trigger="click" id="fontSizeSwitcher" data-toggle="popover" data-placement="bottom" 
+    data-target="#fontSizesPopoverBody" data-html="true">
+    <i class="fas fa-fw fa-font" ></i>
+  </a>
+</li>
+<script type="text/html" id="fontSizesPopoverBody">
+  <form class="font-size-switcher-form">
+    <label for="fontSize" class="form-label">字体大小</label>
+    <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+  </form>
+</script>
+<form class="mode-switcher-form d-flex align-items-center">
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="modeSwitcher">
+  </div>
+</form>
+</ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-md-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">Grails框架介绍</li></ol>
+</nav><article class="post row surface">
+  <h1 class="post-title my-3">Grails框架介绍</h1><div class="post-meta mb-3">
+  <span class="post-date mr-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2014-12-25
+  </span>
+  <span class="poost-reading-time mr-2">
+    <i class="fas fa-fw fa-coffee"></i>3 分钟阅读
+  </span>
+<a href="https://fabletang.github.io/tags/java/" class="post-taxonomy">#java</a></div>
+<div class="accordion accordion-flush surface post-toc position-sticky" id="accordionTOC">
+  <div class="accordion-item">
+    <div class="accordion-header" id="headingTOC" data-toggle="collapse" data-target="#collapseTOC" aria-expanded="true" aria-controls="collapseTOC">
+      <i class="fas fa-fw fa-bars"></i>目录
+    </div>
+    <div id="collapseTOC" class="accordion-collapse collapse" aria-labelledby="headingTOC" data-parent="#accordionTOC">
+      <div class="accordion-body mt-2">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+  </div>
+</div><div class="post-content mb-3"><p>Grails是一套用于快速Web应用开发的开源框架，它基于Groovy编程语言，并构建于Spring、Hibernate等开源框架之上，是一个高生产力一站式框架。其官方网站上的煽情介绍为：The search is over!, 即为不要再苦苦寻找web开发框架了，Grails是终结者。</p>
+<p>如果web项目组大部分懂java，又没有旧的web项目负担。Grails是明智的选择。
+缺点: groovy是类java的脚本解释动态语言，尽管其兼容java所有语法，最终也运行于JVM,但是速度有所影响.总体grails
+比rails快，慢于传统ssh(struts/spring/hiberate)框架.
+除了稍慢的运行速度，grails相对SSH全面胜出，以下是论点:</p>
+<h4 id="一学习成本低">一、学习成本低:</h4>
+<ol>
+<li>groovy语法不用学习，如果懂得java,groovy就是秒懂，实在不行，完全用java的语法也没有任何问题。其实注重运行速度的功能，比如加密解密，数据排序等算法推荐用java编写，groovy可以无缝引用。</li>
+<li>grails的springframework\hibernat极易使用，基本不用学习，完全不用理会那些迷宫式xml配置。grails会自动帮你处理好。</li>
+</ol>
+<h4 id="二开发速度快">二、开发速度快:</h4>
+<ol>
+<li>grails 不是粗糙的ssh,它甚至有命令控制台，比如 grails create-control abc.login,就自动创建好了control及相关的测试文件。不用手动建立目录，建立文件。</li>
+<li>调试便捷，run-app命令就可以运行一个web服务器，不需要启动额外的tomcat或者其他web容器, 同时它还是热编译的，也就是说，运行期间，你改动代码，grail自动就编译好了，不需要重新启动，哪怕你改动control都可以。
+3.groovy语言大大减少了java的繁杂，同时集成很多通用库，可以大大减少代码.</li>
+</ol>
+<h4 id="三功能完善">三、功能完善:</h4>
+<p>ssh是个粗糙的框架，不怀疑可以很快写出一个CURD的功能块。但是这远远不能应付实际项目需求，还得做大量的工作。</p>
+<ol>
+<li>
+<p>view层： grails 集成了sitmesh模版，而且自动加载缓存，模块化view。GSP相对structs的标签更好用。</p>
+</li>
+<li>
+<p>control层: view数据绑定支持list,可以实现多维数据结构。spring mvc只支持map/bean 键值绑定方式。数据渲染很容易实现json/xml输出。比如 render xxxxbean as JSON</p>
+</li>
+<li>
+<p>model层: 易于处理多对多，一对多，级联删除，完全不用去配置hibernat XML. 脏数据处理，数据缓存默认集成。</p>
+</li>
+<li>
+<p>测试功能完备，易于使用，m/v/c各层都容易实现测试.</p>
+</li>
+<li>
+<p>其他小功能完备，比如内置一个内存数据库，项目发布时候无缝切换实际数据库。</p>
+</li>
+</ol>
+<h4 id="四项目易于管理">四、项目易于管理:</h4>
+<ol>
+<li>Grails 的原则是约定大于配置，也就是说配置文件，文件目录，命名方式都是约定好的。开放人员就是做填空题。项目自然就规范了。</li>
+<li>Grails大大减少了配置文件，groovy语法大大缩减了代码量，越少的编码意味更好维护。</li>
+<li>Grails开发模式下的热部署功能给前端开发提供很大便利，可以不重启web容器就可以即使得到改动的效果。这样利于前端后端开发分工。</li>
+</ol>
+</div><div class="post-copyright mb-4">
+  <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
+</div>
+<div class="post-reward mb-4 text-center">
+  <button type="button" class="btn btn-reward" data-toggle="modal" data-target="#rewardModal">
+    <i class="fas fa-fw fa-medal"></i>打赏
+  </button>
+</div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content surface">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rewardModalLabel"><i class="fas fa-fw fa-medal"></i>打赏</h5>
+        <a href="#" data-dismiss="modal" aria-label="Close"><i class="fas fa-fw fa-times"></i></a>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs mb-3" role="tablist"><li class="nav-item" role="presentation">
+            <a class="nav-link active" id="reward-alipay-tab" data-toggle="tab" href="#reward-alipay" role="tab" aria-controls="reward-alipay" aria-selected="true">
+              <i class="fab fa-fw fa-alipay"></i>支付宝
+            </a>
+          </li><li class="nav-item" role="presentation">
+            <a class="nav-link" id="reward-wechat-tab" data-toggle="tab" href="#reward-wechat" role="tab" aria-controls="reward-wechat" aria-selected="true">
+              <i class="fab fa-fw fa-weixin"></i>微信
+            </a>
+          </li></ul>
+        <div class="tab-content" id="rewardTabContent"><div class="tab-pane fade post-reward-content show active" id="reward-alipay" role="tabpanel" aria-labelledby="reward-alipay-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/alipay.webp" loading="lazy" />
+          </div><div class="tab-pane fade post-reward-content show" id="reward-wechat" role="tabpanel" aria-labelledby="reward-wechat-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/wechat.webp" loading="lazy" />
+          </div></div>
+      </div>
+    </div>
+  </div>
+</div><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post">
+      <a href="https://fabletang.github.io/posts/2014-10-19-goldfish/">养金鱼</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post">
+      <a href="https://fabletang.github.io/posts/2015-10-06-project-schedule/">关于软件项目计划的看法</a>
+    </div></div>
+</div></article><div class="post-comments surface row"><script src="https://utteranc.es/client.js"
+  repo="fabletang/fabletang.github.io"
+  issue-term="pathname"
+  label=""
+  theme="preferred-color-scheme"
+  crossorigin="anonymous"
+  async>
+</script></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="https://fabletang.github.io/images/hai.png" alt="Fable Tang" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">Fable Tang</h5><div class="profile-bio mb-2">知行合一</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="https://fabletang.github.io/posts/shortcodes/alert/">Alert Shortcode</a></li><li><a href="https://fabletang.github.io/posts/shortcodes/bilibili/">Bilibili Shortcode</a></li><li><a href="https://fabletang.github.io/posts/shortcodes/codepen/">CodePen Shortcode</a></li><li><a href="https://fabletang.github.io/posts/shortcodes/jsfiddle/">JSFiddle Shortcode</a></li><li><a href="https://fabletang.github.io/posts/shortcodes/jsrun/">JSRun Shortcode</a></li></ul>
+</section>
+<section class="taxonomy-categories row surface">
+  <h4>
+    <a href="https://fabletang.github.io/categories">分类</a>
+  </h4>
+  <div><a href="https://fabletang.github.io/categories/shortcode/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="Shortcode">
+      Shortcode <span class="badge rounded-pill">9</span>
+    </a></div>
+</section><section class="taxonomy-series row surface">
+  <h4>
+    <a href="https://fabletang.github.io/series">专栏</a>
+  </h4>
+  <div><a href="https://fabletang.github.io/series/%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="用户手册">
+      用户手册 <span class="badge rounded-pill">1</span>
+    </a></div>
+</section><section class="taxonomy-tags row surface">
+  <h4>
+    <a href="https://fabletang.github.io/tags">标签</a>
+  </h4>
+  <div><a href="https://fabletang.github.io/tags/toolbox/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="toolbox">
+      toolbox <span class="badge rounded-pill">4</span>
+    </a><a href="https://fabletang.github.io/tags/android/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="android">
+      android <span class="badge rounded-pill">2</span>
+    </a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="docker">
+      docker <span class="badge rounded-pill">2</span>
+    </a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="practice">
+      practice <span class="badge rounded-pill">2</span>
+    </a><a href="https://fabletang.github.io/tags/alert/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="Alert">
+      Alert <span class="badge rounded-pill">1</span>
+    </a><a href="https://fabletang.github.io/tags/codepen/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="CodePen">
+      CodePen <span class="badge rounded-pill">1</span>
+    </a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="golang">
+      golang <span class="badge rounded-pill">1</span>
+    </a><a href="https://fabletang.github.io/tags/java/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="java">
+      java <span class="badge rounded-pill">1</span>
+    </a><a href="https://fabletang.github.io/tags/jsfiddle/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="JSFiddle">
+      JSFiddle <span class="badge rounded-pill">1</span>
+    </a><a href="https://fabletang.github.io/tags/jsrun/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="JSRun">
+      JSRun <span class="badge rounded-pill">1</span>
+    </a></div>
+</section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><li class="nav-item">
+    <a class="nav-link social-link" href="mailto:user@domain.tld" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+  </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://facebook.com/facebookusername" title="Facebook">
+        <i class="fab fa-fw fa-2x fa-facebook"></i>
+      </a>
+    </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://github.com/githubusername" title="Github">
+        <i class="fab fa-fw fa-2x fa-github"></i>
+      </a>
+    </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://www.zhihu.com/people/zhihuusername" title="Zhihu">
+        <i class="fab fa-fw fa-2x fa-zhihu"></i>
+      </a>
+    </li></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2021 Fable Tang. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

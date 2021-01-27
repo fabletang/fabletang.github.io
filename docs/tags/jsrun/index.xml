@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JSRun on Hugo Bootstrap</title>
+    <link>https://fabletang.github.io/tags/jsrun/</link>
+    <description>Recent content in JSRun on Hugo Bootstrap</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
+    <lastBuildDate>Thu, 22 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/tags/jsrun/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JSRun Shortcode</title>
+      <link>https://fabletang.github.io/posts/shortcodes/jsrun/</link>
+      <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/shortcodes/jsrun/</guid>
+      <description>&lt;p&gt;关于 JSRun shortcode 的详细说明。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

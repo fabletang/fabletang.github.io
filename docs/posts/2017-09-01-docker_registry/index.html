@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>docker私有仓库搭建 - Hugo Bootstrap</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
+<meta name="description" content="docker registry 2" /><meta itemprop="name" content="docker私有仓库搭建">
+<meta itemprop="description" content="docker registry 2">
+<meta itemprop="datePublished" content="2017-09-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2017-09-01T00:00:00+00:00" />
+<meta itemprop="wordCount" content="219">
+
+
+
+<meta itemprop="keywords" content="docker," />
+<meta property="og:title" content="docker私有仓库搭建" />
+<meta property="og:description" content="docker registry 2" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fabletang.github.io/posts/2017-09-01-docker_registry/" />
+<meta property="article:published_time" content="2017-09-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2017-09-01T00:00:00+00:00" /><meta property="og:site_name" content="Hugo Bootstrap" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="docker私有仓库搭建"/>
+<meta name="twitter:description" content="docker registry 2"/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="https://fabletang.github.io/css/bundle.min.31ae5fde579e9e77d7cd6ec43c26b9999d493df060fca9a54f9da00676116d7c.css" integrity="sha256-Ma5f3leennfXzW7EPCa5mZ1JPfBg/KmlT52gBnYRbXw=" crossorigin="anonymous"><script src="https://fabletang.github.io/js/bundle.min.6fb648ca3b465f463b5da4164d1a0fb5633d57cc6eaa89ef96ea4f622e163686.js" integrity="sha256-b7ZIyjtGX0Y7XaQWTRoPtWM9V8xuqonvlupPYi4WNoY=" crossorigin="anonymous"></script>
+</head>
+  <body><header><nav class="navbar fixed-top navbar-expand-xl">
+  <div class="container">
+    <a class="navbar-brand" href="https://fabletang.github.io/">
+      <img class="logo" alt="Logo" src="https://fabletang.github.io/images/logo-blog.jpg" loading="lazy">Fable&#39;s Blog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-2 mb-2 mb-lg-0"><form class="search-bar d-flex mr-2" action="https://fabletang.github.io/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav mb-2 mb-lg-0 mr-2 ml-auto"><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/categories">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/tags">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/series">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li></ul>
+      <ul class="navbar-nav d-flex flex-row mb-2 mb-lg-0"><li class="nav-item mr-2">
+  <a class="nav-link" tabindex="0" data-trigger="click" id="languageSwitcher" data-toggle="popover"
+    data-placement="bottom" data-target="#languagesPopoverBody" data-html="true">
+    <i class="fas fa-fw fa-language" ></i>
+  </a>
+</li>
+<script type="text/html" id="languagesPopoverBody">
+  <ul class="languages list-group"><li class="language list-group-item">
+      <a href="https://fabletang.github.io/en/">English</a></li><li class="language list-group-item active">简体中文</li><li class="language list-group-item">
+      <a href="https://fabletang.github.io/zh-tw/">繁體中文</a></li></ul>
+</script>
+<li class="nav-item mr-2">
+  <a class="nav-link" tabindex="0" data-trigger="click" id="paletteSwitcher" data-toggle="popover" data-placement="bottom" 
+    data-target="#palettesPopoverBody" data-html="true">
+    <i class="fas fa-fw fa-palette" ></i>
+  </a>
+</li>
+<script type="text/html" id="palettesPopoverBody">
+  <ul class="palettes list-group"><li id="palette-blue" class="palette list-group-item bg-blue">
+      <a>蓝色</a>
+    </li><li id="palette-blue-gray" class="palette list-group-item bg-blue-gray">
+      <a>蓝灰色</a>
+    </li><li id="palette-brown" class="palette list-group-item bg-brown">
+      <a>棕色</a>
+    </li><li id="palette-cyan" class="palette list-group-item bg-cyan">
+      <a>青色</a>
+    </li><li id="palette-green" class="palette list-group-item bg-green">
+      <a>绿色</a>
+    </li><li id="palette-indigo" class="palette list-group-item bg-indigo">
+      <a>靛青色</a>
+    </li><li id="palette-orange" class="palette list-group-item bg-orange">
+      <a>橙色</a>
+    </li><li id="palette-pink" class="palette list-group-item bg-pink">
+      <a>粉色</a>
+    </li><li id="palette-purple" class="palette list-group-item bg-purple">
+      <a>紫色</a>
+    </li><li id="palette-red" class="palette list-group-item bg-red">
+      <a>红色</a>
+    </li><li id="palette-teal" class="palette list-group-item bg-teal">
+      <a>蓝绿色</a>
+    </li><li id="palette-yellow" class="palette list-group-item bg-yellow">
+      <a>黄色</a>
+    </li></ul>
+</script>
+
+<li class="nav-item mr-2">
+  <a class="nav-link" tabindex="0" data-trigger="click" id="fontSizeSwitcher" data-toggle="popover" data-placement="bottom" 
+    data-target="#fontSizesPopoverBody" data-html="true">
+    <i class="fas fa-fw fa-font" ></i>
+  </a>
+</li>
+<script type="text/html" id="fontSizesPopoverBody">
+  <form class="font-size-switcher-form">
+    <label for="fontSize" class="form-label">字体大小</label>
+    <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+  </form>
+</script>
+<form class="mode-switcher-form d-flex align-items-center">
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="modeSwitcher">
+  </div>
+</form>
+</ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-md-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">docker私有仓库搭建</li></ol>
+</nav><article class="post row surface">
+  <h1 class="post-title my-3">docker私有仓库搭建</h1><div class="post-meta mb-3">
+  <span class="post-date mr-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2017-09-01
+  </span>
+  <span class="poost-reading-time mr-2">
+    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
+  </span>
+<a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy">#docker</a></div>
+<div class="post-content mb-3"><p>环境:centos7,docker 1.12+，registry 2.</p>
+<h4 id="一准备工作">一、准备工作:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir /data/docker-registry
+mkdir /data/docker-registry-auth
+</code></pre></div><h4 id="二安全设置">二、安全设置:</h4>
+<p>生成 http 密码文件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run --entrypoint htpasswd registry:2 -Bbn anycloud <span style="color:#e6db74">&#39;123&#39;</span>&gt; /data/docker-registry-auth/htpasswd
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">获取 SSL 证书
+git clone https://github.com/letsencrypt/letsencrypt
+cd letsencrypt
+./letsencrypt-auto --help
+./letsencrypt-auto certonly --standalone -d &lt;HOST&gt;
+</code></pre></div><h4 id="三启动">三、启动:</h4>
+<p>新增systemd守护服务,内容如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat /etc/systemd/system/multi-user.target.wants/docker-registry.service
+
+<span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+Description<span style="color:#f92672">=</span>registry
+Requires<span style="color:#f92672">=</span>docker.service
+After<span style="color:#f92672">=</span>docker.target
+
+<span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+Restart<span style="color:#f92672">=</span>always
+RestartSec<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>
+TimeoutStartSec<span style="color:#f92672">=</span>5min
+ExecStartPre<span style="color:#f92672">=</span>-/usr/bin/docker kill registry
+ExecStart<span style="color:#f92672">=</span>/usr/bin/docker run -p 5000:5000 --name registry <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-v /data/docker-registry-auth/:/certs <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-e REGISTRY_HTTP_TLS_CERTIFICATE<span style="color:#f92672">=</span>/certs/fullchain.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-e REGISTRY_HTTP_TLS_KEY<span style="color:#f92672">=</span>/certs/privkey.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-e REGISTRY_STORAGE_DELETE_ENABLED<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-v /data/docker-registry-auth/:/auth <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-e <span style="color:#e6db74">&#34;REGISTRY_AUTH=htpasswd&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-e <span style="color:#e6db74">&#34;REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-e REGISTRY_AUTH_HTPASSWD_PATH<span style="color:#f92672">=</span>/auth/htpasswd <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-e REGISTRY_STORAGE_DELETE_ENABLED<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-v /data/docker-registry/:/var/lib/registry <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>registry:2
+
+ExecStartPost<span style="color:#f92672">=</span>-/usr/bin/docker rm registry
+ExecStop<span style="color:#f92672">=</span>/usr/bin/docker stop registry
+ExecStopPost<span style="color:#f92672">=</span>-/usr/bin/docker rm registry
+
+<span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+WantedBy<span style="color:#f92672">=</span>multi-user.target
+</code></pre></div><p>启动registry</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">systemctl daemon-reload
+systemctl start docker-registry
+</code></pre></div><h4 id="四检验">四、检验:</h4>
+<p>浏览器 https://localhost:5000/v2/
+密码登入,假如 显示 {} 之类的json文本,则说明成功。</p>
+</div><div class="post-copyright mb-4">
+  <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
+</div>
+<div class="post-reward mb-4 text-center">
+  <button type="button" class="btn btn-reward" data-toggle="modal" data-target="#rewardModal">
+    <i class="fas fa-fw fa-medal"></i>打赏
+  </button>
+</div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content surface">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rewardModalLabel"><i class="fas fa-fw fa-medal"></i>打赏</h5>
+        <a href="#" data-dismiss="modal" aria-label="Close"><i class="fas fa-fw fa-times"></i></a>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs mb-3" role="tablist"><li class="nav-item" role="presentation">
+            <a class="nav-link active" id="reward-alipay-tab" data-toggle="tab" href="#reward-alipay" role="tab" aria-controls="reward-alipay" aria-selected="true">
+              <i class="fab fa-fw fa-alipay"></i>支付宝
+            </a>
+          </li><li class="nav-item" role="presentation">
+            <a class="nav-link" id="reward-wechat-tab" data-toggle="tab" href="#reward-wechat" role="tab" aria-controls="reward-wechat" aria-selected="true">
+              <i class="fab fa-fw fa-weixin"></i>微信
+            </a>
+          </li></ul>
+        <div class="tab-content" id="rewardTabContent"><div class="tab-pane fade post-reward-content show active" id="reward-alipay" role="tabpanel" aria-labelledby="reward-alipay-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/alipay.webp" loading="lazy" />
+          </div><div class="tab-pane fade post-reward-content show" id="reward-wechat" role="tabpanel" aria-labelledby="reward-wechat-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/wechat.webp" loading="lazy" />
+          </div></div>
+      </div>
+    </div>
+  </div>
+</div><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post">
+      <a href="https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/">Golang代码结构</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post">
+      <a href="https://fabletang.github.io/posts/2017-09-16-docker_tips/">docker tips</a>
+    </div></div>
+</div></article><div class="post-comments surface row"><script src="https://utteranc.es/client.js"
+  repo="fabletang/fabletang.github.io"
+  issue-term="pathname"
+  label=""
+  theme="preferred-color-scheme"
+  crossorigin="anonymous"
+  async>
+</script></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="https://fabletang.github.io/images/hai.png" alt="Fable Tang" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">Fable Tang</h5><div class="profile-bio mb-2">知行合一</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="https://fabletang.github.io/posts/shortcodes/alert/">Alert Shortcode</a></li><li><a href="https://fabletang.github.io/posts/shortcodes/bilibili/">Bilibili Shortcode</a></li><li><a href="https://fabletang.github.io/posts/shortcodes/codepen/">CodePen Shortcode</a></li><li><a href="https://fabletang.github.io/posts/shortcodes/jsfiddle/">JSFiddle Shortcode</a></li><li><a href="https://fabletang.github.io/posts/shortcodes/jsrun/">JSRun Shortcode</a></li></ul>
+</section>
+<section class="taxonomy-categories row surface">
+  <h4>
+    <a href="https://fabletang.github.io/categories">分类</a>
+  </h4>
+  <div><a href="https://fabletang.github.io/categories/shortcode/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="Shortcode">
+      Shortcode <span class="badge rounded-pill">9</span>
+    </a></div>
+</section><section class="taxonomy-series row surface">
+  <h4>
+    <a href="https://fabletang.github.io/series">专栏</a>
+  </h4>
+  <div><a href="https://fabletang.github.io/series/%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="用户手册">
+      用户手册 <span class="badge rounded-pill">1</span>
+    </a></div>
+</section><section class="taxonomy-tags row surface">
+  <h4>
+    <a href="https://fabletang.github.io/tags">标签</a>
+  </h4>
+  <div><a href="https://fabletang.github.io/tags/toolbox/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="toolbox">
+      toolbox <span class="badge rounded-pill">4</span>
+    </a><a href="https://fabletang.github.io/tags/android/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="android">
+      android <span class="badge rounded-pill">2</span>
+    </a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="docker">
+      docker <span class="badge rounded-pill">2</span>
+    </a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="practice">
+      practice <span class="badge rounded-pill">2</span>
+    </a><a href="https://fabletang.github.io/tags/alert/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="Alert">
+      Alert <span class="badge rounded-pill">1</span>
+    </a><a href="https://fabletang.github.io/tags/codepen/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="CodePen">
+      CodePen <span class="badge rounded-pill">1</span>
+    </a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="golang">
+      golang <span class="badge rounded-pill">1</span>
+    </a><a href="https://fabletang.github.io/tags/java/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="java">
+      java <span class="badge rounded-pill">1</span>
+    </a><a href="https://fabletang.github.io/tags/jsfiddle/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="JSFiddle">
+      JSFiddle <span class="badge rounded-pill">1</span>
+    </a><a href="https://fabletang.github.io/tags/jsrun/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="JSRun">
+      JSRun <span class="badge rounded-pill">1</span>
+    </a></div>
+</section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><li class="nav-item">
+    <a class="nav-link social-link" href="mailto:user@domain.tld" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+  </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://facebook.com/facebookusername" title="Facebook">
+        <i class="fab fa-fw fa-2x fa-facebook"></i>
+      </a>
+    </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://github.com/githubusername" title="Github">
+        <i class="fab fa-fw fa-2x fa-github"></i>
+      </a>
+    </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://www.zhihu.com/people/zhihuusername" title="Zhihu">
+        <i class="fab fa-fw fa-2x fa-zhihu"></i>
+      </a>
+    </li></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2021 Fable Tang. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+</body>
+</html>

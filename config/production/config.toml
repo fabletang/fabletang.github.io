@@ -1,0 +1,3 @@
+baseURL = "https://fabletang.github.io/"
+publishDir= "docs"
+#theme = "../themes/hugo-theme-bootstrap"

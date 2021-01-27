@@ -1,43 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>android on 知行合一</title>
+    <title>android on Hugo Bootstrap</title>
     <link>https://fabletang.github.io/tags/android/</link>
-    <description>Recent content in android on 知行合一</description>
+    <description>Recent content in android on Hugo Bootstrap</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
     <lastBuildDate>Tue, 30 Sep 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Android Studio 配置</title>
-      <link>https://fabletang.github.io/2014/09/android-studio-%E9%85%8D%E7%BD%AE/</link>
+      <link>https://fabletang.github.io/posts/2014-09-30-android-studio-conf/</link>
       <pubDate>Tue, 30 Sep 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://fabletang.github.io/2014/09/android-studio-%E9%85%8D%E7%BD%AE/</guid>
-      <description>由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开始我使用的是eclipse ADT, linux 的usb联机调试也 搞定了，一切似乎都很顺利，usb联机上传也成功了，app出来了，点击，然后就崩溃了，logcat 提示找不到 XXX.so。本来就对eclipse这个老破车有成见，利用这个借口，开始用android studio
-环境说明:
-Ubuntu /Windows, android studio 0.8.6+
-以下是要点：
-一、studio 可以直接从eclipse导入,gradle build成功，但是出现编码错误（\78XXX) 这个是编码错误，用笨办法，右键出错文件，enconding GBK, 然后再 UTF-8.
-二、编译通过，但是联机调试出现上传错误，提示XX.jar重复copy. 这个是studio本身bug, 在 app下的build.gradle 的 android {&amp;hellip;}内加入
-packagingOptions { exclude &amp;#39;META-INF/DEPENDENCIES.txt&amp;#39; exclude &amp;#39;META-INF/LICENSE.txt&amp;#39; exclude &amp;#39;META-INF/NOTICE.txt&amp;#39; exclude &amp;#39;META-INF/NOTICE&amp;#39; exclude &amp;#39;META-INF/LICENSE&amp;#39; exclude &amp;#39;META-INF/DEPENDENCIES&amp;#39; exclude &amp;#39;META-INF/notice.txt&amp;#39; exclude &amp;#39;META-INF/license.txt&amp;#39; exclude &amp;#39;META-INF/dependencies.txt&amp;#39; exclude &amp;#39;META-INF/LGPL2.1&amp;#39; } 三、local.properties 是定义 sdk.dir 和 ndk.dir.需要根据本机andoird jdk情况调整。 四、JNI 相关的问题:   android studio 的ndk 不完善，没有eclipse支持那么好。但是也是可以用的，需要在build.gradle
-里配置，具体请参看gradle官方文档.
-  JNI生成的.</description>
+      <guid>https://fabletang.github.io/posts/2014-09-30-android-studio-conf/</guid>
+      <description>由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开</description>
     </item>
     
     <item>
       <title>Ubuntu下Android USB联机调试</title>
-      <link>https://fabletang.github.io/2014/09/ubuntu%E4%B8%8Bandroid-usb%E8%81%94%E6%9C%BA%E8%B0%83%E8%AF%95/</link>
+      <link>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</link>
       <pubDate>Mon, 29 Sep 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://fabletang.github.io/2014/09/ubuntu%E4%B8%8Bandroid-usb%E8%81%94%E6%9C%BA%E8%B0%83%E8%AF%95/</guid>
-      <description>环境说明: Ubuntu 14.04, android ADT 4.2.2
-Linux 下 ADT usb联机调试出现 device unknown 的解决办法:
-一、使用lsusb命令查看设备的vendorId和productId。 插入usb线前后用lsusb查看，找出多出的信息。
-$ lsusb Bus 003 Device 005: ID 0bb4:0c03 HTC (High Tech Computer Corp.) 二、在/etc/udev/rules.d/目录下面新建一个规则文件 51-android.rules 添加一行 SUBSYSTEM==&amp;#34;usb&amp;#34;,ATTRS {idVendor}==&amp;#34;0bb4&amp;#34;,ATTRS {idProduct}==&amp;#34;0c03&amp;#34;,MODE=&amp;#34;0666&amp;#34; 0666 表示对所有用户，开放adb所有权限
-三、 重启usb服务，命令如下： sudo service udev restart 四、 重置ADB  拔下USB与PC连接线，然后再次插上，进入Android-SDK根目录Platform-tools，运行命令:
-$which adb $sudo ./adb kill-server $sudo ./adb devices 五、 把adb命令加入环境变量 查找adb所在路径
-$which adb 编辑~/.bashrc文件,增加
-export PATH=.:$PATH:adb路径 这样就不用每次进入adb目录了。</description>
+      <guid>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</guid>
+      <description>环境说明: Ubuntu 14.04, android ADT 4.2.2 Linux 下 ADT usb联机调试出现 device unknown 的解决办法: 一、使用lsusb命令查看设备的vendorId和productId。 插入usb</description>
     </item>
     
   </channel>

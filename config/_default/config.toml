@@ -1,0 +1,35 @@
+baseURL = "https://fabletang.github.io"
+title = "知行合一"
+theme = "hugo-theme-bootstrap"
+copyright = "Copyright © 2016-{year} Fable Tang. All Rights Reserved."
+
+# Multilingual mode
+#defaultContentLanguage = "en"
+defaultContentLanguage = "zh-cn"
+#defaultContentLanguageInSubdir = true
+defaultContentLanguageInSubdir = false
+
+# Pagination
+paginate = 5
+# paginatePath = "page"
+
+# Disqus
+# disqusShortname = "yourdiscussshortname"
+
+# Google analytics
+# googleAnalytics = "UA-123-45"
+
+enableRobotsTXT = true
+
+enableEmoji = true
+
+[blackfriday]
+  hrefTargetBlank = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"
