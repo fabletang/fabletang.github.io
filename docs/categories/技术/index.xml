@@ -6,7 +6,52 @@
     <description>Recent content in 技术 on Hugo Bootstrap</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Thu, 25 Dec 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Sep 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker tips</title>
+      <link>https://fabletang.github.io/posts/2017-09-16-docker_tips/</link>
+      <pubDate>Sat, 16 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2017-09-16-docker_tips/</guid>
+      <description>一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除</description>
+    </item>
+    
+    <item>
+      <title>docker私有仓库搭建</title>
+      <link>https://fabletang.github.io/posts/2017-09-01-docker_registry/</link>
+      <pubDate>Fri, 01 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2017-09-01-docker_registry/</guid>
+      <description>环境:centos7,docker 1.12+，registry 2. 一、准备工作: mkdir /data/docker-registry mkdir /data/docker-registry-auth 二、安全设置: 生成 http 密码文件 docker run --entrypoint htpasswd registry:2 -Bbn anycloud &amp;#39;123&amp;#39;&amp;gt; /data/docker-registry-auth/htpasswd 获取 SSL 证</description>
+    </item>
+    
+    <item>
+      <title>Golang代码结构</title>
+      <link>https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/</link>
+      <pubDate>Mon, 01 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/</guid>
+      <description>Go的设计思想是代码至上，依赖于代码而不是象其它语言依赖于编译好的库。尽管go的版本号已经到1.8.1了,但是还没没有好的package版本</description>
+    </item>
+    
+    <item>
+      <title>微服务的粒度</title>
+      <link>https://fabletang.github.io/posts/2017-04-01-granularity_of_microservice/</link>
+      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2017-04-01-granularity_of_microservice/</guid>
+      <description>得益于nginx等反向代理的流行以及metrics/endpoit规范的成熟。微服务的理念开始流行了。 但是微服务究竟要多&amp;quot;微&amp;qu</description>
+    </item>
+    
+    <item>
+      <title>stateless server 最佳实践</title>
+      <link>https://fabletang.github.io/posts/2017-01-01-stateless_server/</link>
+      <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2017-01-01-stateless_server/</guid>
+      <description>stateless server 即无状态服务。相对与传统的http server存在session,无session的 http server称为stateless server，现</description>
+    </item>
+    
     <item>
       <title>Grails框架介绍</title>
       <link>https://fabletang.github.io/posts/2014-12-25-grails_intro/</link>
@@ -14,6 +59,33 @@
       
       <guid>https://fabletang.github.io/posts/2014-12-25-grails_intro/</guid>
       <description>Grails是一套用于快速Web应用开发的开源框架，它基于Groovy编程语言，并构建于Spring、Hibernate等开源框架之上，是一</description>
+    </item>
+    
+    <item>
+      <title>Gradle 介绍</title>
+      <link>https://fabletang.github.io/posts/2014-10-13-introduce-gradle/</link>
+      <pubDate>Mon, 13 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2014-10-13-introduce-gradle/</guid>
+      <description>gradle 现在已经2.1版本了。从1.0版本就一直关注这个groovy项目，但是没有应用到 公司项目的打算，但是现在时机到了。gradle已经是最好的</description>
+    </item>
+    
+    <item>
+      <title>Android Studio 配置</title>
+      <link>https://fabletang.github.io/posts/2014-09-30-android-studio-conf/</link>
+      <pubDate>Tue, 30 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2014-09-30-android-studio-conf/</guid>
+      <description>由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu下Android USB联机调试</title>
+      <link>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</link>
+      <pubDate>Mon, 29 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</guid>
+      <description>环境说明: Ubuntu 14.04, android ADT 4.2.2 Linux 下 ADT usb联机调试出现 device unknown 的解决办法: 一、使用lsusb命令查看设备的vendorId和productId。 插入usb</description>
     </item>
     
   </channel>

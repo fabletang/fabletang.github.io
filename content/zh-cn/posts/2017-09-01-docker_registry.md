@@ -5,6 +5,12 @@ date = "2017-09-01"
 tags = [
     "docker",
 ]
+categories = [
+  "技术"
+]
+series = [
+  "工具"
+]
 #menu = "main"
 +++
 

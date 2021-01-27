@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>编程 on Hugo Bootstrap</title>
+    <link>https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/</link>
+    <description>Recent content in 编程 on Hugo Bootstrap</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
+    <lastBuildDate>Mon, 01 May 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang代码结构</title>
+      <link>https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/</link>
+      <pubDate>Mon, 01 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/</guid>
+      <description>Go的设计思想是代码至上，依赖于代码而不是象其它语言依赖于编译好的库。尽管go的版本号已经到1.8.1了,但是还没没有好的package版本</description>
+    </item>
+    
+  </channel>
+</rss>

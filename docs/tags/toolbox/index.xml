@@ -16,23 +16,5 @@
       <description>gradle 现在已经2.1版本了。从1.0版本就一直关注这个groovy项目，但是没有应用到 公司项目的打算，但是现在时机到了。gradle已经是最好的</description>
     </item>
     
-    <item>
-      <title>Android Studio 配置</title>
-      <link>https://fabletang.github.io/posts/2014-09-30-android-studio-conf/</link>
-      <pubDate>Tue, 30 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://fabletang.github.io/posts/2014-09-30-android-studio-conf/</guid>
-      <description>由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开</description>
-    </item>
-    
-    <item>
-      <title>Ubuntu下Android USB联机调试</title>
-      <link>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</link>
-      <pubDate>Mon, 29 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</guid>
-      <description>环境说明: Ubuntu 14.04, android ADT 4.2.2 Linux 下 ADT usb联机调试出现 device unknown 的解决办法: 一、使用lsusb命令查看设备的vendorId和productId。 插入usb</description>
-    </item>
-    
   </channel>
 </rss>

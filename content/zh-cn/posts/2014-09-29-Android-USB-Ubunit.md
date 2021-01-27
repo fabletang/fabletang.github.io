@@ -3,8 +3,13 @@ title= "Ubuntu下Android USB联机调试"
 description= "Ubuntu usb conf for ADT"
 date = "2014-09-29"
 tags = [
-    "android",
-    "toolbox"
+    "android","tips"
+]
+categories = [
+  "技术"
+]
+series = [
+  "工具"
 ]
 +++
 

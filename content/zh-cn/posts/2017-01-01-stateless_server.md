@@ -5,6 +5,12 @@ date = "2017-01-01"
 tags = [
     "practice"
 ]
+categories = [
+  "技术"
+]
+series = [
+  "概念"
+]
 #[toc]
 #menu = "main"
 +++

@@ -5,6 +5,12 @@ date = "2017-05-01"
 tags = [
     "golang"
 ]
+categories = [
+  "技术"
+]
+series = [
+  "编程"
+]
 #menu = "main"
 +++
 

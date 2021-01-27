@@ -3,8 +3,13 @@ title= "Android Studio 配置"
 description= "Android Studio"
 date = "2014-09-30"
 tags = [
-    "android",
-    "toolbox"
+    "android","tips"
+]
+categories = [
+  "技术"
+]
+series = [
+  "工具"
 ]
 +++
 

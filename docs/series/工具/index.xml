@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>工具 on Hugo Bootstrap</title>
+    <link>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</link>
+    <description>Recent content in 工具 on Hugo Bootstrap</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
+    <lastBuildDate>Sat, 16 Sep 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker tips</title>
+      <link>https://fabletang.github.io/posts/2017-09-16-docker_tips/</link>
+      <pubDate>Sat, 16 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2017-09-16-docker_tips/</guid>
+      <description>一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除</description>
+    </item>
+    
+    <item>
+      <title>docker私有仓库搭建</title>
+      <link>https://fabletang.github.io/posts/2017-09-01-docker_registry/</link>
+      <pubDate>Fri, 01 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2017-09-01-docker_registry/</guid>
+      <description>环境:centos7,docker 1.12+，registry 2. 一、准备工作: mkdir /data/docker-registry mkdir /data/docker-registry-auth 二、安全设置: 生成 http 密码文件 docker run --entrypoint htpasswd registry:2 -Bbn anycloud &amp;#39;123&amp;#39;&amp;gt; /data/docker-registry-auth/htpasswd 获取 SSL 证</description>
+    </item>
+    
+    <item>
+      <title>Gradle 介绍</title>
+      <link>https://fabletang.github.io/posts/2014-10-13-introduce-gradle/</link>
+      <pubDate>Mon, 13 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2014-10-13-introduce-gradle/</guid>
+      <description>gradle 现在已经2.1版本了。从1.0版本就一直关注这个groovy项目，但是没有应用到 公司项目的打算，但是现在时机到了。gradle已经是最好的</description>
+    </item>
+    
+    <item>
+      <title>Android Studio 配置</title>
+      <link>https://fabletang.github.io/posts/2014-09-30-android-studio-conf/</link>
+      <pubDate>Tue, 30 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2014-09-30-android-studio-conf/</guid>
+      <description>由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu下Android USB联机调试</title>
+      <link>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</link>
+      <pubDate>Mon, 29 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</guid>
+      <description>环境说明: Ubuntu 14.04, android ADT 4.2.2 Linux 下 ADT usb联机调试出现 device unknown 的解决办法: 一、使用lsusb命令查看设备的vendorId和productId。 插入usb</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -5,6 +5,12 @@ date = "2015-10-06"
 tags = [
     "project"
 ]
+categories = [
+  "管理"
+]
+series = [
+  "心得"
+]
 #menu = "main"
 +++
 

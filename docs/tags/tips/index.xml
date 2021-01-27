@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tips on Hugo Bootstrap</title>
+    <link>https://fabletang.github.io/tags/tips/</link>
+    <description>Recent content in tips on Hugo Bootstrap</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
+    <lastBuildDate>Sat, 16 Sep 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker tips</title>
+      <link>https://fabletang.github.io/posts/2017-09-16-docker_tips/</link>
+      <pubDate>Sat, 16 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2017-09-16-docker_tips/</guid>
+      <description>一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除</description>
+    </item>
+    
+    <item>
+      <title>Android Studio 配置</title>
+      <link>https://fabletang.github.io/posts/2014-09-30-android-studio-conf/</link>
+      <pubDate>Tue, 30 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2014-09-30-android-studio-conf/</guid>
+      <description>由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu下Android USB联机调试</title>
+      <link>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</link>
+      <pubDate>Mon, 29 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</guid>
+      <description>环境说明: Ubuntu 14.04, android ADT 4.2.2 Linux 下 ADT usb联机调试出现 device unknown 的解决办法: 一、使用lsusb命令查看设备的vendorId和productId。 插入usb</description>
+    </item>
+    
+  </channel>
+</rss>

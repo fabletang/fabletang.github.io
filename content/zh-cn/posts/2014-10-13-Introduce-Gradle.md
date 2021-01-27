@@ -5,6 +5,12 @@ date = "2014-10-13"
 tags = [
     "toolbox"
 ]
+categories = [
+  "技术"
+]
+series = [
+  "工具"
+]
 +++
 
 gradle 现在已经2.1版本了。从1.0版本就一直关注这个groovy项目，但是没有应用到  

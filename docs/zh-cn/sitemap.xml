@@ -33,6 +33,61 @@
   </url>
   
   <url>
+    <loc>https://fabletang.github.io/tags/tips/</loc>
+    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/series/</loc>
+    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://fabletang.github.io/zh-tw/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/series/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/categories/</loc>
+    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://fabletang.github.io/zh-tw/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://fabletang.github.io/posts/</loc>
     <lastmod>2017-09-16T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -88,12 +143,22 @@
   </url>
   
   <url>
+    <loc>https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2017-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://fabletang.github.io/tags/practice/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fabletang.github.io/posts/2017-04-01-granularity_of_microservice/</loc>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -113,57 +178,22 @@
   </url>
   
   <url>
+    <loc>https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/</loc>
+    <lastmod>2015-10-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/categories/%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2015-10-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://fabletang.github.io/posts/2014-12-25-grails_intro/</loc>
     <lastmod>2014-12-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fabletang.github.io/tags/java/</loc>
-    <lastmod>2014-12-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/series/</loc>
-    <lastmod>2014-12-25T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/series/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="https://fabletang.github.io/zh-tw/series/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/series/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/categories/</loc>
-    <lastmod>2014-12-25T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="https://fabletang.github.io/zh-tw/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/categories/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2014-12-25T00:00:00+00:00</lastmod>
   </url>
   

@@ -3,7 +3,13 @@ title= "docker tips"
 description= "docker 小技巧"
 date = "2017-09-16"
 tags = [
-    "docker",
+    "docker","tips"
+]
+categories = [
+  "技术"
+]
+series = [
+  "工具"
 ]
 #menu = "main"
 +++
