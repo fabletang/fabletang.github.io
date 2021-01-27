@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>android on Hugo Bootstrap</title>
+    <title>android on Fable&#39;s blog</title>
     <link>https://fabletang.github.io/tags/android/</link>
-    <description>Recent content in android on Hugo Bootstrap</description>
+    <description>Recent content in android on Fable&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
     <lastBuildDate>Tue, 30 Sep 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
