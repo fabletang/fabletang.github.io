@@ -12,11 +12,6 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/tags/alert/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="zh-tw"
                 href="https://fabletang.github.io/zh-tw/tags/alert/"
                 />
@@ -29,11 +24,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://fabletang.github.io/en/posts/shortcodes/alert/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/shortcodes/alert/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -52,11 +42,6 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/shortcodes/bilibili/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="zh-tw"
                 href="https://fabletang.github.io/zh-tw/posts/shortcodes/bilibili/"
                 />
@@ -72,11 +57,6 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/tags/codepen/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="zh-tw"
                 href="https://fabletang.github.io/zh-tw/tags/codepen/"
                 />
@@ -89,11 +69,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://fabletang.github.io/en/posts/shortcodes/codepen/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/shortcodes/codepen/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -132,11 +107,6 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/tags/jsfiddle/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="zh-tw"
                 href="https://fabletang.github.io/zh-tw/tags/jsfiddle/"
                 />
@@ -149,11 +119,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://fabletang.github.io/en/posts/shortcodes/jsfiddle/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/shortcodes/jsfiddle/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -172,11 +137,6 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/tags/jsrun/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="zh-tw"
                 href="https://fabletang.github.io/zh-tw/tags/jsrun/"
                 />
@@ -189,11 +149,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://fabletang.github.io/en/posts/shortcodes/jsrun/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/shortcodes/jsrun/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -212,11 +167,6 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/categories/shortcode/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="zh-tw"
                 href="https://fabletang.github.io/zh-tw/categories/shortcode/"
                 />
@@ -229,11 +179,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://fabletang.github.io/en/posts/shortcodes/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/shortcodes/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -252,11 +197,6 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/tags/youku/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="zh-tw"
                 href="https://fabletang.github.io/zh-tw/tags/youku/"
                 />
@@ -269,11 +209,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://fabletang.github.io/en/posts/shortcodes/youku/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/shortcodes/youku/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -342,11 +277,6 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/shortcodes/iqiyi/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="zh-tw"
                 href="https://fabletang.github.io/zh-tw/posts/shortcodes/iqiyi/"
                 />
@@ -412,11 +342,6 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/shortcodes/neteasemusic/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="zh-tw"
                 href="https://fabletang.github.io/zh-tw/posts/shortcodes/neteasemusic/"
                 />
@@ -434,11 +359,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://fabletang.github.io/en/posts/shortcodes/tencentvideo/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/shortcodes/tencentvideo/"
                 />
     <xhtml:link
                 rel="alternate"

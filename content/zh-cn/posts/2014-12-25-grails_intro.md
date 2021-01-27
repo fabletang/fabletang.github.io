@@ -2,6 +2,12 @@
 title= "Grails框架介绍"
 description= "grails introduce"
 date = "2014-12-25"
+categories = [
+  "技术"
+]
+series = [
+  "框架"
+]
 tags = [
     "java"
 ]
