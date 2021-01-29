@@ -8,7 +8,7 @@ description = "An extreme fast, responsive and feature-rich blog theme for Hugo"
 
 # logo = "images/logo.png" # Logo image. Default to "images/logo.webp".
 brand = "Fable's Blog"
-logo ="images/logo-blog.jpg"
+logo ="images/logo-blog.webp"
 # menusPosition = "left" # Menus position: right(default), left or center.
 
 palette = "blue" # Default palette. Optional.
