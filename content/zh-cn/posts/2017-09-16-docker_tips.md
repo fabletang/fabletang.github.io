@@ -40,3 +40,9 @@ docker rmi -f $(docker images | grep "0.0.1" | awk "{print \$3}")
 ```bash
 docker rmi -f $(docker images | grep "fabletang/service-java" | awk -F' 0.' '{if ($2<0.6) print $0}' | awk "{print \$3}")
 ```
+
+ *  删除所有未运行 Docker 容器
+
+```bash
+docker rm $(docker ps -a -q)
+```

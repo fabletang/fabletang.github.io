@@ -12,7 +12,7 @@
 <meta itemprop="description" content="docker 小技巧">
 <meta itemprop="datePublished" content="2017-09-16T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2017-09-16T00:00:00+00:00" />
-<meta itemprop="wordCount" content="144">
+<meta itemprop="wordCount" content="160">
 
 
 
@@ -161,6 +161,10 @@ docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span st
 <li>根据Tag和版本号删除</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span style="color:#e6db74">&#34;fabletang/service-java&#34;</span> | awk -F<span style="color:#e6db74">&#39; 0.&#39;</span> <span style="color:#e6db74">&#39;{if ($2&lt;0.6) print $0}&#39;</span> | awk <span style="color:#e6db74">&#34;{print \$3}&#34;</span><span style="color:#66d9ef">)</span>
+</code></pre></div><ul>
+<li>删除所有未运行 Docker 容器</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker rm <span style="color:#66d9ef">$(</span>docker ps -a -q<span style="color:#66d9ef">)</span>
 </code></pre></div></div><div class="post-copyright mb-4">
   <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
 </div>
@@ -197,7 +201,9 @@ docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span st
   <div class="post-nav w-50"><div class="prev-post">
       <a href="https://fabletang.github.io/posts/2017-09-01-docker_registry/">docker私有仓库搭建</a>
     </div></div>
-  <div class="post-nav flex-row-reverse"></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post">
+      <a href="https://fabletang.github.io/posts/2021-02-17-methodology_1/">技术管理-怎么学</a>
+    </div></div>
 </div><section class="related-posts">
   <h3>相关文章</h3>
   <ul class="related-posts"><li><a href="https://fabletang.github.io/posts/2017-09-01-docker_registry/">docker私有仓库搭建</a></li><li><a href="https://fabletang.github.io/posts/2014-09-30-android-studio-conf/">Android Studio 配置</a></li><li><a href="https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/">Ubuntu下Android USB联机调试</a></li></ul>
@@ -218,7 +224,7 @@ docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span st
     <h5 class="profile-name my-2">Fable Tang</h5><div class="profile-bio mb-2">知行合一</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="https://fabletang.github.io/posts/2017-09-16-docker_tips/">docker tips</a></li><li><a href="https://fabletang.github.io/posts/2017-09-01-docker_registry/">docker私有仓库搭建</a></li><li><a href="https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/">Golang代码结构</a></li><li><a href="https://fabletang.github.io/posts/2017-04-01-granularity_of_microservice/">微服务的粒度</a></li><li><a href="https://fabletang.github.io/posts/2017-01-01-stateless_server/">stateless server 最佳实践</a></li></ul>
+  <ul><li><a href="https://fabletang.github.io/posts/2021-02-17-methodology_1/">技术管理-怎么学</a></li><li><a href="https://fabletang.github.io/posts/2017-09-16-docker_tips/">docker tips</a></li><li><a href="https://fabletang.github.io/posts/2017-09-01-docker_registry/">docker私有仓库搭建</a></li><li><a href="https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/">Golang代码结构</a></li><li><a href="https://fabletang.github.io/posts/2017-04-01-granularity_of_microservice/">微服务的粒度</a></li></ul>
 </section>
 <section class="taxonomy-categories row surface">
   <h4>
@@ -227,7 +233,7 @@ docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span st
   <div><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="技术">
       技术 <span class="badge rounded-pill">9</span>
     </a><a href="https://fabletang.github.io/categories/%E7%AE%A1%E7%90%86/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="管理">
-      管理 <span class="badge rounded-pill">1</span>
+      管理 <span class="badge rounded-pill">2</span>
     </a></div>
 </section><section class="taxonomy-series row surface">
   <h4>
@@ -235,10 +241,10 @@ docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span st
   </h4>
   <div><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="工具">
       工具 <span class="badge rounded-pill">5</span>
+    </a><a href="https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="心得">
+      心得 <span class="badge rounded-pill">2</span>
     </a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="概念">
       概念 <span class="badge rounded-pill">2</span>
-    </a><a href="https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="心得">
-      心得 <span class="badge rounded-pill">1</span>
     </a><a href="https://fabletang.github.io/series/%E6%A1%86%E6%9E%B6/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="框架">
       框架 <span class="badge rounded-pill">1</span>
     </a><a href="https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="编程">
@@ -256,14 +262,14 @@ docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span st
       docker <span class="badge rounded-pill">2</span>
     </a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="practice">
       practice <span class="badge rounded-pill">2</span>
+    </a><a href="https://fabletang.github.io/tags/project/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="project">
+      project <span class="badge rounded-pill">2</span>
     </a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="golang">
       golang <span class="badge rounded-pill">1</span>
     </a><a href="https://fabletang.github.io/tags/java/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="java">
       java <span class="badge rounded-pill">1</span>
     </a><a href="https://fabletang.github.io/tags/others/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="others">
       others <span class="badge rounded-pill">1</span>
-    </a><a href="https://fabletang.github.io/tags/project/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="project">
-      project <span class="badge rounded-pill">1</span>
     </a><a href="https://fabletang.github.io/tags/toolbox/" class="post-taxonomy rounded-pill btn btn-sm mr-2 mb-2" title="toolbox">
       toolbox <span class="badge rounded-pill">1</span>
     </a></div>

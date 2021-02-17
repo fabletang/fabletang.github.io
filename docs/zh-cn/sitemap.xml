@@ -3,18 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://fabletang.github.io/tags/docker/</loc>
-    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/posts/2017-09-16-docker_tips/</loc>
-    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://fabletang.github.io/</loc>
-    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -33,13 +23,13 @@
   </url>
   
   <url>
-    <loc>https://fabletang.github.io/tags/tips/</loc>
-    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+    <loc>https://fabletang.github.io/tags/project/</loc>
+    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fabletang.github.io/series/</loc>
-    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -59,7 +49,7 @@
   
   <url>
     <loc>https://fabletang.github.io/categories/</loc>
-    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -78,18 +68,18 @@
   </url>
   
   <url>
-    <loc>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+    <loc>https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/</loc>
+    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+    <loc>https://fabletang.github.io/posts/2021-02-17-methodology_1/</loc>
+    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://fabletang.github.io/posts/</loc>
-    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -109,7 +99,7 @@
   
   <url>
     <loc>https://fabletang.github.io/tags/</loc>
-    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -125,6 +115,36 @@
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/tags/"
                 />
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/categories/%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/tags/docker/</loc>
+    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/posts/2017-09-16-docker_tips/</loc>
+    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/tags/tips/</loc>
+    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -168,22 +188,7 @@
   </url>
   
   <url>
-    <loc>https://fabletang.github.io/tags/project/</loc>
-    <lastmod>2015-10-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://fabletang.github.io/posts/2015-10-06-project-schedule/</loc>
-    <lastmod>2015-10-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/</loc>
-    <lastmod>2015-10-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/categories/%E7%AE%A1%E7%90%86/</loc>
     <lastmod>2015-10-06T00:00:00+00:00</lastmod>
   </url>
   
