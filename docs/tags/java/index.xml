@@ -6,7 +6,16 @@
     <description>Recent content in java on Fable&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Thu, 25 Dec 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>java单例模式</title>
+      <link>https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/</link>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/</guid>
+      <description>java单例模式有5种实现方式,推荐以下3种方式. 一、饿汉式: 特点:线程安全，不能延时加载 public enum SingletonDemo1 { //枚举元素本身就是单例 INSTANCE; //添加自己需要</description>
+    </item>
+    
     <item>
       <title>Grails框架介绍</title>
       <link>https://fabletang.github.io/posts/2014-12-25-grails_intro/</link>
