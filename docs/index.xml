@@ -8,12 +8,12 @@
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
     <lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>java单例模式</title>
+      <title>java模式:单例/多例/线程单例</title>
       <link>https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/</link>
       <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/</guid>
-      <description>java单例模式有5种实现方式,推荐以下3种方式. 一、饿汉式: 特点:线程安全，不能延时加载 public enum SingletonDemo1 { //枚举元素本身就是单例 INSTANCE; //添加自己需要</description>
+      <description>java单例模式有5种实现方式,推荐以下3种方式. 一、单例-饿汉式: 特点:线程安全，不能延时加载 public enum SingletonDemo1 { //枚举元素本身就是单例 INSTANCE; //添加自</description>
     </item>
     
     <item>

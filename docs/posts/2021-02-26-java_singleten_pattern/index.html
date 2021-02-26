@@ -3,21 +3,21 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>java单例模式 - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+    <title>java模式:单例/多例/线程单例 - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
 <link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
-<meta name="description" content="java singleten pattern" /><meta itemprop="name" content="java单例模式">
+<meta name="description" content="java singleten pattern" /><meta itemprop="name" content="java模式:单例/多例/线程单例">
 <meta itemprop="description" content="java singleten pattern">
 <meta itemprop="datePublished" content="2021-02-26T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-02-26T00:00:00+00:00" />
-<meta itemprop="wordCount" content="235">
+<meta itemprop="wordCount" content="560">
 
 
 
 <meta itemprop="keywords" content="java," />
-<meta property="og:title" content="java单例模式" />
+<meta property="og:title" content="java模式:单例/多例/线程单例" />
 <meta property="og:description" content="java singleten pattern" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/" />
@@ -25,7 +25,7 @@
 <meta property="article:modified_time" content="2021-02-26T00:00:00+00:00" /><meta property="og:site_name" content="Fable&#39;s blog" /><meta property="og:see_also" content="https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="java单例模式"/>
+<meta name="twitter:title" content="java模式:单例/多例/线程单例"/>
 <meta name="twitter:description" content="java singleten pattern"/>
 <meta data-name="palette" content="blue"><link rel=stylesheet href="https://fabletang.github.io/css/bundle.min.31ae5fde579e9e77d7cd6ec43c26b9999d493df060fca9a54f9da00676116d7c.css" integrity="sha256-Ma5f3leennfXzW7EPCa5mZ1JPfBg/KmlT52gBnYRbXw=" crossorigin="anonymous"><script src="https://fabletang.github.io/js/bundle.min.6fb648ca3b465f463b5da4164d1a0fb5633d57cc6eaa89ef96ea4f622e163686.js" integrity="sha256-b7ZIyjtGX0Y7XaQWTRoPtWM9V8xuqonvlupPYi4WNoY=" crossorigin="anonymous"></script>
 </head>
@@ -130,18 +130,37 @@
       <div class="row content">
 <div class="col-md-8">
   <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">java单例模式</li></ol>
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">java模式:单例/多例/线程单例</li></ol>
 </nav><article class="post row surface">
-  <h1 class="post-title my-3">java单例模式</h1><div class="post-meta mb-3">
+  <h1 class="post-title my-3">java模式:单例/多例/线程单例</h1><div class="post-meta mb-3">
   <span class="post-date mr-2">
     <i class="fas fa-fw fa-calendar-alt"></i>2021-02-26
   </span>
   <span class="poost-reading-time mr-2">
-    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>2 分钟阅读
   </span>
 <a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">#技术</a><a href="https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy">#编程</a><a href="https://fabletang.github.io/tags/java/" class="post-taxonomy">#java</a></div>
-<div class="post-content mb-3"><p>java单例模式有5种实现方式,推荐以下3种方式. </p>
-<h4 id="一饿汉式">一、饿汉式:</h4>
+<div class="accordion accordion-flush surface post-toc position-sticky" id="accordionTOC">
+  <div class="accordion-item">
+    <div class="accordion-header" id="headingTOC" data-toggle="collapse" data-target="#collapseTOC" aria-expanded="true" aria-controls="collapseTOC">
+      <i class="fas fa-fw fa-bars"></i>目录
+    </div>
+    <div id="collapseTOC" class="accordion-collapse collapse" aria-labelledby="headingTOC" data-parent="#accordionTOC">
+      <div class="accordion-body mt-2">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+  </div>
+</div><div class="post-content mb-3"><p>java单例模式有5种实现方式,推荐以下3种方式. </p>
+<h4 id="一单例-饿汉式">一、单例-饿汉式:</h4>
 <p>特点:线程安全，不能延时加载</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> SingletonDemo1 <span style="color:#f92672">{</span>
       
@@ -152,7 +171,7 @@
 </span><span style="color:#75715e"></span>     <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">singletonOperation</span><span style="color:#f92672">(){</span>     
      <span style="color:#f92672">}</span>
  <span style="color:#f92672">}</span>
-</code></pre></div><h4 id="二懒汉式-双重锁检查">二、懒汉式-双重锁检查:</h4>
+</code></pre></div><h4 id="二单例-懒汉式-双重锁检查">二、单例-懒汉式-双重锁检查:</h4>
 <p>特点:线程安全，延时加载。
 ps: java1.5后,volatile可以避免jvm初始化内存分配可能乱序的问题。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SingletonDemo2</span> <span style="color:#f92672">{</span>
@@ -173,7 +192,7 @@ ps: java1.5后,volatile可以避免jvm初始化内存分配可能乱序的问题
          <span style="color:#f92672">}</span>
      <span style="color:#f92672">}</span>
 
-</code></pre></div><h4 id="三懒汉式-静态内部类">三、懒汉式-静态内部类:</h4>
+</code></pre></div><h4 id="三单例-懒汉式-静态内部类">三、单例-懒汉式-静态内部类:</h4>
 <p>特点:线程安全，延时加载。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SingletonDemo3</span> <span style="color:#f92672">{</span>
       
@@ -189,6 +208,52 @@ ps: java1.5后,volatile可以避免jvm初始化内存分配可能乱序的问题
       
  <span style="color:#f92672">}</span>
 
+</code></pre></div><h4 id="四多例">四、多例:</h4>
+<p>多例模式，我们可以将类的实例都编上号，然后将实例存放在一个Map:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MultiInstance</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 实例编号
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">long</span> instanceNum<span style="color:#f92672">;</span>
+
+    <span style="color:#75715e">// 用于存放实例
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Map<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">,</span> MultiInstance<span style="color:#f92672">&gt;</span> ins <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
+
+    <span style="color:#66d9ef">static</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 存放 3 个实例
+</span><span style="color:#75715e"></span>        ins<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>1L<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> MultiInstance<span style="color:#f92672">(</span>1<span style="color:#f92672">));</span>
+        ins<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>2L<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> MultiInstance<span style="color:#f92672">(</span>2<span style="color:#f92672">));</span>
+        ins<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>3L<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> MultiInstance<span style="color:#f92672">(</span>3<span style="color:#f92672">));</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">MultiInstance</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> n<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">instanceNum</span> <span style="color:#f92672">=</span> n<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> MultiInstance <span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> n<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> ins<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>n<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>实际上,Java 中的枚举就是一个“天然”的多例模式,其中的每一项代表一个实例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> MultiInstance <span style="color:#f92672">{</span>
+    ONE<span style="color:#f92672">,</span>
+    TWO<span style="color:#f92672">,</span>
+    THREE<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h4 id="五线程中的单例">五、线程中的单例:</h4>
+<p>一般情况下，我们所说的单例的作用范围是进程唯一的，就是在一个进程范围内，一个类只允许创建一个对象，进程内的多个线程之间也是共享同一个实例。
+那么线程唯一的单例就是，一个实例只能被一个线程拥有，一个进程内的多个线程拥有不同的类实例。
+我们同样可以用 ConcurrentHashMap 来实现:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ThreadSingleton</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> ConcurrentHashMap<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">,</span> ThreadSingleton<span style="color:#f92672">&gt;</span> instances
+            <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ConcurrentHashMap<span style="color:#f92672">&lt;&gt;();</span>
+
+    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">ThreadSingleton</span><span style="color:#f92672">()</span> <span style="color:#f92672">{}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> ThreadSingleton <span style="color:#a6e22e">getInstance</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        Long id <span style="color:#f92672">=</span> Thread<span style="color:#f92672">.</span><span style="color:#a6e22e">currentThread</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">();</span>
+        instances<span style="color:#f92672">.</span><span style="color:#a6e22e">putIfAbsent</span><span style="color:#f92672">(</span>id<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> ThreadSingleton<span style="color:#f92672">());</span>
+        <span style="color:#66d9ef">return</span> instances<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
 </code></pre></div></div><div class="post-copyright mb-4">
   <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
 </div>
@@ -246,7 +311,7 @@ ps: java1.5后,volatile可以避免jvm初始化内存分配可能乱序的问题
     <h5 class="profile-name my-2">Fable Tang</h5><div class="profile-bio mb-2">知行合一</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/">java单例模式</a></li><li><a href="https://fabletang.github.io/posts/2021-02-17-methodology_1/">技术管理-怎么学</a></li><li><a href="https://fabletang.github.io/posts/2017-09-16-docker_tips/">docker tips</a></li><li><a href="https://fabletang.github.io/posts/2017-09-01-docker_registry/">docker私有仓库搭建</a></li><li><a href="https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/">Golang代码结构</a></li></ul>
+  <ul><li><a href="https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/">java模式:单例/多例/线程单例</a></li><li><a href="https://fabletang.github.io/posts/2021-02-17-methodology_1/">技术管理-怎么学</a></li><li><a href="https://fabletang.github.io/posts/2017-09-16-docker_tips/">docker tips</a></li><li><a href="https://fabletang.github.io/posts/2017-09-01-docker_registry/">docker私有仓库搭建</a></li><li><a href="https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/">Golang代码结构</a></li></ul>
 </section>
 <section class="taxonomy-categories row surface">
   <h4>
