@@ -42,7 +42,7 @@ customJS = []
 
 tocWordCount = 280 
 # TOC is displayed only if the post's word count exceeds this value.
-tocSticky = true 
+tocSticky = false
 # Whether to make TOC stick to top when scrolling. Default to true.
 
 [archive]
