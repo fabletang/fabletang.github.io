@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://fabletang.github.io/</loc>
-    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
+    <lastmod>2021-04-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -20,21 +19,12 @@
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/"
                 />
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/tags/java/</loc>
-    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/</loc>
-    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
+    <loc>https://fabletang.github.io/tags/project/</loc>
+    <lastmod>2021-04-22T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://fabletang.github.io/series/</loc>
-    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
+    <lastmod>2021-04-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -50,11 +40,9 @@
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/series/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/categories/</loc>
-    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
+    <lastmod>2021-04-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -70,16 +58,15 @@
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/categories/"
                 />
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
+    <loc>https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/</loc>
+    <lastmod>2021-04-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/posts/2021-04-22-methodology_2/</loc>
+    <lastmod>2021-04-22T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://fabletang.github.io/posts/</loc>
-    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
+    <lastmod>2021-04-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -95,11 +82,9 @@
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/posts/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/tags/</loc>
-    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
+    <lastmod>2021-04-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -115,139 +100,88 @@
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/tags/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
+    <loc>https://fabletang.github.io/categories/%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2021-04-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/tags/java/</loc>
+    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/</loc>
+    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2021-02-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/tags/project/</loc>
-    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/</loc>
-    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2021-02-17-methodology_1/</loc>
     <lastmod>2021-02-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://fabletang.github.io/categories/%E7%AE%A1%E7%90%86/</loc>
-    <lastmod>2021-02-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/tags/docker/</loc>
     <lastmod>2017-09-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2017-09-16-docker_tips/</loc>
     <lastmod>2017-09-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/tags/tips/</loc>
     <lastmod>2017-09-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2017-09-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2017-09-01-docker_registry/</loc>
     <lastmod>2017-09-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/tags/golang/</loc>
     <lastmod>2017-05-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/</loc>
     <lastmod>2017-05-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/tags/practice/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2017-04-01-granularity_of_microservice/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2017-01-01-stateless_server/</loc>
     <lastmod>2017-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2015-10-06-project-schedule/</loc>
     <lastmod>2015-10-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2014-12-25-grails_intro/</loc>
     <lastmod>2014-12-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/series/%E6%A1%86%E6%9E%B6/</loc>
     <lastmod>2014-12-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/tags/others/</loc>
     <lastmod>2014-10-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2014-10-19-goldfish/</loc>
     <lastmod>2014-10-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2014-10-13-introduce-gradle/</loc>
     <lastmod>2014-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/tags/toolbox/</loc>
     <lastmod>2014-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/tags/android/</loc>
     <lastmod>2014-09-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2014-09-30-android-studio-conf/</loc>
     <lastmod>2014-09-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</loc>
     <lastmod>2014-09-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/archives/</loc>
     <xhtml:link
                 rel="alternate"
@@ -264,9 +198,7 @@
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/archives/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://fabletang.github.io/search/</loc>
     <xhtml:link
                 rel="alternate"
@@ -284,5 +216,4 @@
                 href="https://fabletang.github.io/search/"
                 />
   </url>
-  
 </urlset>

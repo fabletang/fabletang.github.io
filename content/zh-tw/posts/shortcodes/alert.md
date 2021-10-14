@@ -28,10 +28,10 @@ images = [
 ## Info
 
 ```markdown
-{{</* alert "Info" */>}}
+*[^_^]:# {{</* alert "Info" */>}}
 ```
 
-{{< alert "Info" >}}
+{{</* alert "Info" */>}}
 
 ## Success
 

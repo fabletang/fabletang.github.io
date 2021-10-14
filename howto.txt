@@ -1,15 +1,19 @@
 1.
 mkdir themes && cd themes
-git clone https://github.com/kakawait/hugo-tranquilpeak-theme.git tranquilpeak  # 将 Tranquilpeak 主题克隆至 "tranquilpeak" 目录。 
+# git clone https://github.com/kakawait/hugo-tranquilpeak-theme.git tranquilpeak  # 将 Tranquilpeak 主题克隆至 "tranquilpeak" 目录。 
+
+git clone https://github.com/razonyang/hugo-theme-bootstrap
 
 git clone git@github.com:fabletang/fabletang.github.io.git blog
+
+2. modify
 cd blog
+hugo server   http://localhost:1313/ 调试
 vi ....
-hugo server -D
+3. post
+hugo 
+git add . && git commit -m "xxx" && git push
 
-git push
 
-2. add post, hugo server -w
-
-6. https://fabletang.github.io
+4. https://fabletang.github.io
 
