@@ -12,7 +12,7 @@
 <meta name="description" content="The practice of db" /><meta itemprop="name" content="关系型数据库实践">
 <meta itemprop="description" content="The practice of db"><meta itemprop="datePublished" content="2021-11-09T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-11-09T00:00:00+00:00" />
-<meta itemprop="wordCount" content="794">
+<meta itemprop="wordCount" content="870">
 <meta itemprop="keywords" content="practice," /><meta property="og:title" content="关系型数据库实践" />
 <meta property="og:description" content="The practice of db" />
 <meta property="og:type" content="article" />
@@ -269,6 +269,7 @@ Fable&#39;s Blog
 <li>应该手写sql,反对使用所谓面向对象的orm中间件，比如hibernate,mybaits-plus。</li>
 <li>单个api的sql语句一般不超过3条。 3次以上数据库交互，响应速度就很差。</li>
 <li>读写分离,实时性要求不高的查询，应该走从库。互联的mysql 一般是1主3+从.</li>
+<li>数据强一致,并且并发高的情况下(间隙锁)，事务提交不能解决问题的话，考虑乐观事务(version字段)以及分布式全局锁（redis/zookeeper）</li>
 </ul>
 </div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
   <div class="modal-dialog">
