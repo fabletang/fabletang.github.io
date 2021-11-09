@@ -6,7 +6,16 @@
     <description>Recent content in 文章 on Fable&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Thu, 22 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 09 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关系型数据库实践</title>
+      <link>https://fabletang.github.io/posts/2021-11-09-practice_of_db/</link>
+      <pubDate>Tue, 09 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2021-11-09-practice_of_db/</guid>
+      <description>关系型数据库是绝大多数系统的数据核心,这个关键设施也往往是性能的瓶颈。以下是一些使用建议。 按业务场景设计表结构 业务场景: 一个mysql的用户</description>
+    </item>
+    
     <item>
       <title>技术管理-管理、人性与OKR</title>
       <link>https://fabletang.github.io/posts/2021-04-22-methodology_2/</link>
