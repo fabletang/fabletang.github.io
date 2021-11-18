@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://fabletang.github.io/</loc>
-    <lastmod>2021-11-11T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -20,53 +20,14 @@
                 href="https://fabletang.github.io/"
                 />
   </url><url>
-    <loc>https://fabletang.github.io/tags/others/</loc>
-    <lastmod>2021-11-11T00:00:00+00:00</lastmod>
+    <loc>https://fabletang.github.io/tags/golang/</loc>
+    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://fabletang.github.io/posts/2021-11-11-metaverse/</loc>
-    <lastmod>2021-11-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://fabletang.github.io/posts/</loc>
-    <lastmod>2021-11-11T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="https://fabletang.github.io/zh-tw/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/"
-                />
-  </url><url>
-    <loc>https://fabletang.github.io/tags/</loc>
-    <lastmod>2021-11-11T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="https://fabletang.github.io/zh-tw/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/tags/"
-                />
-  </url><url>
-    <loc>https://fabletang.github.io/tags/practice/</loc>
-    <lastmod>2021-11-09T00:00:00+00:00</lastmod>
+    <loc>https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/</loc>
+    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/series/</loc>
-    <lastmod>2021-11-09T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -83,11 +44,8 @@
                 href="https://fabletang.github.io/series/"
                 />
   </url><url>
-    <loc>https://fabletang.github.io/posts/2021-11-09-practice_of_db/</loc>
-    <lastmod>2021-11-09T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://fabletang.github.io/categories/</loc>
-    <lastmod>2021-11-09T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -105,6 +63,57 @@
                 />
   </url><url>
     <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/posts/</loc>
+    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://fabletang.github.io/zh-tw/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/posts/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/tags/</loc>
+    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://fabletang.github.io/zh-tw/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/tags/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/tags/others/</loc>
+    <lastmod>2021-11-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/posts/2021-11-11-metaverse/</loc>
+    <lastmod>2021-11-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/tags/practice/</loc>
+    <lastmod>2021-11-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/posts/2021-11-09-practice_of_db/</loc>
     <lastmod>2021-11-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/</loc>
@@ -128,9 +137,6 @@
     <loc>https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/</loc>
     <lastmod>2021-02-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/</loc>
-    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://fabletang.github.io/posts/2021-02-17-methodology_1/</loc>
     <lastmod>2021-02-17T00:00:00+00:00</lastmod>
   </url><url>
@@ -148,9 +154,6 @@
   </url><url>
     <loc>https://fabletang.github.io/posts/2017-09-01-docker_registry/</loc>
     <lastmod>2017-09-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://fabletang.github.io/tags/golang/</loc>
-    <lastmod>2017-05-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/</loc>
     <lastmod>2017-05-01T00:00:00+00:00</lastmod>

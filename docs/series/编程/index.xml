@@ -6,7 +6,16 @@
     <description>Recent content in 编程 on Fable&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang介绍</title>
+      <link>https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/</link>
+      <pubDate>Thu, 18 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/</guid>
+      <description>目前golang最新版本为1.17.3，经过12年的发展，生态已经成熟。 Go是一门工程语言 go诞生的初衷就是解决c/c++的各种弊端，提高生</description>
+    </item>
+    
     <item>
       <title>java模式:单例/多例/线程单例</title>
       <link>https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/</link>
