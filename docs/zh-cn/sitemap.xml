@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://fabletang.github.io/</loc>
-    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -20,14 +20,14 @@
                 href="https://fabletang.github.io/"
                 />
   </url><url>
-    <loc>https://fabletang.github.io/tags/golang/</loc>
-    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+    <loc>https://fabletang.github.io/tags/vim/</loc>
+    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/</loc>
-    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+    <loc>https://fabletang.github.io/posts/2021-11-22-vim_tutor/</loc>
+    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/series/</loc>
-    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -45,7 +45,7 @@
                 />
   </url><url>
     <loc>https://fabletang.github.io/categories/</loc>
-    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -62,11 +62,14 @@
                 href="https://fabletang.github.io/categories/"
                 />
   </url><url>
+    <loc>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/posts/</loc>
-    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -84,7 +87,7 @@
                 />
   </url><url>
     <loc>https://fabletang.github.io/tags/</loc>
-    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-22T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -100,6 +103,12 @@
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/tags/"
                 />
+  </url><url>
+    <loc>https://fabletang.github.io/tags/golang/</loc>
+    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/</loc>
+    <lastmod>2021-11-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2021-11-18T00:00:00+00:00</lastmod>
@@ -147,9 +156,6 @@
     <lastmod>2017-09-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/tags/tips/</loc>
-    <lastmod>2017-09-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2017-09-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/posts/2017-09-01-docker_registry/</loc>
