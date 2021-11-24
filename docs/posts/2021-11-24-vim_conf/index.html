@@ -1,0 +1,936 @@
+<!doctype html><html lang="zh-cn"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>vim配置 - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="vim config" /><meta itemprop="name" content="vim配置">
+<meta itemprop="description" content="vim config"><meta itemprop="datePublished" content="2021-11-24T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-11-24T00:00:00+00:00" />
+<meta itemprop="wordCount" content="4593">
+<meta itemprop="keywords" content="vim," /><meta property="og:title" content="vim配置" />
+<meta property="og:description" content="vim config" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fabletang.github.io/posts/2021-11-24-vim_conf/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-11-24T00:00:00+00:00" /><meta property="og:site_name" content="Fable&#39;s blog" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="vim配置"/>
+<meta name="twitter:description" content="vim config"/>
+<link rel="preload" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.07ad648455397f5c659e27a6da52bb2341611ba98e56b44a8ab8756226ab44d3.js" integrity="sha256-B61khFU5f1xlniem2lK7I0FhG6mOVrRKirh1YiarRNM=" crossorigin="anonymous"></script></head>
+  <body><script src="https://fabletang.github.io/js/bootstrap.min.b5d86dd3a5f60c90be38a252bb65fc1a2732f32e71dc12c051720f0c7aef3cde.js" integrity="sha256-tdht06X2DJC&#43;OKJSu2X8Gicy8y5x3BLAUXIPDHrvPN4=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-settings me-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-bars"></i>
+</button>
+
+<div class="offcanvas offcanvas-start surface" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">设置</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-language"></i> 语言</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="dropdown">
+        <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          简体中文
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li><a class="dropdown-item" href="https://fabletang.github.io/en/">English</a></li><li><a class="dropdown-item" href="https://fabletang.github.io/zh-tw/">繁體中文</a></li></ul>
+      </div>
+    </div>
+  </form>
+</section>
+
+
+<section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> 配色</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="蓝色"
+        class="btn btn-sm palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="蓝灰色"
+        class="btn btn-sm palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="棕色"
+        class="btn btn-sm palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="青色"
+        class="btn btn-sm palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="绿色"
+        class="btn btn-sm palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="靛青色"
+        class="btn btn-sm palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="橙色"
+        class="btn btn-sm palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="粉色"
+        class="btn btn-sm palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="紫色"
+        class="btn btn-sm palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="红色"
+        class="btn btn-sm palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="蓝绿色"
+        class="btn btn-sm palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="黄色"
+        class="btn btn-sm palette" data-palette="yellow">
+      </button></div>
+</section>
+<section class="setting social-share">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-share-alt"></i> Share</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a class="btn btn-sm btn-outline-primary btn-social-share"><i class="fas fa-share"></i></a>
+    </div>
+  </form>
+  <div class="mt-2 social-share-buttons d-flex visually-hidden flex-nowrap">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=vim%e9%85%8d%e7%bd%ae&url=https%3a%2f%2ffabletang.github.io%2fposts%2f2021-11-24-vim_conf%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ffabletang.github.io%2fposts%2f2021-11-24-vim_conf%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</section>
+
+</div>
+</div>
+<a class="navbar-brand me-3" href="https://fabletang.github.io/"><img class="logo" alt="Logo" src="https://fabletang.github.io/images/logo-blog.webp" loading="lazy"
+   width="120" height="120"
+   />
+Fable&#39;s Blog
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-v"></i>
+    </button>
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://fabletang.github.io/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/archives/">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/categories/">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/tags/">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/series/">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">vim配置</li></ol>
+  </div>
+</nav><article class="post row card mb-4 component">
+  <div class="card-body"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-arrows-alt"></i>
+</a>
+  
+    
+
+    <a class="action btn-reward" role="button" data-bs-toggle="modal" data-bs-target="#rewardModal" title="打赏">
+  <i class="fas fa-fw fa-coffee"></i>
+</a>
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0" type="button" aria-label="Copyright" 
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+  </div>
+</div>
+<h1 class="card-title my-3">vim配置
+</h1><div class="post-meta"><span class="post-date" title="created on">
+    <i class="fas fa-fw fa-calendar-alt"></i>2021-11-24
+  </span><span class="post-reading-time" title="reading time">
+    <i class="fas fa-fw fa-coffee"></i>10 分钟阅读
+  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy">vim</a></div>
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+      <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一vim安装插件管理器">一、vim安装插件管理器</a></li>
+        <li><a href="#二vim配置文件">二、vim配置文件</a></li>
+        <li><a href="#三安装插件">三、安装插件</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h3 id="一vim安装插件管理器">一、vim安装插件管理器</h3>
+<p> 早期的vim插件需要在网站下载，然后复制到对应目录.（https://www.vim.org/scripts/index.php
+ 受益于github的发展，用插件管理器(一般使用plug.vim)可以批量自动安装和更新插件。非常方便。
+ git clone <a href="https://github.com/junegunn/vim-plug," target="_blank" rel="noopener noreferrer">https://github.com/junegunn/vim-plug,</a>
+然后复制 plug.vim 到vim目录下的 autoload目录就完成了。</p>
+<h3 id="二vim配置文件">二、vim配置文件</h3>
+<h5 id="1vimrc位置目录">1.vimrc位置目录</h5>
+<p> vimrc是vim的总配置文件,windows下为vimrc,linux/macos为.vimrc。一般位于$HOME目录。启动vim,命令行输入:echo $HOME，就可以显示。在此目录下建立vimrc或者.vimrc文件。</p>
+<h5 id="2vimrc内容">2.vimrc内容</h5>
+<p> 此配置适用macos,其他系统需要少量适配，如果不使用golang,对应插件用&quot;号注释就可以。<br>
+ 配置中有简要说明.详细介绍请参考github或者本blog其他文章。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#a6e22e">filetype</span> <span style="color:#a6e22e">off</span>                  <span style="color:#75715e">&#34; required</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">syntax</span> <span style="color:#a6e22e">on</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;安装 plug插件管理器 </span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;然后运行:PlugInstall ,如果遇到下载失败按键R重新执行</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">call</span> <span style="color:#a6e22e">plug</span>#<span style="color:#a6e22e">begin</span>(<span style="color:#e6db74">&#39;~/.vim/plugged&#39;</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;fatih/vim-go&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;buoto/gotests-vim&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;maralla/completor.vim&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;preservim/tagbar&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 快速注释,自动检测语法</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;preservim/nerdcommenter&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 文件管理插件</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;preservim/nerdtree&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;Xuyuanp/nerdtree-git-plugin&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;Plug &#39;ryanoasis/vim-devicons&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;git状态显示</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;airblade/vim-gitgutter&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;Plug &#39;mhinz/vim-signify&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;文件查找</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;kien/ctrlp.vim&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;文本搜索</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;dkprice/vim-easygrep&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;颜色风格</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;tomasr/molokai&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;括号自动补全</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;Townk/vim-autoclose&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;Plug &#39;Valloric/YouCompleteMe&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;代码模版快速生成</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;SirVer/ultisnips&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;honza/vim-snippets&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;代码自动补全</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;Shougo/neocomplete.vim&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;历史文件增强 :browse oldfiles</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;gpanders/vim-oldfiles&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; markdown 插件</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;godlygeek/tabular&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;plasticboy/vim-markdown&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">call</span> <span style="color:#a6e22e">plug</span>#<span style="color:#a6e22e">end</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; 判断系统是否具有“自动命令”（autocmd）的支持</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;if has(&#39;autocmd&#39;)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 清除所有的自动命令，以方便调试</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;au!</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 对于后缀为“.asm”的文件，认为其是微软的 Macro Assembler 格式</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;endif</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 载入文件类型插件</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">filetype</span> <span style="color:#a6e22e">plugin</span> <span style="color:#a6e22e">indent</span> <span style="color:#a6e22e">on</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">filetype</span> <span style="color:#a6e22e">plugin</span> <span style="color:#a6e22e">on</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 为特定文件类型载入相关缩进文件</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">filetype</span> <span style="color:#a6e22e">indent</span> <span style="color:#a6e22e">on</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; colorscheme railscasts</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; colorscheme fruidle</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; colorscheme gemcolors</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:rehash256 = 1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:molokai_original = 1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">colorscheme</span> <span style="color:#a6e22e">molokai</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; colorscheme night</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; colorscheme twilight</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;语法样式开启</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">syntax</span> <span style="color:#a6e22e">on</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;set shell=&#39;/bin/bash&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;设置字体及大小,需要根据系统字体调整</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">gfn</span>=<span style="color:#a6e22e">Menlo</span>:<span style="color:#a6e22e">h16</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:set guifont=Menlo:h13</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; set guifont=Monospace\ 12</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; set guifont = Courier\   14</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; set guifont=Bitstream_Vera_Sans_Mono:h10:cANSI</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;set guifontwide=KaiTi\ 14</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;set gfw=幼圆:h10.5:cGB2312</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; Set to auto read when a file is changed from the outside</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">autoread</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; With a map leader it&#39;s possible to do extra key combinations</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; like &lt;leader&gt;w saves the current file</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">mapleader</span> = <span style="color:#e6db74">&#34;,&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">mapleader</span> = <span style="color:#e6db74">&#34;,&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Fast saving</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">w</span> :<span style="color:#a6e22e">w</span>!&lt;<span style="color:#a6e22e">cr</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">softtabstop</span>=<span style="color:#ae81ff">4</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">expandtab</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;行间距，如果默认值太小，代码会非常纠结</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">linespace</span>=<span style="color:#ae81ff">4</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;用&lt;&gt;调整缩进时的长度</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">shiftwidth</span>=<span style="color:#ae81ff">4</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; =&gt; Visual mode related</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; &#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; &#34; Visual mode pressing * or # searches for the current selection</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; &#34; Super useful! From an idea by Michael Naumann</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">vnoremap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; * :<span style="color:#a6e22e">call</span> <span style="color:#a6e22e">VisualSelection</span>(<span style="color:#e6db74">&#39;f&#39;</span>)&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">vnoremap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; # :<span style="color:#a6e22e">call</span> <span style="color:#a6e22e">VisualSelection</span>(<span style="color:#e6db74">&#39;b&#39;</span>)&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; history文件中需要记录的行数</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">history</span>=<span style="color:#ae81ff">600</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 带有如下符号的单词不要被换行分割</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; set iskeyword+=_,$,@,%,#,-</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 高亮显示普通txt文件（需要txt.vim脚本）</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;au BufRead,BufNewFile *  setfiletype txt</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 自动切换文件目录</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">BufEnter</span> * <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">expand</span>(<span style="color:#e6db74">&#34;%:h&#34;</span>)!=<span style="color:#e6db74">&#34;&#34;</span>|<span style="color:#a6e22e">cd</span> %:<span style="color:#a6e22e">h</span>|<span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;不需要保持和 vi 非常兼容</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">nocompatible</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;执行 Vim 缺省提供的 .vimrc 文件的示例，包含了打开语法加亮显示等最常用的功能</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;source $VIMRUNTIME/vimrc_example.vim</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 使backspace正常处理indent, eol, start等</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">backspace</span>=<span style="color:#a6e22e">indent</span>,<span style="color:#a6e22e">eol</span>,<span style="color:#a6e22e">start</span> <span style="color:#a6e22e">whichwrap</span>+=&lt;,&gt;,[,]<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 允许backspace和光标键跨越行边界</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">whichwrap</span>+=&lt;,&gt;,<span style="color:#a6e22e">h</span>,<span style="color:#a6e22e">l</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;在输入命令时列出匹配项目，也就是截图底部的效果</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">wildmenu</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;打开自动缩,继承前一行的缩进注释 进</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">autoindent</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;默认情况下手动折叠</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">foldmethod</span>=<span style="color:#a6e22e">manual</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;显示行号（否：nonumber）</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">number</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;显示光标的坐标</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">ruler</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 设置光标闪烁</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;set guicursor=n-c-v:ver50-ncvCursor,-blinkwait175-blinkoff150-blinkon175</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;set guicursor=n-c-v:hor50-Cursor-ver50-Cursor-blinkwait175-blinkoff650-blinkon350</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">guicursor</span>=<span style="color:#a6e22e">n</span>-<span style="color:#a6e22e">c</span>-<span style="color:#a6e22e">v</span>:<span style="color:#a6e22e">blinkwait100</span>-<span style="color:#a6e22e">blinkoff500</span>-<span style="color:#a6e22e">blinkon500</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;set guicursor=n-c-v:ver50-blinkwait175-blinkoff150-blinkon175</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;不自动换行(否：wrap)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; set nowrap</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;缺省不产生备份文件</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">nobackup</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 不要生成swap文件</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">noswapfile</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;set bufhidden=hide</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;在输入括号时光标会短暂地跳到与之相匹配的括号处，不影响输入</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">showmatch</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 匹配括号高亮的时间（单位是十分之一秒）</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">matchtime</span>=<span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 搜索时不区分大小写</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; set ignorecase</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 在搜索时，输入的词句的逐字符高亮（类似firefox的搜索）</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">incsearch</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 搜索高亮</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">hlsearch</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 不要闪烁</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">novisualbell</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; Set 7 lines to the cursor - when moving vertically using j/k</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">so</span>=<span style="color:#ae81ff">7</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;正确地处理中文字符的折行和拼接</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">formatoptions</span>+=<span style="color:#a6e22e">mM</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;文件编码自动检测</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">fileencodings</span>=<span style="color:#a6e22e">utf</span><span style="color:#ae81ff">-8</span>,<span style="color:#a6e22e">gb18030</span>,<span style="color:#a6e22e">ucs</span>-<span style="color:#a6e22e">bom</span>,<span style="color:#a6e22e">euc</span>-<span style="color:#a6e22e">cn</span>,<span style="color:#a6e22e">euc</span>-<span style="color:#a6e22e">tw</span>,<span style="color:#a6e22e">cp936</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;设置文件格式为unix</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">fileformat</span>=<span style="color:#a6e22e">unix</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;当使用了图形界面，并且环境变量 LANG 中不含“.”（即没有规定编码）时，把 Vim 的内部编码设为 UTF-8</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;set encoding=utf-8</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; set fileencodings=utf-8,gb2312,cp936</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;set fileencodings=utf-8,gbk,cp936</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;TAB会被显示成 &#39;&gt;—&#34; 而行尾多余的空白字符显示成 &#39;-&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; set listchars=tab:&gt;-,trail:-</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">list</span> <span style="color:#a6e22e">listchars</span>=<span style="color:#a6e22e">tab</span>:&gt;-<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;开启命令显示</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">showcmd</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Don&#39;t redraw while executing macros (good performance config)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">lazyredraw</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;设置窗口大小</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;set lines=35</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;set columns=120</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 启动的时候不显示那个援助索马里儿童的提示</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">shortmess</span>=<span style="color:#a6e22e">atI</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 导出 html 设置</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let html_use_css = 1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let html_number_lines = 0</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let use_xhtml = 1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Smart way to move between windows</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">j</span>&gt; &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">W</span>&gt;<span style="color:#a6e22e">j</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">k</span>&gt; &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">W</span>&gt;<span style="color:#a6e22e">k</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">h</span>&gt; &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">W</span>&gt;<span style="color:#a6e22e">h</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">l</span>&gt; &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">W</span>&gt;<span style="color:#a6e22e">l</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"> &#34;Remap VIM 0 to first non-blank character</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">map</span> <span style="color:#ae81ff">0</span> ^<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; &#34; Move a line of text using ALT+[jk] or Comamnd+[jk] on mac</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">M</span>-<span style="color:#a6e22e">j</span>&gt; <span style="color:#a6e22e">mz</span>:<span style="color:#a6e22e">m</span>+&lt;<span style="color:#a6e22e">cr</span>&gt;`<span style="color:#a6e22e">z</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">M</span>-<span style="color:#a6e22e">k</span>&gt; <span style="color:#a6e22e">mz</span>:<span style="color:#a6e22e">m</span><span style="color:#ae81ff">-2</span>&lt;<span style="color:#a6e22e">cr</span>&gt;`<span style="color:#a6e22e">z</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">vmap</span> &lt;<span style="color:#a6e22e">M</span>-<span style="color:#a6e22e">j</span>&gt; :<span style="color:#a6e22e">m</span>&#39;&gt;+&lt;<span style="color:#a6e22e">cr</span>&gt;`&lt;<span style="color:#a6e22e">my</span>`&gt;<span style="color:#a6e22e">mzgv</span>`<span style="color:#a6e22e">yo</span>`<span style="color:#a6e22e">z</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">vmap</span> &lt;<span style="color:#a6e22e">M</span>-<span style="color:#a6e22e">k</span>&gt; :<span style="color:#a6e22e">m</span>&#39;&lt;<span style="color:#ae81ff">-2</span>&lt;<span style="color:#a6e22e">cr</span>&gt;`&gt;<span style="color:#a6e22e">my</span>`&lt;<span style="color:#a6e22e">mzgv</span>`<span style="color:#a6e22e">yo</span>`<span style="color:#a6e22e">z</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">has</span>(<span style="color:#e6db74">&#34;mac&#34;</span>) || <span style="color:#a6e22e">has</span>(<span style="color:#e6db74">&#34;macunix&#34;</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>   <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">D</span>-<span style="color:#a6e22e">j</span>&gt; &lt;<span style="color:#a6e22e">M</span>-<span style="color:#a6e22e">j</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>   <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">D</span>-<span style="color:#a6e22e">k</span>&gt; &lt;<span style="color:#a6e22e">M</span>-<span style="color:#a6e22e">k</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>   <span style="color:#a6e22e">vmap</span> &lt;<span style="color:#a6e22e">D</span>-<span style="color:#a6e22e">j</span>&gt; &lt;<span style="color:#a6e22e">M</span>-<span style="color:#a6e22e">j</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>   <span style="color:#a6e22e">vmap</span> &lt;<span style="color:#a6e22e">D</span>-<span style="color:#a6e22e">k</span>&gt; &lt;<span style="color:#a6e22e">M</span>-<span style="color:#a6e22e">k</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;隐藏底部滚动条</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">guioptions</span>-=<span style="color:#a6e22e">b</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;隐藏右边滚动条</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">guioptions</span>-=<span style="color:#a6e22e">R</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">guioptions</span>-=<span style="color:#a6e22e">r</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;隐藏左边滚动条</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">guioptions</span>-=<span style="color:#a6e22e">l</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">guioptions</span>-=<span style="color:#a6e22e">L</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;隐藏菜单栏</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">guioptions</span>-=<span style="color:#a6e22e">m</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;隐藏工具栏</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">guioptions</span>-=<span style="color:#a6e22e">T</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;设置F2呼出菜单栏</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;function! ToggleMenuBar()</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;	echo &#39;ToggleMenuBar&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;	if &amp;guioptions =~# &#39;m&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;		set guioptions-=m</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;	else</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;		set guioptions+=m</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;	endif</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;imap &lt;silent&gt; &lt;C-F12&gt; &lt;C-O&gt;:call ToggleMenuBar()&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;map &lt;silent&gt; &lt;C-F12&gt; :call ToggleMenuBar()&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;设置工作目录</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;function! CHANGE_CURR_DIR()</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let _dir = expand(&#34;%:p:h&#34;)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;exec &#39;cd &#39; . _dir</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;unlet _dir</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;autocmd BufEnter * call CHANGE_CURR_DIR()</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; NERDTree插件的快捷键</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nn</span> &lt;<span style="color:#a6e22e">silent</span>&gt; &lt;<span style="color:#a6e22e">F5</span>&gt; :<span style="color:#a6e22e">NERDTreeToggle</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;自动启动nerdtree</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">VimEnter</span> * <span style="color:#a6e22e">NERDTree</span> | <span style="color:#a6e22e">wincmd</span> <span style="color:#a6e22e">p</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:browse oldfiles 插件增强</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">b</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">Oldfiles</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; F2 通过打开的文件对齐树形目录</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nn</span> &lt;<span style="color:#a6e22e">silent</span>&gt;&lt;<span style="color:#a6e22e">F2</span>&gt; :<span style="color:#a6e22e">exec</span>(<span style="color:#e6db74">&#34;NERDTree &#34;</span>.<span style="color:#a6e22e">expand</span>(<span style="color:#e6db74">&#39;%:h&#39;</span>))&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Check if NERDTree is open or active,打开的文件自动定位目录</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">IsNERDTreeOpen</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">return</span> <span style="color:#a6e22e">exists</span>(<span style="color:#e6db74">&#34;t:NERDTreeBufName&#34;</span>) &amp;&amp; (<span style="color:#a6e22e">bufwinnr</span>(<span style="color:#a6e22e">t</span>:<span style="color:#a6e22e">NERDTreeBufName</span>) != <span style="color:#ae81ff">-1</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Call NERDTreeFind iff NERDTree is active, current window contains a modifiable</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; file, and we&#39;re not in vimdiff</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">SyncTree</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">if</span> &amp;<span style="color:#a6e22e">modifiable</span> &amp;&amp; <span style="color:#a6e22e">IsNERDTreeOpen</span>() &amp;&amp; <span style="color:#a6e22e">strlen</span>(<span style="color:#a6e22e">expand</span>(<span style="color:#e6db74">&#39;%&#39;</span>)) &gt; <span style="color:#ae81ff">0</span> &amp;&amp; !&amp;<span style="color:#a6e22e">diff</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">NERDTreeFind</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">wincmd</span> <span style="color:#a6e22e">p</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Highlight currently open buffer in NERDTree</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">BufEnter</span> * <span style="color:#a6e22e">call</span> <span style="color:#a6e22e">SyncTree</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">ToggleNerdTree</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">eventignore</span>=<span style="color:#a6e22e">BufEnter</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">NERDTreeToggle</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">eventignore</span>=<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;CTRL-[ and CTRL-] indent and unindent blocks {{{</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;  inoremap &lt;C-[&gt; &lt;C-O&gt;&lt;LT&gt;&lt;LT&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; inoremap &lt;C-]&gt; &lt;C-O&gt;&lt;GT&gt;&lt;GT&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;  nnoremap &lt;C-[&gt; &lt;LT&gt;&lt;LT&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;  nnoremap &lt;C-]&gt; &lt;GT&gt;&lt;GT&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;  vnoremap &lt;C-[&gt; &lt;LT&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;  vnoremap &lt;C-]&gt; &lt;GT&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;}}}</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; NERD Commenter {{{</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let NERDSpaceDelims = 1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;map &lt;M-/&gt; &lt;Plug&gt;NERDCommenterToggle</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;imap &lt;M-/&gt; &lt;C-O&gt;&lt;Plug&gt;NERDCommenterToggle</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; }}}</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; 窗口区域切换,F5 后 ↑↓←→  来切换</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;imap &lt;silent&gt; &lt;C-left&gt; &lt;esc&gt;&lt;C-W&gt;&lt;left&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;vmap &lt;silent&gt; &lt;C-left&gt; &lt;esc&gt;&lt;C-W&gt;&lt;left&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nmap &lt;silent&gt; &lt;C-left&gt; &lt;C-W&gt;&lt;left&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;imap &lt;silent&gt; &lt;C-right&gt; &lt;esc&gt;&lt;C-W&gt;&lt;right&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;vmap &lt;silent&gt; &lt;C-right&gt; &lt;esc&gt;&lt;C-W&gt;&lt;right&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nmap &lt;silent&gt; &lt;C-right&gt; &lt;C-W&gt;&lt;right&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;imap &lt;silent&gt; &lt;C-up&gt; &lt;esc&gt;&lt;C-W&gt;&lt;up&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;vmap &lt;silent&gt; &lt;C-up&gt; &lt;esc&gt;&lt;C-W&gt;&lt;up&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nmap &lt;silent&gt; &lt;C-up&gt; &lt;C-W&gt;&lt;up&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;imap &lt;silent&gt; &lt;C-down&gt; &lt;esc&gt;&lt;C-W&gt;&lt;down&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;vmap &lt;silent&gt; &lt;C-down&gt; &lt;esc&gt;&lt;C-W&gt;&lt;down&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nmap &lt;silent&gt; &lt;C-down&gt; &lt;C-W&gt;&lt;down&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; Textmate alt-p &amp; alt+l {{{</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;inoremap &lt;M-p&gt; params[:]&lt;left&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;inoremap &lt;M-j&gt; session[:]&lt;left&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;inoremap &lt;M-l&gt; &lt;space&gt;=&gt;&lt;space&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;inoremap &lt;M-&gt;&gt; &lt;%=&lt;space&gt;&lt;space&gt;%&gt;&lt;left&gt;&lt;left&gt;&lt;left&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; shift+alt+l 选择行</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;inoremap &lt;M-L&gt; &lt;C-O&gt;&lt;home&gt;v&lt;S-end&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nnoremap &lt;M-L&gt; &lt;home&gt;v&lt;S-end&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; shift+alt+k 删除行</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;inoremap &lt;M-K&gt; &lt;C-O&gt;&lt;home&gt;v&lt;S-end&gt;&lt;del&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nnoremap &lt;M-K&gt; &lt;home&gt;v&lt;s-end&gt;&lt;del&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; ctrl + c,a,v,x,z</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nnoremap &lt;BS&gt; d</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; ctrl + a</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">noremap</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">A</span>&gt; <span style="color:#a6e22e">ggVG</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">inoremap</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">A</span>&gt; &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">O</span>&gt;<span style="color:#a6e22e">ggVG</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; ctrl + s</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;imap &lt;C-s&gt; &lt;Esc&gt;:w&lt;CR&gt;:echo expand(%f&#34;) . &#39; saved.&#34;&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;vmap &lt;C-s&gt; &lt;Esc&gt;:w&lt;CR&gt;:echo expand(%f&#34;) . &#39; saved.&#34;&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nmap &lt;C-s&gt; :w&lt;CR&gt;:echo expand(%f&#34;) . &#39; saved.&#34;&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; ctrl + n</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;imap &lt;C-n&gt; &lt;esc&gt;:enew!&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nmap &lt;C-n&gt; :enew!&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;vmap &lt;C-n&gt; &lt;esc&gt;:enew!&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; ctrl + c</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;vmap &lt;C-c&gt; &#34;+y</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; ctrl + x</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; vmap &lt;C-x&gt; &#34;+x</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; ctrl + z</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;inoremap &lt;C-z&gt; &lt;C-O&gt;u</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">inoremap</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">z</span>&gt; <span style="color:#a6e22e">u</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">z</span>&gt; <span style="color:#a6e22e">u</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; ctrl + y</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;inoremap &lt;C-y&gt; &lt;C-O&gt;&lt;C-R&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nnoremap &lt;C-y&gt; &lt;C-R&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; ctrl + v</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">v</span>&gt; <span style="color:#75715e">&#34;+gP</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">inoremap</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">v</span>&gt; <span style="color:#75715e">&#34;+gP</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;inoremap &lt;C-v&gt; &lt;C-O&gt;&#34;+gP</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; ctrl + f</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;imap &lt;C-f&gt; &lt;esc&gt;:/</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nmap &lt;C-f&gt; :/</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; ctrl + r</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;imap &lt;C-r&gt; &lt;esc&gt;:%s/</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;vmap &lt;C-r&gt; &lt;esc&gt;:%s/</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nmap &lt;C-r&gt; :%s/</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; ctrl + o</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;imap &lt;C-o&gt; &lt;C-O&gt;:e</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;vmap &lt;C-o&gt; &lt;esc&gt;:e</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;nmap &lt;C-o&gt; :e</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;}}}</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; 自定义命令</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;command Delnullrow :%s/^\n$//g</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 自动完成设置 禁止在插入模式移动的时候出现 Complete 提示</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">acp_mappingDriven</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 自动除去空格</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Remove trailing whitespace when writing a buffer, but not for diff files.</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; %s/^\n$//g  删除两个以上空行</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; From: Vigil</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;function RemoveTrailingWhitespace()</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;    if &amp;ft != &#39;diff&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;        let b:curcol = col(&#34;.&#34;)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;        let b:curline = line(&#34;.&#34;)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;        silent! %s/\s\+$//</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;        silent! %s/\(\s*\n\)\+\%$//</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;        call cursor(b:curline, b:curcol)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;    endif</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;autocmd BufWritePre * call RemoveTrailingWhitespace()</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; 括号自动补全</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:inoremap ( ()&lt;ESC&gt;i</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:inoremap ) &lt;c-r&gt;=ClosePair(&#39;)&#39;)&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:inoremap { {}&lt;ESC&gt;i</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:inoremap } &lt;c-r&gt;=ClosePair(&#39;}&#39;)&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:inoremap [ []&lt;ESC&gt;i</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:inoremap ] &lt;c-r&gt;=ClosePair(&#39;]&#39;)&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:inoremap &lt; &lt;&gt;&lt;ESC&gt;i</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:inoremap &gt; &lt;c-r&gt;=ClosePair(&#39;&gt;&#39;)&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;function ClosePair(char)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;    if getline(&#39;.&#39;)[col(&#39;.&#39;) - 1] == a:char</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;        return &#39;\&lt;Right&gt;&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;    else</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;        return a:char</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;    endif</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;endf</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; go 1.0.3</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; gocode 配置 gocode status确认是否启动</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">completeopt</span>=<span style="color:#a6e22e">longest</span>,<span style="color:#a6e22e">menu</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; gocode 自动补全 快捷键冲突 所以设置为 ctrl+h</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;imap &lt;C-h&gt; &lt;C-x&gt;&lt;C-o&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">imap</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">h</span>&gt; &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">x</span>&gt;&lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">o</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; go 相关的快捷键 格式化 gofmt</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:map &lt;F9&gt; &lt;Esc&gt;:w&lt;CR&gt;:!gofmt -s -w %&lt;CR&gt;:e %&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:imap &lt;F9&gt; &lt;Esc&gt;:w&lt;CR&gt;:!gofmt -s -w %&lt;CR&gt;:e %&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:map  &lt;F9&gt; &lt;Esc&gt;:w&lt;CR&gt;:!gofmt -s -w %&lt;CR&gt;:e %&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;autocmd BufWritePre,FileWritePre *.go  ks|execute &#39;:w&#39;|execute &#39;:!gofmt -s -w %&#39;|execute &#39;:e %&#39;|execute &#39;source ~/.vimrc&#39;|&#39;s</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;autocmd BufWritePre,FileWritePre *.go  ks|execute &#39;:w&#39;|execute &#39;:!gofmt -s -w %&#39;|execute &#39;:e %&#39;|&#39;s</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;autocmd BufWritePost *.go  execute &#39;:!gofmt -s -w % &#39;|execute &#39;:e %&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;autocmd BufWritePre *.go  execute &#39;:!gofmt -s -w % &#39;|execute &#39;:e %&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:map &lt;F9&gt; &lt;C-s&gt;:!gofmt -s -w %&lt;CR&gt;:e %&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;设置在c文件保存时自动格式化</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;&#34;调用命令是 au BufWritePost *.c :call FormatC()</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">FormatGo</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">  &#34;execute &#39;:w&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">execute</span> <span style="color:#e6db74">&#39;:!gofmt -s -w %&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">edit</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">syntax</span> <span style="color:#a6e22e">enable</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; go 相关的快捷键 编译和运行 go run</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; au BufWritePost *.go :call FormatGo()</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>:<span style="color:#a6e22e">imap</span> &lt;<span style="color:#a6e22e">F9</span>&gt; &lt;<span style="color:#a6e22e">Esc</span>&gt;:<span style="color:#a6e22e">w</span>&lt;<span style="color:#a6e22e">CR</span>&gt;:!<span style="color:#a6e22e">go</span> <span style="color:#a6e22e">run</span> %&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>:<span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">F9</span>&gt; &lt;<span style="color:#a6e22e">Esc</span>&gt;:<span style="color:#a6e22e">w</span>&lt;<span style="color:#a6e22e">CR</span>&gt;:!<span style="color:#a6e22e">go</span> <span style="color:#a6e22e">run</span> %&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:imap &lt;F10&gt; &lt;Esc&gt;:!go run %&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:map &lt;F10&gt; &lt;Esc&gt;:!go run %&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:imap &lt;F9&gt; &lt;Esc&gt;:w&lt;CR&gt;:!go test&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:map &lt;F9&gt; &lt;Esc&gt;:w&lt;CR&gt;:!go test&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:imap &lt;F8&gt; &lt;Esc&gt;:!go test&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:map &lt;F8&gt; &lt;Esc&gt;:!go test&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:imap &lt;F7&gt; &lt;Esc&gt;:!go install&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:map &lt;F7&gt; &lt;Esc&gt;:!go install&lt;CR&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">F8</span>&gt; :<span style="color:#a6e22e">TagbarToggle</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">tagbar_width</span>=<span style="color:#ae81ff">25</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">tagbar_type_go</span> = {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    \ <span style="color:#e6db74">&#39;ctagstype&#39;</span> : <span style="color:#e6db74">&#39;go&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    \ <span style="color:#e6db74">&#39;kinds&#39;</span>     : [<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;p:package&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;i:imports:1&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;c:constants&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;v:variables&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;t:types&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;n:interfaces&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;w:fields&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;e:embedded&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;m:methods&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;r:constructor&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;f:functions&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    \ ],<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    \ <span style="color:#e6db74">&#39;sro&#39;</span> : <span style="color:#e6db74">&#39;.&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    \ <span style="color:#e6db74">&#39;kind2scope&#39;</span> : {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;t&#39;</span> : <span style="color:#e6db74">&#39;ctype&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;n&#39;</span> : <span style="color:#e6db74">&#39;ntype&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    \ },<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    \ <span style="color:#e6db74">&#39;scope2kind&#39;</span> : {<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;ctype&#39;</span> : <span style="color:#e6db74">&#39;t&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        \ <span style="color:#e6db74">&#39;ntype&#39;</span> : <span style="color:#e6db74">&#39;n&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    \ },<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    \ <span style="color:#e6db74">&#39;ctagsbin&#39;</span>  : <span style="color:#e6db74">&#39;gotags&#39;</span>,<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    \ <span style="color:#e6db74">&#39;ctagsargs&#39;</span> : <span style="color:#e6db74">&#39;-sort -silent&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>\ }<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; shortcuts to make it easier to jump between errors in quickfix list:</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">n</span>&gt; :<span style="color:#a6e22e">cnext</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">m</span>&gt; :<span style="color:#a6e22e">cprevious</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">o</span> :<span style="color:#a6e22e">copen</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">oo</span> :<span style="color:#a6e22e">cclose</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">Leader</span>&gt;<span style="color:#a6e22e">i</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">info</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">Leader</span>&gt;<span style="color:#a6e22e">gd</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">doc</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">Leader</span>&gt;<span style="color:#a6e22e">gv</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">doc</span>-<span style="color:#a6e22e">vertical</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">Leader</span>&gt;<span style="color:#a6e22e">gb</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">doc</span>-<span style="color:#a6e22e">browser</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">r</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">run</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;au FileType go nmap &lt;leader&gt;b &lt;Plug&gt;(go-build)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; au FileType go nmap &lt;leader&gt;t &lt;Plug&gt;(go-test)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">t</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">test</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; au FileType go nmap &lt;leader&gt;t &lt;Plug&gt;(go-test-compile)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; au FileType go nmap &lt;leader&gt;c &lt;Plug&gt;(go-coverage)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> <span style="color:#a6e22e">gd</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">def</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> <span style="color:#a6e22e">gc</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">callers</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> <span style="color:#a6e22e">gf</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">referrers</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> <span style="color:#a6e22e">gs</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">implements</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">Leader</span>&gt;<span style="color:#a6e22e">ds</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">def</span>-<span style="color:#a6e22e">split</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">Leader</span>&gt;<span style="color:#a6e22e">dv</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">def</span>-<span style="color:#a6e22e">vertical</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">Leader</span>&gt;<span style="color:#a6e22e">dt</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">def</span>-<span style="color:#a6e22e">tab</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;Rename the identifier under the cursor to a new name</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">Leader</span>&gt;<span style="color:#a6e22e">e</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">rename</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">au</span> <span style="color:#a6e22e">FileType</span> <span style="color:#a6e22e">go</span> <span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">l</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">go</span>-<span style="color:#a6e22e">lint</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">UltiSnipsExpandTrigger</span>=<span style="color:#e6db74">&#34;&lt;tab&gt;&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;let g:UltiSnipsJumpForwardTrigger=&#34;&lt;c-b&gt;&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:UltiSnipsJumpBackwardTrigger=&#34;&lt;c-z&gt;&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;Disable opening browser after posting to your snippet to play.golang.org:</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:go_play_open_browser = 0</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;&#34;By default vim-go shows errors for the fmt command, to disable it:</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:go_fmt_fail_silently = 1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;&#34;Enable goimports to automatically insert import paths instead of gofmt:</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_fmt_command</span> = <span style="color:#e6db74">&#34;goimports&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:go_term_enabled=0</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:go_term_enabled = 1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:go_term_mode=&#39;split&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:go_term_reuse = 1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:go_term_mode=&#39;vsplit&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:go_term_mode=&#39;tab&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:go_term_close_on_exit = 1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:go_test_show_name = 1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;Disable auto fmt on save:</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_fmt_autosave</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_autodetect_gopath</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">godef_split</span>=<span style="color:#ae81ff">2</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_list_type</span> = <span style="color:#e6db74">&#34;quickfix&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:UltiSnipsJumpBackwardTrigger=&#34;&lt;c-z&gt;&#34;&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_highlight_types</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_highlight_extra_types</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_highlight_fields</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_highlight_function_calls</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_highlight_functions</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_highlight_methods</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_highlight_structs</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_highlight_operators</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_highlight_build_constraints</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_highlight_generate_tags</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_version_warning</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;let g:go_def_mode=&#39;gopls&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;let g:go_info_mode=&#39;gopls&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Enable lsp for go by using gopls</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">completor_filetype_map</span> = {}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">completor_filetype_map</span>.<span style="color:#a6e22e">go</span> = {<span style="color:#e6db74">&#39;ft&#39;</span>: <span style="color:#e6db74">&#39;lsp&#39;</span>, <span style="color:#e6db74">&#39;cmd&#39;</span>: <span style="color:#e6db74">&#39;gopls -remote=auto&#39;</span>}<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">go_metalinter_enabled</span> = [<span style="color:#e6db74">&#39;vet&#39;</span>, <span style="color:#e6db74">&#39;golint&#39;</span>, <span style="color:#e6db74">&#39;errcheck&#39;</span>]<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34;By default binaries are installed to $GOBIN or $GOPATH/bin. To change it:</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;&#34;let g:go_bin_path = expand(&#34;~/.gotools&#34;)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;&#34;snippet 代码模板参考</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;https://github.com/honza/vim-snippets/blob/master/snippets/go.snippets&#34;&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;  If you would like JSX in .js files</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">jsx_ext_required</span> = <span style="color:#ae81ff">0</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; md keyboard&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">mkdp_path_to_chrome</span> = <span style="color:#e6db74">&#34;open -a Google\\ Chrome&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"> &#34;MarkdownPreview</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">     &#34; 在打开 markdown 文件后，使用该命令可以打开预览窗口</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">     &#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">     &#34;     MarkdownPreviewStop</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">     &#34;         &#34; 关闭 markdown 预览窗口，并停止开启的服务进程</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; gitgutter</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">gitgutter_preview_win_floating</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;autocmd BufWritePost * GitGutter</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">updatetime</span>=<span style="color:#ae81ff">500</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;markdown</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">vim_markdown_folding_disabled</span> = <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="三安装插件">三、安装插件</h3>
+<p> 命令行模式:PlugInstall, 耐心等待结果，部分失败的话，大写R键(shift+r) 重新安装，直至呈现下图:
+<img class="img-fluid" alt="image" src="https://fabletang.github.io/images/post/vim/vim-plug-install.webp" loading="lazy"
+   width="1158" height="754"
+   />
+
+</p>
+</div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content surface">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rewardModalLabel"><i class="fas fa-fw fa-coffee"></i>打赏</h5>
+        <a href="#" data-bs-dismiss="modal" class="btn btn-sm btn-outline-primary" aria-label="Close"><i class="fas fa-times"></i></a>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs flex-nowrap mb-3" role="tablist"><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link active" id="reward-alipay-tab" data-bs-toggle="tab" href="#reward-alipay" role="tab" aria-controls="reward-alipay" aria-selected="true">
+              <i class="fab fa-fw fa-alipay"></i>支付宝
+            </a>
+          </li><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link" id="reward-wechat-tab" data-bs-toggle="tab" href="#reward-wechat" role="tab" aria-controls="reward-wechat" aria-selected="true">
+              <i class="fab fa-fw fa-weixin"></i>微信
+            </a>
+          </li></ul>
+        <div class="tab-content" id="rewardTabContent"><div class="tab-pane fade post-reward-content show active" id="reward-alipay" role="tabpanel" aria-labelledby="reward-alipay-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/alipay.webp" loading="lazy" />
+          </div><div class="tab-pane fade post-reward-content show" id="reward-wechat" role="tabpanel" aria-labelledby="reward-wechat-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/wechat.webp" loading="lazy" />
+          </div></div>
+      </div>
+    </div>
+  </div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://fabletang.github.io/posts/2021-11-22-vim_tutor/">vim入门
+</a>
+  </div></div><section class="related-posts-wrapper">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="https://fabletang.github.io/posts/2021-11-22-vim_tutor/">vim入门
+</a></li></ul>
+  </section></div>
+</article><div class="post-comments card row component">
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="fabletang/fabletang.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="preferred-color-scheme"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container">
+    
+    <section class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="Fable Tang" src="https://fabletang.github.io/images/hai.webp" loading="lazy"
+   width="150" height="149"
+   />
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name">Fable Tang</div><div class="profile-bio">知行合一</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
+  </div>
+</section>
+  <section class="recent-posts row card component">
+  <div class="card-body">
+    <h2 class="card-title">最近文章</h2>
+    <ul><li><a href="https://fabletang.github.io/posts/2021-11-24-vim_conf/">vim配置
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-22-vim_tutor/">vim入门
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/">Golang介绍
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-11-metaverse/">元宇宙的一些判断
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-09-practice_of_db/">关系型数据库实践
+</a></li></ul>
+  </div>
+</section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/categories">分类</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="技术">
+            技术
+          </a><a href="https://fabletang.github.io/categories/%E7%AE%A1%E7%90%86/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="管理">
+            管理
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/series">专栏</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="工具">
+            工具
+          </a><a href="https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="心得">
+            心得
+          </a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="概念">
+            概念
+          </a><a href="https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="编程">
+            编程
+          </a><a href="https://fabletang.github.io/series/%E6%A1%86%E6%9E%B6/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="框架">
+            框架
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/tags">标签</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="practice">
+            practice
+          </a><a href="https://fabletang.github.io/tags/project/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="project">
+            project
+          </a><a href="https://fabletang.github.io/tags/tips/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="tips">
+            tips
+          </a><a href="https://fabletang.github.io/tags/android/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="android">
+            android
+          </a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="docker">
+            docker
+          </a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="golang">
+            golang
+          </a><a href="https://fabletang.github.io/tags/java/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="java">
+            java
+          </a><a href="https://fabletang.github.io/tags/others/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="others">
+            others
+          </a><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vim">
+            vim
+          </a><a href="https://fabletang.github.io/tags/toolbox/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="toolbox">
+            toolbox
+          </a></div>
+      </div>
+    </section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:fabletang@outlook.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a><a class="nav-link social-link" target="_blank" href="https://github.com/fabletang" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2021 Fable Tang. All Rights Reserved.
+</div>
+</footer>
+
+</body>
+</html>
