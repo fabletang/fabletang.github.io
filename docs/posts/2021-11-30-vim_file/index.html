@@ -3,27 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ubuntu下Android USB联机调试 - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+    <title>vim 文件相关操作(四) - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
 <link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
 <meta name="keywords" content="" />
-<meta name="description" content="Ubuntu usb conf for ADT" /><meta itemprop="name" content="Ubuntu下Android USB联机调试">
-<meta itemprop="description" content="Ubuntu usb conf for ADT"><meta itemprop="datePublished" content="2014-09-29T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2014-09-29T00:00:00+00:00" />
-<meta itemprop="wordCount" content="327">
-<meta itemprop="keywords" content="android,tips," /><meta property="og:title" content="Ubuntu下Android USB联机调试" />
-<meta property="og:description" content="Ubuntu usb conf for ADT" />
+<meta name="description" content="vim about file" /><meta itemprop="name" content="vim 文件相关操作(四)">
+<meta itemprop="description" content="vim about file"><meta itemprop="datePublished" content="2021-11-30T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-11-30T00:00:00+00:00" />
+<meta itemprop="wordCount" content="674">
+<meta itemprop="keywords" content="vim," /><meta property="og:title" content="vim 文件相关操作(四)" />
+<meta property="og:description" content="vim about file" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2014-09-29T00:00:00+00:00" />
-<meta property="article:modified_time" content="2014-09-29T00:00:00+00:00" /><meta property="og:site_name" content="Fable&#39;s blog" />
+<meta property="og:url" content="https://fabletang.github.io/posts/2021-11-30-vim_file/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-11-30T00:00:00+00:00" /><meta property="og:site_name" content="Fable&#39;s blog" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Ubuntu下Android USB联机调试"/>
-<meta name="twitter:description" content="Ubuntu usb conf for ADT"/>
+<meta name="twitter:title" content="vim 文件相关操作(四)"/>
+<meta name="twitter:description" content="vim about file"/>
 <link rel="preload" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.07ad648455397f5c659e27a6da52bb2341611ba98e56b44a8ab8756226ab44d3.js" integrity="sha256-B61khFU5f1xlniem2lK7I0FhG6mOVrRKirh1YiarRNM=" crossorigin="anonymous"></script></head>
   <body><script src="https://fabletang.github.io/js/bootstrap.min.b5d86dd3a5f60c90be38a252bb65fc1a2732f32e71dc12c051720f0c7aef3cde.js" integrity="sha256-tdht06X2DJC&#43;OKJSu2X8Gicy8y5x3BLAUXIPDHrvPN4=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
@@ -130,11 +130,11 @@
   </form>
   <div class="mt-2 social-share-buttons d-flex visually-hidden flex-nowrap">
     <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
-      target="_blank" href="https://twitter.com/intent/tweet?title=Ubuntu%e4%b8%8bAndroid%20USB%e8%81%94%e6%9c%ba%e8%b0%83%e8%af%95&url=https%3a%2f%2ffabletang.github.io%2fposts%2f2014-09-29-android-usb-ubunit%2f">
+      target="_blank" href="https://twitter.com/intent/tweet?title=vim%20%e6%96%87%e4%bb%b6%e7%9b%b8%e5%85%b3%e6%93%8d%e4%bd%9c%28%e5%9b%9b%29&url=https%3a%2f%2ffabletang.github.io%2fposts%2f2021-11-30-vim_file%2f">
       <i class="fab fa-fw fa-twitter"></i> Twitter
     </a>
     <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
-      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ffabletang.github.io%2fposts%2f2014-09-29-android-usb-ubunit%2f">
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ffabletang.github.io%2fposts%2f2021-11-30-vim_file%2f">
       <i class="fab fa-fw fa-facebook-f"></i> Facebook
     </a>
   </div>
@@ -185,7 +185,7 @@ Fable&#39;s Blog
 <div class="col-lg-8">
   <div class="container"><nav class="row card component" aria-label="breadcrumb">
   <div class="card-body">
-    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">Ubuntu下Android USB联机调试</li></ol>
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">vim 文件相关操作(四)</li></ol>
   </div>
 </nav><article class="post row card mb-4 component">
   <div class="card-body"><div class="post-panel-wrapper">
@@ -210,12 +210,12 @@ Fable&#39;s Blog
 </a>
   </div>
 </div>
-<h1 class="card-title my-3">Ubuntu下Android USB联机调试
+<h1 class="card-title my-3">vim 文件相关操作(四)
 </h1><div class="post-meta"><span class="post-date" title="created on">
-    <i class="fas fa-fw fa-calendar-alt"></i>2014-09-29
+    <i class="fas fa-fw fa-calendar-alt"></i>2021-11-30
   </span><span class="post-reading-time" title="reading time">
-    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
-  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/android/" class="post-taxonomy">android</a><a href="https://fabletang.github.io/tags/tips/" class="post-taxonomy">tips</a></div>
+    <i class="fas fa-fw fa-coffee"></i>2 分钟阅读
+  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy">vim</a></div>
 <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
   <div class="offcanvas-header">
     <h2 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
@@ -228,36 +228,83 @@ Fable&#39;s Blog
   <ul>
     <li>
       <ul>
-        <li></li>
+        <li><a href="#一vim-文件管理相关">一、vim 文件管理相关</a></li>
+        <li><a href="#二常用vim-文件操作">二、常用vim 文件操作</a></li>
       </ul>
     </li>
   </ul>
 </nav>
   </div>
-</div><div class="post-content mb-3"><p>环境说明:
-Ubuntu 14.04, android ADT 4.2.2<br>
-Linux 下 ADT usb联机调试出现 device unknown 的解决办法:</p>
-<h4 id="一使用lsusb命令查看设备的vendorid和productid">一、使用lsusb命令查看设备的vendorId和productId。</h4>
-<p>插入usb线前后用lsusb查看，找出多出的信息。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ lsusb
-Bus <span style="color:#ae81ff">003</span> Device 005: ID 0bb4:0c03 HTC <span style="color:#f92672">(</span>High Tech Computer Corp.<span style="color:#f92672">)</span>
-</code></pre></div><h4 id="二在etcudevrulesd目录下面新建一个规则文件-51-androidrules-添加一行">二、在/etc/udev/rules.d/目录下面新建一个规则文件 51-android.rules 添加一行</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">SUBSYSTEM<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;usb&#34;</span>,ATTRS <span style="color:#f92672">{</span>idVendor<span style="color:#f92672">}==</span><span style="color:#e6db74">&#34;0bb4&#34;</span>,ATTRS <span style="color:#f92672">{</span>idProduct<span style="color:#f92672">}==</span><span style="color:#e6db74">&#34;0c03&#34;</span>,MODE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0666&#34;</span>
-</code></pre></div><p>0666 表示对所有用户，开放adb所有权限</p>
-<h4 id="三-重启usb服务命令如下">三、 重启usb服务，命令如下：</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo service udev restart
-</code></pre></div><h4 id="四-重置adb-br">四、 重置ADB <!-- raw HTML omitted --></h4>
-<p>拔下USB与PC连接线，然后再次插上，进入Android-SDK根目录Platform-tools，运行命令:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$which adb
-$sudo ./adb kill-server
-$sudo ./adb devices
-</code></pre></div><!-- raw HTML omitted -->
-<h4 id="五-把adb命令加入环境变量">五、 把adb命令加入环境变量</h4>
-<p>查找adb所在路径</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$which adb
-</code></pre></div><p>编辑~/.bashrc文件,增加</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export PATH<span style="color:#f92672">=</span>.:$PATH:adb路径
-</code></pre></div><p>这样就不用每次进入adb目录了。</p>
+</div><div class="post-content mb-3"><h3 id="一vim-文件管理相关">一、vim 文件管理相关</h3>
+<h4 id="插件">插件:</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#75715e"> &#34; 文件管理插件             </span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;preservim/nerdtree&#39;</span>  <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;Xuyuanp/nerdtree-git-plugin&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"> &#34; 历史文件增强 :browse oldfiles</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;gpanders/vim-oldfiles&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h4 id="配置">配置:</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#75715e">&#34; NERDTree插件的快捷键</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nn</span> &lt;<span style="color:#a6e22e">silent</span>&gt; &lt;<span style="color:#a6e22e">F5</span>&gt; :<span style="color:#a6e22e">NERDTreeToggle</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;自动启动nerdtree</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">VimEnter</span> * <span style="color:#a6e22e">NERDTree</span> | <span style="color:#a6e22e">wincmd</span> <span style="color:#a6e22e">p</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:browse oldfiles 插件增强</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">b</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">Oldfiles</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; F2 通过打开的文件对齐树形目录</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nn</span> &lt;<span style="color:#a6e22e">silent</span>&gt;&lt;<span style="color:#a6e22e">F2</span>&gt; :<span style="color:#a6e22e">exec</span>(<span style="color:#e6db74">&#34;NERDTree &#34;</span>.<span style="color:#a6e22e">expand</span>(<span style="color:#e6db74">&#39;%:h&#39;</span>))&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Check if NERDTree is open or active,打开的文件自动定位目录</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">IsNERDTreeOpen</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">return</span> <span style="color:#a6e22e">exists</span>(<span style="color:#e6db74">&#34;t:NERDTreeBufName&#34;</span>) &amp;&amp; (<span style="color:#a6e22e">bufwinnr</span>(<span style="color:#a6e22e">t</span>:<span style="color:#a6e22e">NERDTreeBufName</span>) != <span style="color:#ae81ff">-1</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Call NERDTreeFind iff NERDTree is active, current window contains a modifiable</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; file, and we&#39;re not in vimdiff</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">SyncTree</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">if</span> &amp;<span style="color:#a6e22e">modifiable</span> &amp;&amp; <span style="color:#a6e22e">IsNERDTreeOpen</span>() &amp;&amp; <span style="color:#a6e22e">strlen</span>(<span style="color:#a6e22e">expand</span>(<span style="color:#e6db74">&#39;%&#39;</span>)) &gt; <span style="color:#ae81ff">0</span> &amp;&amp; !&amp;<span style="color:#a6e22e">diff</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">NERDTreeFind</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">wincmd</span> <span style="color:#a6e22e">p</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Highlight currently open buffer in NERDTree</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">BufEnter</span> * <span style="color:#a6e22e">call</span> <span style="color:#a6e22e">SyncTree</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">ToggleNerdTree</span>()<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">eventignore</span>=<span style="color:#a6e22e">BufEnter</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">NERDTreeToggle</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">eventignore</span>=<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; shortcuts to make it easier to jump between errors in quickfix list:</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">n</span>&gt; :<span style="color:#a6e22e">cnext</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">m</span>&gt; :<span style="color:#a6e22e">cprevious</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">o</span> :<span style="color:#a6e22e">copen</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">oo</span> :<span style="color:#a6e22e">cclose</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; like &lt;leader&gt;w saves the current file</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">mapleader</span> = <span style="color:#e6db74">&#34;,&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">mapleader</span> = <span style="color:#e6db74">&#34;,&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="二常用vim-文件操作">二、常用vim 文件操作</h3>
+<h4 id="1vim自带功能">1.vim自带功能</h4>
+<ul>
+<li>打开文件: shell命令 &ldquo;vim 路径/文件名&rdquo; 或者在vim中&quot;:e 路径/文件名&quot;</li>
+<li>写入文件: vim命令行 &ldquo;:w 文件名&rdquo;(无文件名则写入当前文件) 或者 &ldquo;<!-- raw HTML omitted -->w&rdquo;. 上面配置文件定义了&quot;,&ldquo;为<!-- raw HTML omitted -->.</li>
+<li>打开历史文件列表: &ldquo;:browse oldfiles&rdquo;,这个功能不好用，要翻页到最后输入要打开的文件数字。</li>
+<li>打开buffer文件列表: &ldquo;:ls&rdquo;</li>
+</ul>
+<h4 id="2插件功能">2.插件功能</h4>
+<h5 id="vim-oldfiles">vim-oldfiles</h5>
+<p> 历史文件增强插件,用来快速浏览曾经打开过的文件</p>
+<ul>
+<li>打开历史文件列表: &ldquo;<!-- raw HTML omitted -->b&quot;在quickfix窗口打开列表。</li>
+<li>选择文件:<!-- raw HTML omitted --> <!-- raw HTML omitted -->上下选择。</li>
+<li>关闭quickfix窗口: &ldquo;<!-- raw HTML omitted -->oo&rdquo;</li>
+</ul>
+<h5 id="nerdtree">nerdtree</h5>
+<p>  流行的文件管理插件,配置自动启动以及自动匹配打开文件所在目录。</p>
+<ul>
+<li>光标移动:  j/k</li>
+<li>找到当前目录: p</li>
+<li>目录切换: 切换到上级目录: u,进入当前目录 <!-- raw HTML omitted -->回车</li>
+<li>刷新当前目录: r</li>
+</ul>
 </div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content surface">
@@ -284,11 +331,16 @@ $sudo ./adb devices
     </div>
   </div>
 </div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
-  <div class="post-nav post-prev"><div class="post-nav post-next">
-    <a href="https://fabletang.github.io/posts/2014-09-30-android-studio-conf/">Android Studio 配置
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
 </a>
-    <i class="fas fa-fw fa-chevron-right"></i>
-  </div></div></div>
+  </div></div><section class="related-posts-wrapper">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-24-vim_conf/">vim 配置(二)
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-22-vim_tutor/">vim 入门(一)
+</a></li></ul>
+  </section></div>
 </article><div class="post-comments card row component">
   <div class="card-body"><script src="https://utteranc.es/client.js"
   repo="fabletang/fabletang.github.io"
