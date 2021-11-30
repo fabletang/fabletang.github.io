@@ -12,7 +12,7 @@
 <meta name="description" content="vim about file" /><meta itemprop="name" content="vim 文件相关(四)">
 <meta itemprop="description" content="vim about file"><meta itemprop="datePublished" content="2021-11-30T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-11-30T00:00:00+00:00" />
-<meta itemprop="wordCount" content="674">
+<meta itemprop="wordCount" content="712">
 <meta itemprop="keywords" content="vim," /><meta property="og:title" content="vim 文件相关(四)" />
 <meta property="og:description" content="vim about file" />
 <meta property="og:type" content="article" />
@@ -285,7 +285,7 @@ Fable&#39;s Blog
 <h4 id="1vim自带功能">1.vim自带功能</h4>
 <ul>
 <li>打开文件: shell命令 &ldquo;vim 路径/文件名&rdquo; 或者在vim中&quot;:e 路径/文件名&quot;</li>
-<li>写入文件: vim命令行 &ldquo;:w 文件名&rdquo;(无文件名则写入当前文件) 或者 &ldquo;<!-- raw HTML omitted -->w&rdquo;. 上面配置文件定义了&quot;,&ldquo;为<!-- raw HTML omitted -->.</li>
+<li>写入文件: vim命令行 &ldquo;:w 文件名&rdquo;(无文件名则写入当前文件) 或者 &ldquo;&lt;leader&gt;w&rdquo;. 上面配置文件定义了&quot;,&ldquo;为&lt;leader&gt;.</li>
 <li>打开历史文件列表: &ldquo;:browse oldfiles&rdquo;,这个功能不好用，要翻页到最后输入要打开的文件数字。</li>
 <li>打开buffer文件列表: &ldquo;:ls&rdquo;</li>
 </ul>
@@ -293,16 +293,16 @@ Fable&#39;s Blog
 <h5 id="vim-oldfiles">vim-oldfiles</h5>
 <p> 历史文件增强插件,用来快速浏览曾经打开过的文件</p>
 <ul>
-<li>打开历史文件列表: &ldquo;<!-- raw HTML omitted -->b&quot;在quickfix窗口打开列表。</li>
+<li>打开历史文件列表: &ldquo;&lt;leader&gt;b&quot;在quickfix窗口打开列表。</li>
 <li>选择文件:<!-- raw HTML omitted --> <!-- raw HTML omitted -->上下选择。</li>
-<li>关闭quickfix窗口: &ldquo;<!-- raw HTML omitted -->oo&rdquo;</li>
+<li>关闭quickfix窗口: &ldquo;&lt;leader&gt;oo&rdquo;</li>
 </ul>
 <h5 id="nerdtree">nerdtree</h5>
 <p>  流行的文件管理插件,配置自动启动以及自动匹配打开文件所在目录。</p>
 <ul>
 <li>光标移动:  j/k</li>
 <li>找到当前目录: p</li>
-<li>目录切换: 切换到上级目录: u,进入当前目录 <!-- raw HTML omitted -->回车</li>
+<li>目录切换: 切换到上级目录: u,进入当前目录 &lt;CR&gt;回车</li>
 <li>刷新当前目录: r</li>
 </ul>
 </div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
