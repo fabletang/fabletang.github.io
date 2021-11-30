@@ -1,7 +1,8 @@
 [en]
   LanguageName = "English"
   Weight = 1
-  contentDir = "content/en"
+  #contentDir = "content/en"
+  contentDir = "content/zh-cn"
 
 [zh-cn]
   LanguageName = "简体中文"

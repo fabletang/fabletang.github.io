@@ -72,11 +72,6 @@
     <lastmod>2021-11-24T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="zh-tw"
                 href="https://fabletang.github.io/zh-tw/posts/"
                 />
@@ -203,11 +198,6 @@
     <loc>https://fabletang.github.io/archives/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/archives/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="zh-tw"
                 href="https://fabletang.github.io/zh-tw/archives/"
                 />
@@ -218,11 +208,6 @@
                 />
   </url><url>
     <loc>https://fabletang.github.io/search/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/search/"
-                />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-tw"
