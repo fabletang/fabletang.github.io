@@ -12,7 +12,7 @@
 <meta name="description" content="vim config" /><meta itemprop="name" content="vim 配置(二)">
 <meta itemprop="description" content="vim config"><meta itemprop="datePublished" content="2021-11-24T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-11-24T00:00:00+00:00" />
-<meta itemprop="wordCount" content="4593">
+<meta itemprop="wordCount" content="4594">
 <meta itemprop="keywords" content="vim," /><meta property="og:title" content="vim 配置(二)" />
 <meta property="og:description" content="vim config" />
 <meta property="og:type" content="article" />
@@ -237,13 +237,14 @@ Fable&#39;s Blog
 </nav>
   </div>
 </div><div class="post-content mb-3"><h3 id="一vim安装插件管理器">一、vim安装插件管理器</h3>
-<p> 早期的vim插件需要在网站下载，然后复制到对应目录.（https://www.vim.org/scripts/index.php
- 受益于github的发展，用插件管理器(一般使用plug.vim)可以批量自动安装和更新插件。非常方便。
+<p> 早期的vim插件需要在网站下载，然后复制到对应目录.（https://www.vim.org/scripts/index.php)<br>
+ 受益于github的发展，用插件管理器(一般使用plug.vim)可以批量自动安装和更新插件。非常方便。<br>
  git clone <a href="https://github.com/junegunn/vim-plug," target="_blank" rel="noopener noreferrer">https://github.com/junegunn/vim-plug,</a>
 然后复制 plug.vim 到vim目录下的 autoload目录就完成了。</p>
 <h3 id="二vim配置文件">二、vim配置文件</h3>
 <h5 id="1vimrc位置目录">1.vimrc位置目录</h5>
-<p> vimrc是vim的总配置文件,windows下为vimrc,linux/macos为.vimrc。一般位于$HOME目录。启动vim,命令行输入:echo $HOME，就可以显示。在此目录下建立vimrc或者.vimrc文件。</p>
+<p> vimrc是vim的总配置文件,windows下为vimrc,linux/macos为.vimrc。<br>
+ 一般位于$HOME目录。启动vim,命令行输入:echo $HOME，就可以显示。在此目录下建立vimrc或者.vimrc文件。</p>
 <h5 id="2vimrc内容">2.vimrc内容</h5>
 <p> 此配置适用macos,其他系统需要少量适配，如果不使用golang,对应插件用&quot;号注释就可以。<br>
  配置中有简要说明.详细介绍请参考github或者本blog其他文章。</p>
