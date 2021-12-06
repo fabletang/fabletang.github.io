@@ -3,27 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>docker tips - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+    <title>Golang GMP调度 - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
 <link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
 <meta name="keywords" content="" />
-<meta name="description" content="docker 小技巧" /><meta itemprop="name" content="docker tips">
-<meta itemprop="description" content="docker 小技巧"><meta itemprop="datePublished" content="2017-09-16T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2017-09-16T00:00:00+00:00" />
-<meta itemprop="wordCount" content="160">
-<meta itemprop="keywords" content="docker,tips," /><meta property="og:title" content="docker tips" />
-<meta property="og:description" content="docker 小技巧" />
+<meta name="description" content="GMP for golang" /><meta itemprop="name" content="Golang GMP调度">
+<meta itemprop="description" content="GMP for golang"><meta itemprop="datePublished" content="2021-12-06T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-12-06T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1367">
+<meta itemprop="keywords" content="golang," /><meta property="og:title" content="Golang GMP调度" />
+<meta property="og:description" content="GMP for golang" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://fabletang.github.io/posts/2017-09-16-docker_tips/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2017-09-16T00:00:00+00:00" />
-<meta property="article:modified_time" content="2017-09-16T00:00:00+00:00" /><meta property="og:site_name" content="Fable&#39;s blog" />
+<meta property="og:url" content="https://fabletang.github.io/posts/2021-12-06-golang_gmp/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-12-06T00:00:00+00:00" /><meta property="og:site_name" content="Fable&#39;s blog" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="docker tips"/>
-<meta name="twitter:description" content="docker 小技巧"/>
+<meta name="twitter:title" content="Golang GMP调度"/>
+<meta name="twitter:description" content="GMP for golang"/>
 <link rel="preload" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.07ad648455397f5c659e27a6da52bb2341611ba98e56b44a8ab8756226ab44d3.js" integrity="sha256-B61khFU5f1xlniem2lK7I0FhG6mOVrRKirh1YiarRNM=" crossorigin="anonymous"></script></head>
   <body><script src="https://fabletang.github.io/js/bootstrap.min.b5d86dd3a5f60c90be38a252bb65fc1a2732f32e71dc12c051720f0c7aef3cde.js" integrity="sha256-tdht06X2DJC&#43;OKJSu2X8Gicy8y5x3BLAUXIPDHrvPN4=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
@@ -130,11 +130,11 @@
   </form>
   <div class="mt-2 social-share-buttons d-flex visually-hidden flex-nowrap">
     <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
-      target="_blank" href="https://twitter.com/intent/tweet?title=docker%20tips&url=https%3a%2f%2ffabletang.github.io%2fposts%2f2017-09-16-docker_tips%2f">
+      target="_blank" href="https://twitter.com/intent/tweet?title=Golang%20GMP%e8%b0%83%e5%ba%a6&url=https%3a%2f%2ffabletang.github.io%2fposts%2f2021-12-06-golang_gmp%2f">
       <i class="fab fa-fw fa-twitter"></i> Twitter
     </a>
     <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
-      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ffabletang.github.io%2fposts%2f2017-09-16-docker_tips%2f">
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ffabletang.github.io%2fposts%2f2021-12-06-golang_gmp%2f">
       <i class="fab fa-fw fa-facebook-f"></i> Facebook
     </a>
   </div>
@@ -185,7 +185,7 @@ Fable&#39;s Blog
 <div class="col-lg-8">
   <div class="container"><nav class="row card component" aria-label="breadcrumb">
   <div class="card-body">
-    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">docker tips</li></ol>
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">Golang GMP调度</li></ol>
   </div>
 </nav><article class="post row card mb-4 component">
   <div class="card-body"><div class="post-panel-wrapper">
@@ -205,41 +205,115 @@ Fable&#39;s Blog
 ">
   <i class="fas fa-fw fa-copyright"></i>
 </a>
-    
+    <a data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
   </div>
 </div>
-<h1 class="card-title my-3">docker tips
+<h1 class="card-title my-3">Golang GMP调度
 </h1><div class="post-meta"><span class="post-date" title="created on">
-    <i class="fas fa-fw fa-calendar-alt"></i>2017-09-16
+    <i class="fas fa-fw fa-calendar-alt"></i>2021-12-06
   </span><span class="post-reading-time" title="reading time">
-    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
-  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy">docker</a><a href="https://fabletang.github.io/tags/tips/" class="post-taxonomy">tips</a></div>
-<div class="post-content mb-3"><h4 id="一docker-rmi">一、docker rmi:</h4>
-<ol>
-<li>使用多个images id删除,前四位、空格区分</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker rmi 861b 7d51
-</code></pre></div><ol start="2">
-<li>过滤批量删除镜像, 对docker images 显示的行进行过滤。</li>
-</ol>
+    <i class="fas fa-fw fa-coffee"></i>3 分钟阅读
+  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy">golang</a></div>
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+      <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一gmp-调度器-的由来">一、GMP “调度器” 的由来</a></li>
+        <li><a href="#二gmp-定义">二、GMP 定义</a></li>
+        <li><a href="#三gmp-模型">三、GMP 模型</a></li>
+        <li><a href="#三gmp-设计策略">三、GMP 设计策略</a></li>
+        <li><a href="#四go-func--调度流程">四、go func () 调度流程</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h3 id="一gmp-调度器-的由来">一、GMP “调度器” 的由来</h3>
+<h5 id="单进程时代不需要调度器">单进程时代不需要调度器</h5>
+<p> 早期的操作系统每个程序就是一个进程，直到一个程序运行完，才能进行下一个进程，就是 “单进程时代”.自动化控制中的PLC也是典型的单进程操作系统。</p>
+<h5 id="多进程--线程时代有了调度器需求">多进程 / 线程时代有了调度器需求</h5>
+<p>&amp;esmp;典型的操作系统unix/linux,对进程/线程进行了管理。</p>
+<h5 id="goroutine是比线程更轻量级的协程">goroutine是比线程更轻量级的协程</h5>
+<p>&amp;esmp;goroutine是golang独有的概念,是为了更少的内存和cpu开销，比线程更加轻量，可以看作是线程的&quot;son&quot;.很明显操作系统管理不了，所以出现了GMP.</p>
+<h3 id="二gmp-定义">二、GMP 定义</h3>
+<p>  G=goroutine,M=mechine,P=processor.
+<img class="img-fluid" alt="image" src="https://fabletang.github.io/images/post/golang/GMP-define.webp" loading="lazy"
+   width="651" height="534"
+   />
+
+</p>
+<h3 id="三gmp-模型">三、GMP 模型</h3>
+<p> 在 Go 中，线程(M)是运行 goroutine 的实体，调度器的功能是把可运行的 goroutine 分配到工作线程上。
+<img class="img-fluid" alt="image" src="https://fabletang.github.io/images/post/golang/GMP-model.webp" loading="lazy"
+   width="1024" height="768"
+   />
+
+</p>
 <ul>
-<li>根据tag名删除</li>
+<li>全局队列（Global Queue）：存放等待运行的 G。</li>
+<li>P 的本地队列：同全局队列类似，存放的也是等待运行的 G，存的数量有限，不超过 256 个。新建 G时，G优先加入到 P 的本地队列，如果队列满了，则会把本地队列中一半的 G 移动到全局队列。</li>
+<li>P 列表：所有的 P 都在程序启动时创建，并保存在数组中，最多有 GOMAXPROCS(可配置) 个。</li>
+<li>M：线程想运行任务就得获取 P，从 P 的本地队列获取 G，P 队列为空时，M 也会尝试从全局队列拿一批 G 放到 P 的本地队列，或从其他 P 的本地队列偷一半放到自己 P 的本地队列。M 运行 G，G 执行之后，M 会从 P 获取下一个 G，不断重复下去。</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span style="color:#e6db74">&#34;fabletang/test-*&#34;</span> | awk <span style="color:#e6db74">&#34;{print \$3}&#34;</span><span style="color:#66d9ef">)</span>
-docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span style="color:#e6db74">&#34;&lt;none&gt;&#34;</span> | awk <span style="color:#e6db74">&#34;{print \$3}&#34;</span><span style="color:#66d9ef">)</span>
-</code></pre></div><ul>
-<li>根据版本号删除</li>
+<h3 id="三gmp-设计策略">三、GMP 设计策略</h3>
+<ul>
+<li>
+<p>复用线程：避免频繁的创建、销毁线程，而是对线程的复用。</p>
+<ul>
+<li>work stealing 机制<br>
+  当本线程无可运行的 G 时，尝试从其他线程绑定的 P 偷取 G，而不是销毁线程。</li>
+<li>hand off 机制<br>
+ 当本线程因为 G 进行系统调用阻塞时，线程释放绑定的 P，把 P 转移给其他空闲的线程执行。</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span style="color:#e6db74">&#34;0.0.1&#34;</span> | awk <span style="color:#e6db74">&#34;{print \$3}&#34;</span><span style="color:#66d9ef">)</span>
-</code></pre></div><ul>
-<li>根据Tag和版本号删除</li>
+</li>
+<li>
+<p>利用并行：GOMAXPROCS 设置 P 的数量，最多有 GOMAXPROCS 个线程分布在多个 CPU 上同时运行。GOMAXPROCS 也限制了并发的程度，比如 GOMAXPROCS = 核数/2，则最多利用了一半的 CPU 核进行并行。</p>
+</li>
+<li>
+<p>抢占：在 coroutine 中要等待一个协程主动让出 CPU 才执行下一个协程，在 Go 中，一个 goroutine 最多占用 CPU 10ms，防止其他 goroutine 被饿死，这就是 goroutine 不同于 coroutine 的一个地方。</p>
+</li>
+<li>
+<p>全局 G 队列：在新的调度器中依然有全局 G 队列，但功能已经被弱化了，当 M 执行 work stealing 从其他 P 偷不到 G 时，它可以从全局 G 队列获取 G。</p>
+</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span style="color:#e6db74">&#34;fabletang/service-java&#34;</span> | awk -F<span style="color:#e6db74">&#39; 0.&#39;</span> <span style="color:#e6db74">&#39;{if ($2&lt;0.6) print $0}&#39;</span> | awk <span style="color:#e6db74">&#34;{print \$3}&#34;</span><span style="color:#66d9ef">)</span>
-</code></pre></div><ul>
-<li>删除所有未运行 Docker 容器</li>
+<h3 id="四go-func--调度流程">四、go func () 调度流程</h3>
+<p><img class="img-fluid" alt="image" src="https://fabletang.github.io/images/post/golang/GMP-gofunc.webp" loading="lazy"
+   width="1240" height="698"
+   />
+
+</p>
+<p>从上图我们可以分析出几个结论：</p>
+<ul>
+<li>
+<p>1、我们通过 go func () 来创建一个 goroutine；</p>
+</li>
+<li>
+<p>2、有两个存储 G 的队列，一个是局部调度器 P 的本地队列、一个是全局 G 队列。新创建的 G 会先保存在 P 的本地队列中，如果 P 的本地队列已经满了就会保存在全局的队列中；</p>
+</li>
+<li>
+<p>3、G 只能运行在 M 中，一个 M 必须持有一个 P，M 与 P 是 1：1 的关系。M 会从 P 的本地队列弹出一个可执行状态的 G 来执行，如果 P 的本地队列为空，就会想其他的 MP 组合偷取一个可执行的 G 来执行；</p>
+</li>
+<li>
+<p>4、一个 M 调度 G 执行的过程是一个循环机制；</p>
+</li>
+<li>
+<p>5、当 M 执行某一个 G 时候如果发生了 syscall 或则其余阻塞操作，M 会阻塞，如果当前有一些 G 在执行，runtime 会把这个线程 M 从 P 中摘除 (detach)，然后再创建一个新的操作系统的线程 (如果有空闲的线程可用就复用空闲线程) 来服务于这个 P；</p>
+</li>
+<li>
+<p>6、当 M 系统调用结束时候，这个 G 会尝试获取一个空闲的 P 执行，并放入到这个 P 的本地队列。如果获取不到 P，那么这个线程 M 变成休眠状态， 加入到空闲线程中，然后这个 G 会被放入全局队列中。</p>
+</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker rm <span style="color:#66d9ef">$(</span>docker ps -a -q<span style="color:#66d9ef">)</span>
-</code></pre></div></div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+</div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content surface">
       <div class="modal-header">
@@ -266,17 +340,13 @@ docker rmi -f <span style="color:#66d9ef">$(</span>docker images | grep <span st
   </div>
 </div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
   <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
-    <a href="https://fabletang.github.io/posts/2017-09-01-docker_registry/">docker私有仓库搭建
+    <a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
 </a>
-  </div><div class="post-nav post-next">
-    <a href="https://fabletang.github.io/posts/2021-02-17-methodology_1/">技术管理-怎么学
-</a>
-    <i class="fas fa-fw fa-chevron-right"></i>
   </div></div><section class="related-posts-wrapper">
     <h3>相关文章</h3>
-    <ul class="related-posts"><li><a href="https://fabletang.github.io/posts/2017-09-01-docker_registry/">docker私有仓库搭建
-</a></li><li><a href="https://fabletang.github.io/posts/2014-09-30-android-studio-conf/">Android Studio 配置
-</a></li><li><a href="https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/">Ubuntu下Android USB联机调试
+    <ul class="related-posts"><li><a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/">Golang介绍
+</a></li><li><a href="https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/">Golang代码结构
 </a></li></ul>
   </section></div>
 </article><div class="post-comments card row component">

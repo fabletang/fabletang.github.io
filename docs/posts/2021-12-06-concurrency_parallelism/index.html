@@ -12,7 +12,7 @@
 <meta name="description" content="Concurency And Parallelism" /><meta itemprop="name" content="并发与并行">
 <meta itemprop="description" content="Concurency And Parallelism"><meta itemprop="datePublished" content="2021-12-06T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-12-06T00:00:00+00:00" />
-<meta itemprop="wordCount" content="692">
+<meta itemprop="wordCount" content="714">
 <meta itemprop="keywords" content="golang," /><meta property="og:title" content="并发与并行" />
 <meta property="og:description" content="Concurency And Parallelism" />
 <meta property="og:type" content="article" />
@@ -263,7 +263,7 @@ Fable&#39;s Blog
  golang在语言层面采用goroutine协程减少线程开销。</p>
 <ul>
 <li>协程：独立的栈空间，共享堆空间，调度由用户自己控制，本质上有点类似于用户级线程，这些用户级线程的调度也是自己实现的。</li>
-<li>线程：一个线程上可以跑多个协程，协程是轻量级的线程。</li>
+<li>线程：一个线程上可以跑多个协程，协程是轻量级的线程，多数情况下，每个线程至少需要占用内存1MB。</li>
 <li>每个goroutine协程4~5KB的栈内存占用, 采用GMP机制管理.</li>
 </ul>
 </div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
@@ -295,9 +295,14 @@ Fable&#39;s Blog
   <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
     <a href="https://fabletang.github.io/posts/2021-11-30-vim_file/">vim 文件相关(四)
 </a>
+  </div><div class="post-nav post-next">
+    <a href="https://fabletang.github.io/posts/2021-12-06-golang_gmp/">Golang GMP调度
+</a>
+    <i class="fas fa-fw fa-chevron-right"></i>
   </div></div><section class="related-posts-wrapper">
     <h3>相关文章</h3>
-    <ul class="related-posts"><li><a href="https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/">Golang介绍
+    <ul class="related-posts"><li><a href="https://fabletang.github.io/posts/2021-12-06-golang_gmp/">Golang GMP调度
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/">Golang介绍
 </a></li><li><a href="https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/">Golang代码结构
 </a></li></ul>
   </section></div>
@@ -326,11 +331,11 @@ Fable&#39;s Blog
   <section class="recent-posts row card component">
   <div class="card-body">
     <h2 class="card-title">最近文章</h2>
-    <ul><li><a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
+    <ul><li><a href="https://fabletang.github.io/posts/2021-12-06-golang_gmp/">Golang GMP调度
+</a></li><li><a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
 </a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_file/">vim 文件相关(四)
 </a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
 </a></li><li><a href="https://fabletang.github.io/posts/2021-11-24-vim_conf/">vim 配置(二)
-</a></li><li><a href="https://fabletang.github.io/posts/2021-11-22-vim_tutor/">vim 入门(一)
 </a></li></ul>
   </div>
 </section><section class="taxonomies row card component">
@@ -366,10 +371,10 @@ Fable&#39;s Blog
         <h2 class="card-title">
           <a href="https://fabletang.github.io/tags">标签</a>
         </h2>
-        <div><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vim">
-            vim
-          </a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="golang">
+        <div><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="golang">
             golang
+          </a><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vim">
+            vim
           </a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="practice">
             practice
           </a><a href="https://fabletang.github.io/tags/project/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="project">
