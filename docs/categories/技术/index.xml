@@ -6,7 +6,16 @@
     <description>Recent content in 技术 on Fable&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Tue, 30 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>并发与并行</title>
+      <link>https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/</link>
+      <pubDate>Mon, 06 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/</guid>
+      <description>为了让程序更好地利用计算机资源，出现了进程/线程，以及并发模式和并行模式的概念。 一、进程和线程 A. 进程是程序在操作系统中的一次执行过程，系统进</description>
+    </item>
+    
     <item>
       <title>vim 文件相关(四)</title>
       <link>https://fabletang.github.io/posts/2021-11-30-vim_file/</link>

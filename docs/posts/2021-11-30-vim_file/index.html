@@ -12,7 +12,7 @@
 <meta name="description" content="vim about file" /><meta itemprop="name" content="vim 文件相关(四)">
 <meta itemprop="description" content="vim about file"><meta itemprop="datePublished" content="2021-11-30T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-11-30T00:00:00+00:00" />
-<meta itemprop="wordCount" content="734">
+<meta itemprop="wordCount" content="750">
 <meta itemprop="keywords" content="vim," /><meta property="og:title" content="vim 文件相关(四)" />
 <meta property="og:description" content="vim about file" />
 <meta property="og:type" content="article" />
@@ -304,6 +304,7 @@ Fable&#39;s Blog
 <li>找到当前目录: p</li>
 <li>目录切换: 切换到上级目录: u,进入当前目录 &lt;CR&gt;回车</li>
 <li>刷新当前目录: r</li>
+<li>设置光标所在目录为顶层目录: C (shift+c)</li>
 </ul>
 </div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -334,6 +335,10 @@ Fable&#39;s Blog
   <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
     <a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
 </a>
+  </div><div class="post-nav post-next">
+    <a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
+</a>
+    <i class="fas fa-fw fa-chevron-right"></i>
   </div></div><section class="related-posts-wrapper">
     <h3>相关文章</h3>
     <ul class="related-posts"><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
@@ -366,11 +371,11 @@ Fable&#39;s Blog
   <section class="recent-posts row card component">
   <div class="card-body">
     <h2 class="card-title">最近文章</h2>
-    <ul><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_file/">vim 文件相关(四)
+    <ul><li><a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_file/">vim 文件相关(四)
 </a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
 </a></li><li><a href="https://fabletang.github.io/posts/2021-11-24-vim_conf/">vim 配置(二)
 </a></li><li><a href="https://fabletang.github.io/posts/2021-11-22-vim_tutor/">vim 入门(一)
-</a></li><li><a href="https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/">Golang介绍
 </a></li></ul>
   </div>
 </section><section class="taxonomies row card component">
@@ -391,10 +396,10 @@ Fable&#39;s Blog
         </h2>
         <div><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="工具">
             工具
-          </a><a href="https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="心得">
-            心得
           </a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="概念">
             概念
+          </a><a href="https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="心得">
+            心得
           </a><a href="https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="编程">
             编程
           </a><a href="https://fabletang.github.io/series/%E6%A1%86%E6%9E%B6/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="框架">
@@ -408,6 +413,8 @@ Fable&#39;s Blog
         </h2>
         <div><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vim">
             vim
+          </a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="golang">
+            golang
           </a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="practice">
             practice
           </a><a href="https://fabletang.github.io/tags/project/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="project">
@@ -418,8 +425,6 @@ Fable&#39;s Blog
             android
           </a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="docker">
             docker
-          </a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="golang">
-            golang
           </a><a href="https://fabletang.github.io/tags/java/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="java">
             java
           </a><a href="https://fabletang.github.io/tags/others/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="others">
