@@ -19,10 +19,10 @@ series = [
 &emsp;早期的操作系统每个程序就是一个进程，直到一个程序运行完，才能进行下一个进程，就是 “单进程时代”.自动化控制中的PLC也是典型的单进程操作系统。
 
 ##### 多进程 / 线程时代有了调度器需求
-&esmp;典型的操作系统unix/linux,对进程/线程进行了管理。
+&emsp;典型的操作系统unix/linux,对进程/线程进行了管理。
 
 ##### goroutine是比线程更轻量级的协程
-&esmp;goroutine是golang独有的概念,是为了更少的内存和cpu开销，比线程更加轻量，可以看作是线程的"son".很明显操作系统管理不了，所以出现了GMP.
+&emsp;goroutine是golang独有的概念,是为了更少的内存和cpu开销，比线程更加轻量，可以看作是线程的"son".很明显操作系统管理不了，所以出现了GMP.
 
 ### 二、GMP 定义
 &emsp; G=goroutine,M=mechine,P=processor.
@@ -44,7 +44,7 @@ series = [
   - hand off 机制  
   &emsp;当本线程因为 G 进行系统调用阻塞时，线程释放绑定的 P，把 P 转移给其他空闲的线程执行。
 
-- 利用并行：GOMAXPROCS 设置 P 的数量，最多有 GOMAXPROCS 个线程分布在多个 CPU 上同时运行。GOMAXPROCS 也限制了并发的程度，比如 GOMAXPROCS = 核数/2，则最多利用了一半的 CPU 核进行并行。
+- 利用并行：GOMAXPROCS 设置 P 的数量，最多有 GOMAXPROCS 个线程分布在多个 CPU 上同时运行。GOMAXPROCS 也限制了并发的程度，比如 GOMAXPROCS = 核数/2，则最多利用了一半的 CPU 核进行并行。golang 1.5+版本后，默认GOMAXPOCS=cpu总核数.
 
 - 抢占：在 coroutine 中要等待一个协程主动让出 CPU 才执行下一个协程，在 Go 中，一个 goroutine 最多占用 CPU 10ms，防止其他 goroutine 被饿死，这就是 goroutine 不同于 coroutine 的一个地方。
 
