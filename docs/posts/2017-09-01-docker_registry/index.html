@@ -24,9 +24,9 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="docker私有仓库搭建"/>
 <meta name="twitter:description" content="docker registry 2"/>
-<link rel="preload" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.07ad648455397f5c659e27a6da52bb2341611ba98e56b44a8ab8756226ab44d3.js" integrity="sha256-B61khFU5f1xlniem2lK7I0FhG6mOVrRKirh1YiarRNM=" crossorigin="anonymous"></script></head>
-  <body><script src="https://fabletang.github.io/js/bootstrap.min.b5d86dd3a5f60c90be38a252bb65fc1a2732f32e71dc12c051720f0c7aef3cde.js" integrity="sha256-tdht06X2DJC&#43;OKJSu2X8Gicy8y5x3BLAUXIPDHrvPN4=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+<link rel="preload" href="https://fabletang.github.io/css/bundle.min.e365f7bedd89b1aa152cc3ee28f42da5cf2fa0e59fe9fd0dc125b31b0c21779f.css" integrity="sha256-42X3vt2JsaoVLMPuKPQtpc8voOWf6f0NwSWzGwwhd58=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.e365f7bedd89b1aa152cc3ee28f42da5cf2fa0e59fe9fd0dc125b31b0c21779f.css" integrity="sha256-42X3vt2JsaoVLMPuKPQtpc8voOWf6f0NwSWzGwwhd58=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.fa70441bc4ee29ab82a90aa5832b3699a1907927bd3187d8d9e311d69c4cef9b.js" integrity="sha256-&#43;nBEG8TuKauCqQqlgys2maGQeSe9MYfY2eMR1pxM75s=" crossorigin="anonymous"></script></head>
+  <body><script src="https://fabletang.github.io/js/bootstrap.min.062c2e66b557cb779d59cedff7e0cc76e84beb665a1076e474e87d940be44245.js" integrity="sha256-BiwuZrVXy3edWc7f9&#43;DMduhL62ZaEHbkdOh9lAvkQkU=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
   <div class="container">
     <button class="navbar-settings me-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
   aria-controls="offcanvasSettings" aria-label="Toggle settings">
@@ -216,53 +216,53 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy">docker</a></div>
 <div class="post-content mb-3"><p>环境:centos7,docker 1.12+，registry 2.</p>
 <h4 id="一准备工作">一、准备工作:</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir /data/docker-registry
-mkdir /data/docker-registry-auth
-</code></pre></div><h4 id="二安全设置">二、安全设置:</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir /data/docker-registry
+</span></span><span style="display:flex;"><span>mkdir /data/docker-registry-auth
+</span></span></code></pre></div><h4 id="二安全设置">二、安全设置:</h4>
 <p>生成 http 密码文件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run --entrypoint htpasswd registry:2 -Bbn anycloud <span style="color:#e6db74">&#39;123&#39;</span>&gt; /data/docker-registry-auth/htpasswd
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">获取 SSL 证书
-git clone https://github.com/letsencrypt/letsencrypt
-cd letsencrypt
-./letsencrypt-auto --help
-./letsencrypt-auto certonly --standalone -d &lt;HOST&gt;
-</code></pre></div><h4 id="三启动">三、启动:</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --entrypoint htpasswd registry:2 -Bbn anycloud <span style="color:#e6db74">&#39;123&#39;</span>&gt; /data/docker-registry-auth/htpasswd
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>获取 SSL 证书
+</span></span><span style="display:flex;"><span>git clone https://github.com/letsencrypt/letsencrypt
+</span></span><span style="display:flex;"><span>cd letsencrypt
+</span></span><span style="display:flex;"><span>./letsencrypt-auto --help
+</span></span><span style="display:flex;"><span>./letsencrypt-auto certonly --standalone -d &lt;HOST&gt;
+</span></span></code></pre></div><h4 id="三启动">三、启动:</h4>
 <p>新增systemd守护服务,内容如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat /etc/systemd/system/multi-user.target.wants/docker-registry.service
-
-<span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
-Description<span style="color:#f92672">=</span>registry
-Requires<span style="color:#f92672">=</span>docker.service
-After<span style="color:#f92672">=</span>docker.target
-
-<span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
-Restart<span style="color:#f92672">=</span>always
-RestartSec<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>
-TimeoutStartSec<span style="color:#f92672">=</span>5min
-ExecStartPre<span style="color:#f92672">=</span>-/usr/bin/docker kill registry
-ExecStart<span style="color:#f92672">=</span>/usr/bin/docker run -p 5000:5000 --name registry <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-v /data/docker-registry-auth/:/certs <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-e REGISTRY_HTTP_TLS_CERTIFICATE<span style="color:#f92672">=</span>/certs/fullchain.pem <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-e REGISTRY_HTTP_TLS_KEY<span style="color:#f92672">=</span>/certs/privkey.pem <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-e REGISTRY_STORAGE_DELETE_ENABLED<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-v /data/docker-registry-auth/:/auth <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-e <span style="color:#e6db74">&#34;REGISTRY_AUTH=htpasswd&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-e <span style="color:#e6db74">&#34;REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-e REGISTRY_AUTH_HTPASSWD_PATH<span style="color:#f92672">=</span>/auth/htpasswd <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-e REGISTRY_STORAGE_DELETE_ENABLED<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-v /data/docker-registry/:/var/lib/registry <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>registry:2
-
-ExecStartPost<span style="color:#f92672">=</span>-/usr/bin/docker rm registry
-ExecStop<span style="color:#f92672">=</span>/usr/bin/docker stop registry
-ExecStopPost<span style="color:#f92672">=</span>-/usr/bin/docker rm registry
-
-<span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
-WantedBy<span style="color:#f92672">=</span>multi-user.target
-</code></pre></div><p>启动registry</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">systemctl daemon-reload
-systemctl start docker-registry
-</code></pre></div><h4 id="四检验">四、检验:</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/systemd/system/multi-user.target.wants/docker-registry.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span>registry
+</span></span><span style="display:flex;"><span>Requires<span style="color:#f92672">=</span>docker.service
+</span></span><span style="display:flex;"><span>After<span style="color:#f92672">=</span>docker.target
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Restart<span style="color:#f92672">=</span>always
+</span></span><span style="display:flex;"><span>RestartSec<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>TimeoutStartSec<span style="color:#f92672">=</span>5min
+</span></span><span style="display:flex;"><span>ExecStartPre<span style="color:#f92672">=</span>-/usr/bin/docker kill registry
+</span></span><span style="display:flex;"><span>ExecStart<span style="color:#f92672">=</span>/usr/bin/docker run -p 5000:5000 --name registry <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-v /data/docker-registry-auth/:/certs <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e REGISTRY_HTTP_TLS_CERTIFICATE<span style="color:#f92672">=</span>/certs/fullchain.pem <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e REGISTRY_HTTP_TLS_KEY<span style="color:#f92672">=</span>/certs/privkey.pem <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e REGISTRY_STORAGE_DELETE_ENABLED<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-v /data/docker-registry-auth/:/auth <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e <span style="color:#e6db74">&#34;REGISTRY_AUTH=htpasswd&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e <span style="color:#e6db74">&#34;REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e REGISTRY_AUTH_HTPASSWD_PATH<span style="color:#f92672">=</span>/auth/htpasswd <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e REGISTRY_STORAGE_DELETE_ENABLED<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-v /data/docker-registry/:/var/lib/registry <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>registry:2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ExecStartPost<span style="color:#f92672">=</span>-/usr/bin/docker rm registry
+</span></span><span style="display:flex;"><span>ExecStop<span style="color:#f92672">=</span>/usr/bin/docker stop registry
+</span></span><span style="display:flex;"><span>ExecStopPost<span style="color:#f92672">=</span>-/usr/bin/docker rm registry
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>WantedBy<span style="color:#f92672">=</span>multi-user.target
+</span></span></code></pre></div><p>启动registry</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start docker-registry
+</span></span></code></pre></div><h4 id="四检验">四、检验:</h4>
 <p>浏览器 https://localhost:5000/v2/
 密码登入,假如 显示 {} 之类的json文本,则说明成功。</p>
 </div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
@@ -324,11 +324,11 @@ systemctl start docker-registry
   <section class="recent-posts row card component">
   <div class="card-body">
     <h2 class="card-title">最近文章</h2>
-    <ul><li><a href="https://fabletang.github.io/posts/2021-12-06-golang_gmp/">Golang GMP调度
+    <ul><li><a href="https://fabletang.github.io/posts/2023-04-14-tbtest/">微信to-淘宝
+</a></li><li><a href="https://fabletang.github.io/posts/2021-12-06-golang_gmp/">Golang GMP调度
 </a></li><li><a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
-</a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_file/">vim 文件相关(四)
 </a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
-</a></li><li><a href="https://fabletang.github.io/posts/2021-11-24-vim_conf/">vim 配置(二)
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_file/">vim 文件相关(四)
 </a></li></ul>
   </div>
 </section><section class="taxonomies row card component">
@@ -397,7 +397,7 @@ systemctl start docker-registry
         <i class="fa-fw fa-2x fab fa-github"></i>
       </a></nav>
 <div class="copyright mb-2">
-  Copyright © 2016-2021 Fable Tang. All Rights Reserved.
+  Copyright © 2016-2023 Fable Tang. All Rights Reserved.
 </div>
 </footer>
 

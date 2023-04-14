@@ -12,7 +12,7 @@
 <meta name="description" content="vim about file" /><meta itemprop="name" content="vim 文件相关(四)">
 <meta itemprop="description" content="vim about file"><meta itemprop="datePublished" content="2021-11-30T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-11-30T00:00:00+00:00" />
-<meta itemprop="wordCount" content="750">
+<meta itemprop="wordCount" content="687">
 <meta itemprop="keywords" content="vim," /><meta property="og:title" content="vim 文件相关(四)" />
 <meta property="og:description" content="vim about file" />
 <meta property="og:type" content="article" />
@@ -24,9 +24,9 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="vim 文件相关(四)"/>
 <meta name="twitter:description" content="vim about file"/>
-<link rel="preload" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.07ad648455397f5c659e27a6da52bb2341611ba98e56b44a8ab8756226ab44d3.js" integrity="sha256-B61khFU5f1xlniem2lK7I0FhG6mOVrRKirh1YiarRNM=" crossorigin="anonymous"></script></head>
-  <body><script src="https://fabletang.github.io/js/bootstrap.min.b5d86dd3a5f60c90be38a252bb65fc1a2732f32e71dc12c051720f0c7aef3cde.js" integrity="sha256-tdht06X2DJC&#43;OKJSu2X8Gicy8y5x3BLAUXIPDHrvPN4=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+<link rel="preload" href="https://fabletang.github.io/css/bundle.min.e365f7bedd89b1aa152cc3ee28f42da5cf2fa0e59fe9fd0dc125b31b0c21779f.css" integrity="sha256-42X3vt2JsaoVLMPuKPQtpc8voOWf6f0NwSWzGwwhd58=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.e365f7bedd89b1aa152cc3ee28f42da5cf2fa0e59fe9fd0dc125b31b0c21779f.css" integrity="sha256-42X3vt2JsaoVLMPuKPQtpc8voOWf6f0NwSWzGwwhd58=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.fa70441bc4ee29ab82a90aa5832b3699a1907927bd3187d8d9e311d69c4cef9b.js" integrity="sha256-&#43;nBEG8TuKauCqQqlgys2maGQeSe9MYfY2eMR1pxM75s=" crossorigin="anonymous"></script></head>
+  <body><script src="https://fabletang.github.io/js/bootstrap.min.062c2e66b557cb779d59cedff7e0cc76e84beb665a1076e474e87d940be44245.js" integrity="sha256-BiwuZrVXy3edWc7f9&#43;DMduhL62ZaEHbkdOh9lAvkQkU=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
   <div class="container">
     <button class="navbar-settings me-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
   aria-controls="offcanvasSettings" aria-label="Toggle settings">
@@ -237,51 +237,51 @@ Fable&#39;s Blog
   </div>
 </div><div class="post-content mb-3"><h3 id="一vim-文件管理相关">一、vim 文件管理相关</h3>
 <h4 id="插件">插件:</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#75715e"> &#34; 文件管理插件             </span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;preservim/nerdtree&#39;</span>  <span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;Xuyuanp/nerdtree-git-plugin&#39;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"> &#34; 历史文件增强 :browse oldfiles</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;gpanders/vim-oldfiles&#39;</span><span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><h4 id="配置">配置:</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#75715e">&#34; NERDTree插件的快捷键</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nn</span> &lt;<span style="color:#a6e22e">silent</span>&gt; &lt;<span style="color:#a6e22e">F5</span>&gt; :<span style="color:#a6e22e">NERDTreeToggle</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;自动启动nerdtree</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">VimEnter</span> * <span style="color:#a6e22e">NERDTree</span> | <span style="color:#a6e22e">wincmd</span> <span style="color:#a6e22e">p</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:browse oldfiles 插件增强</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">b</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">Oldfiles</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; F2 通过打开的文件对齐树形目录</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nn</span> &lt;<span style="color:#a6e22e">silent</span>&gt;&lt;<span style="color:#a6e22e">F2</span>&gt; :<span style="color:#a6e22e">exec</span>(<span style="color:#e6db74">&#34;NERDTree &#34;</span>.<span style="color:#a6e22e">expand</span>(<span style="color:#e6db74">&#39;%:h&#39;</span>))&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Check if NERDTree is open or active,打开的文件自动定位目录</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">IsNERDTreeOpen</span>()<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">return</span> <span style="color:#a6e22e">exists</span>(<span style="color:#e6db74">&#34;t:NERDTreeBufName&#34;</span>) &amp;&amp; (<span style="color:#a6e22e">bufwinnr</span>(<span style="color:#a6e22e">t</span>:<span style="color:#a6e22e">NERDTreeBufName</span>) != <span style="color:#ae81ff">-1</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Call NERDTreeFind iff NERDTree is active, current window contains a modifiable</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; file, and we&#39;re not in vimdiff</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">SyncTree</span>()<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">if</span> &amp;<span style="color:#a6e22e">modifiable</span> &amp;&amp; <span style="color:#a6e22e">IsNERDTreeOpen</span>() &amp;&amp; <span style="color:#a6e22e">strlen</span>(<span style="color:#a6e22e">expand</span>(<span style="color:#e6db74">&#39;%&#39;</span>)) &gt; <span style="color:#ae81ff">0</span> &amp;&amp; !&amp;<span style="color:#a6e22e">diff</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">NERDTreeFind</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">wincmd</span> <span style="color:#a6e22e">p</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Highlight currently open buffer in NERDTree</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">BufEnter</span> * <span style="color:#a6e22e">call</span> <span style="color:#a6e22e">SyncTree</span>()<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">ToggleNerdTree</span>()<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">eventignore</span>=<span style="color:#a6e22e">BufEnter</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">NERDTreeToggle</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">eventignore</span>=<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
-</span><span style="color:#75715e">&#34; shortcuts to make it easier to jump between errors in quickfix list:</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">n</span>&gt; :<span style="color:#a6e22e">cnext</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">m</span>&gt; :<span style="color:#a6e22e">cprevious</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">o</span> :<span style="color:#a6e22e">copen</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">oo</span> :<span style="color:#a6e22e">cclose</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
-</span><span style="color:#75715e">&#34; like &lt;leader&gt;w saves the current file</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">mapleader</span> = <span style="color:#e6db74">&#34;,&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">mapleader</span> = <span style="color:#e6db74">&#34;,&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><h3 id="二常用vim-文件操作">二、常用vim 文件操作</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#75715e"> &#34; 文件管理插件             </span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;preservim/nerdtree&#39;</span>  <span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;Xuyuanp/nerdtree-git-plugin&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"> &#34; 历史文件增强 :browse oldfiles</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;gpanders/vim-oldfiles&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><h4 id="配置">配置:</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#75715e">&#34; NERDTree插件的快捷键</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nn</span> &lt;<span style="color:#a6e22e">silent</span>&gt; &lt;<span style="color:#a6e22e">F5</span>&gt; :<span style="color:#a6e22e">NERDTreeToggle</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;自动启动nerdtree</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">VimEnter</span> * <span style="color:#a6e22e">NERDTree</span> | <span style="color:#a6e22e">wincmd</span> <span style="color:#a6e22e">p</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34;:browse oldfiles 插件增强</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nmap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">b</span> &lt;<span style="color:#a6e22e">Plug</span>&gt;(<span style="color:#a6e22e">Oldfiles</span>)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; F2 通过打开的文件对齐树形目录</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nn</span> &lt;<span style="color:#a6e22e">silent</span>&gt;&lt;<span style="color:#a6e22e">F2</span>&gt; :<span style="color:#a6e22e">exec</span>(<span style="color:#e6db74">&#34;NERDTree &#34;</span>.<span style="color:#a6e22e">expand</span>(<span style="color:#e6db74">&#39;%:h&#39;</span>))&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Check if NERDTree is open or active,打开的文件自动定位目录</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">IsNERDTreeOpen</span>()<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">return</span> <span style="color:#a6e22e">exists</span>(<span style="color:#e6db74">&#34;t:NERDTreeBufName&#34;</span>) &amp;&amp; (<span style="color:#a6e22e">bufwinnr</span>(<span style="color:#a6e22e">t</span>:<span style="color:#a6e22e">NERDTreeBufName</span>) != <span style="color:#ae81ff">-1</span>)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Call NERDTreeFind iff NERDTree is active, current window contains a modifiable</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; file, and we&#39;re not in vimdiff</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">SyncTree</span>()<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">if</span> &amp;<span style="color:#a6e22e">modifiable</span> &amp;&amp; <span style="color:#a6e22e">IsNERDTreeOpen</span>() &amp;&amp; <span style="color:#a6e22e">strlen</span>(<span style="color:#a6e22e">expand</span>(<span style="color:#e6db74">&#39;%&#39;</span>)) &gt; <span style="color:#ae81ff">0</span> &amp;&amp; !&amp;<span style="color:#a6e22e">diff</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">NERDTreeFind</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#a6e22e">wincmd</span> <span style="color:#a6e22e">p</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">endif</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Highlight currently open buffer in NERDTree</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">autocmd</span> <span style="color:#a6e22e">BufEnter</span> * <span style="color:#a6e22e">call</span> <span style="color:#a6e22e">SyncTree</span>()<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span> <span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>! <span style="color:#a6e22e">ToggleNerdTree</span>()<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">eventignore</span>=<span style="color:#a6e22e">BufEnter</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">NERDTreeToggle</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">eventignore</span>=<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">endfunction</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">&#34; shortcuts to make it easier to jump between errors in quickfix list:</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">n</span>&gt; :<span style="color:#a6e22e">cnext</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">m</span>&gt; :<span style="color:#a6e22e">cprevious</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">o</span> :<span style="color:#a6e22e">copen</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">oo</span> :<span style="color:#a6e22e">cclose</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">&#34; like &lt;leader&gt;w saves the current file</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">mapleader</span> = <span style="color:#e6db74">&#34;,&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">g</span>:<span style="color:#a6e22e">mapleader</span> = <span style="color:#e6db74">&#34;,&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><h3 id="二常用vim-文件操作">二、常用vim 文件操作</h3>
 <h4 id="1vim自带功能">1.vim自带功能</h4>
 <ul>
 <li>打开文件: shell命令 &ldquo;vim 路径/文件名&rdquo; 或者在vim中&quot;:e 路径/文件名&quot;</li>
@@ -333,10 +333,10 @@ Fable&#39;s Blog
   </div>
 </div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
   <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
-    <a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
+    <a href="https://fabletang.github.io/posts/2021-11-24-vim_conf/">vim 配置(二)
 </a>
   </div><div class="post-nav post-next">
-    <a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
+    <a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
 </a>
     <i class="fas fa-fw fa-chevron-right"></i>
   </div></div><section class="related-posts-wrapper">
@@ -371,11 +371,11 @@ Fable&#39;s Blog
   <section class="recent-posts row card component">
   <div class="card-body">
     <h2 class="card-title">最近文章</h2>
-    <ul><li><a href="https://fabletang.github.io/posts/2021-12-06-golang_gmp/">Golang GMP调度
+    <ul><li><a href="https://fabletang.github.io/posts/2023-04-14-tbtest/">微信to-淘宝
+</a></li><li><a href="https://fabletang.github.io/posts/2021-12-06-golang_gmp/">Golang GMP调度
 </a></li><li><a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
-</a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_file/">vim 文件相关(四)
 </a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
-</a></li><li><a href="https://fabletang.github.io/posts/2021-11-24-vim_conf/">vim 配置(二)
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_file/">vim 文件相关(四)
 </a></li></ul>
   </div>
 </section><section class="taxonomies row card component">
@@ -444,7 +444,7 @@ Fable&#39;s Blog
         <i class="fa-fw fa-2x fab fa-github"></i>
       </a></nav>
 <div class="copyright mb-2">
-  Copyright © 2016-2021 Fable Tang. All Rights Reserved.
+  Copyright © 2016-2023 Fable Tang. All Rights Reserved.
 </div>
 </footer>
 

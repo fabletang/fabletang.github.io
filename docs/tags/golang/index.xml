@@ -6,7 +6,16 @@
     <description>Recent content in golang on Fable&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Mon, 06 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 14 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>微信to-淘宝</title>
+      <link>https://fabletang.github.io/posts/2023-04-14-tbtest/</link>
+      <pubDate>Fri, 14 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2023-04-14-tbtest/</guid>
+      <description>链接 (https://m.tb.cn/h.UsUePG8 ) [1] youjiangaoshan [2] lulu</description>
+    </item>
+    
     <item>
       <title>Golang GMP调度</title>
       <link>https://fabletang.github.io/posts/2021-12-06-golang_gmp/</link>

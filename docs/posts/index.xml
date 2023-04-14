@@ -6,7 +6,16 @@
     <description>Recent content in 文章 on Fable&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Mon, 06 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 14 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>微信to-淘宝</title>
+      <link>https://fabletang.github.io/posts/2023-04-14-tbtest/</link>
+      <pubDate>Fri, 14 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2023-04-14-tbtest/</guid>
+      <description>链接 (https://m.tb.cn/h.UsUePG8 ) [1] youjiangaoshan [2] lulu</description>
+    </item>
+    
     <item>
       <title>Golang GMP调度</title>
       <link>https://fabletang.github.io/posts/2021-12-06-golang_gmp/</link>
@@ -26,21 +35,21 @@
     </item>
     
     <item>
-      <title>vim 文件相关(四)</title>
-      <link>https://fabletang.github.io/posts/2021-11-30-vim_file/</link>
-      <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://fabletang.github.io/posts/2021-11-30-vim_file/</guid>
-      <description>一、vim 文件管理相关 插件: &amp;#34; 文件管理插件 Plug &amp;#39;preservim/nerdtree&amp;#39; Plug &amp;#39;Xuyuanp/nerdtree-git-plugin&amp;#39;&amp;#34; 历史文件增强 :browse oldfiles Plug &amp;#39;gpanders/vim-oldfiles&amp;#39;配置: &amp;#34; N</description>
-    </item>
-    
-    <item>
       <title>vim 窗口相关(三)</title>
       <link>https://fabletang.github.io/posts/2021-11-30-vim_windows/</link>
       <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2021-11-30-vim_windows/</guid>
       <description>一、vim 窗口类别 1.文本窗口: 主窗口，文本区。 2.buffer窗口: vim运行期间的缓冲文件列表。关闭后清零。 打开: &amp;ldquo;:ls&amp;rdquo; 关闭: &amp;lt;ESC</description>
+    </item>
+    
+    <item>
+      <title>vim 文件相关(四)</title>
+      <link>https://fabletang.github.io/posts/2021-11-30-vim_file/</link>
+      <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2021-11-30-vim_file/</guid>
+      <description>一、vim 文件管理相关 插件: &amp;#34; 文件管理插件 Plug &amp;#39;preservim/nerdtree&amp;#39; Plug &amp;#39;Xuyuanp/nerdtree-git-plugin&amp;#39; &amp;#34; 历史文件增强 :browse oldfiles Plug &amp;#39;gpanders/vim-oldfiles&amp;#39; 配置: &amp;#34; NERDTree插件的快捷键 nn &amp;lt;silent&amp;gt; &amp;lt;F5&amp;gt; :NERDTreeToggle&amp;lt;CR&amp;gt; &amp;#34;自动启动ner</description>
     </item>
     
     <item>

@@ -24,9 +24,9 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Android Studio 配置"/>
 <meta name="twitter:description" content="Android Studio"/>
-<link rel="preload" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.0687ddc8fe4a0959f7b5492cf776a19ded348369ddc6d3e84fd623bc97efcb32.css" integrity="sha256-BofdyP5KCVn3tUks93ahne00g2ndxtPoT9YjvJfvyzI=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.07ad648455397f5c659e27a6da52bb2341611ba98e56b44a8ab8756226ab44d3.js" integrity="sha256-B61khFU5f1xlniem2lK7I0FhG6mOVrRKirh1YiarRNM=" crossorigin="anonymous"></script></head>
-  <body><script src="https://fabletang.github.io/js/bootstrap.min.b5d86dd3a5f60c90be38a252bb65fc1a2732f32e71dc12c051720f0c7aef3cde.js" integrity="sha256-tdht06X2DJC&#43;OKJSu2X8Gicy8y5x3BLAUXIPDHrvPN4=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+<link rel="preload" href="https://fabletang.github.io/css/bundle.min.e365f7bedd89b1aa152cc3ee28f42da5cf2fa0e59fe9fd0dc125b31b0c21779f.css" integrity="sha256-42X3vt2JsaoVLMPuKPQtpc8voOWf6f0NwSWzGwwhd58=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.e365f7bedd89b1aa152cc3ee28f42da5cf2fa0e59fe9fd0dc125b31b0c21779f.css" integrity="sha256-42X3vt2JsaoVLMPuKPQtpc8voOWf6f0NwSWzGwwhd58=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.fa70441bc4ee29ab82a90aa5832b3699a1907927bd3187d8d9e311d69c4cef9b.js" integrity="sha256-&#43;nBEG8TuKauCqQqlgys2maGQeSe9MYfY2eMR1pxM75s=" crossorigin="anonymous"></script></head>
+  <body><script src="https://fabletang.github.io/js/bootstrap.min.062c2e66b557cb779d59cedff7e0cc76e84beb665a1076e474e87d940be44245.js" integrity="sha256-BiwuZrVXy3edWc7f9&#43;DMduhL62ZaEHbkdOh9lAvkQkU=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
   <div class="container">
     <button class="navbar-settings me-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
   aria-controls="offcanvasSettings" aria-label="Toggle settings">
@@ -245,19 +245,19 @@ Ubuntu /Windows, android studio 0.8.6+<br>
 <p>这个是编码错误，用笨办法，右键出错文件，enconding GBK, 然后再 UTF-8.</p>
 <h4 id="二编译通过但是联机调试出现上传错误提示xxjar重复copy">二、编译通过，但是联机调试出现上传错误，提示XX.jar重复copy.</h4>
 <p>这个是studio本身bug, 在 app下的build.gradle 的 android {&hellip;}内加入</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">packagingOptions</span> {
-      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/DEPENDENCIES.txt&#39;</span>
-      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/LICENSE.txt&#39;</span>
-      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/NOTICE.txt&#39;</span>
-      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/NOTICE&#39;</span>
-      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/LICENSE&#39;</span>
-      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/DEPENDENCIES&#39;</span>
-      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/notice.txt&#39;</span>
-      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/license.txt&#39;</span>
-      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/dependencies.txt&#39;</span>
-      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/LGPL2.1&#39;</span>
-  }
-</code></pre></div><h4 id="三localproperties-是定义-sdkdir-和-ndkdir需要根据本机andoird-jdk情况调整">三、local.properties 是定义 sdk.dir 和 ndk.dir.需要根据本机andoird jdk情况调整。</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">packagingOptions</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/DEPENDENCIES.txt&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/LICENSE.txt&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/NOTICE.txt&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/NOTICE&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/LICENSE&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/DEPENDENCIES&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/notice.txt&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/license.txt&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/dependencies.txt&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">exclude</span> <span style="color:#960050;background-color:#1e0010">&#39;META-INF/LGPL2.1&#39;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><h4 id="三localproperties-是定义-sdkdir-和-ndkdir需要根据本机andoird-jdk情况调整">三、local.properties 是定义 sdk.dir 和 ndk.dir.需要根据本机andoird jdk情况调整。</h4>
 <h4 id="四jni-相关的问题">四、JNI 相关的问题:</h4>
 <ul>
 <li>
@@ -268,12 +268,12 @@ Ubuntu /Windows, android studio 0.8.6+<br>
 <p>JNI生成的.so打包apk。.so位于 libs/armeabi 目录,在 app下的build.gradle 的 android {&hellip;}内加入</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">sourceSets</span> {
-       <span style="color:#960050;background-color:#1e0010">main</span> <span style="color:#960050;background-color:#1e0010">{</span>
-           <span style="color:#960050;background-color:#1e0010">jniLibs.srcDirs</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#960050;background-color:#1e0010">[&#39;libs&#39;]</span>
-       }
-   <span style="color:#960050;background-color:#1e0010">}</span>
-</code></pre></div></div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">sourceSets</span> {
+</span></span><span style="display:flex;"><span>       <span style="color:#960050;background-color:#1e0010">main</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#960050;background-color:#1e0010">jniLibs.srcDirs</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#960050;background-color:#1e0010">[&#39;libs&#39;]</span>
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>   <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span></code></pre></div></div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content surface">
       <div class="modal-header">
@@ -336,11 +336,11 @@ Ubuntu /Windows, android studio 0.8.6+<br>
   <section class="recent-posts row card component">
   <div class="card-body">
     <h2 class="card-title">最近文章</h2>
-    <ul><li><a href="https://fabletang.github.io/posts/2021-12-06-golang_gmp/">Golang GMP调度
+    <ul><li><a href="https://fabletang.github.io/posts/2023-04-14-tbtest/">微信to-淘宝
+</a></li><li><a href="https://fabletang.github.io/posts/2021-12-06-golang_gmp/">Golang GMP调度
 </a></li><li><a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
-</a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_file/">vim 文件相关(四)
 </a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
-</a></li><li><a href="https://fabletang.github.io/posts/2021-11-24-vim_conf/">vim 配置(二)
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-30-vim_file/">vim 文件相关(四)
 </a></li></ul>
   </div>
 </section><section class="taxonomies row card component">
@@ -409,7 +409,7 @@ Ubuntu /Windows, android studio 0.8.6+<br>
         <i class="fa-fw fa-2x fab fa-github"></i>
       </a></nav>
 <div class="copyright mb-2">
-  Copyright © 2016-2021 Fable Tang. All Rights Reserved.
+  Copyright © 2016-2023 Fable Tang. All Rights Reserved.
 </div>
 </footer>
 
