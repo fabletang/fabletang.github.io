@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://fabletang.github.io/</loc>
-    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -20,11 +20,11 @@
                 href="https://fabletang.github.io/"
                 />
   </url><url>
-    <loc>https://fabletang.github.io/tags/golang/</loc>
-    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+    <loc>https://fabletang.github.io/tags/vscode/</loc>
+    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/tags/</loc>
-    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -42,7 +42,7 @@
                 />
   </url><url>
     <loc>https://fabletang.github.io/categories/</loc>
-    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -59,17 +59,17 @@
                 href="https://fabletang.github.io/categories/"
                 />
   </url><url>
-    <loc>https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/</loc>
-    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+    <loc>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://fabletang.github.io/posts/2023-04-14-tbtest/</loc>
-    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+    <loc>https://fabletang.github.io/posts/2023-05-30-vscode-golang/</loc>
+    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/posts/</loc>
-    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-tw"
@@ -82,7 +82,7 @@
                 />
   </url><url>
     <loc>https://fabletang.github.io/series/</loc>
-    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -99,6 +99,15 @@
                 href="https://fabletang.github.io/series/"
                 />
   </url><url>
+    <loc>https://fabletang.github.io/tags/golang/</loc>
+    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/</loc>
+    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabletang.github.io/posts/2023-04-14-tbtest/</loc>
+    <lastmod>2023-04-14T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://fabletang.github.io/posts/2021-12-06-golang_gmp/</loc>
     <lastmod>2021-12-06T00:00:00+00:00</lastmod>
   </url><url>
@@ -112,9 +121,6 @@
     <lastmod>2021-11-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/posts/2021-11-30-vim_file/</loc>
-    <lastmod>2021-11-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2021-11-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabletang.github.io/posts/2021-11-24-vim_conf/</loc>
