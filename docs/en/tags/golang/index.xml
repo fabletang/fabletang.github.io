@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang on 知行合一</title>
+    <link>https://fabletang.github.io/en/tags/golang/</link>
+    <description>Recent content in golang on 知行合一</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
+    <lastBuildDate>Fri, 14 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>微信to-淘宝</title>
+      <link>https://fabletang.github.io/en/posts/2023-04-14-tbtest/</link>
+      <pubDate>Fri, 14 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2023-04-14-tbtest/</guid>
+      <description> 此h5只是验证lulu技术可行性，点击 http://vip100.ltd/Qt0vVjBc 相当于下图立即购买按钮 此h5只是验证lulu技术可行性，点击 https://m.tb.cn/h.UsUePG8 相当于下图立即购买按钮 [1] youjiangaoshan [2] lulu </description>
+    </item>
+    
+    <item>
+      <title>Golang GMP调度</title>
+      <link>https://fabletang.github.io/en/posts/2021-12-06-golang_gmp/</link>
+      <pubDate>Mon, 06 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-12-06-golang_gmp/</guid>
+      <description>一、GMP “调度器” 的由来 单进程时代不需要调度器 早期的操作系统每个程序就是一个进程，直到一个程序运行完，才能进行下一个进程，就是 “单进程时代”.自动化控制中的PLC也是典型的单进程操作系统。
+多进程 / 线程时代有了调度器需求 典型的操作系统unix/linux,对进程/线程进行了管理。
+goroutine是比线程更轻量级的协程 goroutine是golang独有的概念,是为了更少的内存和cpu开销，比线程更加轻量，可以看作是线程的&amp;quot;son&amp;quot;.很明显操作系统管理不了，所以出现了GMP.
+二、GMP 定义 G=goroutine,M=mechine,P=processor. 三、GMP 模型 在 Go 中，线程(M)是运行 goroutine 的实体，调度器的功能是把可运行的 goroutine 分配到工作线程上。 全局队列（Global Queue）：存放等待运行的 G。 P 的本地队列：同全局队列类似，存放的也是等待运行的 G，存的数量有限，不超过 256 个。新建 G时，G优先加入到 P 的本地队列，如果队列满了，则会把本地队列中一半的 G 移动到全局队列。 P 列表：所有的 P 都在程序启动时创建，并保存在数组中，最多有 GOMAXPROCS(可配置) 个。 M：线程想运行任务就得获取 P，从 P 的本地队列获取 G，P 队列为空时，M 也会尝试从全局队列拿一批 G 放到 P 的本地队列，或从其他 P 的本地队列偷一半放到自己 P 的本地队列。M 运行 G，G 执行之后，M 会从 P 获取下一个 G，不断重复下去。 三、GMP 设计策略 复用线程：避免频繁的创建、销毁线程，而是对线程的复用。
+work stealing 机制</description>
+    </item>
+    
+    <item>
+      <title>并发与并行</title>
+      <link>https://fabletang.github.io/en/posts/2021-12-06-concurrency_parallelism/</link>
+      <pubDate>Mon, 06 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-12-06-concurrency_parallelism/</guid>
+      <description>为了让程序更好地利用计算机资源，出现了进程/线程，以及并发模式和并行模式的概念。
+一、进程和线程 A. 进程是程序在操作系统中的一次执行过程，系统进行资源分配和调度的一个独立单位。 B. 线程是进程的一个执行实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位。 C. 一个进程可以创建和撤销多个线程;同一个进程中的多个线程之间可以并发执行。 二、并发和并行 A. 多线程程序在一个核的cpu上运行，就是并发。 B. 多线程程序在多个核的cpu上运行，就是并行。
+如图所示: 三、并发和并行的效率比较 如上图所示，假定任务A/B/C均衡分配，并行效率更高，因为并发切换线程需要cpu开销(图中树立的双虚线)。
+但是为什么绝大多少操作系统，应用程序采用并发的机制呢？因为并行和并发是以CPU来区分，大多数场景下，需要磁盘IO、网络IO，这些IO耗时远远大于cpu耗时,所以大部分情况下并发更能充分利用计算机资源。超级计算机，比如银河超级计算机，这类计算机专注于CPU计算，所以采用并行的操作系统和程序。
+四、协程和线程 随着互联网的发展，C10k问题（即单机 10000 个并发连接）出现了。CPU硬件发展不能再遵守摩尔定律,1万个线程切换的耗时变得不能承受.操作系统层面，采用epoll类似的IO多路复用技术来减少线程数.
+golang在语言层面采用goroutine协程减少线程开销。
+协程：独立的栈空间，共享堆空间，调度由用户自己控制，本质上有点类似于用户级线程，这些用户级线程的调度也是自己实现的。 线程：一个线程上可以跑多个协程，协程是轻量级的线程，多数情况下，每个线程至少需要占用内存1MB。 每个goroutine协程2KB的栈内存占用, 采用GMP机制管理. </description>
+    </item>
+    
+    <item>
+      <title>Golang介绍</title>
+      <link>https://fabletang.github.io/en/posts/2021-11-18-introduce_of_golang/</link>
+      <pubDate>Thu, 18 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-11-18-introduce_of_golang/</guid>
+      <description>目前golang最新版本为1.17.3，经过12年的发展，生态已经成熟。
+Go是一门工程语言 go诞生的初衷就是解决c/c++的各种弊端，提高生产力。
+go编译速度极快，相对于c++/rust,10倍以上编译速度。 go fmt 代码格式化,代码风格统一。 自动垃圾搜集。简化c/c++的内存管理。 单一执行文件。 Go与其他语言的区别 Go vs Java: Go有内存垃圾自动处理，无虚拟机。 Go无对象编程的类class的概念，更强调struct（类似C）. Go的对象继承是“鸭子原理&amp;quot;,Java是“血缘关系&amp;quot;. Go vs C: Go无宏定义.兼容C。基本上可以用C的风格来写Go代码。 Go vs C++: C++ 20是一门现代语言，有非常多的特性，Go语言是以C为参考的，所以大多数特性Go都不具备，比如虚函数等。 Go vs Rust: Rust是在Go诞生后出现的，Go语法简单，Rust语法复杂。Rust强调严格的内存安全，Go的自动垃圾搜集是宽松的内存管理。Rust具备大多数现代语言特性，其复杂性与C++相当。 Go vs javascript/typescript/php: Go 是强类型语言，性能高很多。 Go的优势 语法简洁 简洁不意味简单，但是编码效率高,清晰易懂也减少维护成本。 性能优异 性能介于c++/rust 与 Java之间。2倍以上java性能。 生态丰富，开发效率高 基础类库多,经过12年的发展，驱动/扩展库也多 开发工具成熟,包管理go mod,编程IDE:goland/vscode/vim-go 开发资料丰富，常见问题大部分已经可以baidu/google. 建议掌握的编程要点 多值返回 函数式编程 单元测试 goroutine sync channel reflect context库 web框架gin Generic泛型(go 1.18) ORM框架 gomybatis log组件 zap 配置组件 viper </description>
+    </item>
+    
+    <item>
+      <title>Golang代码结构</title>
+      <link>https://fabletang.github.io/en/posts/2017-05-01-the_struct_of_go_project/</link>
+      <pubDate>Mon, 01 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2017-05-01-the_struct_of_go_project/</guid>
+      <description>Go的设计思想是代码至上，依赖于代码而不是象其它语言依赖于编译好的库。尽管go的版本号已经到1.8.1了,但是还没没有好的package版本管理策略。1.6推出的vender只是稍微缓解了困境,只有寄希望与将来的1.9版本了。Go的代码结构不同于其它语言的地方,以java为对照:
+代码文件位于src目录 假如GOPATH对应项目goprojectstruct,代码文件应该处于 goprojectstruct/src目录内.
+Go无class的概念 Go无对象编程的类class的概念。所以代码文件名称可以随意定义，但是一般位于package目录,一般与package同名，但是拆分成几个文件也是可以的。
+代码文件/package名为小写 Java文件名一般为大写。Go以简单为宗旨，显然小写字母要简单,也符合go的定义，小写代表私有private，大写代表公开public。
+单元测试文件 单元测试文件与被测试文件处于同一目录，文件名追加&amp;quot;_test&amp;quot;,比如 hello.go的测试文件为 hello_test.go.
+引用库位于vender 所有外来引入的package都应该处于vender目录下。.gitignore也应该忽略vender目录。以此保持代码结构的精简。
+package版本管理 在go1.9之前，推荐采用glide来管理。</description>
+    </item>
+    
+  </channel>
+</rss>

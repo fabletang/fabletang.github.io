@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vim on 知行合一</title>
+    <link>https://fabletang.github.io/en/tags/vim/</link>
+    <description>Recent content in vim on 知行合一</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
+    <lastBuildDate>Tue, 30 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vim 文件相关(四)</title>
+      <link>https://fabletang.github.io/en/posts/2021-11-30-vim_file/</link>
+      <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-11-30-vim_file/</guid>
+      <description>一、vim 文件管理相关 插件: &amp;#34; 文件管理插件 Plug &amp;#39;preservim/nerdtree&amp;#39; Plug &amp;#39;Xuyuanp/nerdtree-git-plugin&amp;#39; &amp;#34; 历史文件增强 :browse oldfiles Plug &amp;#39;gpanders/vim-oldfiles&amp;#39; 配置: &amp;#34; NERDTree插件的快捷键 nn &amp;lt;silent&amp;gt; &amp;lt;F5&amp;gt; :NERDTreeToggle&amp;lt;CR&amp;gt; &amp;#34;自动启动nerdtree autocmd VimEnter * NERDTree | wincmd p &amp;#34;:browse oldfiles 插件增强 nmap &amp;lt;leader&amp;gt;b &amp;lt;Plug&amp;gt;(Oldfiles) &amp;#34; F2 通过打开的文件对齐树形目录 nn &amp;lt;silent&amp;gt;&amp;lt;F2&amp;gt; :exec(&amp;#34;NERDTree &amp;#34;.expand(&amp;#39;%:h&amp;#39;))&amp;lt;CR&amp;gt; &amp;#34; Check if NERDTree is open or active,打开的文件自动定位目录 function! IsNERDTreeOpen() return exists(&amp;#34;t:NERDTreeBufName&amp;#34;) &amp;amp;&amp;amp; (bufwinnr(t:NERDTreeBufName) != -1) endfunction &amp;#34; Call NERDTreeFind iff NERDTree is active, current window contains a modifiable &amp;#34; file, and we&amp;#39;re not in vimdiff function!</description>
+    </item>
+    
+    <item>
+      <title>vim 窗口相关(三)</title>
+      <link>https://fabletang.github.io/en/posts/2021-11-30-vim_windows/</link>
+      <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-11-30-vim_windows/</guid>
+      <description>一、vim 窗口类别 1.文本窗口: 主窗口，文本区。
+2.buffer窗口: vim运行期间的缓冲文件列表。关闭后清零。 打开: &amp;ldquo;:ls&amp;rdquo; 关闭: &amp;lt;ESC&amp;gt;或者选择一个文件序号自动关闭 3. quickfix窗口: 运行结果显示等。也有插件利用这个窗口显示文件列表。 打开: &amp;ldquo;&amp;lt;leader&amp;gt;o&amp;rdquo;,此快捷键参照配置文件定义。 &amp;lt;leader&amp;gt;为&amp;quot;,&amp;quot; 关闭: 按提示&amp;lt;CR&amp;gt;回车，或者 &amp;ldquo;&amp;lt;leader&amp;gt;oo&amp;rdquo;. 参照配置文件。 &amp;lt;leader&amp;gt;配置:
+&amp;#34; like &amp;lt;leader&amp;gt;w saves the current file let mapleader = &amp;#34;,&amp;#34; let g:mapleader = &amp;#34;,&amp;#34; 4. nerdtree窗口: nerdtree插件非常流行，用来文件管理。
+&amp;#34; NERDTree插件的快捷键 nn &amp;lt;silent&amp;gt; &amp;lt;F5&amp;gt; :NERDTreeToggle&amp;lt;CR&amp;gt; 打开/关闭: &amp;lt;F5&amp;gt;切换,一般配置为自动打开。 退出: 切换到nerdtree窗口然后&amp;quot;q&amp;quot; 二、vim 窗口切换: 见配置,ctrl键盘+jkhl:
+&amp;#34; Smart way to move between windows map &amp;lt;C-j&amp;gt; &amp;lt;C-W&amp;gt;j map &amp;lt;C-k&amp;gt; &amp;lt;C-W&amp;gt;k map &amp;lt;C-h&amp;gt; &amp;lt;C-W&amp;gt;h map &amp;lt;C-l&amp;gt; &amp;lt;C-W&amp;gt;l </description>
+    </item>
+    
+    <item>
+      <title>vim 配置(二)</title>
+      <link>https://fabletang.github.io/en/posts/2021-11-24-vim_conf/</link>
+      <pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-11-24-vim_conf/</guid>
+      <description>一、vim安装插件管理器 早期的vim插件需要在网站下载，然后复制到对应目录.（https://www.vim.org/scripts/index.php)
+受益于github的发展，用插件管理器(一般使用plug.vim)可以批量自动安装和更新插件。非常方便。
+git clone https://github.com/junegunn/vim-plug ,然后复制 plug.vim 到vim目录下的 autoload目录就完成了。
+二、vim配置文件 1.vimrc位置目录 vimrc是vim的总配置文件,windows下为vimrc,linux/macos为.vimrc。
+一般位于$HOME目录。启动vim,命令行输入:echo $HOME，就可以显示。在此目录下建立vimrc或者.vimrc文件。
+2.vimrc内容 此配置适用macos,其他系统需要少量适配，如果不使用golang,对应插件用&amp;quot;号注释就可以。
+配置中有简要说明.详细介绍请参考github或者本blog其他文章。
+filetype off &amp;#34; required syntax on &amp;#34;安装 plug插件管理器 &amp;#34;curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &amp;#34;然后运行:PlugInstall ,如果遇到下载失败按键R重新执行 call plug#begin(&amp;#39;~/.vim/plugged&amp;#39;) Plug &amp;#39;fatih/vim-go&amp;#39; Plug &amp;#39;buoto/gotests-vim&amp;#39; Plug &amp;#39;maralla/completor.vim&amp;#39; Plug &amp;#39;preservim/tagbar&amp;#39; &amp;#34; 快速注释,自动检测语法 Plug &amp;#39;preservim/nerdcommenter&amp;#39; &amp;#34; 文件管理插件 Plug &amp;#39;preservim/nerdtree&amp;#39; Plug &amp;#39;Xuyuanp/nerdtree-git-plugin&amp;#39; &amp;#34;Plug &amp;#39;ryanoasis/vim-devicons&amp;#39; &amp;#34;git状态显示 Plug &amp;#39;airblade/vim-gitgutter&amp;#39; &amp;#34;Plug &amp;#39;mhinz/vim-signify&amp;#39; &amp;#34;文件查找 Plug &amp;#39;kien/ctrlp.vim&amp;#39; &amp;#34;文本搜索 Plug &amp;#39;dkprice/vim-easygrep&amp;#39; &amp;#34;颜色风格 Plug &amp;#39;tomasr/molokai&amp;#39; &amp;#34;括号自动补全 Plug &amp;#39;Townk/vim-autoclose&amp;#39; &amp;#34;Plug &amp;#39;Valloric/YouCompleteMe&amp;#39; &amp;#34;代码模版快速生成 Plug &amp;#39;SirVer/ultisnips&amp;#39; Plug &amp;#39;honza/vim-snippets&amp;#39; &amp;#34;代码自动补全 Plug &amp;#39;Shougo/neocomplete.</description>
+    </item>
+    
+    <item>
+      <title>vim 入门(一)</title>
+      <link>https://fabletang.github.io/en/posts/2021-11-22-vim_tutor/</link>
+      <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-11-22-vim_tutor/</guid>
+      <description>一、vim起源 vim至今30年历史了，vim是&amp;quot;Vi Improved&amp;quot;的缩写，由vi发展而来.
+vi是unix系统默认编辑器，当时没有鼠标，键盘的按键也较少，比如方向键/Cap等就没有。所以当时的人们(主要是贝尔实验室)创造一个纯键盘的文字编辑器。意外的是，经过几十年的验证，纯粹键盘操作比居然比鼠标更加便捷高效。
+甚至有vim狂热喜爱者喊出口号：世上的编辑器分两种，一种是vim，一种是其他。^_^
+二、vim介绍 以下vim默认为vim8.1+版本。
+1.vim界面 通常的vim界面如下图。左边是文件列表(nerdtree插件效果)，右底下是quickfix区域，一般显示查找运行结果/查找结果列表之类。右边面积最大的为文本编辑区。 2.vim模式 模式是为了让vim知道当前的按键是文本输入还是其他操作功能(光标移动/标签等等).常用四种模式,如下图。
+可以观察到，任何情况下，按esc键就回到普通模式了。所以esc键使用频率非常高（甚至有人专门发明esc脚踏板）。 三、vim学习 1.vim安装 建议安装GUI图形界面的vim,文本渲染比控制台下的要快一点。
+windows: https://www.vim.org/download.php#pc macos: https://github.com/macvim-dev/macvim/releases 2.vim练习 网上有大量vim入门教程，但是建议用vim自带的vimtutor学习。vim键盘命令非常多，死记硬背是比较难的，结合教程，在使用中记忆，让肌肉形成条件反射。3-5天就比较熟练了。在控制台(console)提示符下，输入vimtutor,或者vim命令模式下:vimtutor,注意键盘要切换为英文小写。如下图: 四、vim常用键盘命令图 </description>
+    </item>
+    
+  </channel>
+</rss>

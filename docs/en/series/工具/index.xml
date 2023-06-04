@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>工具 on 知行合一</title>
+    <link>https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/</link>
+    <description>Recent content in 工具 on 知行合一</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
+    <lastBuildDate>Tue, 30 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>为Go开发配置vscode</title>
+      <link>https://fabletang.github.io/en/posts/2023-05-30-vscode-golang/</link>
+      <pubDate>Tue, 30 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2023-05-30-vscode-golang/</guid>
+      <description>1. 安装 Go 按照以下步骤安装 Go：
+在 Web 浏览器中，转到 “go.dev/doc/install”。 下载操作系统的版本。 下载后，运行安装程序。 打开命令提示符，然后运行 go version 以确认已安装 Go。 2. 安装Visual Studio Code 按照以下步骤安装Visual Studio Code：
+在 Web 浏览器中，转到 “code.visualstudio.com”。 3. 安装 Go 扩展 在“Visual Studio Code”中，单击活动栏中的“扩展”图标，打开“扩展”视图。 或者 (Ctrl+Shift+X) 使用键盘快捷方式。 搜索 Go 扩展，然后选择“安装” 4. 更新 Go 工具 在Visual Studio Code中，打开命令面板的“帮助&amp;gt;显示所有命令”。 或者使用键盘快捷方式 (Ctrl+Shift+P) Go: Install/Update tools搜索，然后从托盘运行命令 出现提示时，选择所有可用的 Go 工具，然后单击“确定”。 等待 Go 工具完成更新。 5. 编写示例 Go 程序 在Visual Studio Code中，打开将在其中创建 Go 应用程序的根目录的文件夹。 若要打开文件夹，请单击活动栏中的“资源管理器”图标，然后单击“ 打开文件夹”。 单击“资源管理器”面板中的“ 新建文件夹 ”，然后为名为“Go”的示例应用程序创建根控制器 sample-app 单击资源管理器面板中的“ 新建文件 ”，然后为文件命名 main.</description>
+    </item>
+    
+    <item>
+      <title>vim 文件相关(四)</title>
+      <link>https://fabletang.github.io/en/posts/2021-11-30-vim_file/</link>
+      <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-11-30-vim_file/</guid>
+      <description>一、vim 文件管理相关 插件: &amp;#34; 文件管理插件 Plug &amp;#39;preservim/nerdtree&amp;#39; Plug &amp;#39;Xuyuanp/nerdtree-git-plugin&amp;#39; &amp;#34; 历史文件增强 :browse oldfiles Plug &amp;#39;gpanders/vim-oldfiles&amp;#39; 配置: &amp;#34; NERDTree插件的快捷键 nn &amp;lt;silent&amp;gt; &amp;lt;F5&amp;gt; :NERDTreeToggle&amp;lt;CR&amp;gt; &amp;#34;自动启动nerdtree autocmd VimEnter * NERDTree | wincmd p &amp;#34;:browse oldfiles 插件增强 nmap &amp;lt;leader&amp;gt;b &amp;lt;Plug&amp;gt;(Oldfiles) &amp;#34; F2 通过打开的文件对齐树形目录 nn &amp;lt;silent&amp;gt;&amp;lt;F2&amp;gt; :exec(&amp;#34;NERDTree &amp;#34;.expand(&amp;#39;%:h&amp;#39;))&amp;lt;CR&amp;gt; &amp;#34; Check if NERDTree is open or active,打开的文件自动定位目录 function! IsNERDTreeOpen() return exists(&amp;#34;t:NERDTreeBufName&amp;#34;) &amp;amp;&amp;amp; (bufwinnr(t:NERDTreeBufName) != -1) endfunction &amp;#34; Call NERDTreeFind iff NERDTree is active, current window contains a modifiable &amp;#34; file, and we&amp;#39;re not in vimdiff function!</description>
+    </item>
+    
+    <item>
+      <title>vim 窗口相关(三)</title>
+      <link>https://fabletang.github.io/en/posts/2021-11-30-vim_windows/</link>
+      <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-11-30-vim_windows/</guid>
+      <description>一、vim 窗口类别 1.文本窗口: 主窗口，文本区。
+2.buffer窗口: vim运行期间的缓冲文件列表。关闭后清零。 打开: &amp;ldquo;:ls&amp;rdquo; 关闭: &amp;lt;ESC&amp;gt;或者选择一个文件序号自动关闭 3. quickfix窗口: 运行结果显示等。也有插件利用这个窗口显示文件列表。 打开: &amp;ldquo;&amp;lt;leader&amp;gt;o&amp;rdquo;,此快捷键参照配置文件定义。 &amp;lt;leader&amp;gt;为&amp;quot;,&amp;quot; 关闭: 按提示&amp;lt;CR&amp;gt;回车，或者 &amp;ldquo;&amp;lt;leader&amp;gt;oo&amp;rdquo;. 参照配置文件。 &amp;lt;leader&amp;gt;配置:
+&amp;#34; like &amp;lt;leader&amp;gt;w saves the current file let mapleader = &amp;#34;,&amp;#34; let g:mapleader = &amp;#34;,&amp;#34; 4. nerdtree窗口: nerdtree插件非常流行，用来文件管理。
+&amp;#34; NERDTree插件的快捷键 nn &amp;lt;silent&amp;gt; &amp;lt;F5&amp;gt; :NERDTreeToggle&amp;lt;CR&amp;gt; 打开/关闭: &amp;lt;F5&amp;gt;切换,一般配置为自动打开。 退出: 切换到nerdtree窗口然后&amp;quot;q&amp;quot; 二、vim 窗口切换: 见配置,ctrl键盘+jkhl:
+&amp;#34; Smart way to move between windows map &amp;lt;C-j&amp;gt; &amp;lt;C-W&amp;gt;j map &amp;lt;C-k&amp;gt; &amp;lt;C-W&amp;gt;k map &amp;lt;C-h&amp;gt; &amp;lt;C-W&amp;gt;h map &amp;lt;C-l&amp;gt; &amp;lt;C-W&amp;gt;l </description>
+    </item>
+    
+    <item>
+      <title>vim 配置(二)</title>
+      <link>https://fabletang.github.io/en/posts/2021-11-24-vim_conf/</link>
+      <pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-11-24-vim_conf/</guid>
+      <description>一、vim安装插件管理器 早期的vim插件需要在网站下载，然后复制到对应目录.（https://www.vim.org/scripts/index.php)
+受益于github的发展，用插件管理器(一般使用plug.vim)可以批量自动安装和更新插件。非常方便。
+git clone https://github.com/junegunn/vim-plug ,然后复制 plug.vim 到vim目录下的 autoload目录就完成了。
+二、vim配置文件 1.vimrc位置目录 vimrc是vim的总配置文件,windows下为vimrc,linux/macos为.vimrc。
+一般位于$HOME目录。启动vim,命令行输入:echo $HOME，就可以显示。在此目录下建立vimrc或者.vimrc文件。
+2.vimrc内容 此配置适用macos,其他系统需要少量适配，如果不使用golang,对应插件用&amp;quot;号注释就可以。
+配置中有简要说明.详细介绍请参考github或者本blog其他文章。
+filetype off &amp;#34; required syntax on &amp;#34;安装 plug插件管理器 &amp;#34;curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &amp;#34;然后运行:PlugInstall ,如果遇到下载失败按键R重新执行 call plug#begin(&amp;#39;~/.vim/plugged&amp;#39;) Plug &amp;#39;fatih/vim-go&amp;#39; Plug &amp;#39;buoto/gotests-vim&amp;#39; Plug &amp;#39;maralla/completor.vim&amp;#39; Plug &amp;#39;preservim/tagbar&amp;#39; &amp;#34; 快速注释,自动检测语法 Plug &amp;#39;preservim/nerdcommenter&amp;#39; &amp;#34; 文件管理插件 Plug &amp;#39;preservim/nerdtree&amp;#39; Plug &amp;#39;Xuyuanp/nerdtree-git-plugin&amp;#39; &amp;#34;Plug &amp;#39;ryanoasis/vim-devicons&amp;#39; &amp;#34;git状态显示 Plug &amp;#39;airblade/vim-gitgutter&amp;#39; &amp;#34;Plug &amp;#39;mhinz/vim-signify&amp;#39; &amp;#34;文件查找 Plug &amp;#39;kien/ctrlp.vim&amp;#39; &amp;#34;文本搜索 Plug &amp;#39;dkprice/vim-easygrep&amp;#39; &amp;#34;颜色风格 Plug &amp;#39;tomasr/molokai&amp;#39; &amp;#34;括号自动补全 Plug &amp;#39;Townk/vim-autoclose&amp;#39; &amp;#34;Plug &amp;#39;Valloric/YouCompleteMe&amp;#39; &amp;#34;代码模版快速生成 Plug &amp;#39;SirVer/ultisnips&amp;#39; Plug &amp;#39;honza/vim-snippets&amp;#39; &amp;#34;代码自动补全 Plug &amp;#39;Shougo/neocomplete.</description>
+    </item>
+    
+    <item>
+      <title>vim 入门(一)</title>
+      <link>https://fabletang.github.io/en/posts/2021-11-22-vim_tutor/</link>
+      <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-11-22-vim_tutor/</guid>
+      <description>一、vim起源 vim至今30年历史了，vim是&amp;quot;Vi Improved&amp;quot;的缩写，由vi发展而来.
+vi是unix系统默认编辑器，当时没有鼠标，键盘的按键也较少，比如方向键/Cap等就没有。所以当时的人们(主要是贝尔实验室)创造一个纯键盘的文字编辑器。意外的是，经过几十年的验证，纯粹键盘操作比居然比鼠标更加便捷高效。
+甚至有vim狂热喜爱者喊出口号：世上的编辑器分两种，一种是vim，一种是其他。^_^
+二、vim介绍 以下vim默认为vim8.1+版本。
+1.vim界面 通常的vim界面如下图。左边是文件列表(nerdtree插件效果)，右底下是quickfix区域，一般显示查找运行结果/查找结果列表之类。右边面积最大的为文本编辑区。 2.vim模式 模式是为了让vim知道当前的按键是文本输入还是其他操作功能(光标移动/标签等等).常用四种模式,如下图。
+可以观察到，任何情况下，按esc键就回到普通模式了。所以esc键使用频率非常高（甚至有人专门发明esc脚踏板）。 三、vim学习 1.vim安装 建议安装GUI图形界面的vim,文本渲染比控制台下的要快一点。
+windows: https://www.vim.org/download.php#pc macos: https://github.com/macvim-dev/macvim/releases 2.vim练习 网上有大量vim入门教程，但是建议用vim自带的vimtutor学习。vim键盘命令非常多，死记硬背是比较难的，结合教程，在使用中记忆，让肌肉形成条件反射。3-5天就比较熟练了。在控制台(console)提示符下，输入vimtutor,或者vim命令模式下:vimtutor,注意键盘要切换为英文小写。如下图: 四、vim常用键盘命令图 </description>
+    </item>
+    
+    <item>
+      <title>docker tips</title>
+      <link>https://fabletang.github.io/en/posts/2017-09-16-docker_tips/</link>
+      <pubDate>Sat, 16 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2017-09-16-docker_tips/</guid>
+      <description>一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除 docker rmi -f $(docker images | grep &amp;#34;fabletang/test-*&amp;#34; | awk &amp;#34;{print \$3}&amp;#34;) docker rmi -f $(docker images | grep &amp;#34;&amp;lt;none&amp;gt;&amp;#34; | awk &amp;#34;{print \$3}&amp;#34;) 根据版本号删除 docker rmi -f $(docker images | grep &amp;#34;0.0.1&amp;#34; | awk &amp;#34;{print \$3}&amp;#34;) 根据Tag和版本号删除 docker rmi -f $(docker images | grep &amp;#34;fabletang/service-java&amp;#34; | awk -F&amp;#39; 0.&amp;#39; &amp;#39;{if ($2&amp;lt;0.6) print $0}&amp;#39; | awk &amp;#34;{print \$3}&amp;#34;) 删除所有未运行 Docker 容器 docker rm $(docker ps -a -q) </description>
+    </item>
+    
+    <item>
+      <title>docker私有仓库搭建</title>
+      <link>https://fabletang.github.io/en/posts/2017-09-01-docker_registry/</link>
+      <pubDate>Fri, 01 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2017-09-01-docker_registry/</guid>
+      <description>环境:centos7,docker 1.12+，registry 2.
+一、准备工作: mkdir /data/docker-registry mkdir /data/docker-registry-auth 二、安全设置: 生成 http 密码文件
+docker run --entrypoint htpasswd registry:2 -Bbn anycloud &amp;#39;123&amp;#39;&amp;gt; /data/docker-registry-auth/htpasswd 获取 SSL 证书 git clone https://github.com/letsencrypt/letsencrypt cd letsencrypt ./letsencrypt-auto --help ./letsencrypt-auto certonly --standalone -d &amp;lt;HOST&amp;gt; 三、启动: 新增systemd守护服务,内容如下
+cat /etc/systemd/system/multi-user.target.wants/docker-registry.service [Unit] Description=registry Requires=docker.service After=docker.target [Service] Restart=always RestartSec=20 TimeoutStartSec=5min ExecStartPre=-/usr/bin/docker kill registry ExecStart=/usr/bin/docker run -p 5000:5000 --name registry \ -v /data/docker-registry-auth/:/certs \ -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/fullchain.pem \ -e REGISTRY_HTTP_TLS_KEY=/certs/privkey.pem \ -e REGISTRY_STORAGE_DELETE_ENABLED=true \ -v /data/docker-registry-auth/:/auth \ -e &amp;#34;REGISTRY_AUTH=htpasswd&amp;#34; \ -e &amp;#34;REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm&amp;#34; \ -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \ -e REGISTRY_STORAGE_DELETE_ENABLED=true \ -v /data/docker-registry/:/var/lib/registry \ registry:2 ExecStartPost=-/usr/bin/docker rm registry ExecStop=/usr/bin/docker stop registry ExecStopPost=-/usr/bin/docker rm registry [Install] WantedBy=multi-user.</description>
+    </item>
+    
+    <item>
+      <title>Gradle 介绍</title>
+      <link>https://fabletang.github.io/en/posts/2014-10-13-introduce-gradle/</link>
+      <pubDate>Mon, 13 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2014-10-13-introduce-gradle/</guid>
+      <description>gradle 现在已经2.1版本了。从1.0版本就一直关注这个groovy项目，但是没有应用到
+公司项目的打算，但是现在时机到了。gradle已经是最好的java自动构建工具，没有之一。
+一、gradle基于动态语言groovy groovy是java的动态版，闭包的特性让其编译脚本更加自由。
+比如你可以指定项目的某个目录用特定jdk版本编译。
+二、gradle 可以完全利用已有的maven库资源 maven库资源已经发展非常成熟，几乎没有找不到的开源库。
+三、gradle插件非常丰富，已经支持android项目构建。 没错，你现在可以用gradle一个命令实现android项目的编译，打包，上传，运行。
+插件: com.android.tools.build:gradle:0.13,已经可以胜任任何android项目构建，包括NDK.
+Android Studio 0.8.12 已经非常成熟，可以自动生成gradle.build配置文件。
+至于普通的java构建，就没有gradle不能做的。
+四、gradle学习成本低 gradle学习成本很低，比ant低，比maven低。但是更加强大。</description>
+    </item>
+    
+    <item>
+      <title>Android Studio 配置</title>
+      <link>https://fabletang.github.io/en/posts/2014-09-30-android-studio-conf/</link>
+      <pubDate>Tue, 30 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2014-09-30-android-studio-conf/</guid>
+      <description>由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开始我使用的是eclipse ADT, linux 的usb联机调试也 搞定了，一切似乎都很顺利，usb联机上传也成功了，app出来了，点击，然后就崩溃了，logcat 提示找不到 XXX.so。本来就对eclipse这个老破车有成见，利用这个借口，开始用android studio
+环境说明:
+Ubuntu /Windows, android studio 0.8.6+
+以下是要点：
+一、studio 可以直接从eclipse导入,gradle build成功，但是出现编码错误（\78XXX) 这个是编码错误，用笨办法，右键出错文件，enconding GBK, 然后再 UTF-8.
+二、编译通过，但是联机调试出现上传错误，提示XX.jar重复copy. 这个是studio本身bug, 在 app下的build.gradle 的 android {&amp;hellip;}内加入
+packagingOptions { exclude &amp;#39;META-INF/DEPENDENCIES.txt&amp;#39; exclude &amp;#39;META-INF/LICENSE.txt&amp;#39; exclude &amp;#39;META-INF/NOTICE.txt&amp;#39; exclude &amp;#39;META-INF/NOTICE&amp;#39; exclude &amp;#39;META-INF/LICENSE&amp;#39; exclude &amp;#39;META-INF/DEPENDENCIES&amp;#39; exclude &amp;#39;META-INF/notice.txt&amp;#39; exclude &amp;#39;META-INF/license.txt&amp;#39; exclude &amp;#39;META-INF/dependencies.txt&amp;#39; exclude &amp;#39;META-INF/LGPL2.1&amp;#39; } 三、local.properties 是定义 sdk.dir 和 ndk.dir.需要根据本机andoird jdk情况调整。 四、JNI 相关的问题: android studio 的ndk 不完善，没有eclipse支持那么好。但是也是可以用的，需要在build.gradle
+里配置，具体请参看gradle官方文档.
+JNI生成的.so打包apk。.so位于 libs/armeabi 目录,在 app下的build.gradle 的 android {&amp;hellip;}内加入</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu下Android USB联机调试</title>
+      <link>https://fabletang.github.io/en/posts/2014-09-29-android-usb-ubunit/</link>
+      <pubDate>Mon, 29 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2014-09-29-android-usb-ubunit/</guid>
+      <description>环境说明: Ubuntu 14.04, android ADT 4.2.2
+Linux 下 ADT usb联机调试出现 device unknown 的解决办法:
+一、使用lsusb命令查看设备的vendorId和productId。 插入usb线前后用lsusb查看，找出多出的信息。
+$ lsusb Bus 003 Device 005: ID 0bb4:0c03 HTC (High Tech Computer Corp.) 二、在/etc/udev/rules.d/目录下面新建一个规则文件 51-android.rules 添加一行 SUBSYSTEM==&amp;#34;usb&amp;#34;,ATTRS {idVendor}==&amp;#34;0bb4&amp;#34;,ATTRS {idProduct}==&amp;#34;0c03&amp;#34;,MODE=&amp;#34;0666&amp;#34; 0666 表示对所有用户，开放adb所有权限
+三、 重启usb服务，命令如下： sudo service udev restart 四、 重置ADB 拔下USB与PC连接线，然后再次插上，进入Android-SDK根目录Platform-tools，运行命令:
+$which adb $sudo ./adb kill-server $sudo ./adb devices 五、 把adb命令加入环境变量 查找adb所在路径
+$which adb 编辑~/.bashrc文件,增加
+export PATH=.:$PATH:adb路径 这样就不用每次进入adb目录了。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,10 +1,111 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on 知行合一</title>
+    <title>标签 on 知行合一</title>
     <link>https://fabletang.github.io/en/tags/</link>
-    <description>Recent content in Tags on 知行合一</description>
+    <description>Recent content in 标签 on 知行合一</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright><atom:link href="https://fabletang.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
+    <lastBuildDate>Tue, 30 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vscode</title>
+      <link>https://fabletang.github.io/en/tags/vscode/</link>
+      <pubDate>Tue, 30 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/vscode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://fabletang.github.io/en/tags/golang/</link>
+      <pubDate>Fri, 14 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vim</title>
+      <link>https://fabletang.github.io/en/tags/vim/</link>
+      <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>others</title>
+      <link>https://fabletang.github.io/en/tags/others/</link>
+      <pubDate>Thu, 11 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/others/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>practice</title>
+      <link>https://fabletang.github.io/en/tags/practice/</link>
+      <pubDate>Tue, 09 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/practice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>project</title>
+      <link>https://fabletang.github.io/en/tags/project/</link>
+      <pubDate>Thu, 22 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/project/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>java</title>
+      <link>https://fabletang.github.io/en/tags/java/</link>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://fabletang.github.io/en/tags/docker/</link>
+      <pubDate>Sat, 16 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tips</title>
+      <link>https://fabletang.github.io/en/tags/tips/</link>
+      <pubDate>Sat, 16 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/tips/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>toolbox</title>
+      <link>https://fabletang.github.io/en/tags/toolbox/</link>
+      <pubDate>Mon, 13 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/toolbox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>android</title>
+      <link>https://fabletang.github.io/en/tags/android/</link>
+      <pubDate>Tue, 30 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/android/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

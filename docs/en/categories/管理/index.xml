@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>管理 on 知行合一</title>
+    <link>https://fabletang.github.io/en/categories/%E7%AE%A1%E7%90%86/</link>
+    <description>Recent content in 管理 on 知行合一</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
+    <lastBuildDate>Thu, 22 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/categories/%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>技术管理-管理、人性与OKR</title>
+      <link>https://fabletang.github.io/en/posts/2021-04-22-methodology_2/</link>
+      <pubDate>Thu, 22 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-04-22-methodology_2/</guid>
+      <description> 管理 一、管理的历史 奴隶社会 封建社会 现代社会 工业：流水线\六西格玛\丰田管理(看板) 软件开发： 瀑布式\快速迭代\XP极限编程\scrum敏捷开发 二、人性 三字经，人之初，性本善。 三、OKR </description>
+    </item>
+    
+    <item>
+      <title>技术管理-怎么学</title>
+      <link>https://fabletang.github.io/en/posts/2021-02-17-methodology_1/</link>
+      <pubDate>Wed, 17 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2021-02-17-methodology_1/</guid>
+      <description> 很多技术人不喜欢管理，就像古代书生怕碰到铜钱，沾染了“铜臭”变得不纯洁了。 管理，第一是对自我的管理,自己的工作方式。不要把管理想象成奴役他人的皮鞭，可以认为管理首先是规范自己的 戒尺，然后把这根戒尺变成指挥棒去协调团队。 某些同学看了这些书，甚至考试认证都过了，还是没找到管理的感觉。 今天跟大家探讨一下，怎么学习管理理论。 一、学习的广度 站在巨人肩膀上做事是理所当然的，所以管理相关的理论知识要先学习。这方面的权威书籍有很多， 比如国家软件项目管理考试、国际pmp项目管理认证,都是很好的教材，这些教材每年都有更新，比如scrum都包含在内。 网络上有最新的管理方法，比如OKR.这些也需要了解,现在信息交流快捷，几年就会变换一种主流管理方法。 二、学习的深度 理工科毕业的技术人讲究“实证&amp;quot;,对书本上泛泛而论的管理方法很难产生共鸣，自己都不信的理论，当然就很难在 实际工作中运用。 但是我们可以采用数理的逻辑来印证管理理论: 比如“过程管理&amp;quot;,很多管理方法都提到这个词，为什么一定要“过程管理“解释得并不通透， 如果联系到理工科都学过的“工业自动化”的“闭环反馈&amp;quot;就容易明白了。 又比如“扁平式组织结构”，如果联系到 “信息论&amp;quot;里的“任何信息传递、转换都会有损耗”, 就很容易理解层级少的组织可以减少沟通成本。 三、以人为本 管理是对人的规则。 人是不一样的，同样的人在不同时期也是不一样的。所以大家可以观察到主流管理方法会随时间 而淘汰，不同行业的主流管理方法也不一样。体察人性，与对应的管理方法对应起来，深刻领会原因, 这样就会&amp;quot;相信&amp;quot;, 只有你“信”，才能影响他人。 </description>
+    </item>
+    
+    <item>
+      <title>关于软件项目计划的看法</title>
+      <link>https://fabletang.github.io/en/posts/2015-10-06-project-schedule/</link>
+      <pubDate>Tue, 06 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2015-10-06-project-schedule/</guid>
+      <description>&amp;ldquo;凡事预则立 不预则废&amp;rdquo;,这是&amp;laquo;礼记&amp;raquo;中的名言,意思是任何事情不作计划就会失败。
+软件项目也一样必须作计划。但是实际情况是，软件项目很难预估资源和时间。软件开发中
+有个“公理”：20%的工作要花费80%的时间。二八原理。还有一个&amp;quot;20%的项目是成功，80%&amp;quot;
+将失败&amp;quot;。说明软件项目很难作出贴近实际的计划(schedule)。Why?
+特性: 软件项目大多是创造性，难度大，复杂程度高。就单单编程语言来说，在电脑领域已发 明了上千不同的编程语言，而且每年仍有新的编程语言诞生。
+资源: 软件项目的主要资源:人,是稀缺的。需要较高技能要求。</description>
+    </item>
+    
+  </channel>
+</rss>

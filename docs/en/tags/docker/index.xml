@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on 知行合一</title>
+    <link>https://fabletang.github.io/en/tags/docker/</link>
+    <description>Recent content in docker on 知行合一</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
+    <lastBuildDate>Sat, 16 Sep 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker tips</title>
+      <link>https://fabletang.github.io/en/posts/2017-09-16-docker_tips/</link>
+      <pubDate>Sat, 16 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2017-09-16-docker_tips/</guid>
+      <description>一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除 docker rmi -f $(docker images | grep &amp;#34;fabletang/test-*&amp;#34; | awk &amp;#34;{print \$3}&amp;#34;) docker rmi -f $(docker images | grep &amp;#34;&amp;lt;none&amp;gt;&amp;#34; | awk &amp;#34;{print \$3}&amp;#34;) 根据版本号删除 docker rmi -f $(docker images | grep &amp;#34;0.0.1&amp;#34; | awk &amp;#34;{print \$3}&amp;#34;) 根据Tag和版本号删除 docker rmi -f $(docker images | grep &amp;#34;fabletang/service-java&amp;#34; | awk -F&amp;#39; 0.&amp;#39; &amp;#39;{if ($2&amp;lt;0.6) print $0}&amp;#39; | awk &amp;#34;{print \$3}&amp;#34;) 删除所有未运行 Docker 容器 docker rm $(docker ps -a -q) </description>
+    </item>
+    
+    <item>
+      <title>docker私有仓库搭建</title>
+      <link>https://fabletang.github.io/en/posts/2017-09-01-docker_registry/</link>
+      <pubDate>Fri, 01 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2017-09-01-docker_registry/</guid>
+      <description>环境:centos7,docker 1.12+，registry 2.
+一、准备工作: mkdir /data/docker-registry mkdir /data/docker-registry-auth 二、安全设置: 生成 http 密码文件
+docker run --entrypoint htpasswd registry:2 -Bbn anycloud &amp;#39;123&amp;#39;&amp;gt; /data/docker-registry-auth/htpasswd 获取 SSL 证书 git clone https://github.com/letsencrypt/letsencrypt cd letsencrypt ./letsencrypt-auto --help ./letsencrypt-auto certonly --standalone -d &amp;lt;HOST&amp;gt; 三、启动: 新增systemd守护服务,内容如下
+cat /etc/systemd/system/multi-user.target.wants/docker-registry.service [Unit] Description=registry Requires=docker.service After=docker.target [Service] Restart=always RestartSec=20 TimeoutStartSec=5min ExecStartPre=-/usr/bin/docker kill registry ExecStart=/usr/bin/docker run -p 5000:5000 --name registry \ -v /data/docker-registry-auth/:/certs \ -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/fullchain.pem \ -e REGISTRY_HTTP_TLS_KEY=/certs/privkey.pem \ -e REGISTRY_STORAGE_DELETE_ENABLED=true \ -v /data/docker-registry-auth/:/auth \ -e &amp;#34;REGISTRY_AUTH=htpasswd&amp;#34; \ -e &amp;#34;REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm&amp;#34; \ -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \ -e REGISTRY_STORAGE_DELETE_ENABLED=true \ -v /data/docker-registry/:/var/lib/registry \ registry:2 ExecStartPost=-/usr/bin/docker rm registry ExecStop=/usr/bin/docker stop registry ExecStopPost=-/usr/bin/docker rm registry [Install] WantedBy=multi-user.</description>
+    </item>
+    
+  </channel>
+</rss>
