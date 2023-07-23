@@ -30,7 +30,7 @@ series = [
 
 ##### 二、窗口
 
-   + 打开/关闭终端  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; :&emsp;  ⌃ + `
+   + 打开/关闭终端  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; :&emsp;  ⌃  `
    + 打开文件浏览器窗口 &emsp;&emsp;&emsp;&emsp;&ensp; : &emsp;⌘  ⇧  B 
    + 打开/关闭左侧窗口 &emsp;&emsp;&emsp;&emsp;&emsp;&ensp; :&emsp; ⌘  B 
    + 源代码管理  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: &emsp;⌃  ⇧  G
