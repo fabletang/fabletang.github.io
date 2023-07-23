@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Tue, 30 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vscode shortcut key for mac</title>
+      <link>https://fabletang.github.io/en/posts/2023-07-23-vscode_shortcut_keyboard/</link>
+      <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2023-07-23-vscode_shortcut_keyboard/</guid>
+      <description>说明 如果快捷键不起作用，切换输入法为英文. 以下快捷键，里面有“;”号，表示分段，不代表键盘，先按前面部分，在1秒内再按后面部分。 vscode版本:1.80.1. 安装了golang,vim插件。macos 12.6. 一、文件切换 打开中的文本tab左右切换 : ⌥ ⌘ ←/→ 打开上次打开的文件(连续按tab选择) : ⌃ ⇥(tab) 关闭当前的文件 : ⌘ w 左侧文件浏览器选择文件,打开文件O : ↑/↓ 二、窗口 打开/关闭终端 : ⌃ + ` 打开文件浏览器窗口 : ⌘ ⇧ B 打开/关闭左侧窗口 : ⌘ B 源代码管理 : ⌃ ⇧ G 打开/关闭问题窗口(↑/↓ 切换) : ⌘ ⇧ M 三、测试 运行光标所在的单元测试 : ⌘ ; C 运行上次未通过的单元测试 : ⌘ ; E 运行所有单元测试 : ⌘ ; A 光标定位到测试出错点 : ⌥ ↩ </description>
+    </item>
+    
     <item>
       <title>为Go开发配置vscode</title>
       <link>https://fabletang.github.io/en/posts/2023-05-30-vscode-golang/</link>

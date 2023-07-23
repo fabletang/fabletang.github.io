@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Tue, 30 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vscode shortcut key for mac</title>
+      <link>https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/</link>
+      <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/</guid>
+      <description>说明 如果快捷键不起作用，切换输入法为英文. 以下快捷键，里面有“;”号，表示分段，不代表键盘，先按前面部分，在1秒内再按后面部分。 vscode</description>
+    </item>
+    
     <item>
       <title>为Go开发配置vscode</title>
       <link>https://fabletang.github.io/posts/2023-05-30-vscode-golang/</link>
@@ -231,6 +240,15 @@
       
       <guid>https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/</guid>
       <description>环境说明: Ubuntu 14.04, android ADT 4.2.2 Linux 下 ADT usb联机调试出现 device unknown 的解决办法: 一、使用lsusb命令查看设备的vendorId和productId。 插入usb</description>
+    </item>
+    
+    <item>
+      <title>%6税率提案</title>
+      <link>https://fabletang.github.io/posts/2023-06-15-game-eve-tax/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2023-06-15-game-eve-tax/</guid>
+      <description>%5联盟统一税率提案 1. 背景 CCP最近实现了 isk和LP的统一税率，据说月底还将实现分别税率。借此机会，NDRC出现了很多高税议案。 EVE军团</description>
     </item>
     
   </channel>

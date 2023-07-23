@@ -186,6 +186,21 @@ Fable&#39;s Blog
   </div>
 </nav><div class="posts mb-4"><article class="row card post component">
       <div class="card-body">
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2021-11-09-practice_of_db/">关系型数据库实践
+</a></h2><div class="post-meta"><span class="post-date" title="created on">
+    <i class="fas fa-fw fa-calendar-alt"></i>Nov 9, 2021
+  </span><span class="post-reading-time" title="reading time">
+    <i class="fas fa-fw fa-coffee"></i>1 min read
+  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/en/tags/practice/" class="post-taxonomy">practice</a></div>
+<div class="post-summary">
+          
+          关系型数据库是绝大多数系统的数据核心,这个关键设施也往往是性能的瓶颈。以下是一些使用建议。
+按业务场景设计表结构 业务场景: 一个mysql的用户表，1000万条记录，如何查询出当天生日的用户？
+表结构通用规则 所有字段必须非空而且有默认值。 一般都有创建时间和更新时间字段，mysql5.6+ 支持数据库本身更新此字段。 尽可能不使用TEXT、BLOB类型. 表字符集尽量选择UTF8MB4,mysql的utf8不是标准的字符集，utf8mb4可以存储表情字符。 索引字段尽可能使用int/long, 索引为字符型不能超过32个字符。 注释尽量清楚 建表的时候应该考虑最终的数据量，mysql单表应该不超过1000万,分布式数据库按业务字 …
+        </div>
+      </div>
+    </article><article class="row card post component">
+      <div class="card-body">
         <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2021-02-26-java_singleten_pattern/">java模式:单例/多例/线程单例
 </a></h2><div class="post-meta"><span class="post-date" title="created on">
     <i class="fas fa-fw fa-calendar-alt"></i>Feb 26, 2021
@@ -243,22 +258,6 @@ Go无class的概念 Go无对象编程的类class的概念。所以代码文件�
 代码文件/package …
         </div>
       </div>
-    </article><article class="row card post component">
-      <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2017-04-01-granularity_of_microservice/">微服务的粒度
-</a></h2><div class="post-meta"><span class="post-date" title="created on">
-    <i class="fas fa-fw fa-calendar-alt"></i>Apr 1, 2017
-  </span><span class="post-reading-time" title="reading time">
-    <i class="fas fa-fw fa-coffee"></i>1 min read
-  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/en/tags/practice/" class="post-taxonomy">practice</a></div>
-<div class="post-summary">
-          
-          得益于nginx等反向代理的流行以及metrics/endpoit规范的成熟。微服务的理念开始流行了。 但是微服务究竟要多&quot;微&quot;才合适？以下是我的个人实践。
-不能按接口分: 这样的粒度太细.比如新增订单/查询订单分为两个microservice,优点是可以根据各自的负载合理分配服务器 资源。缺点是microservice数量过多，这样拆分的话，至少存在几十个service，这样对service的依赖关系，监控 ／部署都增加很大的难度。
-不能按数据库表名(table)分: 这是个鲁莽的做法。很明显，数据库的的事务处理将极为棘手。
-不能按数据库名(db)分: 这样的粒度太粗.好处是本地数据库数据一致性问题很好解决。缺 …
-        </div>
-      </div>
     </article></div><div class="row table-responsive mb-3">
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -280,10 +279,13 @@ Go无class的概念 Go无对象编程的类class的概念。所以代码文件�
         <a href="/en/categories/%E6%8A%80%E6%9C%AF/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
       </li>
       <li class="page-item">
+        <a href="/en/categories/%E6%8A%80%E6%9C%AF/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
         <a href="/en/categories/%E6%8A%80%E6%9C%AF/page/4/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/en/categories/%E6%8A%80%E6%9C%AF/page/4/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/en/categories/%E6%8A%80%E6%9C%AF/page/5/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul></div>
 </div>
@@ -303,11 +305,11 @@ Go无class的概念 Go无对象编程的类class的概念。所以代码文件�
   <section class="recent-posts row card component">
   <div class="card-body">
     <h2 class="card-title">Recent Posts</h2>
-    <ul><li><a href="https://fabletang.github.io/en/posts/2023-05-30-vscode-golang/">为Go开发配置vscode
+    <ul><li><a href="https://fabletang.github.io/en/posts/2023-07-23-vscode_shortcut_keyboard/">vscode shortcut key for mac
+</a></li><li><a href="https://fabletang.github.io/en/posts/2023-05-30-vscode-golang/">为Go开发配置vscode
 </a></li><li><a href="https://fabletang.github.io/en/posts/2023-04-14-tbtest/">微信to-淘宝
 </a></li><li><a href="https://fabletang.github.io/en/posts/2021-12-06-golang_gmp/">Golang GMP调度
 </a></li><li><a href="https://fabletang.github.io/en/posts/2021-12-06-concurrency_parallelism/">并发与并行
-</a></li><li><a href="https://fabletang.github.io/en/posts/2021-11-30-vim_file/">vim 文件相关(四)
 </a></li></ul>
   </div>
 </section><section class="taxonomies row card component">
@@ -319,6 +321,8 @@ Go无class的概念 Go无对象编程的类class的概念。所以代码文件�
             技术
           </a><a href="https://fabletang.github.io/en/categories/%E7%AE%A1%E7%90%86/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="管理">
             管理
+          </a><a href="https://fabletang.github.io/en/categories/game/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="game">
+            game
           </a></div>
       </div>
     </section><section class="taxonomies row card component">
@@ -334,6 +338,8 @@ Go无class的概念 Go无对象编程的类class的概念。所以代码文件�
             心得
           </a><a href="https://fabletang.github.io/en/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="编程">
             编程
+          </a><a href="https://fabletang.github.io/en/series/eve/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="eve">
+            eve
           </a><a href="https://fabletang.github.io/en/series/%E6%A1%86%E6%9E%B6/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="框架">
             框架
           </a></div>
@@ -361,8 +367,8 @@ Go无class的概念 Go无对象编程的类class的概念。所以代码文件�
             java
           </a><a href="https://fabletang.github.io/en/tags/others/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="others">
             others
-          </a><a href="https://fabletang.github.io/en/tags/toolbox/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="toolbox">
-            toolbox
+          </a><a href="https://fabletang.github.io/en/tags/vscode/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vscode">
+            vscode
           </a></div>
       </div>
     </section>

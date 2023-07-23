@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Tue, 30 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/tags/vscode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/tags/vscode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vscode shortcut key for mac</title>
+      <link>https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/</link>
+      <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/</guid>
+      <description>说明 如果快捷键不起作用，切换输入法为英文. 以下快捷键，里面有“;”号，表示分段，不代表键盘，先按前面部分，在1秒内再按后面部分。 vscode</description>
+    </item>
+    
     <item>
       <title>为Go开发配置vscode</title>
       <link>https://fabletang.github.io/posts/2023-05-30-vscode-golang/</link>

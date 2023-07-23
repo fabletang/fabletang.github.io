@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://fabletang.github.io/</loc>
-    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -21,7 +21,7 @@
                 />
   </url><url>
     <loc>https://fabletang.github.io/tags/vscode/</loc>
-    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -33,8 +33,21 @@
                 href="https://fabletang.github.io/tags/vscode/"
                 />
   </url><url>
+    <loc>https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/</loc>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/posts/2023-07-23-vscode_shortcut_keyboard/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/"
+                />
+  </url><url>
     <loc>https://fabletang.github.io/tags/</loc>
-    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -52,7 +65,7 @@
                 />
   </url><url>
     <loc>https://fabletang.github.io/categories/</loc>
-    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -70,7 +83,7 @@
                 />
   </url><url>
     <loc>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -83,7 +96,7 @@
                 />
   </url><url>
     <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -95,21 +108,8 @@
                 href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/"
                 />
   </url><url>
-    <loc>https://fabletang.github.io/posts/2023-05-30-vscode-golang/</loc>
-    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/posts/2023-05-30-vscode-golang/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/2023-05-30-vscode-golang/"
-                />
-  </url><url>
     <loc>https://fabletang.github.io/posts/</loc>
-    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -127,7 +127,7 @@
                 />
   </url><url>
     <loc>https://fabletang.github.io/series/</loc>
-    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -142,6 +142,19 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/series/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/posts/2023-05-30-vscode-golang/</loc>
+    <lastmod>2023-05-30T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/posts/2023-05-30-vscode-golang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/posts/2023-05-30-vscode-golang/"
                 />
   </url><url>
     <loc>https://fabletang.github.io/tags/golang/</loc>
@@ -649,6 +662,54 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/posts/2014-09-29-android-usb-ubunit/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/posts/2023-06-15-game-eve-tax/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/posts/2023-06-15-game-eve-tax/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/posts/2023-06-15-game-eve-tax/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/series/eve/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/series/eve/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/series/eve/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/tags/game/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/tags/game/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/tags/game/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/categories/game/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/categories/game/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/categories/game/"
                 />
   </url><url>
     <loc>https://fabletang.github.io/archives/</loc>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>eve on Fable&#39;s blog</title>
+    <link>https://fabletang.github.io/series/eve/</link>
+    <description>Recent content in eve on Fable&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright><atom:link href="https://fabletang.github.io/series/eve/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>%6税率提案</title>
+      <link>https://fabletang.github.io/posts/2023-06-15-game-eve-tax/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2023-06-15-game-eve-tax/</guid>
+      <description>%5联盟统一税率提案 1. 背景 CCP最近实现了 isk和LP的统一税率，据说月底还将实现分别税率。借此机会，NDRC出现了很多高税议案。 EVE军团</description>
+    </item>
+    
+  </channel>
+</rss>
