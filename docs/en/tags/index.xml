@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Sun, 23 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hammerspoon</title>
+      <link>https://fabletang.github.io/en/tags/hammerspoon/</link>
+      <pubDate>Wed, 15 Oct 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/hammerspoon/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>vscode</title>
       <link>https://fabletang.github.io/en/tags/vscode/</link>

@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Sun, 23 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hammerspoon config for mac</title>
+      <link>https://fabletang.github.io/posts/2025-10-15-hammerspoon_config/</link>
+      <pubDate>Wed, 15 Oct 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2025-10-15-hammerspoon_config/</guid>
+      <description>说明 Hammerspoon 是一款革命性的 macOS 桌面自动化工具，它将系统级 API 与灵活的 Lua 脚本引擎相结合。通过编写自定义的 Lua 脚本，您可以对系统进行强大的控制。 程序员一般的</description>
+    </item>
+    
     <item>
       <title>vscode shortcut key for mac</title>
       <link>https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/</link>

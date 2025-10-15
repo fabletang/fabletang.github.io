@@ -1,0 +1,511 @@
+<!doctype html><html lang="zh-cn"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>hammerspoon config for mac - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="macOS 自动化工具" /><meta itemprop="name" content="hammerspoon config for mac">
+<meta itemprop="description" content="macOS 自动化工具"><meta itemprop="datePublished" content="2025-10-15T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2025-10-15T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1000">
+<meta itemprop="keywords" content="hammerspoon," /><meta property="og:title" content="hammerspoon config for mac" />
+<meta property="og:description" content="macOS 自动化工具" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fabletang.github.io/posts/2025-10-15-hammerspoon_config/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-10-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2025-10-15T00:00:00+00:00" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="hammerspoon config for mac"/>
+<meta name="twitter:description" content="macOS 自动化工具"/>
+<link rel="preload" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.e356c26f128a3f1e8e1ac6a043abf7acb0c4a471f836dc75161724e29a9e97a1.js" integrity="sha256-41bCbxKKPx6OGsagQ6v3rLDEpHH4Ntx1Fhck4pqel6E=" crossorigin="anonymous" defer></script></head>
+  <body><script src="https://fabletang.github.io/js/bootstrap.min.062c2e66b557cb779d59cedff7e0cc76e84beb665a1076e474e87d940be44245.js" integrity="sha256-BiwuZrVXy3edWc7f9&#43;DMduhL62ZaEHbkdOh9lAvkQkU=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand me-3" href="https://fabletang.github.io/"><img class="logo" alt="Logo" src="https://fabletang.github.io/images/logo-blog.webp" loading="lazy"
+   width="120" height="120"
+   />
+Fable&#39;s Blog
+    </a>
+    <button class="navbar-social-share" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+  aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+  <i class="fas fa-share"></i>
+</button>
+
+<div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=hammerspoon%20config%20for%20mac&url=https%3a%2f%2ffabletang.github.io%2fposts%2f2025-10-15-hammerspoon_config%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ffabletang.github.io%2fposts%2f2025-10-15-hammerspoon_config%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">设置</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-language"></i> 语言</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="dropdown">
+        <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          简体中文
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li><a class="dropdown-item" href="https://fabletang.github.io/en/">English</a></li><li><a class="dropdown-item" href="https://fabletang.github.io/zh-tw/">繁體中文</a></li></ul>
+      </div>
+    </div>
+  </form>
+</section>
+
+
+<section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> 配色</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="蓝色"
+        class="btn btn-sm palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="蓝灰色"
+        class="btn btn-sm palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="棕色"
+        class="btn btn-sm palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="青色"
+        class="btn btn-sm palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="绿色"
+        class="btn btn-sm palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="靛青色"
+        class="btn btn-sm palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="橙色"
+        class="btn btn-sm palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="粉色"
+        class="btn btn-sm palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="紫色"
+        class="btn btn-sm palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="红色"
+        class="btn btn-sm palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="蓝绿色"
+        class="btn btn-sm palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="黄色"
+        class="btn btn-sm palette" data-palette="yellow">
+      </button></div>
+</section>
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://fabletang.github.io/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/archives/">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/categories/">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/tags/">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/series/">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">hammerspoon config for mac</li></ol>
+  </div>
+</nav>    <article class="row card component mb-4 post"><div class="post-panel-wrapper">
+  <div class="d-flex flex-column component rounded post-panel">
+    
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+  
+    
+  <div class="post-translations nav-item dropdown action">
+    <a class="nav-link p-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-fw fa-language"></i>
+    </a>
+    <div class="dropdown-menu"><a class="dropdown-item post-translation" href="https://fabletang.github.io/en/posts/2025-10-15-hammerspoon_config/">English</a></div>
+  </div>
+
+
+    <a class="action btn-reward" role="button" data-bs-toggle="modal" data-bs-target="#rewardModal" title="打赏">
+  <i class="fas fa-fw fa-coffee"></i>
+</a>
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0" type="button" aria-label="Copyright" 
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<div class="card-body">
+        <h1 class="card-title my-3">hammerspoon config for mac
+</h1><div class="post-meta"><span class="post-date" title="">
+    <i class="fas fa-fw fa-calendar-alt"></i>2025-10-15
+  </span><span class="post-reading-time" title="">
+    <i class="fas fa-fw fa-coffee"></i>2 分钟阅读
+  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/hammerspoon/" class="post-taxonomy">hammerspoon</a></div>
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+      <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h4 id="说明">说明</h4>
+<p>Hammerspoon 是一款革命性的 macOS 桌面自动化工具，它将系统级 API 与灵活的 Lua 脚本引擎相结合。通过编写自定义的 Lua 脚本，您可以对系统进行强大的控制。<br>
+程序员一般的工作习惯都是两个显示屏幕，两个浏览器窗口，多个编程编辑器窗口，再加至少一个即时通讯工具,或者还有一个终端console。如果使用系统快捷键切换不够精确，用鼠标又不方便，特别是需要把光标移到扩展的显示屏的时候。Hammerspoon作为一个专业的macos自动化工具可以带领很大的方便。</p>
+<ul>
+<li>如果快捷键不起作用，切换输入法为英文.</li>
+<li>以下快捷键，里面有“+”号，表示分段，不代表键盘，先按前面部分，在1秒内再按后面部分。</li>
+<li>vscode版本:1.80.1. 安装了golang,vim插件。macos 12.6.</li>
+<li><a href="https://github.com/Hammerspoon/hammerspoon" target="_blank" rel="noopener noreferrer">https://github.com/Hammerspoon/hammerspoon</a>
+</li>
+</ul>
+<h5 id="环境">环境</h5>
+<ul>
+<li>Macos 14</li>
+<li>Hammerspoon 1.0.0</li>
+</ul>
+<h5 id="安装">安装</h5>
+<ul>
+<li>官方连接 <a href="https://github.com/Hammerspoon/hammerspoon" target="_blank" rel="noopener noreferrer">https://github.com/Hammerspoon/hammerspoon</a>
+</li>
+<li>参考说明，下载dmg文件安装或者brew安装均可。</li>
+</ul>
+<h5 id="默认功能快捷键">默认功能快捷键</h5>
+<ul>
+<li>⌘+<code>, </code>为tab键上面的按键。弹出来一个选择窗口,如下:
+<img class="img-fluid" alt="image" src="https://fabletang.github.io/images/post/tools/2015-10-15-1.jpg" loading="lazy"
+   width="600" height="348"
+   />
+
+</li>
+<li>再按数字或者字母，即可切换到对应的窗口。</li>
+</ul>
+<h5 id="自定义功能快捷键">自定义功能快捷键</h5>
+<ul>
+<li>点击右上角🔨图标，选择 “open config&quot;,可以自己写lua脚本。再次选择 “reload config”即可生效。</li>
+<li>lua脚本功能可参考github官网.</li>
+<li>以下是我个人实现的一些功能，比如鼠标光标在主显示屏和扩展屏之间切换, vscode多个窗口循环切换等。</li>
+</ul>
+<pre tabindex="0"><code>local hotswitchHs = require(&#34;hotswitch-hs/hotswitch-hs&#34;)
+-- hotswitchHs.enableAutoUpdate() -- If you don&#39;t want to update automatically, remove this line.
+--hotswitchHs.setAutoGeneratedKeys({&#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;4&#34;, &#34;5&#34;, &#34;6&#34;, &#34;7&#34;, &#34;8&#34;, &#34;9&#34;, &#34;0&#34;})
+hotswitchHs.enableAllSpaceWindows()
+
+hs.hotkey.bind({&#34;command&#34;}, &#34;`&#34;, hotswitchHs.openOrClose) -- Set a keybind you like to open HotSwitch-HS panel.
+
+-- 使用【Option+tab】在不同屏幕之间移动鼠标
+-- option==alt
+hs.hotkey.bind({&#39;option&#39;}, &#39;tab&#39;, function()
+ local screen = hs.mouse.getCurrentScreen()
+ local nextScreen = screen:next()
+ local rect = nextScreen:fullFrame()
+ local center = hs.geometry.rectMidPoint(rect)
+ hs.mouse.absolutePosition(center)
+end)
+  
+-- 使用【Option+W】在不同屏幕之间移动窗口
+hs.hotkey.bind({&#39;option&#39;}, &#39;W&#39;, function()
+ -- get the focused window
+ local win = hs.window.focusedWindow()
+ -- get the screen where the focused window is displayed, a.k.a. current screen
+ local screen = win:screen()
+ -- compute the unitRect of the focused window relative to the current screen
+ -- and move the window to the next screen setting the same unitRect 
+ win:move(win:frame():toUnitRect(screen:frame()), screen:next(), true, 0)
+end)
+
+local function openApp(appName)
+ local app = hs.application.get(appName)
+ if not app then
+     hs.application.launchOrFocus(appName)
+ else
+     app:activate()
+ end
+end
+
+-- alt+ a - z
+hs.hotkey.bind({&#39;alt&#39;}, &#39;c&#39;, function() openApp(&#34;Chrome&#34;) end)
+hs.hotkey.bind({&#39;alt&#39;}, &#39;i&#39;, function() openApp(&#34;微信&#34;) end)
+hs.hotkey.bind({&#39;alt&#39;}, &#39;t&#39;, function() openApp(&#34;终端&#34;) end)
+hs.hotkey.bind({&#39;alt&#39;}, &#39;j&#39;, function() openApp(&#34;IntelliJ IDEA CE&#34;) end)
+--hs.hotkey.bind({&#39;alt&#39;}, &#39;v&#39;, function() openApp(&#34;Visual Studio Code&#34;) end)
+-- 单次按键即可循环切换 VSCode 窗口
+local vscode_bundle_id = &#34;com.microsoft.VSCode&#34;
+local last_vscode_win = nil
+
+function switchVSCodeWindow()
+ local app = hs.application.get(vscode_bundle_id)
+ if not app then
+     hs.alert.show(&#34;VSCode 未运行&#34;)
+     return
+ end
+
+ local windows = hs.fnutils.filter(app:allWindows(), function(win)
+     return win:isStandard() and win:isVisible()
+ end)
+
+ if #windows &lt; 2 then
+     hs.alert.show(&#34;只有一个 VSCode 窗口&#34;)
+     return
+ end
+
+ local current = hs.window.focusedWindow()
+ local target = nil
+
+ -- 如果当前是 VSCode 窗口，则切换到另一个
+ if current and current:application():bundleID() == vscode_bundle_id then
+     for _, w in ipairs(windows) do
+         if w:id() ~= current:id() then
+             target = w
+             break
+         end
+     end
+ -- 否则聚焦上次的 VSCode 窗口（或第一个）
+ else
+     target = last_vscode_win or windows[1]
+ end
+
+ if target then
+     last_vscode_win = current
+     target:focus()
+     target:raise()
+ end
+end
+-- 绑定快捷键：Alt + V
+hs.hotkey.bind({&#34;alt&#34;}, &#34;v&#34;, switchVSCodeWindow)
+ 
+</code></pre></div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content surface">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rewardModalLabel"><i class="fas fa-fw fa-coffee"></i>打赏</h5>
+        <a href="#" data-bs-dismiss="modal" class="btn btn-sm btn-outline-primary" aria-label="Close"><i class="fas fa-times"></i></a>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs flex-nowrap mb-3" role="tablist"><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link active" id="reward-alipay-tab" data-bs-toggle="tab" href="#reward-alipay" role="tab" aria-controls="reward-alipay" aria-selected="true">
+              <i class="fab fa-fw fa-alipay"></i>支付宝
+            </a>
+          </li><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link" id="reward-wechat-tab" data-bs-toggle="tab" href="#reward-wechat" role="tab" aria-controls="reward-wechat" aria-selected="true">
+              <i class="fab fa-fw fa-weixin"></i>微信
+            </a>
+          </li></ul>
+        <div class="tab-content" id="rewardTabContent"><div class="tab-pane fade post-reward-content show active" id="reward-alipay" role="tabpanel" aria-labelledby="reward-alipay-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/alipay.webp" loading="lazy" />
+          </div><div class="tab-pane fade post-reward-content show" id="reward-wechat" role="tabpanel" aria-labelledby="reward-wechat-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/wechat.webp" loading="lazy" />
+          </div></div>
+      </div>
+    </div>
+  </div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/">vscode shortcut key for mac
+</a>
+  </div></div></div>
+    </article><div class="card component row post-comments">
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="fabletang/fabletang.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="preferred-color-scheme"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container">
+    
+    <section class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="Fable Tang" src="https://fabletang.github.io/images/hai.webp" loading="lazy"
+   width="150" height="149"
+   />
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name">Fable Tang</div><div class="profile-bio">知行合一</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
+  </div>
+</section>
+  <section class="recent-posts row card component">
+  <div class="card-body">
+    <h2 class="card-title">最近文章</h2>
+    <ul><li><a href="https://fabletang.github.io/posts/2025-10-15-hammerspoon_config/">hammerspoon config for mac
+</a></li><li><a href="https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/">vscode shortcut key for mac
+</a></li><li><a href="https://fabletang.github.io/posts/2023-05-30-vscode-golang/">为Go开发配置vscode
+</a></li><li><a href="https://fabletang.github.io/posts/2023-04-14-tbtest/">微信to-淘宝
+</a></li><li><a href="https://fabletang.github.io/posts/2021-12-06-golang_gmp/">Golang GMP调度
+</a></li></ul>
+  </div>
+</section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/categories">分类</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="技术">
+            技术
+          </a><a href="https://fabletang.github.io/categories/%E7%AE%A1%E7%90%86/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="管理">
+            管理
+          </a><a href="https://fabletang.github.io/categories/game/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="game">
+            game
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/series">专栏</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="工具">
+            工具
+          </a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="概念">
+            概念
+          </a><a href="https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="心得">
+            心得
+          </a><a href="https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="编程">
+            编程
+          </a><a href="https://fabletang.github.io/series/eve/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="eve">
+            eve
+          </a><a href="https://fabletang.github.io/series/%E6%A1%86%E6%9E%B6/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="框架">
+            框架
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/tags">标签</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="golang">
+            golang
+          </a><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vim">
+            vim
+          </a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="practice">
+            practice
+          </a><a href="https://fabletang.github.io/tags/project/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="project">
+            project
+          </a><a href="https://fabletang.github.io/tags/tips/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="tips">
+            tips
+          </a><a href="https://fabletang.github.io/tags/android/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="android">
+            android
+          </a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="docker">
+            docker
+          </a><a href="https://fabletang.github.io/tags/java/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="java">
+            java
+          </a><a href="https://fabletang.github.io/tags/others/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="others">
+            others
+          </a><a href="https://fabletang.github.io/tags/vscode/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vscode">
+            vscode
+          </a></div>
+      </div>
+    </section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:fabletang@outlook.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a><a class="nav-link social-link" target="_blank" href="https://github.com/fabletang" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2025 Fable Tang. All Rights Reserved.
+</div>
+</footer>
+
+</body>
+</html>
