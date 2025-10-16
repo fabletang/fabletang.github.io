@@ -94,9 +94,8 @@ hs.hotkey.bind({'alt'}, 'i', function() openApp("微信") end)
 hs.hotkey.bind({'alt'}, 't', function() openApp("终端") end)
 hs.hotkey.bind({'alt'}, 'j', function() openApp("IntelliJ IDEA CE") end)
 --hs.hotkey.bind({'alt'}, 'v', function() openApp("Visual Studio Code") end)i
--- 绑定快捷键：Alt + V
+
 -- VSCode 窗口循环切换逻辑
--- 快捷键绑定 (⌥ + ⌘ + V)
 local function focusNextVSCode()
     local vscodeAppNames = { "Visual Studio Code", "Code", "Code - Insiders" }
     local vscodeApp = nil

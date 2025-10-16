@@ -12,7 +12,7 @@
 <meta name="description" content="macOS 自动化工具" /><meta itemprop="name" content="hammerspoon config for mac">
 <meta itemprop="description" content="macOS 自动化工具"><meta itemprop="datePublished" content="2025-10-15T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2025-10-15T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1432">
+<meta itemprop="wordCount" content="1408">
 <meta itemprop="keywords" content="hammerspoon," /><meta property="og:title" content="hammerspoon config for mac" />
 <meta property="og:description" content="macOS 自动化工具" />
 <meta property="og:type" content="article" />
@@ -336,9 +336,8 @@ hs.hotkey.bind({&#39;alt&#39;}, &#39;i&#39;, function() openApp(&#34;微信&#34;
 hs.hotkey.bind({&#39;alt&#39;}, &#39;t&#39;, function() openApp(&#34;终端&#34;) end)
 hs.hotkey.bind({&#39;alt&#39;}, &#39;j&#39;, function() openApp(&#34;IntelliJ IDEA CE&#34;) end)
 --hs.hotkey.bind({&#39;alt&#39;}, &#39;v&#39;, function() openApp(&#34;Visual Studio Code&#34;) end)i
--- 绑定快捷键：Alt + V
+
 -- VSCode 窗口循环切换逻辑
--- 快捷键绑定 (⌥ + ⌘ + V)
 local function focusNextVSCode()
  local vscodeAppNames = { &#34;Visual Studio Code&#34;, &#34;Code&#34;, &#34;Code - Insiders&#34; }
  local vscodeApp = nil
