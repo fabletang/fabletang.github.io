@@ -12,7 +12,7 @@
 <meta name="description" content="macOS 自动化工具" /><meta itemprop="name" content="hammerspoon config for mac">
 <meta itemprop="description" content="macOS 自动化工具"><meta itemprop="datePublished" content="2025-10-15T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2025-10-15T00:00:00+00:00" />
-<meta itemprop="wordCount" content="568">
+<meta itemprop="wordCount" content="594">
 <meta itemprop="keywords" content="hammerspoon," /><meta property="og:title" content="hammerspoon config for mac" />
 <meta property="og:description" content="macOS 自动化工具" />
 <meta property="og:type" content="article" />
@@ -281,7 +281,14 @@ Fable&#39;s Blog
 <ul>
 <li>点击右上角🔨图标，选择 “open config&quot;,可以自己写lua脚本。再次选择 “reload config”即可生效。</li>
 <li>lua脚本功能可参考github官网.</li>
-<li>以下是我个人实现的一些功能，比如鼠标光标在主显示屏和扩展屏之间切换, vscode多个窗口循环切换等。</li>
+<li>以下是我个人实现的一些功能，比如鼠标光标在主显示屏和扩展屏之间切换, vscode多个窗口循环切换等。
+<ul>
+<li>两个全屏 VSCode 窗口 = 两个独立的 macOS Space；</li>
+<li>macOS 不提供任何 API（也不允许 AppleScript）激活另一个全屏 App 窗口；</li>
+<li>tell application &ldquo;Code&rdquo; to activate 只会激活 当前所在的 Space；</li>
+<li>所以，想要多开vscode,必须在配置文件中 加上  &ldquo;window.nativeFullScreen&rdquo;: false 。</li>
+</ul>
+</li>
 </ul>
 <pre tabindex="0"><code>local hotswitchHs = require(&#34;hotswitch-hs/hotswitch-hs&#34;)
 -- hotswitchHs.enableAutoUpdate() -- If you don&#39;t want to update automatically, remove this line.

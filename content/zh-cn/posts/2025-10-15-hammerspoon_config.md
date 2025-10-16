@@ -42,6 +42,10 @@ series = [
    + 点击右上角🔨图标，选择 “open config",可以自己写lua脚本。再次选择 “reload config”即可生效。  
    + lua脚本功能可参考github官网.  
    + 以下是我个人实现的一些功能，比如鼠标光标在主显示屏和扩展屏之间切换, vscode多个窗口循环切换等。  
+     + 两个全屏 VSCode 窗口 = 两个独立的 macOS Space；
+     + macOS 不提供任何 API（也不允许 AppleScript）激活另一个全屏 App 窗口；
+     + tell application "Code" to activate 只会激活 当前所在的 Space；
+     + 所以，想要多开vscode,必须在配置文件中 加上  "window.nativeFullScreen": false 。
 
    ```
 local hotswitchHs = require("hotswitch-hs/hotswitch-hs")
