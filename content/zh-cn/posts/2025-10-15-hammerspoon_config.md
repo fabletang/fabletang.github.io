@@ -45,7 +45,7 @@ series = [
      + 两个全屏 VSCode 窗口 = 两个独立的 macOS Space；
      + macOS 不提供任何 API（也不允许 AppleScript）激活另一个全屏 App 窗口；
      + tell application "Code" to activate 只会激活 当前所在的 Space；
-     + 所以，想要多开vscode,必须在配置文件中 加上  "window.nativeFullScreen": false 。
+     + 所以，想要多开vscode,必须在配置文件中 加上  "window.nativeFullScreen": false 。设置后，vscode左上角的全屏按钮会变成+号。
 
    ```
 local hotswitchHs = require("hotswitch-hs/hotswitch-hs")
