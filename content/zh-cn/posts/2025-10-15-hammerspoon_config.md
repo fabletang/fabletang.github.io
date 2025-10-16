@@ -78,6 +78,9 @@ local function openApp(appName)
         hs.application.launchOrFocus(appName)
     else
         app:activate()
+         -- 移动鼠标到窗口中心
+        local f = target:frame()
+        hs.mouse.setAbsolutePosition({ x = f.x + f.w / 2, y = f.y + f.h / 2 })
     end
 end
 
@@ -86,50 +89,99 @@ hs.hotkey.bind({'alt'}, 'c', function() openApp("Chrome") end)
 hs.hotkey.bind({'alt'}, 'i', function() openApp("微信") end)
 hs.hotkey.bind({'alt'}, 't', function() openApp("终端") end)
 hs.hotkey.bind({'alt'}, 'j', function() openApp("IntelliJ IDEA CE") end)
---hs.hotkey.bind({'alt'}, 'v', function() openApp("Visual Studio Code") end)
--- 单次按键即可循环切换 VSCode 窗口
-local vscode_bundle_id = "com.microsoft.VSCode"
-local last_vscode_win = nil
+--hs.hotkey.bind({'alt'}, 'v', function() openApp("Visual Studio Code") end)i
+-- 绑定快捷键：Alt + V
+-- VSCode 窗口循环切换逻辑
+-- 快捷键绑定 (⌥ + ⌘ + V)
+local function focusNextVSCode()
+    local vscodeAppNames = { "Visual Studio Code", "Code", "Code - Insiders" }
+    local vscodeApp = nil
+    local vscodeAppName = nil
 
-function switchVSCodeWindow()
-    local app = hs.application.get(vscode_bundle_id)
-    if not app then
-        hs.alert.show("VSCode 未运行")
+    -- 找到正在运行的 VSCode 应用
+    for _, name in ipairs(vscodeAppNames) do
+        vscodeApp = hs.application.get(name)
+        if vscodeApp then
+            vscodeAppName = name
+            break
+        end
+    end
+
+    -- 1️⃣ VSCode 未启动 → 启动
+    if not vscodeApp then
+        hs.alert.show("Launching VSCode…")
+        hs.task.new("/usr/bin/open", nil, { "-a", "Visual Studio Code" }):start()
         return
     end
 
-    local windows = hs.fnutils.filter(app:allWindows(), function(win)
-        return win:isStandard() and win:isVisible()
+    -- 2️⃣ 获取所有 VSCode 窗口
+    local allWindows = vscodeApp:allWindows()
+    local vscodeWindows = {}
+    for _, win in ipairs(allWindows) do
+        local ok, frame = pcall(function() return win:frame() end)
+        if ok and frame and frame.w > 0 and frame.h > 0 then
+            table.insert(vscodeWindows, win)
+        end
+    end
+
+    -- 没有窗口 → 激活 VSCode
+    if #vscodeWindows == 0 then
+        hs.alert.show("Activating VSCode…")
+        hs.osascript.applescript(string.format('tell application "%s" to activate', vscodeAppName))
+        return
+    end
+
+    -- 按 ID 排序保证顺序一致
+    table.sort(vscodeWindows, function(a, b)
+        return a:id() < b:id()
     end)
 
-    if #windows < 2 then
-        hs.alert.show("只有一个 VSCode 窗口")
+    -- 当前窗口
+    local currentWindow = hs.window.focusedWindow()
+    local currentAppName = currentWindow and currentWindow:application():name() or ""
+
+    -- 3️⃣ 当前不是 VSCode → 聚焦最后一个 VSCode 窗口
+    if currentAppName ~= vscodeAppName then
+        local target = vscodeWindows[#vscodeWindows]
+        if target:isMinimized() then target:unminimize() end
+        target:focus()
+        vscodeApp:activate()
+
+        -- 移动鼠标到窗口中心
+        local f = target:frame()
+        hs.mouse.setAbsolutePosition({ x = f.x + f.w / 2, y = f.y + f.h / 2 })
         return
     end
 
-    local current = hs.window.focusedWindow()
-    local target = nil
+    -- 4️⃣ 当前是 VSCode
+    if #vscodeWindows == 1 then
+        vscodeWindows[1]:focus()
+        vscodeApp:activate()
+        local f = vscodeWindows[1]:frame()
+        hs.mouse.setAbsolutePosition({ x = f.x + f.w / 2, y = f.y + f.h / 2 })
+        return
+    end
 
-    -- 如果当前是 VSCode 窗口，则切换到另一个
-    if current and current:application():bundleID() == vscode_bundle_id then
-        for _, w in ipairs(windows) do
-            if w:id() ~= current:id() then
-                target = w
-                break
-            end
+    -- 当前是 VSCode，有多个窗口 → 循环切换
+    local currentId = currentWindow:id()
+    local nextIndex = 1
+    for i, win in ipairs(vscodeWindows) do
+        if win:id() == currentId then
+            nextIndex = (i % #vscodeWindows) + 1
+            break
         end
-    -- 否则聚焦上次的 VSCode 窗口（或第一个）
-    else
-        target = last_vscode_win or windows[1]
     end
 
-    if target then
-        last_vscode_win = current
-        target:focus()
-        target:raise()
-    end
+    local nextWin = vscodeWindows[nextIndex]
+    if nextWin:isMinimized() then nextWin:unminimize() end
+    nextWin:focus()
+    vscodeApp:activate()
+
+    -- 将鼠标移动到目标窗口中心（跨显示器）
+    local f = nextWin:frame()
+    hs.mouse.setAbsolutePosition({ x = f.x + f.w / 2, y = f.y + f.h / 2 })
 end
--- 绑定快捷键：Alt + V
-hs.hotkey.bind({"alt"}, "v", switchVSCodeWindow)
+-- 快捷键绑定 (⌥ + v)
+hs.hotkey.bind({"alt"}, "v", focusNextVSCode)
     
    ```

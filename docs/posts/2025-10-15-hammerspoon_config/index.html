@@ -12,7 +12,7 @@
 <meta name="description" content="macOS 自动化工具" /><meta itemprop="name" content="hammerspoon config for mac">
 <meta itemprop="description" content="macOS 自动化工具"><meta itemprop="datePublished" content="2025-10-15T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2025-10-15T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1000">
+<meta itemprop="wordCount" content="1304">
 <meta itemprop="keywords" content="hammerspoon," /><meta property="og:title" content="hammerspoon config for mac" />
 <meta property="og:description" content="macOS 自动化工具" />
 <meta property="og:type" content="article" />
@@ -226,7 +226,7 @@ Fable&#39;s Blog
 </h1><div class="post-meta"><span class="post-date" title="">
     <i class="fas fa-fw fa-calendar-alt"></i>2025-10-15
   </span><span class="post-reading-time" title="">
-    <i class="fas fa-fw fa-coffee"></i>2 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>3 分钟阅读
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/hammerspoon/" class="post-taxonomy">hammerspoon</a></div>
 <div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
   <div class="offcanvas-header">
@@ -317,6 +317,9 @@ local function openApp(appName)
      hs.application.launchOrFocus(appName)
  else
      app:activate()
+      -- 移动鼠标到窗口中心
+     local f = target:frame()
+     hs.mouse.setAbsolutePosition({ x = f.x + f.w / 2, y = f.y + f.h / 2 })
  end
 end
 
@@ -325,51 +328,100 @@ hs.hotkey.bind({&#39;alt&#39;}, &#39;c&#39;, function() openApp(&#34;Chrome&#34;
 hs.hotkey.bind({&#39;alt&#39;}, &#39;i&#39;, function() openApp(&#34;微信&#34;) end)
 hs.hotkey.bind({&#39;alt&#39;}, &#39;t&#39;, function() openApp(&#34;终端&#34;) end)
 hs.hotkey.bind({&#39;alt&#39;}, &#39;j&#39;, function() openApp(&#34;IntelliJ IDEA CE&#34;) end)
---hs.hotkey.bind({&#39;alt&#39;}, &#39;v&#39;, function() openApp(&#34;Visual Studio Code&#34;) end)
--- 单次按键即可循环切换 VSCode 窗口
-local vscode_bundle_id = &#34;com.microsoft.VSCode&#34;
-local last_vscode_win = nil
+--hs.hotkey.bind({&#39;alt&#39;}, &#39;v&#39;, function() openApp(&#34;Visual Studio Code&#34;) end)i
+-- 绑定快捷键：Alt + V
+-- VSCode 窗口循环切换逻辑
+-- 快捷键绑定 (⌥ + ⌘ + V)
+local function focusNextVSCode()
+ local vscodeAppNames = { &#34;Visual Studio Code&#34;, &#34;Code&#34;, &#34;Code - Insiders&#34; }
+ local vscodeApp = nil
+ local vscodeAppName = nil
 
-function switchVSCodeWindow()
- local app = hs.application.get(vscode_bundle_id)
- if not app then
-     hs.alert.show(&#34;VSCode 未运行&#34;)
+ -- 找到正在运行的 VSCode 应用
+ for _, name in ipairs(vscodeAppNames) do
+     vscodeApp = hs.application.get(name)
+     if vscodeApp then
+         vscodeAppName = name
+         break
+     end
+ end
+
+ -- 1️⃣ VSCode 未启动 → 启动
+ if not vscodeApp then
+     hs.alert.show(&#34;Launching VSCode…&#34;)
+     hs.task.new(&#34;/usr/bin/open&#34;, nil, { &#34;-a&#34;, &#34;Visual Studio Code&#34; }):start()
      return
  end
 
- local windows = hs.fnutils.filter(app:allWindows(), function(win)
-     return win:isStandard() and win:isVisible()
+ -- 2️⃣ 获取所有 VSCode 窗口
+ local allWindows = vscodeApp:allWindows()
+ local vscodeWindows = {}
+ for _, win in ipairs(allWindows) do
+     local ok, frame = pcall(function() return win:frame() end)
+     if ok and frame and frame.w &gt; 0 and frame.h &gt; 0 then
+         table.insert(vscodeWindows, win)
+     end
+ end
+
+ -- 没有窗口 → 激活 VSCode
+ if #vscodeWindows == 0 then
+     hs.alert.show(&#34;Activating VSCode…&#34;)
+     hs.osascript.applescript(string.format(&#39;tell application &#34;%s&#34; to activate&#39;, vscodeAppName))
+     return
+ end
+
+ -- 按 ID 排序保证顺序一致
+ table.sort(vscodeWindows, function(a, b)
+     return a:id() &lt; b:id()
  end)
 
- if #windows &lt; 2 then
-     hs.alert.show(&#34;只有一个 VSCode 窗口&#34;)
+ -- 当前窗口
+ local currentWindow = hs.window.focusedWindow()
+ local currentAppName = currentWindow and currentWindow:application():name() or &#34;&#34;
+
+ -- 3️⃣ 当前不是 VSCode → 聚焦最后一个 VSCode 窗口
+ if currentAppName ~= vscodeAppName then
+     local target = vscodeWindows[#vscodeWindows]
+     if target:isMinimized() then target:unminimize() end
+     target:focus()
+     vscodeApp:activate()
+
+     -- 移动鼠标到窗口中心
+     local f = target:frame()
+     hs.mouse.setAbsolutePosition({ x = f.x + f.w / 2, y = f.y + f.h / 2 })
      return
  end
 
- local current = hs.window.focusedWindow()
- local target = nil
+ -- 4️⃣ 当前是 VSCode
+ if #vscodeWindows == 1 then
+     vscodeWindows[1]:focus()
+     vscodeApp:activate()
+     local f = vscodeWindows[1]:frame()
+     hs.mouse.setAbsolutePosition({ x = f.x + f.w / 2, y = f.y + f.h / 2 })
+     return
+ end
 
- -- 如果当前是 VSCode 窗口，则切换到另一个
- if current and current:application():bundleID() == vscode_bundle_id then
-     for _, w in ipairs(windows) do
-         if w:id() ~= current:id() then
-             target = w
-             break
-         end
+ -- 当前是 VSCode，有多个窗口 → 循环切换
+ local currentId = currentWindow:id()
+ local nextIndex = 1
+ for i, win in ipairs(vscodeWindows) do
+     if win:id() == currentId then
+         nextIndex = (i % #vscodeWindows) + 1
+         break
      end
- -- 否则聚焦上次的 VSCode 窗口（或第一个）
- else
-     target = last_vscode_win or windows[1]
  end
 
- if target then
-     last_vscode_win = current
-     target:focus()
-     target:raise()
- end
+ local nextWin = vscodeWindows[nextIndex]
+ if nextWin:isMinimized() then nextWin:unminimize() end
+ nextWin:focus()
+ vscodeApp:activate()
+
+ -- 将鼠标移动到目标窗口中心（跨显示器）
+ local f = nextWin:frame()
+ hs.mouse.setAbsolutePosition({ x = f.x + f.w / 2, y = f.y + f.h / 2 })
 end
--- 绑定快捷键：Alt + V
-hs.hotkey.bind({&#34;alt&#34;}, &#34;v&#34;, switchVSCodeWindow)
+-- 快捷键绑定 (⌥ + v)
+hs.hotkey.bind({&#34;alt&#34;}, &#34;v&#34;, focusNextVSCode)
  
 </code></pre></div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
   <div class="modal-dialog">
