@@ -78,12 +78,16 @@ hs.hotkey.bind({'option'}, 'W', function()
  win:move(win:frame():toUnitRect(screen:frame()), screen:next(), true, 0)
 end)
 
+local currentApp = hs.application.frontmostApplication()
+local lastApp = nil
+
 local function openApp(appName)
  local app = hs.application.get(appName)
  if not app then
      hs.application.launchOrFocus(appName)
  else
      app:activate()
+     currentApp = app
       -- 移动鼠标到窗口中心
     if target ~= nil then
      local f = target:frame()
@@ -254,8 +258,8 @@ appWatcher = hs.application.watcher.new(applicationWatcher):start()
 
 --  切换
 -- 记录当前与上一个激活的应用
-local currentApp = hs.application.frontmostApplication()
-local lastApp = nil
+--local currentApp = hs.application.frontmostApplication()
+--local lastApp = nil
 
 -- 监听应用激活，更新 currentApp 与 lastApp
 local appWatcher = hs.application.watcher.new(function(appName, eventType, app)
@@ -280,6 +284,6 @@ hs.hotkey.bind({"alt"}, "'", function()
     hs.alert.show("没有可切换的上一个应用")
   end
 end)
-    
+
 
    ```

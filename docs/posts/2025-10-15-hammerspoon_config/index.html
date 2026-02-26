@@ -12,7 +12,7 @@
 <meta name="description" content="macOS 自动化工具" /><meta itemprop="name" content="hammerspoon config for mac">
 <meta itemprop="description" content="macOS 自动化工具"><meta itemprop="datePublished" content="2025-10-15T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2025-10-15T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1971">
+<meta itemprop="wordCount" content="1982">
 <meta itemprop="keywords" content="hammerspoon," /><meta property="og:title" content="hammerspoon config for mac" />
 <meta property="og:description" content="macOS 自动化工具" />
 <meta property="og:type" content="article" />
@@ -320,12 +320,16 @@ local screen = win:screen()
 win:move(win:frame():toUnitRect(screen:frame()), screen:next(), true, 0)
 end)
 
+local currentApp = hs.application.frontmostApplication()
+local lastApp = nil
+
 local function openApp(appName)
 local app = hs.application.get(appName)
 if not app then
   hs.application.launchOrFocus(appName)
 else
   app:activate()
+  currentApp = app
    -- 移动鼠标到窗口中心
  if target ~= nil then
   local f = target:frame()
@@ -496,8 +500,8 @@ appWatcher = hs.application.watcher.new(applicationWatcher):start()
 
 --  切换
 -- 记录当前与上一个激活的应用
-local currentApp = hs.application.frontmostApplication()
-local lastApp = nil
+--local currentApp = hs.application.frontmostApplication()
+--local lastApp = nil
 
 -- 监听应用激活，更新 currentApp 与 lastApp
 local appWatcher = hs.application.watcher.new(function(appName, eventType, app)
@@ -522,7 +526,6 @@ else
  hs.alert.show(&#34;没有可切换的上一个应用&#34;)
 end
 end)
- 
 </code></pre></div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content surface">
