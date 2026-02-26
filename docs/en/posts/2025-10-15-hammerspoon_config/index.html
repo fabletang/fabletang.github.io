@@ -12,7 +12,7 @@
 <meta name="description" content="macOS 自动化工具" /><meta itemprop="name" content="hammerspoon config for mac">
 <meta itemprop="description" content="macOS 自动化工具"><meta itemprop="datePublished" content="2025-10-15T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2025-10-15T00:00:00+00:00" />
-<meta itemprop="wordCount" content="900">
+<meta itemprop="wordCount" content="925">
 <meta itemprop="keywords" content="hammerspoon," /><meta property="og:title" content="hammerspoon config for mac" />
 <meta property="og:description" content="macOS 自动化工具" />
 <meta property="og:type" content="article" />
@@ -449,8 +449,22 @@ local appInputMethod = {
 
 -- activated 时切换到指定的输入法，deactivated 时恢复之前的状态
 currentID = &#34;&#34;
-function applicationWatcher(appName, eventType, appObject)
+--  切换
+-- 记录当前与上一个激活的应用
+--currentApp = hs.application.frontmostApplication()
+currentApp = nil
+lastApp = nil
+--local currentApp = nil
+function applicationWatcher(appName, eventType, app)
  if (eventType == hs.application.watcher.activated) then
+   -- 监听应用激活，更新 currentApp 与 lastApp
+   if currentApp and currentApp:pid() ~= app:pid() then
+   lastApp = currentApp
+     --hs.alert.show(&#34;lastApp:&#34; .. lastApp:name())
+   end
+   currentApp = app
+     --hs.alert.show(&#34;currentApp:&#34; .. currentApp:name())
+
      for app, fn in pairs(appInputMethod) do
          if app == appName then
              currentID = hs.keycodes.currentSourceID()
@@ -470,26 +484,19 @@ end
 
 appWatcher = hs.application.watcher.new(applicationWatcher):start()
 
---  切换
--- 记录当前与上一个激活的应用
-currentApp = hs.application.frontmostApplication()
---currentApp = nil
-lastApp = nil
---local currentApp = nil
-
 -- 监听应用激活，更新 currentApp 与 lastApp
-local appWatcher2 = hs.application.watcher.new(function(appName, eventType, app)
-if eventType == hs.application.watcher.activated then
- if currentApp and currentApp:pid() ~= app:pid() then
-   lastApp = currentApp
-  --hs.alert.show(&#34;lastApp:&#34; .. lastApp:name())
- end
- currentApp = app
-  --hs.alert.show(&#34;currentApp:&#34; .. currentApp:name())
-end
+--[[local appWatcher2 = hs.application.watcher.new(function(appName, eventType, app)]]
+--[[if eventType == hs.application.watcher.activated then]]
+ --[[if currentApp and currentApp:pid() ~= app:pid() then]]
+   --[[lastApp = currentApp]]
+  --[[--hs.alert.show(&#34;lastApp:&#34; .. lastApp:name())]]
+ --[[end]]
+ --[[currentApp = app]]
+  --[[--hs.alert.show(&#34;currentApp:&#34; .. currentApp:name())]]
+--[[end]]
 
-end)
-appWatcher2:start()
+--[[end)]]
+--appWatcher2:start()
 
 
 local function openApp(appName)

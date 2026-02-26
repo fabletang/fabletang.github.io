@@ -207,8 +207,22 @@ local appInputMethod = {
 
 -- activated 时切换到指定的输入法，deactivated 时恢复之前的状态
 currentID = ""
-function applicationWatcher(appName, eventType, appObject)
+--  切换
+-- 记录当前与上一个激活的应用
+--currentApp = hs.application.frontmostApplication()
+currentApp = nil
+lastApp = nil
+--local currentApp = nil
+function applicationWatcher(appName, eventType, app)
     if (eventType == hs.application.watcher.activated) then
+      -- 监听应用激活，更新 currentApp 与 lastApp
+      if currentApp and currentApp:pid() ~= app:pid() then
+      lastApp = currentApp
+        --hs.alert.show("lastApp:" .. lastApp:name())
+      end
+      currentApp = app
+        --hs.alert.show("currentApp:" .. currentApp:name())
+
         for app, fn in pairs(appInputMethod) do
             if app == appName then
                 currentID = hs.keycodes.currentSourceID()
@@ -228,26 +242,19 @@ end
 
 appWatcher = hs.application.watcher.new(applicationWatcher):start()
 
---  切换
--- 记录当前与上一个激活的应用
-currentApp = hs.application.frontmostApplication()
---currentApp = nil
-lastApp = nil
---local currentApp = nil
-
 -- 监听应用激活，更新 currentApp 与 lastApp
-local appWatcher2 = hs.application.watcher.new(function(appName, eventType, app)
-  if eventType == hs.application.watcher.activated then
-    if currentApp and currentApp:pid() ~= app:pid() then
-      lastApp = currentApp
-     --hs.alert.show("lastApp:" .. lastApp:name())
-    end
-    currentApp = app
-     --hs.alert.show("currentApp:" .. currentApp:name())
-  end
+--[[local appWatcher2 = hs.application.watcher.new(function(appName, eventType, app)]]
+  --[[if eventType == hs.application.watcher.activated then]]
+    --[[if currentApp and currentApp:pid() ~= app:pid() then]]
+      --[[lastApp = currentApp]]
+     --[[--hs.alert.show("lastApp:" .. lastApp:name())]]
+    --[[end]]
+    --[[currentApp = app]]
+     --[[--hs.alert.show("currentApp:" .. currentApp:name())]]
+  --[[end]]
 
-end)
-appWatcher2:start()
+--[[end)]]
+--appWatcher2:start()
 
 
 local function openApp(appName)
@@ -293,6 +300,5 @@ hs.hotkey.bind({'alt'}, 'i', function() openApp("MacVim") end)
 -- 快捷键绑定 (⌥ + v)
 -- hs.hotkey.bind({"alt"}, "v", focusNextVSCode)
 hs.hotkey.bind({'alt'}, 'v', function() openApp("Visual Studio Code") end)
-
 
    ```
