@@ -472,8 +472,8 @@ appWatcher = hs.application.watcher.new(applicationWatcher):start()
 
 --  切换
 -- 记录当前与上一个激活的应用
---currentApp = hs.application.frontmostApplication()
-currentApp = nil
+currentApp = hs.application.frontmostApplication()
+--currentApp = nil
 lastApp = nil
 --local currentApp = nil
 
@@ -499,7 +499,7 @@ if not app then
   hs.application.launchOrFocus(appName)
 else
   --currentApp = app
-  lastApp = app
+  --lastApp = app
   app:activate()
    --hs.alert.show(&#34;currentApp&#34;,currentApp:pid(),&#34;...&#34;)
    -- 移动鼠标到窗口中心
