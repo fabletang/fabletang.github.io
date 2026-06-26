@@ -1,3 +1,6 @@
 baseURL = "https://fabletang.github.io/"
-publishDir= "docs"
+publishDir = "docs"
 #theme = "../themes/hugo-theme-bootstrap"
+#| `post` | Object | - | 
+#| `post.excerpt` | String | `Summary` | 可选项：`description`
+post.excerptMaxLength = 620

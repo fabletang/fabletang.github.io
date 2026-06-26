@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据库 on Fable&#39;s blog</title>
+    <link>https://fabletang.github.io/series/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in 数据库 on Fable&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
+    <lastBuildDate>Fri, 26 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/series/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PostgreSQL可以做到Redis绝大部分功能</title>
+      <link>https://fabletang.github.io/posts/2026-06-26-postgres-redis/</link>
+      <pubDate>Fri, 26 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2026-06-26-postgres-redis/</guid>
+      <description>PostgreSQL可以做到Redis绝大部分功能 我之前用的是一套很典型的Web应用技术栈： PostgreSQL负责持久化数据存储 Redis</description>
+    </item>
+    
+  </channel>
+</rss>

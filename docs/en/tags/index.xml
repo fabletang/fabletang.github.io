@@ -7,7 +7,34 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Wed, 15 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 26 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>database</title>
+      <link>https://fabletang.github.io/en/tags/database/</link>
+      <pubDate>Fri, 26 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/database/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>postgres</title>
+      <link>https://fabletang.github.io/en/tags/postgres/</link>
+      <pubDate>Fri, 26 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/postgres/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redis</title>
+      <link>https://fabletang.github.io/en/tags/redis/</link>
+      <pubDate>Fri, 26 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/tags/redis/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>hammerspoon</title>
       <link>https://fabletang.github.io/en/tags/hammerspoon/</link>

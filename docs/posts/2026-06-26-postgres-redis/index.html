@@ -1,0 +1,1187 @@
+<!doctype html><html lang="zh-cn"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PostgreSQL可以做到Redis绝大部分功能 - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="Replaced Redis with PostgreSQL" /><meta itemprop="name" content="PostgreSQL可以做到Redis绝大部分功能">
+<meta itemprop="description" content="Replaced Redis with PostgreSQL"><meta itemprop="datePublished" content="2026-06-26T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2026-06-26T00:00:00+00:00" />
+<meta itemprop="wordCount" content="4476">
+<meta itemprop="keywords" content="database,postgres,redis," /><meta property="og:title" content="PostgreSQL可以做到Redis绝大部分功能" />
+<meta property="og:description" content="Replaced Redis with PostgreSQL" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fabletang.github.io/posts/2026-06-26-postgres-redis/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-06-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-06-26T00:00:00+00:00" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PostgreSQL可以做到Redis绝大部分功能"/>
+<meta name="twitter:description" content="Replaced Redis with PostgreSQL"/>
+<link rel="preload" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.9adac0978f28fd01634b12c6b047737d767c368d96813de01c527aa26cf82fc6.js" integrity="sha256-mtrAl48o/QFjSxLGsEdzfXZ8No2WgT3gHFJ6omz4L8Y=" crossorigin="anonymous" defer></script></head>
+  <body><script src="https://fabletang.github.io/js/bootstrap.min.062c2e66b557cb779d59cedff7e0cc76e84beb665a1076e474e87d940be44245.js" integrity="sha256-BiwuZrVXy3edWc7f9&#43;DMduhL62ZaEHbkdOh9lAvkQkU=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand me-3" href="https://fabletang.github.io/"><img class="logo" alt="Logo" src="https://fabletang.github.io/images/logo-blog.webp" loading="lazy"
+   width="120" height="120"
+   />
+Fable&#39;s Blog
+    </a>
+    <button class="navbar-social-share" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+  aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+  <i class="fas fa-share"></i>
+</button>
+
+<div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=PostgreSQL%e5%8f%af%e4%bb%a5%e5%81%9a%e5%88%b0Redis%e7%bb%9d%e5%a4%a7%e9%83%a8%e5%88%86%e5%8a%9f%e8%83%bd&url=https%3a%2f%2ffabletang.github.io%2fposts%2f2026-06-26-postgres-redis%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ffabletang.github.io%2fposts%2f2026-06-26-postgres-redis%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">设置</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-language"></i> 语言</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="dropdown">
+        <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          简体中文
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li><a class="dropdown-item" href="https://fabletang.github.io/en/">English</a></li><li><a class="dropdown-item" href="https://fabletang.github.io/zh-tw/">繁體中文</a></li></ul>
+      </div>
+    </div>
+  </form>
+</section>
+
+
+<section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> 配色</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="蓝色"
+        class="btn btn-sm palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="蓝灰色"
+        class="btn btn-sm palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="棕色"
+        class="btn btn-sm palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="青色"
+        class="btn btn-sm palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="绿色"
+        class="btn btn-sm palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="靛青色"
+        class="btn btn-sm palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="橙色"
+        class="btn btn-sm palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="粉色"
+        class="btn btn-sm palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="紫色"
+        class="btn btn-sm palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="红色"
+        class="btn btn-sm palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="蓝绿色"
+        class="btn btn-sm palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="黄色"
+        class="btn btn-sm palette" data-palette="yellow">
+      </button></div>
+</section>
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://fabletang.github.io/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/archives/">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/categories/">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/tags/">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/series/">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">PostgreSQL可以做到Redis绝大部分功能</li></ol>
+  </div>
+</nav>    <article class="row card component mb-4 post"><div class="post-panel-wrapper">
+  <div class="d-flex flex-column component rounded post-panel">
+    
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+  
+    
+  <div class="post-translations nav-item dropdown action">
+    <a class="nav-link p-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-fw fa-language"></i>
+    </a>
+    <div class="dropdown-menu"><a class="dropdown-item post-translation" href="https://fabletang.github.io/en/posts/2026-06-26-postgres-redis/">English</a></div>
+  </div>
+
+
+    <a class="action btn-reward" role="button" data-bs-toggle="modal" data-bs-target="#rewardModal" title="打赏">
+  <i class="fas fa-fw fa-coffee"></i>
+</a>
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0" type="button" aria-label="Copyright" 
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<div class="card-body">
+        <h1 class="card-title my-3">PostgreSQL可以做到Redis绝大部分功能
+</h1><div class="post-meta"><span class="post-date" title="">
+    <i class="fas fa-fw fa-calendar-alt"></i>2026-06-26
+  </span><span class="post-reading-time" title="">
+    <i class="fas fa-fw fa-coffee"></i>9 分钟阅读
+  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-taxonomy">数据库</a><a href="https://fabletang.github.io/tags/database/" class="post-taxonomy">database</a><a href="https://fabletang.github.io/tags/postgres/" class="post-taxonomy">postgres</a><a href="https://fabletang.github.io/tags/redis/" class="post-taxonomy">redis</a></div>
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+      <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一设置我使用redis的目的">一、设置：我使用Redis的目的</a></li>
+    <li><a href="#二我为什么考虑替换redis">二、我为什么考虑替换Redis</a></li>
+    <li><a href="#三postgresql特性">三、PostgreSQL特性</a>
+      <ul>
+        <li><a href="#1使用非日志表进行缓存">1、使用非日志表进行缓存</a></li>
+        <li><a href="#2基于listen或notify实现发布订阅功能">2、基于LISTEN或NOTIFY实现发布订阅功能</a></li>
+        <li><a href="#3基于skip-locked实现任务队列">3、基于SKIP LOCKED实现任务队列</a></li>
+        <li><a href="#4限流">4、限流</a></li>
+        <li><a href="#5基于jsonb实现会话存储">5、基于JSONB实现会话存储</a></li>
+      </ul>
+    </li>
+    <li><a href="#四实际生产环境基准测试">四、实际生产环境基准测试</a></li>
+    <li><a href="#五哪些场景仍建议保留redis">五、哪些场景仍建议保留Redis</a></li>
+    <li><a href="#六迁移方案">六、迁移方案</a></li>
+    <li><a href="#七代码示例完整实现">七、代码示例：完整实现</a></li>
+    <li><a href="#八性能优化技巧">八、性能优化技巧</a></li>
+    <li><a href="#九三个月后的结果">九、三个月后的结果</a></li>
+    <li><a href="#十决策矩阵">十、决策矩阵</a></li>
+    <li><a href="#十一参考资料">十一、参考资料</a></li>
+    <li><a href="#十二最后">十二、最后</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h1 id="postgresql可以做到redis绝大部分功能">PostgreSQL可以做到Redis绝大部分功能</h1>
+<p>我之前用的是一套很典型的Web应用技术栈：</p>
+<ul>
+<li>PostgreSQL负责持久化数据存储</li>
+<li>Redis负责缓存、发布订阅以及后台任务处理</li>
+</ul>
+<p>两个数据库，两个体系需要管理，也意味着多了两处故障风险点。</p>
+<p>后来我意识到：PostgreSQL可以做到Redis能做的功能。</p>
+<p>于是我彻底移除了Redis，迁移过程是这样的。</p>
+<h2 id="一设置我使用redis的目的">一、设置：我使用Redis的目的</h2>
+<p>在替换之前，Redis主要处理三件事：</p>
+<p><strong>1、缓存（使用率70%）</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Cache API responses
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">user</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;user:%d&#34;</span>, <span style="color:#a6e22e">id</span>), <span style="color:#a6e22e">data</span>, <span style="color:#ae81ff">3600</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span></code></pre></div><p><strong>2、发布订阅（使用率20%）</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Real-time notifications
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">msg</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Marshal</span>(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}{<span style="color:#e6db74">&#34;userId&#34;</span>: <span style="color:#a6e22e">userId</span>, <span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#a6e22e">message</span>})
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Publish</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;notifications&#34;</span>, <span style="color:#a6e22e">msg</span>)
+</span></span></code></pre></div><p><strong>3、后台消息队列（使用率10%）</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Using asynq (Redis-based task queue)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">task</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">asynq</span>.<span style="color:#a6e22e">NewTask</span>(<span style="color:#e6db74">&#34;send-email&#34;</span>, []byte(<span style="color:#e6db74">`{&#34;to&#34;:&#34;user@example.com&#34;,&#34;subject&#34;:&#34;Hi&#34;}`</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">Enqueue</span>(<span style="color:#a6e22e">task</span>)
+</span></span></code></pre></div><p><strong>痛点：</strong></p>
+<ul>
+<li>需要备份两个数据库,当然好的设计是redis不持久化,假定为不可靠.</li>
+<li>Redis使用内存（规模化时成本很高）</li>
+<li>Redis持久化机制……很复杂,而且也不可靠</li>
+<li>Postgres和Redis之间还存在一次网络跳转开销</li>
+</ul>
+<h2 id="二我为什么考虑替换redis">二、我为什么考虑替换Redis</h2>
+<p><strong>原因一：成本</strong></p>
+<p><strong>我的Redis配置：</strong></p>
+<ul>
+<li>AWS ElastiCache（2GB）：每月45美元</li>
+<li>若扩容至 5GB，每月费用将增至110美元</li>
+</ul>
+<p><strong>PostgreSQL：</strong></p>
+<ul>
+<li>已付费使用RDS（20GB存储）：每月50美元</li>
+<li>即便增加5GB数据流量：每月仅需0.5美元</li>
+</ul>
+<p><strong>节省成本：</strong> 每月约100美元</p>
+<p><strong>原因二：运行复杂性</strong></p>
+<p><strong>使用 Redis：</strong></p>
+<pre tabindex="0"><code>Postgres backup ✅
+Redis backup ❓ (RDB? AOF? Both?)
+Postgres monitoring ✅
+Redis monitoring ❓
+Postgres failover ✅
+Redis Sentinel/Cluster ❓
+</code></pre><p><strong>不使用Redis：</strong></p>
+<pre tabindex="0"><code>Postgres backup ✅
+Postgres monitoring ✅
+Postgres failover ✅
+</code></pre><p>系统依赖组件更少。</p>
+<p><strong>原因三：数据一致性</strong></p>
+<p><strong>经典问题：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Update database
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;UPDATE users SET name = $1 WHERE id = $2&#34;</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">id</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Invalidate cache
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Del</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;user:%d&#34;</span>, <span style="color:#a6e22e">id</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ⚠️ What if Redis is down?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ⚠️ What if this fails?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Now cache and DB are out of sync
+</span></span></span></code></pre></div><p>在PostgreSQL中，<strong>这类问题通过事务即可解决。</strong></p>
+<h2 id="三postgresql特性">三、PostgreSQL特性</h2>
+<h3 id="1使用非日志表进行缓存">1、使用非日志表进行缓存</h3>
+<p><strong>Redis：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">sessionData</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;session:abc123&#34;</span>, <span style="color:#a6e22e">data</span>, <span style="color:#ae81ff">3600</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span></code></pre></div><p><strong>PostgreSQL：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> UNLOGGED <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">cache</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">key</span> TEXT <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+</span></span><span style="display:flex;"><span>  value JSONB <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>  expires_at TIMESTAMPTZ <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> idx_cache_expires <span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">cache</span>(expires_at);
+</span></span></code></pre></div><p><strong>插入：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#66d9ef">cache</span> (<span style="color:#66d9ef">key</span>, value, expires_at)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">VALUES</span> (<span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>, <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span>, NOW() <span style="color:#f92672">+</span> INTERVAL <span style="color:#e6db74">&#39;1 hour&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> CONFLICT (<span style="color:#66d9ef">key</span>) <span style="color:#66d9ef">DO</span> <span style="color:#66d9ef">UPDATE</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SET</span> value <span style="color:#f92672">=</span> EXCLUDED.value,
+</span></span><span style="display:flex;"><span>      expires_at <span style="color:#f92672">=</span> EXCLUDED.expires_at;
+</span></span></code></pre></div><p><strong>读：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> value <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">cache</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">key</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">AND</span> expires_at <span style="color:#f92672">&gt;</span> NOW();
+</span></span></code></pre></div><p><strong>清理（定期运行）：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">cache</span> <span style="color:#66d9ef">WHERE</span> expires_at <span style="color:#f92672">&lt;</span> NOW();
+</span></span></code></pre></div><p><strong>什么是非日志表？</strong></p>
+<ul>
+<li>跳过预写式日志（WAL）</li>
+<li>写入性能大幅提升</li>
+<li>崩溃后数据不保留（非常适合用作缓存！）</li>
+</ul>
+<p><strong>表现：</strong></p>
+<pre tabindex="0"><code>Redis SET: 0.05ms
+Postgres UNLOGGED INSERT: 0.08ms
+</code></pre><p>用作缓存已经完全够用。</p>
+<h3 id="2基于listen或notify实现发布订阅功能">2、基于LISTEN或NOTIFY实现发布订阅功能</h3>
+<p>接下来就精彩了。</p>
+<p>PostgreSQL具有原生的发布订阅功能，但大多数开发人员并不了解。</p>
+<p><strong>1）Redis的发布订阅功能</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Publisher
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">msg</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Marshal</span>(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}{<span style="color:#e6db74">&#34;userId&#34;</span>: <span style="color:#ae81ff">123</span>, <span style="color:#e6db74">&#34;msg&#34;</span>: <span style="color:#e6db74">&#34;Hello&#34;</span>})
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Publish</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;notifications&#34;</span>, <span style="color:#a6e22e">msg</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Subscriber
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">pubsub</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Subscribe</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;notifications&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">Channel</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">msg</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">ch</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">Payload</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>2）PostgreSQL的发布订阅功能</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Publisher
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">NOTIFY</span> notifications, <span style="color:#e6db74">&#39;{&#34;userId&#34;: 123, &#34;msg&#34;: &#34;Hello&#34;}&#39;</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Subscriber (Go with pgx)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pgx</span>.<span style="color:#a6e22e">Connect</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;DATABASE_URL&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Close</span>(<span style="color:#a6e22e">ctx</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;LISTEN notifications&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">notification</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">WaitForNotification</span>(<span style="color:#a6e22e">ctx</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Payload:&#34;</span>, <span style="color:#a6e22e">notification</span>.<span style="color:#a6e22e">Payload</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>性能对比：</strong></p>
+<pre tabindex="0"><code>Redis pub/sub latency: 1-2ms
+Postgres NOTIFY latency: 2-5ms
+</code></pre><p><strong>性能略低，但优势明显：</strong></p>
+<ul>
+<li>无需额外部署中间件</li>
+<li>可在事务中使用</li>
+<li>可与查询语句结合使用</li>
+</ul>
+<p><strong>3）实际应用场景：实时日志追踪</strong></p>
+<p>在我的日志管理应用中，需要实现<strong>日志实时流式推送</strong>。</p>
+<p><strong>使用Redis：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// When new log arrives
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;INSERT INTO logs ...&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">msg</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">logEntry</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Publish</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;logs:new&#34;</span>, <span style="color:#a6e22e">msg</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Frontend listens
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">pubsub</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Subscribe</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;logs:new&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">Channel</span>()
+</span></span></code></pre></div><p><strong>问题：</strong> 有两个操作，如果发布失败怎么办？</p>
+<p><strong>使用PostgreSQL：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">FUNCTION</span> notify_new_log() <span style="color:#66d9ef">RETURNS</span> <span style="color:#66d9ef">TRIGGER</span> <span style="color:#66d9ef">AS</span> <span style="color:#960050;background-color:#1e0010">$$</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">BEGIN</span>
+</span></span><span style="display:flex;"><span>  PERFORM pg_notify(<span style="color:#e6db74">&#39;logs_new&#39;</span>, row_to_json(<span style="color:#66d9ef">NEW</span>)::text);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">RETURN</span> <span style="color:#66d9ef">NEW</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">END</span>;
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$$</span> <span style="color:#66d9ef">LANGUAGE</span> plpgsql;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TRIGGER</span> log_inserted
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">AFTER</span> <span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">ON</span> logs
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FOR</span> <span style="color:#66d9ef">EACH</span> <span style="color:#66d9ef">ROW</span> <span style="color:#66d9ef">EXECUTE</span> <span style="color:#66d9ef">FUNCTION</span> notify_new_log();
+</span></span></code></pre></div><p>现在整个操作是<strong>原子性</strong>的：插入数据与通知推送，要么同时生效，要么都不执行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Frontend (via SSE)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">logsStreamHandler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Acquire</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Context</span>())
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>(), <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusInternalServerError</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Release</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;text/event-stream&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;Cache-Control&#34;</span>, <span style="color:#e6db74">&#34;no-cache&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;Connection&#34;</span>, <span style="color:#e6db74">&#34;keep-alive&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Context</span>(), <span style="color:#e6db74">&#34;LISTEN logs_new&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">notification</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Conn</span>().<span style="color:#a6e22e">WaitForNotification</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Context</span>())
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;data: %s\n\n&#34;</span>, <span style="color:#a6e22e">notification</span>.<span style="color:#a6e22e">Payload</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">w</span>.(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Flusher</span>).<span style="color:#a6e22e">Flush</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>结果：</strong> 无需Redis即可实现实时日志流传输。</p>
+<h3 id="3基于skip-locked实现任务队列">3、基于SKIP LOCKED实现任务队列</h3>
+<p><strong>Redis（使用asynq）：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">task</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">asynq</span>.<span style="color:#a6e22e">NewTask</span>(<span style="color:#e6db74">&#34;send-email&#34;</span>, []byte(<span style="color:#e6db74">`{&#34;to&#34;:&#34;user@example.com&#34;,&#34;subject&#34;:&#34;Hi&#34;}`</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">Enqueue</span>(<span style="color:#a6e22e">task</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Worker
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;send-email&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">asynq</span>.<span style="color:#a6e22e">Task</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">payload</span> <span style="color:#a6e22e">EmailPayload</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Payload</span>(), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sendEmail</span>(<span style="color:#a6e22e">payload</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p><strong>PostgreSQL：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> jobs (
+</span></span><span style="display:flex;"><span>  id BIGSERIAL <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+</span></span><span style="display:flex;"><span>  queue TEXT <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>  payload JSONB <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>  attempts INT <span style="color:#66d9ef">DEFAULT</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  max_attempts INT <span style="color:#66d9ef">DEFAULT</span> <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>  scheduled_at TIMESTAMPTZ <span style="color:#66d9ef">DEFAULT</span> NOW(),
+</span></span><span style="display:flex;"><span>  created_at TIMESTAMPTZ <span style="color:#66d9ef">DEFAULT</span> NOW()
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> idx_jobs_queue <span style="color:#66d9ef">ON</span> jobs(queue, scheduled_at) 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> attempts <span style="color:#f92672">&lt;</span> max_attempts;
+</span></span></code></pre></div><p><strong>入队：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> jobs (queue, payload)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;send-email&#39;</span>, <span style="color:#e6db74">&#39;{&#34;to&#34;: &#34;user@example.com&#34;, &#34;subject&#34;: &#34;Hi&#34;}&#39;</span>);
+</span></span></code></pre></div><p><strong>工作进程（出队）：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span> next_job <span style="color:#66d9ef">AS</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> id <span style="color:#66d9ef">FROM</span> jobs
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">WHERE</span> queue <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AND</span> attempts <span style="color:#f92672">&lt;</span> max_attempts
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AND</span> scheduled_at <span style="color:#f92672">&lt;=</span> NOW()
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> scheduled_at
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FOR</span> <span style="color:#66d9ef">UPDATE</span> SKIP LOCKED
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UPDATE</span> jobs
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> attempts <span style="color:#f92672">=</span> attempts <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> next_job
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> jobs.id <span style="color:#f92672">=</span> next_job.id
+</span></span><span style="display:flex;"><span>RETURNING <span style="color:#f92672">*</span>;
+</span></span></code></pre></div><p><strong>神奇之处：</strong> FOR UPDATE SKIP LOCKED</p>
+<p>这让PostgreSQL<strong>成为了无锁队列</strong>：</p>
+<ul>
+<li>多个工作进程可并发拉取任务</li>
+<li>任务不会被重复处理</li>
+<li>若工作进程崩溃，任务会自动重新变为可执行状态</li>
+</ul>
+<p><strong>表现：</strong></p>
+<pre tabindex="0"><code>Redis BRPOP: 0.1ms
+Postgres SKIP LOCKED: 0.3ms
+</code></pre><p><strong>对于大多数业务负载而言，性能差异可以忽略不计。</strong></p>
+<h3 id="4限流">4、限流</h3>
+<p><strong>Redis（经典限流方案）：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">key</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;ratelimit:%d&#34;</span>, <span style="color:#a6e22e">userId</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Incr</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">key</span>).<span style="color:#a6e22e">Result</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Expire</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">key</span>, <span style="color:#ae81ff">60</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">count</span> &gt; <span style="color:#ae81ff">100</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;rate limit exceeded&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>PostgreSQL：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> rate_limits (
+</span></span><span style="display:flex;"><span>  user_id INT <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+</span></span><span style="display:flex;"><span>  request_count INT <span style="color:#66d9ef">DEFAULT</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  window_start TIMESTAMPTZ <span style="color:#66d9ef">DEFAULT</span> NOW()
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Check and increment
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">WITH</span> <span style="color:#66d9ef">current</span> <span style="color:#66d9ef">AS</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>    request_count,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">CASE</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">WHEN</span> window_start <span style="color:#f92672">&lt;</span> NOW() <span style="color:#f92672">-</span> INTERVAL <span style="color:#e6db74">&#39;1 minute&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">THEN</span> <span style="color:#ae81ff">1</span>  <span style="color:#75715e">-- Reset counter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">ELSE</span> request_count <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> new_count
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> rate_limits
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">WHERE</span> user_id <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FOR</span> <span style="color:#66d9ef">UPDATE</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UPDATE</span> rate_limits
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> 
+</span></span><span style="display:flex;"><span>  request_count <span style="color:#f92672">=</span> (<span style="color:#66d9ef">SELECT</span> new_count <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">current</span>),
+</span></span><span style="display:flex;"><span>  window_start <span style="color:#f92672">=</span> <span style="color:#66d9ef">CASE</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">WHEN</span> window_start <span style="color:#f92672">&lt;</span> NOW() <span style="color:#f92672">-</span> INTERVAL <span style="color:#e6db74">&#39;1 minute&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">THEN</span> NOW()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">ELSE</span> window_start
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">END</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> user_id <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>RETURNING request_count;
+</span></span></code></pre></div><p><strong>或者用窗口函数更简单：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> api_requests (
+</span></span><span style="display:flex;"><span>  user_id INT <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>  created_at TIMESTAMPTZ <span style="color:#66d9ef">DEFAULT</span> NOW()
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Check rate limit
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">FROM</span> api_requests
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> user_id <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">AND</span> created_at <span style="color:#f92672">&gt;</span> NOW() <span style="color:#f92672">-</span> INTERVAL <span style="color:#e6db74">&#39;1 minute&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- If under limit, insert
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> api_requests (user_id) <span style="color:#66d9ef">VALUES</span> (<span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Cleanup old requests periodically
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> api_requests <span style="color:#66d9ef">WHERE</span> created_at <span style="color:#f92672">&lt;</span> NOW() <span style="color:#f92672">-</span> INTERVAL <span style="color:#e6db74">&#39;5 minutes&#39;</span>;
+</span></span></code></pre></div><p><strong>Postgres的适用场景：</strong></p>
+<ul>
+<li>需要基于复杂业务逻辑做限流（而非仅简单计数）</li>
+<li>希望限流数据与业务逻辑在同一事务中处理</li>
+</ul>
+<p><strong>Redis的适用场景：</strong></p>
+<ul>
+<li>需要亚毫秒级限流</li>
+<li>极高吞吐量（每秒数百万请求）,此时应该要做网关层面的限流了.</li>
+</ul>
+<h3 id="5基于jsonb实现会话存储">5、基于JSONB实现会话存储</h3>
+<p><strong>Redis：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">sessionData</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;session:%s&#34;</span>, <span style="color:#a6e22e">sessionId</span>), <span style="color:#a6e22e">data</span>, <span style="color:#ae81ff">86400</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span></code></pre></div><p><strong>PostgreSQL：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> sessions (
+</span></span><span style="display:flex;"><span>  id TEXT <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">data</span> JSONB <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>  expires_at TIMESTAMPTZ <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> idx_sessions_expires <span style="color:#66d9ef">ON</span> sessions(expires_at);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Insert/Update
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> sessions (id, <span style="color:#66d9ef">data</span>, expires_at)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">VALUES</span> (<span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>, <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span>, NOW() <span style="color:#f92672">+</span> INTERVAL <span style="color:#e6db74">&#39;24 hours&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> CONFLICT (id) <span style="color:#66d9ef">DO</span> <span style="color:#66d9ef">UPDATE</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SET</span> <span style="color:#66d9ef">data</span> <span style="color:#f92672">=</span> EXCLUDED.<span style="color:#66d9ef">data</span>,
+</span></span><span style="display:flex;"><span>      expires_at <span style="color:#f92672">=</span> EXCLUDED.expires_at;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Read
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">data</span> <span style="color:#66d9ef">FROM</span> sessions
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">AND</span> expires_at <span style="color:#f92672">&gt;</span> NOW();
+</span></span></code></pre></div><p><strong>附加内容：JSONB 运算符</strong></p>
+<p>你可以在会话内部进行查询：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Find all sessions for a specific user
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> sessions
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">data</span><span style="color:#f92672">-&gt;&gt;</span><span style="color:#e6db74">&#39;userId&#39;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;123&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Find sessions with specific role
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> sessions
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">data</span><span style="color:#f92672">-&gt;</span><span style="color:#e6db74">&#39;user&#39;</span><span style="color:#f92672">-&gt;&gt;</span><span style="color:#e6db74">&#39;role&#39;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;admin&#39;</span>;
+</span></span></code></pre></div><p>你用Redis做不到这一点！</p>
+<h2 id="四实际生产环境基准测试">四、实际生产环境基准测试</h2>
+<p>我用生产数据集完成了基准测试：</p>
+<p><strong>1、测试设置</strong></p>
+<ul>
+<li><strong>硬件：</strong> AWS RDS db.t3.medium（2个虚拟CPU，4GB内存）</li>
+<li><strong>数据集：</strong> 100万条缓存条目，1万个会话</li>
+<li><strong>工具：</strong> pgbench（自定义脚本）</li>
+</ul>
+<p><strong>2、结果</strong></p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Redis</th>
+<th>PostgreSQL</th>
+<th>不同之处</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>缓存集</td>
+<td>0.05毫秒</td>
+<td>0.08毫秒</td>
+<td>速度降低 60%</td>
+</tr>
+<tr>
+<td>缓存获取</td>
+<td>0.04毫秒</td>
+<td>0.06毫秒</td>
+<td>速度降低 50%</td>
+</tr>
+<tr>
+<td>发布订阅</td>
+<td>1.2毫秒</td>
+<td>3.1毫秒</td>
+<td>速度降低 158%</td>
+</tr>
+<tr>
+<td>队列推送</td>
+<td>0.08毫秒</td>
+<td>0.15毫秒</td>
+<td>速度降低 87%</td>
+</tr>
+<tr>
+<td>队列弹出</td>
+<td>0.12毫秒</td>
+<td>0.31毫秒</td>
+<td>速度降低 158%</td>
+</tr>
+</tbody>
+</table>
+<p>PostgreSQL速度较慢，但是：</p>
+<ul>
+<li>所有操作耗时均保持在1毫秒以内</li>
+<li>省去了与Redis交互的网络开销</li>
+<li>降低基础设施复杂性</li>
+</ul>
+<p><strong>3、合并执行（真正的胜利）</strong></p>
+<p><strong>场景：</strong> 插入数据 + 缓存失效 + 通知订阅者</p>
+<p><strong>使用Redis</strong>：</p>
+<pre tabindex="0"><code>db.Exec(ctx, &#34;INSERT INTO posts ...&#34;)          // 2ms
+rdb.Del(ctx, &#34;posts:latest&#34;)                     // 1ms (network hop)
+rdb.Publish(ctx, &#34;posts:new&#34;, data)              // 1ms (network hop)
+// Total: ~4ms
+</code></pre><p><strong>使用PostgreSQL：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">BEGIN</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> posts ...;                          <span style="color:#75715e">-- 2ms
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">cache</span> <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">key</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;posts:latest&#39;</span>;  <span style="color:#75715e">-- 0.1ms (same connection)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">NOTIFY</span> posts_new, <span style="color:#e6db74">&#39;...&#39;</span>;                        <span style="color:#75715e">-- 0.1ms (same connection)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">COMMIT</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Total: ~2.2ms
+</span></span></span></code></pre></div><p><strong>当多个操作合并执行时，PostgreSQL速度更快。</strong></p>
+<h2 id="五哪些场景仍建议保留redis">五、哪些场景仍建议保留Redis</h2>
+<p>如果符合以下条件，请不要替换Redis：</p>
+<p><strong>1、需要极致的性能</strong></p>
+<pre tabindex="0"><code>Redis: 100,000+ ops/sec (single instance)
+Postgres: 10,000-50,000 ops/sec
+</code></pre><p>如果你每秒执行数百万次缓存读取操作，那就继续使用 Redis。</p>
+<p><strong>2、使用Redis特有的数据结构</strong></p>
+<p><strong>Redis具备：</strong></p>
+<ul>
+<li>有序集合（排行榜）</li>
+<li>HyperLogLog（基数统计）</li>
+<li>地理空间索引</li>
+<li>Streams（高级发布订阅）</li>
+</ul>
+<p><strong>PostgreSQL 虽有对应实现，但使用起来更为繁琐：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Leaderboard in Postgres (slower)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> user_id, score
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> leaderboard
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> score <span style="color:#66d9ef">DESC</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- vs Redis
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>ZREVRANGE leaderboard <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">9</span> WITHSCORES
+</span></span></code></pre></div><p><strong>3、架构需要独立缓存层</strong></p>
+<p>如果你的架构要求独立的缓存层（例如微服务架构,例如主从数据库），建议保留Redis。</p>
+<h2 id="六迁移方案">六、迁移方案</h2>
+<p>不要一夜之间就彻底放弃Redis，以下是我的做法：</p>
+<p><strong>第一阶段：并排共存（第1周）</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Write to both
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;INSERT INTO cache ...&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Read from Redis (still primary)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">key</span>).<span style="color:#a6e22e">Result</span>()
+</span></span></code></pre></div><p><strong>监控：</strong> 对比命中率、延迟。</p>
+<p><strong>第二阶段：从Postgres读取数据（第2周）</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Try Postgres first
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">value</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;SELECT value FROM cache WHERE key = $1&#34;</span>, <span style="color:#a6e22e">key</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">value</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Fallback to Redis
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">rdb</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">key</span>).<span style="color:#a6e22e">Result</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>监控：</strong> 错误率、性能。</p>
+<p><strong>第三阶段：仅写入Postgres（第3周）</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Only write to Postgres
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;INSERT INTO cache ...&#34;</span>)
+</span></span></code></pre></div><p>监控：所有功能是否正常运行？</p>
+<p><strong>第四阶段：移除Redis（第4周）</strong></p>
+<pre tabindex="0"><code># Turn off Redis
+# Watch for errors
+# Nothing breaks? Success!
+</code></pre><h2 id="七代码示例完整实现">七、代码示例：完整实现</h2>
+<p><strong>1、缓存模块（PostgreSQL）</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// cache.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">cache</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;context&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/jackc/pgx/v4/pgxpool&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">PostgresCache</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pool</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pgxpool</span>.<span style="color:#a6e22e">Pool</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewPostgresCache</span>(<span style="color:#a6e22e">pool</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pgxpool</span>.<span style="color:#a6e22e">Pool</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresCache</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">PostgresCache</span>{<span style="color:#a6e22e">pool</span>: <span style="color:#a6e22e">pool</span>}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresCache</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">value</span> []<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">ctx</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;SELECT value FROM cache WHERE key = $1 AND expires_at &gt; NOW()&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">key</span>,
+</span></span><span style="display:flex;"><span>    ).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">value</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">value</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresCache</span>) <span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">value</span> []<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">ttl</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">`INSERT INTO cache (key, value, expires_at)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         VALUES ($1, $2, NOW() + INTERVAL &#39;%d seconds&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         ON CONFLICT (key) DO UPDATE
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">           SET value = EXCLUDED.value,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">               expires_at = EXCLUDED.expires_at`</span>, int(<span style="color:#a6e22e">ttl</span>.<span style="color:#a6e22e">Seconds</span>())),
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresCache</span>) <span style="color:#a6e22e">Delete</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;DELETE FROM cache WHERE key = $1&#34;</span>, <span style="color:#a6e22e">key</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresCache</span>) <span style="color:#a6e22e">Cleanup</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;DELETE FROM cache WHERE expires_at &lt; NOW()&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>2、发布订阅模块</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// pubsub.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">pubsub</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;context&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;encoding/json&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/jackc/pgx/v4/pgxpool&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">PostgresPubSub</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pool</span>      <span style="color:#f92672">*</span><span style="color:#a6e22e">pgxpool</span>.<span style="color:#a6e22e">Pool</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mu</span>        <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">listeners</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">CancelFunc</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewPostgresPubSub</span>(<span style="color:#a6e22e">pool</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pgxpool</span>.<span style="color:#a6e22e">Pool</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresPubSub</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">PostgresPubSub</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">pool</span>:      <span style="color:#a6e22e">pool</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">listeners</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">CancelFunc</span>),
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">ps</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresPubSub</span>) <span style="color:#a6e22e">Publish</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">channel</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">message</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">payload</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">message</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ps</span>.<span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;SELECT pg_notify($1, $2)&#34;</span>, <span style="color:#a6e22e">channel</span>, string(<span style="color:#a6e22e">payload</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">ps</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresPubSub</span>) <span style="color:#a6e22e">Subscribe</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">channel</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">callback</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">interface</span>{})) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ps</span>.<span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Acquire</span>(<span style="color:#a6e22e">ctx</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;LISTEN %s&#34;</span>, <span style="color:#a6e22e">channel</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Release</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">ctx</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ps</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Lock</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ps</span>.<span style="color:#a6e22e">listeners</span>[<span style="color:#a6e22e">channel</span>] = <span style="color:#a6e22e">cancel</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ps</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Unlock</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Release</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">notification</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Conn</span>().<span style="color:#a6e22e">WaitForNotification</span>(<span style="color:#a6e22e">ctx</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">payload</span> <span style="color:#66d9ef">interface</span>{}
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>([]byte(<span style="color:#a6e22e">notification</span>.<span style="color:#a6e22e">Payload</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">payload</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">ps</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresPubSub</span>) <span style="color:#a6e22e">Unsubscribe</span>(<span style="color:#a6e22e">channel</span> <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ps</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Lock</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">ps</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Unlock</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">cancel</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ps</span>.<span style="color:#a6e22e">listeners</span>[<span style="color:#a6e22e">channel</span>]; <span style="color:#a6e22e">ok</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">cancel</span>()
+</span></span><span style="display:flex;"><span>        delete(<span style="color:#a6e22e">ps</span>.<span style="color:#a6e22e">listeners</span>, <span style="color:#a6e22e">channel</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>3、任务队列模块</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// queue.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">queue</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;context&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;encoding/json&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/jackc/pgx/v4/pgxpool&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Job</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ID</span>          <span style="color:#66d9ef">int64</span>           <span style="color:#e6db74">`json:&#34;id&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Queue</span>       <span style="color:#66d9ef">string</span>          <span style="color:#e6db74">`json:&#34;queue&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Payload</span>     <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">RawMessage</span> <span style="color:#e6db74">`json:&#34;payload&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Attempts</span>    <span style="color:#66d9ef">int</span>             <span style="color:#e6db74">`json:&#34;attempts&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">MaxAttempts</span> <span style="color:#66d9ef">int</span>             <span style="color:#e6db74">`json:&#34;max_attempts&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ScheduledAt</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>       <span style="color:#e6db74">`json:&#34;scheduled_at&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">CreatedAt</span>   <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>       <span style="color:#e6db74">`json:&#34;created_at&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">PostgresQueue</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pool</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pgxpool</span>.<span style="color:#a6e22e">Pool</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewPostgresQueue</span>(<span style="color:#a6e22e">pool</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pgxpool</span>.<span style="color:#a6e22e">Pool</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresQueue</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">PostgresQueue</span>{<span style="color:#a6e22e">pool</span>: <span style="color:#a6e22e">pool</span>}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">q</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresQueue</span>) <span style="color:#a6e22e">Enqueue</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">queue</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">payload</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">scheduledAt</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">payload</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;INSERT INTO jobs (queue, payload, scheduled_at) VALUES ($1, $2, $3)&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">queue</span>, <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">scheduledAt</span>,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">q</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresQueue</span>) <span style="color:#a6e22e">Dequeue</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">queue</span> <span style="color:#66d9ef">string</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">Job</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">row</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">ctx</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">`WITH next_job AS (
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          SELECT id FROM jobs
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          WHERE queue = $1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            AND attempts &lt; max_attempts
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            AND scheduled_at &lt;= NOW()
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          ORDER BY scheduled_at
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          LIMIT 1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          FOR UPDATE SKIP LOCKED
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        )
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        UPDATE jobs
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        SET attempts = attempts + 1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        FROM next_job
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        WHERE jobs.id = next_job.id
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        RETURNING jobs.*`</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">queue</span>,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">job</span> <span style="color:#a6e22e">Job</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">row</span>.<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">job</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">job</span>.<span style="color:#a6e22e">Queue</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">job</span>.<span style="color:#a6e22e">Payload</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">job</span>.<span style="color:#a6e22e">Attempts</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">job</span>.<span style="color:#a6e22e">MaxAttempts</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">job</span>.<span style="color:#a6e22e">ScheduledAt</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">job</span>.<span style="color:#a6e22e">CreatedAt</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">job</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">q</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresQueue</span>) <span style="color:#a6e22e">Complete</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">jobID</span> <span style="color:#66d9ef">int64</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;DELETE FROM jobs WHERE id = $1&#34;</span>, <span style="color:#a6e22e">jobID</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">q</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PostgresQueue</span>) <span style="color:#a6e22e">Fail</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">jobID</span> <span style="color:#66d9ef">int64</span>, <span style="color:#a6e22e">errMsg</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">ctx</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">`UPDATE jobs
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         SET attempts = max_attempts,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">             payload = payload || jsonb_build_object(&#39;error&#39;, $2)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         WHERE id = $1`</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">jobID</span>, <span style="color:#a6e22e">errMsg</span>,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="八性能优化技巧">八、性能优化技巧</h2>
+<p><strong>1、使用连接池</strong>
+golang的数据库驱动都带连接池的功能,但是注意,如果有通知或者高并发的日志/队列写入,请单独另启一个连接池.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;context&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/jackc/pgx/v4/pgxpool&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pool</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pgxpool</span>.<span style="color:#a6e22e">Connect</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;DATABASE_URL&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Config</span>().<span style="color:#a6e22e">MaxConns</span> = <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Config</span>().<span style="color:#a6e22e">MaxConnIdleTime</span> = <span style="color:#ae81ff">30</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pool</span>.<span style="color:#a6e22e">Config</span>().<span style="color:#a6e22e">MaxConnLifetime</span> = <span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Hour</span>
+</span></span></code></pre></div><p><strong>2、添加合适的索引</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> CONCURRENTLY idx_cache_key <span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">cache</span>(<span style="color:#66d9ef">key</span>) <span style="color:#66d9ef">WHERE</span> expires_at <span style="color:#f92672">&gt;</span> NOW();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> CONCURRENTLY idx_jobs_pending <span style="color:#66d9ef">ON</span> jobs(queue, scheduled_at) 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">WHERE</span> attempts <span style="color:#f92672">&lt;</span> max_attempts;
+</span></span></code></pre></div><p><strong>3、调整PostgreSQL配置</strong></p>
+<pre tabindex="0"><code># postgresql.conf
+shared_buffers = 2GB           # 25% of RAM
+effective_cache_size = 6GB     # 75% of RAM
+work_mem = 50MB                # For complex queries
+maintenance_work_mem = 512MB   # For VACUUM
+</code></pre><p><strong>4、定期维护</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Run daily
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">VACUUM</span> <span style="color:#66d9ef">ANALYZE</span> <span style="color:#66d9ef">cache</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">VACUUM</span> <span style="color:#66d9ef">ANALYZE</span> jobs;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Or enable autovacuum (recommended)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">cache</span> <span style="color:#66d9ef">SET</span> (autovacuum_vacuum_scale_factor <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">1</span>);
+</span></span></code></pre></div><h2 id="九三个月后的结果">九、三个月后的结果</h2>
+<p><strong>我省下了：</strong></p>
+<ul>
+<li>每月100美元（不再使用 ElastiCache）</li>
+<li>备份复杂性降低50%</li>
+<li>少监控一项服务</li>
+<li>更简单的部署（减少一项依赖）</li>
+</ul>
+<p><strong>我失去了：</strong></p>
+<ul>
+<li>缓存操作延迟则增加约0.5毫秒</li>
+<li>Redis特有的数据结构（其实并不需要,海量记录的TOP排序之类的除外)</li>
+</ul>
+<p><strong>我会再次这样做吗？</strong> 就这个业务场景而言：会。</p>
+<p><strong>是否推荐所有人都这么做？</strong> 不推荐。</p>
+<h2 id="十决策矩阵">十、决策矩阵</h2>
+<p><strong>如果满足以下条件，可用Postgres替换Redis：</strong></p>
+<ul>
+<li>请求访问量 TPS&lt;3000,其实绝大多数项目达不到.</li>
+<li>仅用Redis做简单缓存或者会话管理</li>
+<li>缓存命中率低于95%（写入次数过多）</li>
+<li>需要事务一致性</li>
+<li>可以接受操作速度慢0.1-1毫秒</li>
+<li>团队规模小，运维资源有限</li>
+</ul>
+<p><strong>以下场景建议保留Redis：</strong></p>
+<ul>
+<li>每秒10万次以上的操作量</li>
+<li>使用Redis特有的数据结构（有序集合等）</li>
+<li>配备专业的运维团队</li>
+<li>亚毫秒级延迟为核心要求</li>
+<li>需要跨区域地理复制</li>
+</ul>
+<h2 id="十一参考资料">十一、参考资料</h2>
+<p><strong>1、PostgreSQL 特性</strong></p>
+<ul>
+<li>LISTEN/NOTIFY 官方文档</li>
+<li>SKIP LOCKED 语法</li>
+<li>UNLOGGED 表</li>
+</ul>
+<p><strong>2、工具</strong></p>
+<ul>
+<li>pgBouncer - 连接池</li>
+<li>pg_stat_statements - 查询性能</li>
+</ul>
+<p><strong>3、其他解决方案</strong></p>
+<ul>
+<li>Graphile Worker - 基于Postgres的任务队列</li>
+<li>pg-boss - 另一款Postgres队列实现</li>
+</ul>
+<h2 id="十二最后">十二、最后</h2>
+<p><strong>我用PostgreSQL替换了Redis的这些场景：</strong></p>
+<ul>
+<li>缓存 → UNLOGGED 表</li>
+<li>发布订阅 → LISTEN/NOTIFY</li>
+<li>任务队列 → SKIP LOCKED</li>
+<li>会话存储 → JSONB 表</li>
+</ul>
+<p><strong>结果：</strong></p>
+<ul>
+<li>节省redis服务费用</li>
+<li>降低了运维复杂度</li>
+<li>性能略有下降（延迟增加 0.1–1ms），但可接受</li>
+<li>保证了事务一致性</li>
+</ul>
+<p><strong>适合这样做的场景：</strong></p>
+<ul>
+<li>中小型应用</li>
+<li>简单的缓存需求</li>
+<li>希望减少系统组件、简化架构</li>
+</ul>
+<p><strong>不适合这样做的场景：</strong></p>
+<ul>
+<li>性能要求高（每秒10万次以上操作）</li>
+<li>用Redis特有的功能</li>
+<li>配备专职运维团队</li>
+</ul>
+</div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content surface">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rewardModalLabel"><i class="fas fa-fw fa-coffee"></i>打赏</h5>
+        <a href="#" data-bs-dismiss="modal" class="btn btn-sm btn-outline-primary" aria-label="Close"><i class="fas fa-times"></i></a>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs flex-nowrap mb-3" role="tablist"><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link active" id="reward-alipay-tab" data-bs-toggle="tab" href="#reward-alipay" role="tab" aria-controls="reward-alipay" aria-selected="true">
+              <i class="fab fa-fw fa-alipay"></i>支付宝
+            </a>
+          </li><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link" id="reward-wechat-tab" data-bs-toggle="tab" href="#reward-wechat" role="tab" aria-controls="reward-wechat" aria-selected="true">
+              <i class="fab fa-fw fa-weixin"></i>微信
+            </a>
+          </li></ul>
+        <div class="tab-content" id="rewardTabContent"><div class="tab-pane fade post-reward-content show active" id="reward-alipay" role="tabpanel" aria-labelledby="reward-alipay-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/alipay.webp" loading="lazy" />
+          </div><div class="tab-pane fade post-reward-content show" id="reward-wechat" role="tabpanel" aria-labelledby="reward-wechat-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/wechat.webp" loading="lazy" />
+          </div></div>
+      </div>
+    </div>
+  </div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://fabletang.github.io/posts/2025-10-15-hammerspoon_config/">hammerspoon config for mac
+</a>
+  </div></div></div>
+    </article><div class="card component row post-comments">
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="fabletang/fabletang.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="preferred-color-scheme"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container">
+    
+    <section class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="Fable Tang" src="https://fabletang.github.io/images/hai.webp" loading="lazy"
+   width="150" height="149"
+   />
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name">Fable Tang</div><div class="profile-bio">知行合一</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
+  </div>
+</section>
+  <section class="recent-posts row card component">
+  <div class="card-body">
+    <h2 class="card-title">最近文章</h2>
+    <ul><li><a href="https://fabletang.github.io/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
+</a></li><li><a href="https://fabletang.github.io/posts/2025-10-15-hammerspoon_config/">hammerspoon config for mac
+</a></li><li><a href="https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/">vscode shortcut key for mac
+</a></li><li><a href="https://fabletang.github.io/posts/2023-05-30-vscode-golang/">为Go开发配置vscode
+</a></li><li><a href="https://fabletang.github.io/posts/2023-04-14-tbtest/">微信to-淘宝
+</a></li></ul>
+  </div>
+</section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/categories">分类</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="技术">
+            技术
+          </a><a href="https://fabletang.github.io/categories/%E7%AE%A1%E7%90%86/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="管理">
+            管理
+          </a><a href="https://fabletang.github.io/categories/game/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="game">
+            game
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/series">专栏</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="工具">
+            工具
+          </a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="概念">
+            概念
+          </a><a href="https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="心得">
+            心得
+          </a><a href="https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="编程">
+            编程
+          </a><a href="https://fabletang.github.io/series/eve/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="eve">
+            eve
+          </a><a href="https://fabletang.github.io/series/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="数据库">
+            数据库
+          </a><a href="https://fabletang.github.io/series/%E6%A1%86%E6%9E%B6/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="框架">
+            框架
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/tags">标签</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="golang">
+            golang
+          </a><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vim">
+            vim
+          </a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="practice">
+            practice
+          </a><a href="https://fabletang.github.io/tags/project/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="project">
+            project
+          </a><a href="https://fabletang.github.io/tags/tips/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="tips">
+            tips
+          </a><a href="https://fabletang.github.io/tags/android/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="android">
+            android
+          </a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="docker">
+            docker
+          </a><a href="https://fabletang.github.io/tags/java/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="java">
+            java
+          </a><a href="https://fabletang.github.io/tags/others/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="others">
+            others
+          </a><a href="https://fabletang.github.io/tags/vscode/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vscode">
+            vscode
+          </a></div>
+      </div>
+    </section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:fabletang@outlook.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a><a class="nav-link social-link" target="_blank" href="https://github.com/fabletang" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2026 Fable Tang. All Rights Reserved.
+</div>
+</footer>
+
+</body>
+</html>

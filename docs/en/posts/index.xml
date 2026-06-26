@@ -7,7 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Wed, 15 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 26 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PostgreSQL可以做到Redis绝大部分功能</title>
+      <link>https://fabletang.github.io/en/posts/2026-06-26-postgres-redis/</link>
+      <pubDate>Fri, 26 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2026-06-26-postgres-redis/</guid>
+      <description>PostgreSQL可以做到Redis绝大部分功能 我之前用的是一套很典型的Web应用技术栈：
+PostgreSQL负责持久化数据存储 Redis负责缓存、发布订阅以及后台任务处理 两个数据库，两个体系需要管理，也意味着多了两处故障风险点。
+后来我意识到：PostgreSQL可以做到Redis能做的功能。
+于是我彻底移除了Redis，迁移过程是这样的。
+一、设置：我使用Redis的目的 在替换之前，Redis主要处理三件事：
+1、缓存（使用率70%）
+// Cache API responses data, _ := json.Marshal(user) rdb.Set(ctx, fmt.Sprintf(&amp;#34;user:%d&amp;#34;, id), data, 3600*time.Second) 2、发布订阅（使用率20%）
+// Real-time notifications msg, _ := json.Marshal(map[string]interface{}{&amp;#34;userId&amp;#34;: userId, &amp;#34;message&amp;#34;: message}) rdb.Publish(ctx, &amp;#34;notifications&amp;#34;, msg) 3、后台消息队列（使用率10%）
+// Using asynq (Redis-based task queue) task := asynq.NewTask(&amp;#34;send-email&amp;#34;, []byte(`{&amp;#34;to&amp;#34;:&amp;#34;user@example.com&amp;#34;,&amp;#34;subject&amp;#34;:&amp;#34;Hi&amp;#34;}`)) client.Enqueue(task) 痛点：
+需要备份两个数据库,当然好的设计是redis不持久化,假定为不可靠. Redis使用内存（规模化时成本很高） Redis持久化机制……很复杂,而且也不可靠 Postgres和Redis之间还存在一次网络跳转开销 二、我为什么考虑替换Redis 原因一：成本
+我的Redis配置：
+AWS ElastiCache（2GB）：每月45美元 若扩容至 5GB，每月费用将增至110美元 PostgreSQL：
+已付费使用RDS（20GB存储）：每月50美元 即便增加5GB数据流量：每月仅需0.5美元 节省成本： 每月约100美元
+原因二：运行复杂性
+使用 Redis：
+Postgres backup ✅ Redis backup ❓ (RDB?</description>
+    </item>
+    
     <item>
       <title>hammerspoon config for mac</title>
       <link>https://fabletang.github.io/en/posts/2025-10-15-hammerspoon_config/</link>
