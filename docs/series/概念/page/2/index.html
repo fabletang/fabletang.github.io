@@ -186,6 +186,19 @@ Fable&#39;s Blog
   </div>
 </nav><div class="posts mb-4"><article class="row card post component">
       <div class="card-body">
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
+</a></h2><div class="post-meta"><span class="post-date" title="">
+    <i class="fas fa-fw fa-calendar-alt"></i>2021-12-06
+  </span><span class="post-reading-time" title="">
+    <i class="fas fa-fw fa-coffee"></i>2 分钟阅读
+  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy">golang</a></div>
+<div class="post-summary">
+          
+          为了让程序更好地利用计算机资源，出现了进程/线程，以及并发模式和并行模式的概念。 一、进程和线程 A. 进程是程序在操作系统中的一次执行过程，系统进行资源分配和调度的一个独立单位。 B. 线程是进程的一个执行实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位。 C. 一个进程可以创建和撤销多个线程;同一个进程中的多个线程之间可以并发执行。 二、并发和并行 A. 多线程程序在一个核的cpu上运行，就是并发。 B. 多 …
+        </div>
+      </div>
+    </article><article class="row card post component">
+      <div class="card-body">
         <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2021-11-09-practice_of_db/">关系型数据库实践
 </a></h2><div class="post-meta"><span class="post-date" title="">
     <i class="fas fa-fw fa-calendar-alt"></i>2021-11-09
@@ -194,7 +207,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy">practice</a></div>
 <div class="post-summary">
           
-          关系型数据库是绝大多数系统的数据核心,这个关键设施也往往是性能的瓶颈。以下是一些使用建议。 按业务场景设计表结构 业务场景: 一个mysql的用户
+          关系型数据库是绝大多数系统的数据核心,这个关键设施也往往是性能的瓶颈。以下是一些使用建议。 按业务场景设计表结构 业务场景: 一个mysql的用户表，1000万条记录，如何查询出当天生日的用户？ 表结构通用规则 所有字段必须非空而且有默认值。 一般都有创建时间和更新时间字段，mysql5.6+ 支持数据库本身更新此字段。 尽可能不使用TEXT、BLOB类型. 表字符集尽量选择UTF8MB4,mysql的utf8不是标准的字符 …
         </div>
       </div>
     </article><article class="row card post component">
@@ -207,7 +220,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy">practice</a></div>
 <div class="post-summary">
           
-          得益于nginx等反向代理的流行以及metrics/endpoit规范的成熟。微服务的理念开始流行了。 但是微服务究竟要多&quot;微&qu
+          得益于nginx等反向代理的流行以及metrics/endpoit规范的成熟。微服务的理念开始流行了。 但是微服务究竟要多&quot;微&quot;才合适？以下是我的个人实践。 不能按接口分: 这样的粒度太细.比如新增订单/查询订单分为两个microservice,优点是可以根据各自的负载合理分配服务器 资源。缺点是microservice数量过多，这样拆分的话，至少存在几十个service，这样对service的依赖关系，监控 ／部署 …
         </div>
       </div>
     </article><article class="row card post component">
@@ -220,7 +233,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy">practice</a></div>
 <div class="post-summary">
           
-          stateless server 即无状态服务。相对与传统的http server存在session,无session的 http server称为stateless server，现
+          stateless server 即无状态服务。相对与传统的http server存在session,无session的 http server称为stateless server，现在一般应用于restful service. Why: session的概念存在这么多年，一定有其合理之处,为什么要抛弃它? session的起源: session根源于http的cookie. http协议本身是无状态的协议，server是一问一答，答后 …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3">

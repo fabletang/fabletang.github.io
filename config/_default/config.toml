@@ -10,7 +10,8 @@ defaultContentLanguage = "zh-cn"
 defaultContentLanguageInSubdir = false
 
 # Pagination
-paginate = 5
+paginate = 4
+summaryLength=500
 # paginatePath = "page"
 
 # Disqus

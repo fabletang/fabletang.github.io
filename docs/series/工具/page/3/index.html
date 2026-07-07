@@ -186,6 +186,32 @@ Fable&#39;s Blog
   </div>
 </nav><div class="posts mb-4"><article class="row card post component">
       <div class="card-body">
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2017-09-01-docker_registry/">docker私有仓库搭建
+</a></h2><div class="post-meta"><span class="post-date" title="">
+    <i class="fas fa-fw fa-calendar-alt"></i>2017-09-01
+  </span><span class="post-reading-time" title="">
+    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
+  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy">docker</a></div>
+<div class="post-summary">
+          
+          环境:centos7,docker 1.12+，registry 2. 一、准备工作: mkdir /data/docker-registry mkdir /data/docker-registry-auth 二、安全设置: 生成 http 密码文件 docker run --entrypoint htpasswd registry:2 -Bbn anycloud &#39;123&#39;&gt; …
+        </div>
+      </div>
+    </article><article class="row card post component">
+      <div class="card-body">
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2014-10-13-introduce-gradle/">Gradle 介绍
+</a></h2><div class="post-meta"><span class="post-date" title="">
+    <i class="fas fa-fw fa-calendar-alt"></i>2014-10-13
+  </span><span class="post-reading-time" title="">
+    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
+  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/toolbox/" class="post-taxonomy">toolbox</a></div>
+<div class="post-summary">
+          
+          gradle 现在已经2.1版本了。从1.0版本就一直关注这个groovy项目，但是没有应用到 公司项目的打算，但是现在时机到了。gradle已经是最好的java自动构建工具，没有之一。 一、gradle基于动态语言groovy groovy是java的动态版，闭包的特性让其编译脚本更加自由。 比如你可以指定项目的某个目录用特定jdk版本编译。 二、gradle 可以完全利用已有的maven库资源 maven库资源已经发展非常成熟，几乎 …
+        </div>
+      </div>
+    </article><article class="row card post component">
+      <div class="card-body">
         <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2014-09-30-android-studio-conf/">Android Studio 配置
 </a></h2><div class="post-meta"><span class="post-date" title="">
     <i class="fas fa-fw fa-calendar-alt"></i>2014-09-30
@@ -194,7 +220,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/android/" class="post-taxonomy">android</a><a href="https://fabletang.github.io/tags/tips/" class="post-taxonomy">tips</a></div>
 <div class="post-summary">
           
-          由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开
+          由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开始我使用的是eclipse ADT, linux 的usb联机调试也 搞定了，一切似乎都很顺利，usb联机上传也成功了，app出来了，点击，然后就崩溃了，logcat 提示找不到 XXX.so。本来就对eclipse这个老破车有成见，利用这个借口，开始用android studio 环境说明: …
         </div>
       </div>
     </article><article class="row card post component">
@@ -207,7 +233,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/android/" class="post-taxonomy">android</a><a href="https://fabletang.github.io/tags/tips/" class="post-taxonomy">tips</a></div>
 <div class="post-summary">
           
-          环境说明: Ubuntu 14.04, android ADT 4.2.2 Linux 下 ADT usb联机调试出现 device unknown 的解决办法: 一、使用lsusb命令查看设备的vendorId和productId。 插入usb
+          环境说明: Ubuntu 14.04, android ADT 4.2.2 Linux 下 ADT usb联机调试出现 device unknown 的解决办法: 一、使用lsusb命令查看设备的vendorId和productId。 插入usb线前后用lsusb查看，找出多出的信息。 $ lsusb Bus 003 Device 005: ID 0bb4:0c03 HTC (High Tech Computer Corp.) 二、 …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3">

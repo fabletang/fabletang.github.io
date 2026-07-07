@@ -14,7 +14,7 @@
       <pubDate>Tue, 07 Jul 2026 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2026-07-07-10char-base31-token-design/</guid>
-      <description>版本 1.0 日期 2026-07-07 1. 设计目标 目标 说明 10 位固定长度 短小精悍，适合标签打印和二维码嵌入 第1位 首位，对当前年份与 31 取余数，利于数据库索引和减少碰撞概率 第</description>
+      <description>版本 1.0 日期 2026-07-07 1. 设计目标 目标 说明 10 位固定长度 短小精悍，适合标签打印和二维码嵌入 第1位 首位，对当前年份与 31 取余数，利于数据库索引和减少碰撞概率 第2–9位 8 位随机负载，39 bit 编码输入，提供唯一性核心 第10位 末位，对前 9 个字符进行 mod-31 求和校验，尽早拦截输入错误 Base31 编码 排除 0/O/1/I/L，零混淆 二维码友好 10 字符，Version 1 QR 可容纳（最大 25 字母数字） 人工易输入 无大小写歧义，无数字字母混淆 概率唯一 种子哈希 + 年份分桶 + 数据库 UNIQUE 约束三道防线 适用场景 二维码令牌：嵌入二维码，扫描后查找对应业务实体 短期操作凭证：入库确认、验收签收等一次性操作 不适用场景：资产编号（推荐使用 PRD 定义的 ASSET+日期+流水）、合同编号等需要精确日期可读性的场景 格式示意 ┌──────────┬──────────────────────────┬──────────┐ │ Pos 1 │ Pos 2–9 │ Pos 10 │ │ 年份前缀 │ 随机负载 (8 chars) │ 校验码 │ │year % 31 │ 39 bit 输入 │ mod-31 和│ └──────────┴──────────────────────────┴──────────┘ 示例：年份 2026 → 2026 % 31 = 12 → 字符 D D 8 K 3 D 7 P W N T │ └── 8 chars random ──┘ │</description>
     </item>
     
     <item>
@@ -23,7 +23,7 @@
       <pubDate>Tue, 07 Jul 2026 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2026-07-07-8char-base31-token-design/</guid>
-      <description>8位UUID, Base31 编码方案设计 版本 1.0 日期 2026-07-07 1. 设计目标 目标 说明 8 位固定长度 短小精悍，适合标签打印和二维码嵌入 Base31 编码 排除易混淆字符，提升人工输入准</description>
+      <description>8位UUID, Base31 编码方案设计 版本 1.0 日期 2026-07-07 1. 设计目标 目标 说明 8 位固定长度 短小精悍，适合标签打印和二维码嵌入 Base31 编码 排除易混淆字符，提升人工输入准确率 二维码友好 短码可嵌入最小版本二维码（Version 1, 21×21） 人工易输入 无大小写歧义，无数字字母混淆 概率唯一 基于种子哈希的概率唯一性 + 数据库 UNIQUE 约束兜底 适用场景 二维码令牌：嵌入二维码，扫描后查找对应业务实体 短期操作凭证：入库确认、验收签收等一次性操作 不适用场景：资产编号（推荐使用 PRD 定义的 ASSET+日期+流水）、合同编号等需要排序和日期可读性的场景 2. 字符集设计 2.1 完整字符集 从标准字母数字集合（A-Z, 0-9 = 36 个字符）中剔除易混淆字符： 被排除 原因 易混淆为 0 数字 0 O / D O 大写 O 0 / D 1 数字 1 I / L I 大写 I 1 / L L 大写 L 1 / I 保留字符（31 个）： 2 3 4 5 6 7 8 9 A B C D E F G H J K M N P Q R S T U V W X Y Z 2.2 为什么选择 31 个字符 基数 8 位容量（有效比特） 剔除易混淆字符 评价 Base36 41.4 bit 否 包含 0/O/1/I/L，人工输入易错 Base32 (RFC 4648) 40.0 bit 否（含 O/0/1/L） 标准编码，但字符集对人工不友好 Base32 (Crockford) 40.0 bit 部分（无 I/L/O，但有 0/1） 接近理想，含数字 0/1 仍有混淆风险 Base31 39.6 bit 完全 所有</description>
     </item>
     
     <item>
@@ -41,7 +41,7 @@
       <pubDate>Mon, 06 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2021-12-06-golang_gmp/</guid>
-      <description>一、GMP “调度器” 的由来 单进程时代不需要调度器 早期的操作系统每个程序就是一个进程，直到一个程序运行完，才能进行下一个进程，就是 “单进程时代</description>
+      <description>一、GMP “调度器” 的由来 单进程时代不需要调度器 早期的操作系统每个程序就是一个进程，直到一个程序运行完，才能进行下一个进程，就是 “单进程时代”.自动化控制中的PLC也是典型的单进程操作系统。 多进程 / 线程时代有了调度器需求 典型的操作系统unix/linux,对进程/线程进行了管理。 goroutine是比线程更轻量级的协程 goroutine是golang独有的概念,是为了更少的内存和cpu开销，比线程更加轻量，可以看作是线程的&amp;quot;son&amp;quot;.很明显操作系统管理不了，所以出现了GMP. 二、GMP 定义 G=goroutine,M=mechine,P=processor. 三、GMP 模型 在 Go 中，线程(M)是运行 goroutine 的实体，调度器的功能是把可运行的 goroutine 分配到工作线程上。 全局队列（Global Queue）：存放等待运行的 G。 P 的本地队列：同全局队列类似，存放的也是等待运行的 G，存的数量有限，不超过 256 个。新建 G时，G优先加入到 P 的本地队列，如果队列满了，则会把本地队列中一半的 G 移动到全局队列。 P 列表：所有的 P 都在程序启动时创建，并保存在数组中，最多有 GOMAXPROCS(可配置) 个。 M：线程想运行任务就得获取 P，从 P 的本地队列获取 G，P 队列为空时，M 也会尝试</description>
     </item>
     
     <item>
@@ -50,7 +50,7 @@
       <pubDate>Mon, 06 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/</guid>
-      <description>为了让程序更好地利用计算机资源，出现了进程/线程，以及并发模式和并行模式的概念。 一、进程和线程 A. 进程是程序在操作系统中的一次执行过程，系统进</description>
+      <description>为了让程序更好地利用计算机资源，出现了进程/线程，以及并发模式和并行模式的概念。 一、进程和线程 A. 进程是程序在操作系统中的一次执行过程，系统进行资源分配和调度的一个独立单位。 B. 线程是进程的一个执行实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位。 C. 一个进程可以创建和撤销多个线程;同一个进程中的多个线程之间可以并发执行。 二、并发和并行 A. 多线程程序在一个核的cpu上运行，就是并发。 B. 多线程程序在多个核的cpu上运行，就是并行。 如图所示: 三、并发和并行的效率比较 如上图所示，假定任务A/B/C均衡分配，并行效率更高，因为并发切换线程需要cpu开销(图中树立的双虚线)。 但是为什么绝大多少操作系统，应用程序采用并发的机制呢？因为并行和并发是以CPU来区分，大多数场景下，需要磁盘IO、网络IO，这些IO耗时远远大于cpu耗时,所以大部分情况下并发更能充分利用计算机资源。超级计算机，比如银河超级计算机，这类计算机专注于CPU计算，所以采用并行的操作系统和程序。 四、协程和线程 随着互联网的发展，C10k问题（即单机 10000 个并发连接）出现了。CPU硬件发展不能再遵守摩尔定律,1万个线程切换</description>
     </item>
     
     <item>
@@ -59,7 +59,7 @@
       <pubDate>Tue, 09 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2021-11-09-practice_of_db/</guid>
-      <description>关系型数据库是绝大多数系统的数据核心,这个关键设施也往往是性能的瓶颈。以下是一些使用建议。 按业务场景设计表结构 业务场景: 一个mysql的用户</description>
+      <description>关系型数据库是绝大多数系统的数据核心,这个关键设施也往往是性能的瓶颈。以下是一些使用建议。 按业务场景设计表结构 业务场景: 一个mysql的用户表，1000万条记录，如何查询出当天生日的用户？ 表结构通用规则 所有字段必须非空而且有默认值。 一般都有创建时间和更新时间字段，mysql5.6+ 支持数据库本身更新此字段。 尽可能不使用TEXT、BLOB类型. 表字符集尽量选择UTF8MB4,mysql的utf8不是标准的字符集，utf8mb4可以存储表情字符。 索引字段尽可能使用int/long, 索引为字符型不能超过32个字符。 注释尽量清楚 建表的时候应该考虑最终的数据量，mysql单表应该不超过1000万,分布式数据库按业务字段分区。 不使用外键，尽量少用联合唯一束缚。联合主键酌情使用。 查询最佳实践 互联网业务场景,数据库瓶颈一般出现在查询。 查询一般不关联超过3个表。 查询扫码记录数超过10万条，必须命中索引。 避免使用inner join，left join 语句中的主表应该是结果数据量最少的表。 where语句最左原则，最靠近where的条件应该是索引，应该是可以最大限度缩小查询范围的条件。 避免破坏索引的不规范语句，比如i</description>
     </item>
     
     <item>
@@ -68,7 +68,7 @@
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2017-04-01-granularity_of_microservice/</guid>
-      <description>得益于nginx等反向代理的流行以及metrics/endpoit规范的成熟。微服务的理念开始流行了。 但是微服务究竟要多&amp;quot;微&amp;qu</description>
+      <description>得益于nginx等反向代理的流行以及metrics/endpoit规范的成熟。微服务的理念开始流行了。 但是微服务究竟要多&amp;quot;微&amp;quot;才合适？以下是我的个人实践。 不能按接口分: 这样的粒度太细.比如新增订单/查询订单分为两个microservice,优点是可以根据各自的负载合理分配服务器 资源。缺点是microservice数量过多，这样拆分的话，至少存在几十个service，这样对service的依赖关系，监控 ／部署都增加很大的难度。 不能按数据库表名(table)分: 这是个鲁莽的做法。很明显，数据库的的事务处理将极为棘手。 不能按数据库名(db)分: 这样的粒度太粗.好处是本地数据库数据一致性问题很好解决。缺点是功能过于集中，不利于后期改进。 建议按子业务分，同时考虑数据库表的关联: 比如按订单/用户管理这样的粒度分，数据库表相对独立。这样service的数量较为合适，语意上也容易理解。</description>
     </item>
     
     <item>
@@ -77,7 +77,7 @@
       <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2017-01-01-stateless_server/</guid>
-      <description>stateless server 即无状态服务。相对与传统的http server存在session,无session的 http server称为stateless server，现</description>
+      <description>stateless server 即无状态服务。相对与传统的http server存在session,无session的 http server称为stateless server，现在一般应用于restful service. Why: session的概念存在这么多年，一定有其合理之处,为什么要抛弃它? session的起源: session根源于http的cookie. http协议本身是无状态的协议，server是一问一答，答后不管。为了加入 状态，来辨识是否访问／是否登录的需要，加入了cookie。服务器的session就是对应浏览器端的cookie. 为什么抛弃session: 高并发的访问，session制约了server的水平扩展。在负载均衡的多个server群，虽然可以用高速缓存比 如redis来管理全局session.但是毕竟多存在了一个节点，削弱了系统稳定性。 session需要资源开销，在tomcat中，每个session至少耗费4k内存。 session存在安全缺陷，一般session会以明文形式写入cookie,cookie是保存在浏览器端的硬盘，由此引发 的安全问题可以写成一本书了。即使禁用cookie, session也容易被窃取，CSRF跨域</description>
     </item>
     
   </channel>

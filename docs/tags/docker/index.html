@@ -194,7 +194,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy">docker</a><a href="https://fabletang.github.io/tags/tips/" class="post-taxonomy">tips</a></div>
 <div class="post-summary">
           
-          一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除
+          一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除 docker rmi -f $(docker images | grep &#34;fabletang/test-*&#34; | awk &#34;{print \$3}&#34;) docker rmi -f $(docker …
         </div>
       </div>
     </article><article class="row card post component">

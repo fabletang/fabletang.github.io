@@ -14,7 +14,7 @@
       <pubDate>Thu, 25 Dec 2014 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2014-12-25-grails_intro/</guid>
-      <description>Grails是一套用于快速Web应用开发的开源框架，它基于Groovy编程语言，并构建于Spring、Hibernate等开源框架之上，是一</description>
+      <description>Grails是一套用于快速Web应用开发的开源框架，它基于Groovy编程语言，并构建于Spring、Hibernate等开源框架之上，是一个高生产力一站式框架。其官方网站上的煽情介绍为：The search is over!, 即为不要再苦苦寻找web开发框架了，Grails是终结者。 如果web项目组大部分懂java，又没有旧的web项目负担。Grails是明智的选择。 缺点: groovy是类java的脚本解释动态语言，尽管其兼容java所有语法，最终也运行于JVM,但是速度有所影响.总体grails 比rails快，慢于传统ssh(struts/spring/hiberate)框架. 除了稍慢的运行速度，grails相对SSH全面胜出，以下是论点: 一、学习成本低: groovy语法不用学习，如果懂得java,groovy就是秒懂，实在不行，完全用java的语法也没有任何问题。其实注重运行速度的功能，比如加密解密，数据排序等算法推荐用java编写，groovy可以无缝引用。 grails的springframework\hibernat极易使用，基本不用学习，完全不用理会那些迷宫式xml配置。grails会自动帮你处理好。</description>
     </item>
     
   </channel>

@@ -186,6 +186,19 @@ Fable&#39;s Blog
   </div>
 </nav><div class="posts mb-4"><article class="row card post component">
       <div class="card-body">
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2021-11-30-vim_windows/">vim 窗口相关(三)
+</a></h2><div class="post-meta"><span class="post-date" title="">
+    <i class="fas fa-fw fa-calendar-alt"></i>2021-11-30
+  </span><span class="post-reading-time" title="">
+    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
+  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy">vim</a></div>
+<div class="post-summary">
+          
+          一、vim 窗口类别 1.文本窗口: 主窗口，文本区。 2.buffer窗口: vim运行期间的缓冲文件列表。关闭后清零。 打开: &ldquo;:ls&rdquo; 关闭: &lt;ESC&gt;或者选择一个文件序号自动关闭 3. quickfix窗口: 运行结果显示等。也有插件利用这个窗口显示文件列表。 打开: &ldquo;&lt;leader&gt;o&rdquo;,此快捷键参照配置文件定义。 &lt;leader&gt; …
+        </div>
+      </div>
+    </article><article class="row card post component">
+      <div class="card-body">
         <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2021-11-24-vim_conf/">vim 配置(二)
 </a></h2><div class="post-meta"><span class="post-date" title="">
     <i class="fas fa-fw fa-calendar-alt"></i>2021-11-24
@@ -194,7 +207,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy">vim</a></div>
 <div class="post-summary">
           
-          一、vim安装插件管理器 早期的vim插件需要在网站下载，然后复制到对应目录.（https://www.vim.org/scripts/ind
+          一、vim安装插件管理器 早期的vim插件需要在网站下载，然后复制到对应目录.（https://www.vim.org/scripts/index.php) 受益于github的发展，用插件管理器(一般使用plug.vim)可以批量自动安装和更新插件。非常方便。 git clone https://github.com/junegunn/vim-plug ,然后复制 plug.vim 到vim目录下的 autoload目录就完成了。  …
         </div>
       </div>
     </article><article class="row card post component">
@@ -207,7 +220,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy">vim</a></div>
 <div class="post-summary">
           
-          一、vim起源 vim至今30年历史了，vim是&quot;Vi Improved&quot;的缩写，由vi发展而来. vi是unix系统默认编辑
+          一、vim起源 vim至今30年历史了，vim是&quot;Vi Improved&quot;的缩写，由vi发展而来. vi是unix系统默认编辑器，当时没有鼠标，键盘的按键也较少，比如方向键/Cap等就没有。所以当时的人们(主要是贝尔实验室)创造一个纯键盘的文字编辑器。意外的是，经过几十年的验证，纯粹键盘操作比居然比鼠标更加便捷高效。 甚至有vim狂热喜爱者喊出口号：世上的编辑器分两种，一种是vim，一种是其他。^_^ 二、vim …
         </div>
       </div>
     </article><article class="row card post component">
@@ -220,33 +233,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy">docker</a><a href="https://fabletang.github.io/tags/tips/" class="post-taxonomy">tips</a></div>
 <div class="post-summary">
           
-          一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除
-        </div>
-      </div>
-    </article><article class="row card post component">
-      <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2017-09-01-docker_registry/">docker私有仓库搭建
-</a></h2><div class="post-meta"><span class="post-date" title="">
-    <i class="fas fa-fw fa-calendar-alt"></i>2017-09-01
-  </span><span class="post-reading-time" title="">
-    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
-  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy">docker</a></div>
-<div class="post-summary">
-          
-          环境:centos7,docker 1.12+，registry 2. 一、准备工作: mkdir /data/docker-registry mkdir /data/docker-registry-auth 二、安全设置: 生成 http 密码文件 docker run --entrypoint htpasswd registry:2 -Bbn anycloud &#39;123&#39;&gt; …
-        </div>
-      </div>
-    </article><article class="row card post component">
-      <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2014-10-13-introduce-gradle/">Gradle 介绍
-</a></h2><div class="post-meta"><span class="post-date" title="">
-    <i class="fas fa-fw fa-calendar-alt"></i>2014-10-13
-  </span><span class="post-reading-time" title="">
-    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
-  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/toolbox/" class="post-taxonomy">toolbox</a></div>
-<div class="post-summary">
-          
-          gradle 现在已经2.1版本了。从1.0版本就一直关注这个groovy项目，但是没有应用到 公司项目的打算，但是现在时机到了。gradle已经是最好的
+          一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除 docker rmi -f $(docker images | grep &#34;fabletang/test-*&#34; | awk &#34;{print \$3}&#34;) docker rmi -f $(docker …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3">

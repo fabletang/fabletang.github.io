@@ -15,7 +15,12 @@
       
       <guid>https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/</guid>
       <description>版本 1.0 日期 2026-07-07
-1. 设计目标 目标 说明 10 位固定长度 短小精悍，适合标签打印和二维码嵌入 第1位 首位，对当前年份与 31 取余数，利于数据库索引和减少碰撞概率 第2–9位 8 位随机负载，39 bit 编码输入，提供唯一性核心 第10位 末位，对前 9 个字符进行 mod-31 求和校验，尽早拦截输入错误 Base31 编码 排除 0/O/1/I/L，零混淆 二维码友好 10 字符，Version 1 QR 可容纳（最大 25 字母数字） 人工易输入 无大小写歧义，无数字字母混淆 概率唯一 种子哈希 + 年份分桶 + 数据库 UNIQUE 约束三道防线 适用场景 二维码令牌：嵌入二维码，扫描后查找对应业务实体 短期操作凭证：入库确认、验收签收等一次性操作 不适用场景：资产编号（推荐使用 PRD 定义的 ASSET+日期+流水）、合同编号等需要精确日期可读性的场景 格式示意 ┌──────────┬──────────────────────────┬──────────┐ │ Pos 1 │ Pos 2–9 │ Pos 10 │ │ 年份前缀 │ 随机负载 (8 chars) │ 校验码 │ │year % 31 │ 39 bit 输入 │ mod-31 和│ └──────────┴──────────────────────────┴──────────┘ 示例：年份 2026 → 2026 % 31 = 12 → 字符 D</description>
+1. 设计目标 目标 说明 10 位固定长度 短小精悍，适合标签打印和二维码嵌入 第1位 首位，对当前年份与 31 取余数，利于数据库索引和减少碰撞概率 第2–9位 8 位随机负载，39 bit 编码输入，提供唯一性核心 第10位 末位，对前 9 个字符进行 mod-31 求和校验，尽早拦截输入错误 Base31 编码 排除 0/O/1/I/L，零混淆 二维码友好 10 字符，Version 1 QR 可容纳（最大 25 字母数字） 人工易输入 无大小写歧义，无数字字母混淆 概率唯一 种子哈希 + 年份分桶 + 数据库 UNIQUE 约束三道防线 适用场景 二维码令牌：嵌入二维码，扫描后查找对应业务实体 短期操作凭证：入库确认、验收签收等一次性操作 不适用场景：资产编号（推荐使用 PRD 定义的 ASSET+日期+流水）、合同编号等需要精确日期可读性的场景 格式示意 ┌──────────┬──────────────────────────┬──────────┐ │ Pos 1 │ Pos 2–9 │ Pos 10 │ │ 年份前缀 │ 随机负载 (8 chars) │ 校验码 │ │year % 31 │ 39 bit 输入 │ mod-31 和│ └──────────┴──────────────────────────┴──────────┘ 示例：年份 2026 → 2026 % 31 = 12 → 字符 D
+D 8 K 3 D 7 P W N T │ └── 8 chars random ──┘ │ │ checksum ─┘ year prefix (12 -&amp;gt; &amp;#39;D&amp;#39;) 2. 字符集设计 2.1 完整字符集 从标准字母数字集合（A-Z, 0-9 = 36 个字符）中剔除易混淆字符：
+被排除 原因 易混淆为 0 数字 0 O / D O 大写 O 0 / D 1 数字 1 I / L I 大写 I 1 / L L 大写 L 1 / I 保留字符（31 个）：
+2 3 4 5 6 7 8 9 A B C D E F G H J K M N P Q R S T U V W X Y Z 2.2 字符 → 索引映射表 索引 字符 索引 字符 索引 字符 0 2 11 D 22 R 1 3 12 E 23 S 2 4 13 F 24 T 3 5 14 G 25 U 4 6 15 H 26 V 5 7 16 J 27 W 6 8 17 K 28 X 7 9 18 M 29 Y 8 A 19 N 30 Z 9 B 20 P 10 C 21 Q 2.3 为什么选择 31 个字符 基数 8 位容量（有效比特） 剔除易混淆字符 评价 Base36 41.4 bit 否 包含 0/O/1/I/L，人工输入易错 Base32 (RFC 4648) 40.0 bit 否（含 O/0/1/L） 标准编码，但字符集对人工不友好 Base32 (Crockford) 40.0 bit 部分（无 I/L/O，但有 0/1） 接近理想，含数字 0/1 仍有混淆风险 Base31 39.6 bit 完全 所有易混淆字符全部剔除 31 是剔除 5 个易混淆字符后自然剩余的数量。容量损失极小（Base32 → Base31 仅损失 ~0.4 bit），换取了零歧义的人工输入体验。
+2.4 容量计算 分量 公式 值 总编码空间 31^10 ~8.20 × 10^14 年份前缀占用 1 char，31 有效值 31 桶 随机负载空间 31^8 (Pos 2–9) ~8.53 × 10^12 = 39.63 bit 校验码占用 1 char（确定性） 0 额外容量 有效随机位数 39 bit ~5.50 × 10^11 个值 注意：年份前缀和校验码不增加随机容量，它们是结构性字段。核心随机空间仍为 39 bit。10 位方案相比 8 位的增益在于结构性防护（年份分桶 + 校验码）而非容量扩张。
+3. 编码算法设计 3.1 Generator 算法流程 输入: 年份 year (e.g., 2026) 输出: token string (10 字符) Step 0 — 年份前缀 yearIdx = year % 31 yearChar = base31Chars[yearIdx] // 2026 → &amp;#39;D&amp;#39; Step 1 — 构造种子 mono = runtime.nanotime() - processStart // 单调纳秒 rand = crypto.Read([8]byte) // 64 bit 真随机 seed = binary.LittleEndian.Uint64(rand) ^ uint64(mono) Step 2 — 哈希打散 hash = CityHash64(seed) Step 3 — 截取 &amp;amp; 编码负载 bits = hash &amp;amp; 0x7F_FFFF_FFFF // 低 39 bit payload = Base31Encode(bits) // 8 字符,左填充 &amp;#39;2&amp;#39; Step 4 — 计算校验码 sum = 0 for c in (yearChar + payload): // 遍历前 9 字符 sum += base31DecodeMap[c] checksumIdx = sum % 31 checksumChar = base31Chars[checksumIdx] Step 5 — 组装 token = yearChar + payload + checksumChar // 1 + 8 + 1 = 10 3.2 Seed 组成详解 组件 来源 熵 (bits) 说明 monotonic nanos runtime.</description>
     </item>
     
     <item>
@@ -26,7 +31,17 @@
       <guid>https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/</guid>
       <description>8位UUID, Base31 编码方案设计 版本 1.0 日期 2026-07-07
 1. 设计目标 目标 说明 8 位固定长度 短小精悍，适合标签打印和二维码嵌入 Base31 编码 排除易混淆字符，提升人工输入准确率 二维码友好 短码可嵌入最小版本二维码（Version 1, 21×21） 人工易输入 无大小写歧义，无数字字母混淆 概率唯一 基于种子哈希的概率唯一性 + 数据库 UNIQUE 约束兜底 适用场景 二维码令牌：嵌入二维码，扫描后查找对应业务实体 短期操作凭证：入库确认、验收签收等一次性操作 不适用场景：资产编号（推荐使用 PRD 定义的 ASSET+日期+流水）、合同编号等需要排序和日期可读性的场景 2. 字符集设计 2.1 完整字符集 从标准字母数字集合（A-Z, 0-9 = 36 个字符）中剔除易混淆字符：
-被排除 原因 易混淆为 0 数字 0 O / D O 大写 O 0 / D 1 数字 1 I / L I 大写 I 1 / L L 大写 L 1 / I 保留字符（31 个）：</description>
+被排除 原因 易混淆为 0 数字 0 O / D O 大写 O 0 / D 1 数字 1 I / L I 大写 I 1 / L L 大写 L 1 / I 保留字符（31 个）：
+2 3 4 5 6 7 8 9 A B C D E F G H J K M N P Q R S T U V W X Y Z 2.2 为什么选择 31 个字符 基数 8 位容量（有效比特） 剔除易混淆字符 评价 Base36 41.4 bit 否 包含 0/O/1/I/L，人工输入易错 Base32 (RFC 4648) 40.0 bit 否（含 O/0/1/L） 标准编码，但字符集对人工不友好 Base32 (Crockford) 40.0 bit 部分（无 I/L/O，但有 0/1） 接近理想，含数字 0/1 仍有混淆风险 Base31 39.6 bit 完全 所有易混淆字符全部剔除 31 是剔除 5 个易混淆字符后自然剩余的数量。容量损失极小（Base32 → Base31 仅损失 ~0.4 bit），换取了零歧义的人工输入体验。
+2.3 容量计算 31^8 = 8,528,530,058,560 = 8.53 * 10^12 = 39.63 bit 实际使用的 39-bit 输入空间：
+2^39 = 549,755,813,888 = 5.50 * 10^11 利用率 = 39.0 / 39.63 = 98.4% 39 bit 占用 8 位编码空间的 6.4%，留有充裕扩展余量（但无法超过 39.63 bit 天花板）。
+3. 编码算法设计 3.1 算法流程 输入: (无参数) 输出: token string (8 字符) Step 1 — 构造种子 monotonic = runtime.nanotime() - processStartNano // 单调递增，不受 NTP 影响 random = crypto.Read([8]byte) // CSPRNG 64 bit 真随机 seed = binary.LittleEndian.Uint64(random) ^ uint64(monotonic) Step 2 — 哈希打散 hash = CityHash64(seed) // CityHash 提供优秀的雪崩效应 Step 3 — 截取 bits = hash &amp;amp; 0x7F_FFFF_FFFF // 取低 39 bit Step 4 — Base31 编码 token = Base31Encode(bits) // 固定 8 字符，左填充 &amp;#39;2&amp;#39; 3.2 Seed 组成详解 组件 来源 熵贡献 说明 monotonic_nanos runtime.nanotime() - 进程启动时间 ~0.03 bit/ns 单调递增，不受 NTP 时钟跳变影响，防止时钟回拨导致种子重复 crypto/rand CSPRNG 64 bit 真随机性来源，保证多实例并行生成时无冲突 UTC 日期 已移除 0 bit 对同一天的生成无熵贡献，被 monotonic_nanos 完全覆盖 相较于原方案，移除了 UTC 日期。理由：
+UTC 日期的精度为 1 天，对于同一天的生成调用贡献 0 额外熵 monotonic_nanos 已经提供了更细粒度的时间信息 减少一次系统调用和字符串格式化开销 3.3 CityHash64 选择理由 属性 CityHash64 替代方案 雪崩效应 优秀 — 1 bit 输入翻转导致 ~32 bit 输出翻转 SipHash 同样优秀（但用于安全场景） 吞吐量 ~1.5 GB/s（单核） XXH64 更快但质量略逊 实现复杂度 ~300 行纯 Go，无 CGO 可直接内嵌，零依赖 输出分布 均匀 — chi-squared 检验通过 — 为什么不选 SipHash：SipHash 设计目标是防 Hash DoS 攻击（带密钥），速度慢约 3 倍。本方案不需要加密强度哈希，CityHash 的速度优势更关键。
+为什么不选 XXH64：XXH64 在单字节输入下雪崩效应较弱。本方案的种子仅 16 字节，CityHash 在短输入上表现更稳定。
+3.4 编码表 const base31Chars = &amp;#34;23456789ABCDEFGHJKMNPQRSTUVWXYZ&amp;#34; 编码方式：除基取余法（类 Base64 编码），结果反转后左填充至 8 位。
+func Base31Encode(n uint64) string: if n == 0: return &amp;#34;22222222&amp;#34; buf[8]byte i = 7 while n &amp;gt; 0 and i &amp;gt;= 0: buf[i] = base31Chars[n % 31] n /= 31 i-- // 左填充 &amp;#39;2&amp;#39; for j = 0; j &amp;lt;= i; j++: buf[j] = &amp;#39;2&amp;#39; return string(buf[:]) 4. 唯一性分析 4.1 容量与碰撞概率 39 bit 空间总计 549,755,813,888 个不同值。
+基于生日悖论，在生成 N 个随机码后，至少出现一次碰撞的概率：
+P(collision) ~ 1 - exp(-N^2 / (2 * 2^39)) 生成数量 N 碰撞概率 说明 1,000 ~0.00009% 可忽略 10,000 ~0.009% 可忽略 100,000 ~0.9% 约每 110 次插入需 1 次重试 500,000 ~20% 约每 5 次插入需 1 次重试 740,000 ~50% 碰撞概率的分水岭 1,000,000 ~60% 每次插入约需 1.5 次重试 2,000,000 ~97% 重试开销开始不可接受 5,000,000 ~99.9999% 方案基本不可用 4.2 容量规划建议 场景规模 建议 &amp;lt; 500,000（总码数） 直接使用，无需额外措施 500,000 ~ 1,000,000 监控碰撞率，日志告警 &amp;gt; 1,000,000 强烈不建议。改用 9 位 Base31（~45 bit）或 8 位 + 更高基数编码 &amp;gt; 2,000,000 禁用此方案 4.</description>
     </item>
     
     <item>
@@ -48,7 +63,19 @@
 多进程 / 线程时代有了调度器需求 典型的操作系统unix/linux,对进程/线程进行了管理。
 goroutine是比线程更轻量级的协程 goroutine是golang独有的概念,是为了更少的内存和cpu开销，比线程更加轻量，可以看作是线程的&amp;quot;son&amp;quot;.很明显操作系统管理不了，所以出现了GMP.
 二、GMP 定义 G=goroutine,M=mechine,P=processor. 三、GMP 模型 在 Go 中，线程(M)是运行 goroutine 的实体，调度器的功能是把可运行的 goroutine 分配到工作线程上。 全局队列（Global Queue）：存放等待运行的 G。 P 的本地队列：同全局队列类似，存放的也是等待运行的 G，存的数量有限，不超过 256 个。新建 G时，G优先加入到 P 的本地队列，如果队列满了，则会把本地队列中一半的 G 移动到全局队列。 P 列表：所有的 P 都在程序启动时创建，并保存在数组中，最多有 GOMAXPROCS(可配置) 个。 M：线程想运行任务就得获取 P，从 P 的本地队列获取 G，P 队列为空时，M 也会尝试从全局队列拿一批 G 放到 P 的本地队列，或从其他 P 的本地队列偷一半放到自己 P 的本地队列。M 运行 G，G 执行之后，M 会从 P 获取下一个 G，不断重复下去。 三、GMP 设计策略 复用线程：避免频繁的创建、销毁线程，而是对线程的复用。
-work stealing 机制</description>
+work stealing 机制
+当本线程无可运行的 G 时，尝试从其他线程绑定的 P 偷取 G，而不是销毁线程。 hand off 机制
+当本线程因为 G 进行系统调用阻塞时，线程释放绑定的 P，把 P 转移给其他空闲的线程执行。 利用并行：GOMAXPROCS 设置 P 的数量，最多有 GOMAXPROCS 个线程分布在多个 CPU 上同时运行。GOMAXPROCS 也限制了并发的程度，比如 GOMAXPROCS = 核数/2，则最多利用了一半的 CPU 核进行并行。golang 1.5+版本后，默认GOMAXPOCS=cpu总核数.
+抢占：在 coroutine 中要等待一个协程主动让出 CPU 才执行下一个协程，在 Go 中，一个 goroutine 最多占用 CPU 10ms，防止其他 goroutine 被饿死，这就是 goroutine 不同于 coroutine 的一个地方。
+全局 G 队列：在新的调度器中依然有全局 G 队列，但功能已经被弱化了，当 M 执行 work stealing 从其他 P 偷不到 G 时，它可以从全局 G 队列获取 G。
+四、go func () 调度流程 从上图我们可以分析出几个结论：
+1、我们通过 go func () 来创建一个 goroutine；
+2、有两个存储 G 的队列，一个是局部调度器 P 的本地队列、一个是全局 G 队列。新创建的 G 会先保存在 P 的本地队列中，如果 P 的本地队列已经满了就会保存在全局的队列中；
+3、G 只能运行在 M 中，一个 M 必须持有一个 P，M 与 P 是 1：1 的关系。M 会从 P 的本地队列弹出一个可执行状态的 G 来执行，如果 P 的本地队列为空，就会想其他的 MP 组合偷取一个可执行的 G 来执行；
+4、一个 M 调度 G 执行的过程是一个循环机制；
+5、当 M 执行某一个 G 时候如果发生了 syscall 或则其余阻塞操作，M 会阻塞，如果当前有一些 G 在执行，runtime 会把这个线程 M 从 P 中摘除 (detach)，然后再创建一个新的操作系统的线程 (如果有空闲的线程可用就复用空闲线程) 来服务于这个 P；
+6、当 M 系统调用结束时候，这个 G 会尝试获取一个空闲的 P 执行，并放入到这个 P 的本地队列。如果获取不到 P，那么这个线程 M 变成休眠状态， 加入到空闲线程中，然后这个 G 会被放入全局队列中。
+参考 [1] 地鼠文档 </description>
     </item>
     
     <item>

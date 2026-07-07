@@ -112,11 +112,6 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-tw"
-                href="https://fabletang.github.io/zh-tw/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="en"
                 href="https://fabletang.github.io/en/posts/"
                 />
@@ -850,11 +845,6 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-tw"
-                href="https://fabletang.github.io/zh-tw/archives/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="en"
                 href="https://fabletang.github.io/en/archives/"
                 />
@@ -864,11 +854,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/search/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="https://fabletang.github.io/zh-tw/search/"
                 />
     <xhtml:link
                 rel="alternate"

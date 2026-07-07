@@ -31,7 +31,8 @@ Ubuntu /Windows, android studio 0.8.6+
 二、编译通过，但是联机调试出现上传错误，提示XX.jar重复copy. 这个是studio本身bug, 在 app下的build.gradle 的 android {&amp;hellip;}内加入
 packagingOptions { exclude &amp;#39;META-INF/DEPENDENCIES.txt&amp;#39; exclude &amp;#39;META-INF/LICENSE.txt&amp;#39; exclude &amp;#39;META-INF/NOTICE.txt&amp;#39; exclude &amp;#39;META-INF/NOTICE&amp;#39; exclude &amp;#39;META-INF/LICENSE&amp;#39; exclude &amp;#39;META-INF/DEPENDENCIES&amp;#39; exclude &amp;#39;META-INF/notice.txt&amp;#39; exclude &amp;#39;META-INF/license.txt&amp;#39; exclude &amp;#39;META-INF/dependencies.txt&amp;#39; exclude &amp;#39;META-INF/LGPL2.1&amp;#39; } 三、local.properties 是定义 sdk.dir 和 ndk.dir.需要根据本机andoird jdk情况调整。 四、JNI 相关的问题: android studio 的ndk 不完善，没有eclipse支持那么好。但是也是可以用的，需要在build.gradle
 里配置，具体请参看gradle官方文档.
-JNI生成的.so打包apk。.so位于 libs/armeabi 目录,在 app下的build.gradle 的 android {&amp;hellip;}内加入</description>
+JNI生成的.so打包apk。.so位于 libs/armeabi 目录,在 app下的build.gradle 的 android {&amp;hellip;}内加入
+sourceSets { main { jniLibs.srcDirs = [&amp;#39;libs&amp;#39;] } } </description>
     </item>
     
     <item>

@@ -186,81 +186,61 @@ Fable&#39;s Blog
   </div>
 </nav><div class="posts mb-4"><article class="row card post component">
       <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2014-12-25-grails_intro/">Grails框架介绍
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2017-09-01-docker_registry/">docker私有仓库搭建
 </a></h2><div class="post-meta"><span class="post-date" title="created on">
-    <i class="fas fa-fw fa-calendar-alt"></i>Dec 25, 2014
+    <i class="fas fa-fw fa-calendar-alt"></i>Sep 1, 2017
   </span><span class="post-reading-time" title="reading time">
     <i class="fas fa-fw fa-coffee"></i>1 min read
-  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E6%A1%86%E6%9E%B6/" class="post-taxonomy">框架</a><a href="https://fabletang.github.io/en/tags/java/" class="post-taxonomy">java</a></div>
+  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/en/tags/docker/" class="post-taxonomy">docker</a></div>
 <div class="post-summary">
           
-          Grails是一套用于快速Web应用开发的开源框架，它基于Groovy编程语言，并构建于Spring、Hibernate等开源框架之上，是一个高生产力一站式框架。其官方网站上的煽情介绍为：The search is over!, 即为不要再苦苦寻找web开发框架了，Grails是终结者。
-如果web项目组大部分懂java，又没有旧的web项目负担。Grails是明智的选择。 缺点: groovy是类java的脚本解释动态语言，尽管其兼 …
+          环境:centos7,docker 1.12+，registry 2.
+一、准备工作: mkdir /data/docker-registry mkdir /data/docker-registry-auth 二、安全设置: 生成 http 密码文件
+docker run --entrypoint htpasswd registry:2 -Bbn anycloud &#39;123&#39;&gt; …
         </div>
       </div>
     </article><article class="row card post component">
       <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2014-10-19-goldfish/">养金鱼
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2017-05-01-the_struct_of_go_project/">Golang代码结构
 </a></h2><div class="post-meta"><span class="post-date" title="created on">
-    <i class="fas fa-fw fa-calendar-alt"></i>Oct 19, 2014
+    <i class="fas fa-fw fa-calendar-alt"></i>May 1, 2017
   </span><span class="post-reading-time" title="reading time">
     <i class="fas fa-fw fa-coffee"></i>1 min read
-  </span><a href="https://fabletang.github.io/en/tags/others/" class="post-taxonomy">others</a></div>
+  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy">编程</a><a href="https://fabletang.github.io/en/tags/golang/" class="post-taxonomy">golang</a></div>
 <div class="post-summary">
           
-          鄙人喜欢狗，对养鱼这种雅趣向来不屑一顾。几个月前儿子笑盈盈地提着一个透明小水盒，
-得意的炫耀他钓的金鱼。原来是公园的付费小娱乐，每次十元，规定时间内钓的金鱼就可以
-带回。我瞅了瞅，6条小金鱼，不是锦鲤，也不是那种鱼鳍眼睛特别大的金鱼，就是鱼鳍比一般
-鲤鱼大一点，颜色更鲜艳的金色小鲤鱼, 不是什么名贵品种。似乎刚被勾上来，神情恹恹，浮在
-透明塑料小盒子里。看来没几天好活，不忍心打击儿子的童心，便答应养着。
-一个星期后，死了一条，剩下5条居 …
+          Go的设计思想是代码至上，依赖于代码而不是象其它语言依赖于编译好的库。尽管go的版本号已经到1.8.1了,但是还没没有好的package版本管理策略。1.6推出的vender只是稍微缓解了困境,只有寄希望与将来的1.9版本了。Go的代码结构不同于其它语言的地方,以java为对照:
+代码文件位于src目录 假如GOPATH对应项目goprojectstruct,代码文件应该处于 goprojectstruct/src目录内.
+Go …
         </div>
       </div>
     </article><article class="row card post component">
       <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2014-10-13-introduce-gradle/">Gradle 介绍
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2017-04-01-granularity_of_microservice/">微服务的粒度
 </a></h2><div class="post-meta"><span class="post-date" title="created on">
-    <i class="fas fa-fw fa-calendar-alt"></i>Oct 13, 2014
+    <i class="fas fa-fw fa-calendar-alt"></i>Apr 1, 2017
   </span><span class="post-reading-time" title="reading time">
     <i class="fas fa-fw fa-coffee"></i>1 min read
-  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/en/tags/toolbox/" class="post-taxonomy">toolbox</a></div>
+  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/en/tags/practice/" class="post-taxonomy">practice</a></div>
 <div class="post-summary">
           
-          gradle 现在已经2.1版本了。从1.0版本就一直关注这个groovy项目，但是没有应用到
-公司项目的打算，但是现在时机到了。gradle已经是最好的java自动构建工具，没有之一。
-一、gradle基于动态语言groovy groovy是java的动态版，闭包的特性让其编译脚本更加自由。
-比如你可以指定项目的某个目录用特定jdk版本编译。
-二、gradle 可以完全利用已有的maven库资源 maven库资源已经发展非常成熟，几乎 …
+          得益于nginx等反向代理的流行以及metrics/endpoit规范的成熟。微服务的理念开始流行了。 但是微服务究竟要多&quot;微&quot;才合适？以下是我的个人实践。
+不能按接口分: 这样的粒度太细.比如新增订单/查询订单分为两个microservice,优点是可以根据各自的负载合理分配服务器 资源。缺点是microservice数量过多，这样拆分的话，至少存在几十个service，这样对service的依赖关系，监控 ／部署 …
         </div>
       </div>
     </article><article class="row card post component">
       <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2014-09-30-android-studio-conf/">Android Studio 配置
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2017-01-01-stateless_server/">stateless server 最佳实践
 </a></h2><div class="post-meta"><span class="post-date" title="created on">
-    <i class="fas fa-fw fa-calendar-alt"></i>Sep 30, 2014
+    <i class="fas fa-fw fa-calendar-alt"></i>Jan 1, 2017
   </span><span class="post-reading-time" title="reading time">
     <i class="fas fa-fw fa-coffee"></i>1 min read
-  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/en/tags/android/" class="post-taxonomy">android</a><a href="https://fabletang.github.io/en/tags/tips/" class="post-taxonomy">tips</a></div>
+  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/en/tags/practice/" class="post-taxonomy">practice</a></div>
 <div class="post-summary">
           
-          由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开始我使用的是eclipse ADT, linux 的usb联机调试也 搞定了，一切似乎都很顺利，usb联机上传也成功了，app出来了，点击，然后就崩溃了，logcat 提示找不到 XXX.so。本来就对eclipse这个老破车有成见，利用这个借口，开始用android studio
-环境说明: …
-        </div>
-      </div>
-    </article><article class="row card post component">
-      <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2014-09-29-android-usb-ubunit/">Ubuntu下Android USB联机调试
-</a></h2><div class="post-meta"><span class="post-date" title="created on">
-    <i class="fas fa-fw fa-calendar-alt"></i>Sep 29, 2014
-  </span><span class="post-reading-time" title="reading time">
-    <i class="fas fa-fw fa-coffee"></i>1 min read
-  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/en/tags/android/" class="post-taxonomy">android</a><a href="https://fabletang.github.io/en/tags/tips/" class="post-taxonomy">tips</a></div>
-<div class="post-summary">
-          
-          环境说明: Ubuntu 14.04, android ADT 4.2.2
-Linux 下 ADT usb联机调试出现 device unknown 的解决办法:
-一、使用lsusb命令查看设备的vendorId和productId。 插入usb线前后用lsusb查看，找出多出的信息。
-$ lsusb Bus 003 Device 005: ID 0bb4:0c03 HTC (High Tech Computer Corp.) 二、 …
+          stateless server 即无状态服务。相对与传统的http server存在session,无session的 http server称为stateless server，现在一般应用于restful service.
+Why: session的概念存在这么多年，一定有其合理之处,为什么要抛弃它?
+session的起源: session根源于http的cookie. http协议本身是无状态的协议，server是一问一答，答后 …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3">
@@ -270,9 +250,6 @@ $ lsusb Bus 003 Device 005: ID 0bb4:0c03 HTC (High Tech Computer Corp.) 二、 �
       </li>
       <li class="page-item">
         <a href="/en/posts/page/5/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/en/posts/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
       </li>
       <li class="page-item">
         <a href="/en/posts/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
@@ -287,10 +264,13 @@ $ lsusb Bus 003 Device 005: ID 0bb4:0c03 HTC (High Tech Computer Corp.) 二、 �
         <a href="/en/posts/page/7/" aria-label="Page 7" class="page-link" role="button">7</a>
       </li>
       <li class="page-item">
+        <a href="/en/posts/page/8/" aria-label="Page 8" class="page-link" role="button">8</a>
+      </li>
+      <li class="page-item">
         <a href="/en/posts/page/7/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/en/posts/page/7/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/en/posts/page/8/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul></div>
 </div>

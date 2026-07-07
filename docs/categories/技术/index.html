@@ -194,7 +194,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy">golang</a><a href="https://fabletang.github.io/tags/uuid/" class="post-taxonomy">uuid</a></div>
 <div class="post-summary">
           
-          版本 1.0 日期 2026-07-07 1. 设计目标 目标 说明 10 位固定长度 短小精悍，适合标签打印和二维码嵌入 第1位 首位，对当前年份与 31 取余数，利于数据库索引和减少碰撞概率 第
+          版本 1.0 日期 2026-07-07 1. 设计目标 目标 说明 10 位固定长度 短小精悍，适合标签打印和二维码嵌入 第1位 首位，对当前年份与 31 取余数，利于数据库索引和减少碰撞概率 第2–9位 8 位随机负载，39 bit 编码输入，提供唯一性核心 第10位 末位，对前 9 个字符进行 mod-31 求和校验，尽早拦截输入错误 Base31 编码 排除 0/O/1/I/L，零混淆 二维码友好 10 字符，Version 1 …
         </div>
       </div>
     </article><article class="row card post component">
@@ -207,7 +207,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy">golang</a><a href="https://fabletang.github.io/tags/uuid/" class="post-taxonomy">uuid</a></div>
 <div class="post-summary">
           
-          8位UUID, Base31 编码方案设计 版本 1.0 日期 2026-07-07 1. 设计目标 目标 说明 8 位固定长度 短小精悍，适合标签打印和二维码嵌入 Base31 编码 排除易混淆字符，提升人工输入准
+          8位UUID, Base31 编码方案设计 版本 1.0 日期 2026-07-07 1. 设计目标 目标 说明 8 位固定长度 短小精悍，适合标签打印和二维码嵌入 Base31 编码 排除易混淆字符，提升人工输入准确率 二维码友好 短码可嵌入最小版本二维码（Version 1, 21×21） 人工易输入 无大小写歧义，无数字字母混淆 概率唯一 基于种子哈希的概率唯一性 + 数据库 UNIQUE 约束兜底 适用场景 二维码令牌：嵌入二维 …
         </div>
       </div>
     </article><article class="row card post component">
@@ -220,7 +220,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-taxonomy">数据库</a><a href="https://fabletang.github.io/tags/database/" class="post-taxonomy">database</a><a href="https://fabletang.github.io/tags/postgres/" class="post-taxonomy">postgres</a><a href="https://fabletang.github.io/tags/redis/" class="post-taxonomy">redis</a></div>
 <div class="post-summary">
           
-          PostgreSQL可以做到Redis绝大部分功能 我之前用的是一套很典型的Web应用技术栈： PostgreSQL负责持久化数据存储 Redis
+          PostgreSQL可以做到Redis绝大部分功能 我之前用的是一套很典型的Web应用技术栈： PostgreSQL负责持久化数据存储 Redis负责缓存、发布订阅以及后台任务处理 两个数据库，两个体系需要管理，也意味着多了两处故障风险点。 后来我意识到：PostgreSQL可以做到Redis能做的功能。 于是我彻底移除了Redis，迁移过程是这样的。 一、设置：我使用Redis的目的 在替换之前，Redis主要处理三件事： 1、缓存（ …
         </div>
       </div>
     </article><article class="row card post component">
@@ -233,20 +233,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/hammerspoon/" class="post-taxonomy">hammerspoon</a></div>
 <div class="post-summary">
           
-          说明 Hammerspoon 是一款革命性的 macOS 桌面自动化工具，它将系统级 API 与灵活的 Lua 脚本引擎相结合。通过编写自定义的 Lua 脚本，您可以对系统进行强大的控制。 程序员一般的
-        </div>
-      </div>
-    </article><article class="row card post component">
-      <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/">vscode shortcut key for mac
-</a></h2><div class="post-meta"><span class="post-date" title="">
-    <i class="fas fa-fw fa-calendar-alt"></i>2023-07-23
-  </span><span class="post-reading-time" title="">
-    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
-  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/vscode/" class="post-taxonomy">vscode</a></div>
-<div class="post-summary">
-          
-          说明 如果快捷键不起作用，切换输入法为英文. 以下快捷键，里面有“+”号，表示分段，不代表键盘，先按前面部分，在1秒内再按后面部分。 vscode
+          说明 Hammerspoon 是一款革命性的 macOS 桌面自动化工具，它将系统级 API 与灵活的 Lua 脚本引擎相结合。通过编写自定义的 Lua 脚本，您可以对系统进行强大的控制。 程序员一般的工作习惯都是两个显示屏幕，两个浏览器窗口，多个编程编辑器窗口，再加至少一个即时通讯工具,或者还有一个终端console。如果使用系统快捷键切换不够精确，用鼠标又不方便，特别是需要把光标移到扩展的显示屏的时候。Hammerspoon作为一个 …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3">
@@ -276,7 +263,7 @@ Fable&#39;s Blog
         <a href="/categories/%E6%8A%80%E6%9C%AF/page/2/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/categories/%E6%8A%80%E6%9C%AF/page/5/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/categories/%E6%8A%80%E6%9C%AF/page/7/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul></div>
 </div>

@@ -194,7 +194,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-taxonomy">数据库</a><a href="https://fabletang.github.io/tags/database/" class="post-taxonomy">database</a><a href="https://fabletang.github.io/tags/postgres/" class="post-taxonomy">postgres</a><a href="https://fabletang.github.io/tags/redis/" class="post-taxonomy">redis</a></div>
 <div class="post-summary">
           
-          PostgreSQL可以做到Redis绝大部分功能 我之前用的是一套很典型的Web应用技术栈： PostgreSQL负责持久化数据存储 Redis
+          PostgreSQL可以做到Redis绝大部分功能 我之前用的是一套很典型的Web应用技术栈： PostgreSQL负责持久化数据存储 Redis负责缓存、发布订阅以及后台任务处理 两个数据库，两个体系需要管理，也意味着多了两处故障风险点。 后来我意识到：PostgreSQL可以做到Redis能做的功能。 于是我彻底移除了Redis，迁移过程是这样的。 一、设置：我使用Redis的目的 在替换之前，Redis主要处理三件事： 1、缓存（ …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3"></div>

@@ -14,7 +14,7 @@
       <pubDate>Thu, 18 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/</guid>
-      <description>目前golang最新版本为1.17.3，经过12年的发展，生态已经成熟。 Go是一门工程语言 go诞生的初衷就是解决c/c++的各种弊端，提高生</description>
+      <description>目前golang最新版本为1.17.3，经过12年的发展，生态已经成熟。 Go是一门工程语言 go诞生的初衷就是解决c/c++的各种弊端，提高生产力。 go编译速度极快，相对于c++/rust,10倍以上编译速度。 go fmt 代码格式化,代码风格统一。 自动垃圾搜集。简化c/c++的内存管理。 单一执行文件。 Go与其他语言的区别 Go vs Java: Go有内存垃圾自动处理，无虚拟机。 Go无对象编程的类class的概念，更强调struct（类似C）. Go的对象继承是“鸭子原理&amp;quot;,Java是“血缘关系&amp;quot;. Go vs C: Go无宏定义.兼容C。基本上可以用C的风格来写Go代码。 Go vs C++: C++ 20是一门现代语言，有非常多的特性，Go语言是以C为参考的，所以大多数特性Go都不具备，比如虚函数等。 Go vs Rust: Rust是在Go诞生后出现的，Go语法简单，Rust语法复杂。Rust强调严格的内存安全，Go的自动垃圾搜集是宽松的内存管理。Rust具备大多数现代语言特性，其复杂性与C++相当。 Go vs javascript/typescript/php: Go 是强类型语言，性能高很多。 Go的优势 语法简洁 简洁不意味简单，但是编码效率高,清晰易懂也减少维护成本。 性能优异 性能介于c++/rust 与 Java</description>
     </item>
     
     <item>
@@ -23,7 +23,7 @@
       <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2021-02-26-java_singleten_pattern/</guid>
-      <description>java单例模式有5种实现方式,推荐以下3种方式. 一、单例-饿汉式: 特点:线程安全，不能延时加载 public enum SingletonDemo1 { //枚举元素本身就是单例 INSTANCE; //添加自</description>
+      <description>java单例模式有5种实现方式,推荐以下3种方式. 一、单例-饿汉式: 特点:线程安全，不能延时加载 public enum SingletonDemo1 { //枚举元素本身就是单例 INSTANCE; //添加自己需要的操作 public void singletonOperation(){ } } 二、单例-懒汉式-双重锁检查: 特点:线程安全，延时加载。 ps: java1.5后,volatile可以避免jvm初始化内存分配可能乱序的问题。 public class SingletonDemo2 { private static volatile SingletonDemo2 SingletonDemo2; private SingletonDemo2() { } public static SingletonDemo2 newInstance() { if (SingletonDemo2 == null) { synchronized (SingletonDemo2.class) { if (SingletonDemo2 == null) { SingletonDemo2 = new SingletonDemo2(); } } } return SingletonDemo2; } } 三、单例-懒汉式-静态内部类: 特点:线程安全，延时加载。 public class SingletonDemo3 { private static class SingletonClassInstance{ private static final SingletonDemo3 instance=new SingletonDemo3(); } private SingletonDemo3(){} public static SingletonDemo3 getInstance(){ return SingletonClassInstance.instance; } } 四、多例: 多例模式，我们可以将类的实例都编上号，然后将实例存放在一个Map: public class MultiInstance { // 实例编号 private long instanceNum; // 用于存放实例 private static final Map&amp;lt;Long, MultiInstance&amp;gt; ins = new HashMap&amp;lt;&amp;gt;(); static { // 存放 3 个实例 ins.put(1L, new MultiInstance(1)); ins.put(2L, new MultiInstance(2)); ins.put(3L, new MultiInstance(3)); } private MultiInstance(long n) { this.instanceNum = n; } public MultiInstance getInstance(long n) { return ins.get(n); } } 实际上,Java 中的枚举就是一个“天然”的多例模式,其中的每一项代表一个实例: public enum MultiInstance { ONE, TWO, THREE; } 五、线程中的单例: 一般情况下，我们所说的单例的作用范围是进程唯一的，就是在一个进程范围内，一个类只允许创建一个对象，进程内的多个线程之间也是共享同一个实例。 那么线程唯一的单例就是，一个实例只能被一个线程拥有，一个进</description>
     </item>
     
     <item>
@@ -32,7 +32,7 @@
       <pubDate>Mon, 01 May 2017 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/</guid>
-      <description>Go的设计思想是代码至上，依赖于代码而不是象其它语言依赖于编译好的库。尽管go的版本号已经到1.8.1了,但是还没没有好的package版本</description>
+      <description>Go的设计思想是代码至上，依赖于代码而不是象其它语言依赖于编译好的库。尽管go的版本号已经到1.8.1了,但是还没没有好的package版本管理策略。1.6推出的vender只是稍微缓解了困境,只有寄希望与将来的1.9版本了。Go的代码结构不同于其它语言的地方,以java为对照: 代码文件位于src目录 假如GOPATH对应项目goprojectstruct,代码文件应该处于 goprojectstruct/src目录内. Go无class的概念 Go无对象编程的类class的概念。所以代码文件名称可以随意定义，但是一般位于package目录,一般与package同名，但是拆分成几个文件也是可以的。 代码文件/package名为小写 Java文件名一般为大写。Go以简单为宗旨，显然小写字母要简单,也符合go的定义，小写代表私有private，大写代表公开public。 单元测试文件 单元测试文件与被测试文件处于同一目录，文件名追加&amp;quot;_test&amp;quot;,比如 hello.go的测试文件为 hello_test.go. 引用库位于vender 所有外来引入的package都应该处于vender目录下。.gitignore也应该</description>
     </item>
     
   </channel>
