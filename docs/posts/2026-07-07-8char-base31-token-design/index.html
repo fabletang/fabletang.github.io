@@ -3,18 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PostgreSQL可以做到Redis绝大部分功能 - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+    <title>8位UUID, Base31 编码方案设计 - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
 <link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
 <link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
 <meta name="keywords" content="" />
-<meta name="description" content="Replaced Redis with PostgreSQL" /><meta itemprop="name" content="PostgreSQL可以做到Redis绝大部分功能">
-<meta itemprop="description" content="Replaced Redis with PostgreSQL"><meta itemprop="datePublished" content="2026-07-07T00:00:00+00:00" />
+<meta name="description" content="短码设计" /><meta itemprop="name" content="8位UUID, Base31 编码方案设计">
+<meta itemprop="description" content="短码设计"><meta itemprop="datePublished" content="2026-07-07T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2026-07-07T00:00:00+00:00" />
 <meta itemprop="wordCount" content="3903">
-<meta itemprop="keywords" content="golang,uuid," /><meta property="og:title" content="PostgreSQL可以做到Redis绝大部分功能" />
-<meta property="og:description" content="Replaced Redis with PostgreSQL" />
+<meta itemprop="keywords" content="golang,uuid," /><meta property="og:title" content="8位UUID, Base31 编码方案设计" />
+<meta property="og:description" content="短码设计" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://fabletang.github.io/posts/2026-07-07-8char-base31-token-design/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2026-07-07T00:00:00+00:00" />
@@ -22,8 +22,8 @@
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="PostgreSQL可以做到Redis绝大部分功能"/>
-<meta name="twitter:description" content="Replaced Redis with PostgreSQL"/>
+<meta name="twitter:title" content="8位UUID, Base31 编码方案设计"/>
+<meta name="twitter:description" content="短码设计"/>
 <link rel="preload" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.9adac0978f28fd01634b12c6b047737d767c368d96813de01c527aa26cf82fc6.js" integrity="sha256-mtrAl48o/QFjSxLGsEdzfXZ8No2WgT3gHFJ6omz4L8Y=" crossorigin="anonymous" defer></script></head>
   <body><script src="https://fabletang.github.io/js/bootstrap.min.062c2e66b557cb779d59cedff7e0cc76e84beb665a1076e474e87d940be44245.js" integrity="sha256-BiwuZrVXy3edWc7f9&#43;DMduhL62ZaEHbkdOh9lAvkQkU=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
@@ -50,7 +50,7 @@ Fable&#39;s Blog
   </div>
   <div class="offcanvas-body">
     <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
-      target="_blank" href="https://twitter.com/intent/tweet?title=PostgreSQL%e5%8f%af%e4%bb%a5%e5%81%9a%e5%88%b0Redis%e7%bb%9d%e5%a4%a7%e9%83%a8%e5%88%86%e5%8a%9f%e8%83%bd&url=https%3a%2f%2ffabletang.github.io%2fposts%2f2026-07-07-8char-base31-token-design%2f">
+      target="_blank" href="https://twitter.com/intent/tweet?title=8%e4%bd%8dUUID%2c%20Base31%20%e7%bc%96%e7%a0%81%e6%96%b9%e6%a1%88%e8%ae%be%e8%ae%a1&url=https%3a%2f%2ffabletang.github.io%2fposts%2f2026-07-07-8char-base31-token-design%2f">
       <i class="fab fa-fw fa-twitter"></i> Twitter
     </a>
     <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
@@ -188,7 +188,7 @@ Fable&#39;s Blog
 <div class="col-lg-8">
   <div class="container"><nav class="row card component" aria-label="breadcrumb">
   <div class="card-body">
-    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">PostgreSQL可以做到Redis绝大部分功能</li></ol>
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">8位UUID, Base31 编码方案设计</li></ol>
   </div>
 </nav>    <article class="row card component mb-4 post"><div class="post-panel-wrapper">
   <div class="d-flex flex-column component rounded post-panel">
@@ -222,7 +222,7 @@ Fable&#39;s Blog
   </div>
 </div>
 <div class="card-body">
-        <h1 class="card-title my-3">PostgreSQL可以做到Redis绝大部分功能
+        <h1 class="card-title my-3">8位UUID, Base31 编码方案设计
 </h1><div class="post-meta"><span class="post-date" title="">
     <i class="fas fa-fw fa-calendar-alt"></i>2026-07-07
   </span><span class="post-reading-time" title="">
@@ -1201,7 +1201,7 @@ Base31      - 2 3 4 5 6 7 8 9 - A B C D E F G H - J K - M N - P Q R S T U V W X 
   <section class="recent-posts row card component">
   <div class="card-body">
     <h2 class="card-title">最近文章</h2>
-    <ul><li><a href="https://fabletang.github.io/posts/2026-07-07-8char-base31-token-design/">PostgreSQL可以做到Redis绝大部分功能
+    <ul><li><a href="https://fabletang.github.io/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
 </a></li><li><a href="https://fabletang.github.io/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
 </a></li><li><a href="https://fabletang.github.io/posts/2025-10-15-hammerspoon_config/">hammerspoon config for mac
 </a></li><li><a href="https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/">vscode shortcut key for mac

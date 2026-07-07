@@ -1,6 +1,6 @@
 +++
-title= "PostgreSQL可以做到Redis绝大部分功能"
-description= "Replaced Redis with PostgreSQL"
+title= "8位UUID, Base31 编码方案设计"
+description= "短码设计"
 date = "2026-07-07"
 tags = [
     "golang",
