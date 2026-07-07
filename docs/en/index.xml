@@ -9,6 +9,16 @@
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
     <lastBuildDate>Tue, 07 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>10位短码方案设计</title>
+      <link>https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/</link>
+      <pubDate>Tue, 07 Jul 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/</guid>
+      <description>版本 1.0 日期 2026-07-07
+1. 设计目标 目标 说明 10 位固定长度 短小精悍，适合标签打印和二维码嵌入 第1位 首位，对当前年份与 31 取余数，利于数据库索引和减少碰撞概率 第2–9位 8 位随机负载，39 bit 编码输入，提供唯一性核心 第10位 末位，对前 9 个字符进行 mod-31 求和校验，尽早拦截输入错误 Base31 编码 排除 0/O/1/I/L，零混淆 二维码友好 10 字符，Version 1 QR 可容纳（最大 25 字母数字） 人工易输入 无大小写歧义，无数字字母混淆 概率唯一 种子哈希 + 年份分桶 + 数据库 UNIQUE 约束三道防线 适用场景 二维码令牌：嵌入二维码，扫描后查找对应业务实体 短期操作凭证：入库确认、验收签收等一次性操作 不适用场景：资产编号（推荐使用 PRD 定义的 ASSET+日期+流水）、合同编号等需要精确日期可读性的场景 格式示意 ┌──────────┬──────────────────────────┬──────────┐ │ Pos 1 │ Pos 2–9 │ Pos 10 │ │ 年份前缀 │ 随机负载 (8 chars) │ 校验码 │ │year % 31 │ 39 bit 输入 │ mod-31 和│ └──────────┴──────────────────────────┴──────────┘ 示例：年份 2026 → 2026 % 31 = 12 → 字符 D</description>
+    </item>
+    
+    <item>
       <title>8位UUID, Base31 编码方案设计</title>
       <link>https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/</link>
       <pubDate>Tue, 07 Jul 2026 00:00:00 +0000</pubDate>

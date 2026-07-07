@@ -186,6 +186,20 @@ Fable&#39;s Blog
   </div>
 </nav><div class="posts mb-4"><article class="row card post component">
       <div class="card-body">
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/">10位短码方案设计
+</a></h2><div class="post-meta"><span class="post-date" title="created on">
+    <i class="fas fa-fw fa-calendar-alt"></i>Jul 7, 2026
+  </span><span class="post-reading-time" title="reading time">
+    <i class="fas fa-fw fa-coffee"></i>13 min read
+  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/en/tags/golang/" class="post-taxonomy">golang</a><a href="https://fabletang.github.io/en/tags/uuid/" class="post-taxonomy">uuid</a></div>
+<div class="post-summary">
+          
+          版本 1.0 日期 2026-07-07
+1. 设计目标 目标 说明 10 位固定长度 短小精悍，适合标签打印和二维码嵌入 第1位 首位，对当前年份与 31 取余数，利于数据库索引和减少碰撞概率 第2–9位 8 位随机负载，39 bit 编码输入，提供唯一性核心 第10位 末位，对前 9 个字符进行 mod-31 求和校验，尽早拦截输入错误 Base31 编码 排除 0/O/1/I/L，零混淆 二维码友好 10 字符，Version 1 QR 可容纳（最大 25 字母数字） 人工易输入 无大小写歧义，无数字字母混淆 概率唯一 种子哈希 + 年份分桶 + 数据库 UNIQUE 约束三道防线 适用场景 二维码令牌：嵌入二维码，扫描后查找 …
+        </div>
+      </div>
+    </article><article class="row card post component">
+      <div class="card-body">
         <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
 </a></h2><div class="post-meta"><span class="post-date" title="created on">
     <i class="fas fa-fw fa-calendar-alt"></i>Jul 7, 2026
@@ -216,11 +230,11 @@ Fable&#39;s Blog
   <section class="recent-posts row card component">
   <div class="card-body">
     <h2 class="card-title">Recent Posts</h2>
-    <ul><li><a href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
+    <ul><li><a href="https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/">10位短码方案设计
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
 </a></li><li><a href="https://fabletang.github.io/en/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
 </a></li><li><a href="https://fabletang.github.io/en/posts/2025-10-15-hammerspoon_config/">hammerspoon config for mac
 </a></li><li><a href="https://fabletang.github.io/en/posts/2023-07-23-vscode_shortcut_keyboard/">vscode shortcut key for mac
-</a></li><li><a href="https://fabletang.github.io/en/posts/2023-05-30-vscode-golang/">为Go开发配置vscode
 </a></li></ul>
   </div>
 </section><section class="taxonomies row card component">
@@ -280,8 +294,8 @@ Fable&#39;s Blog
             java
           </a><a href="https://fabletang.github.io/en/tags/others/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="others">
             others
-          </a><a href="https://fabletang.github.io/en/tags/vscode/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vscode">
-            vscode
+          </a><a href="https://fabletang.github.io/en/tags/uuid/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="uuid">
+            uuid
           </a></div>
       </div>
     </section>

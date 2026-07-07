@@ -1,0 +1,1941 @@
+<!doctype html><html lang="en"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>10位短码方案设计 - 知行合一</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="10位短码设计" /><meta itemprop="name" content="10位短码方案设计">
+<meta itemprop="description" content="10位短码设计"><meta itemprop="datePublished" content="2026-07-07T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2026-07-07T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2578">
+<meta itemprop="keywords" content="golang,uuid," /><meta property="og:title" content="10位短码方案设计" />
+<meta property="og:description" content="10位短码设计" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-07-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-07-07T00:00:00+00:00" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="10位短码方案设计"/>
+<meta name="twitter:description" content="10位短码设计"/>
+<link rel="preload" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.9adac0978f28fd01634b12c6b047737d767c368d96813de01c527aa26cf82fc6.js" integrity="sha256-mtrAl48o/QFjSxLGsEdzfXZ8No2WgT3gHFJ6omz4L8Y=" crossorigin="anonymous" defer></script></head>
+  <body><script src="https://fabletang.github.io/js/bootstrap.min.062c2e66b557cb779d59cedff7e0cc76e84beb665a1076e474e87d940be44245.js" integrity="sha256-BiwuZrVXy3edWc7f9&#43;DMduhL62ZaEHbkdOh9lAvkQkU=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand me-3" href="https://fabletang.github.io/en/"><img class="logo" alt="Logo" src="https://fabletang.github.io/images/logo-blog.webp" loading="lazy"
+   width="120" height="120"
+   />
+Fable&#39;s Blog
+    </a>
+    <button class="navbar-social-share" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+  aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+  <i class="fas fa-share"></i>
+</button>
+
+<div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=10%e4%bd%8d%e7%9f%ad%e7%a0%81%e6%96%b9%e6%a1%88%e8%ae%be%e8%ae%a1&url=https%3a%2f%2ffabletang.github.io%2fen%2fposts%2f2026-07-07-10char-base31-token-design%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ffabletang.github.io%2fen%2fposts%2f2026-07-07-10char-base31-token-design%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-language"></i> Language</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="dropdown">
+        <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          English
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li><a class="dropdown-item" href="https://fabletang.github.io/">简体中文</a></li><li><a class="dropdown-item" href="https://fabletang.github.io/zh-tw/">繁體中文</a></li></ul>
+      </div>
+    </div>
+  </form>
+</section>
+
+
+<section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> Font Size</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm palette" data-palette="yellow">
+      </button></div>
+</section>
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://fabletang.github.io/en/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/archives/">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/categories/">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/tags/">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/series/">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/en/">Home</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/en/posts/">文章</a></li><li class="breadcrumb-item active">10位短码方案设计</li></ol>
+  </div>
+</nav>    <article class="row card component mb-4 post"><div class="post-panel-wrapper">
+  <div class="d-flex flex-column component rounded post-panel">
+    
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+  
+    
+  <div class="post-translations nav-item dropdown action">
+    <a class="nav-link p-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-fw fa-language"></i>
+    </a>
+    <div class="dropdown-menu"><a class="dropdown-item post-translation" href="https://fabletang.github.io/posts/2026-07-07-10char-base31-token-design/">简体中文</a></div>
+  </div>
+
+
+    <a class="action btn-reward" role="button" data-bs-toggle="modal" data-bs-target="#rewardModal" title="Buy me a coffee">
+  <i class="fas fa-fw fa-coffee"></i>
+</a>
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0" type="button" aria-label="Copyright" 
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<div class="card-body">
+        <h1 class="card-title my-3">10位短码方案设计
+</h1><div class="post-meta"><span class="post-date" title="created on">
+    <i class="fas fa-fw fa-calendar-alt"></i>Jul 7, 2026
+  </span><span class="post-reading-time" title="reading time">
+    <i class="fas fa-fw fa-coffee"></i>13 min read
+  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/en/tags/golang/" class="post-taxonomy">golang</a><a href="https://fabletang.github.io/en/tags/uuid/" class="post-taxonomy">uuid</a></div>
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+      <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-设计目标">1. 设计目标</a>
+      <ul>
+        <li><a href="#适用场景">适用场景</a></li>
+        <li><a href="#格式示意">格式示意</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-字符集设计">2. 字符集设计</a>
+      <ul>
+        <li><a href="#21-完整字符集">2.1 完整字符集</a></li>
+        <li><a href="#22-字符--索引映射表">2.2 字符 → 索引映射表</a></li>
+        <li><a href="#23-为什么选择-31-个字符">2.3 为什么选择 31 个字符</a></li>
+        <li><a href="#24-容量计算">2.4 容量计算</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-编码算法设计">3. 编码算法设计</a>
+      <ul>
+        <li><a href="#31-generator-算法流程">3.1 Generator 算法流程</a></li>
+        <li><a href="#32-seed-组成详解">3.2 Seed 组成详解</a></li>
+        <li><a href="#33-cityhash64-选择理由">3.3 CityHash64 选择理由</a></li>
+        <li><a href="#34-base31-编码器实现要点">3.4 Base31 编码器实现要点</a></li>
+        <li><a href="#35-校验码算法">3.5 校验码算法</a></li>
+        <li><a href="#36-校验器实现要点">3.6 校验器实现要点</a></li>
+        <li><a href="#37-generator-实现要点">3.7 Generator 实现要点</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-唯一性分析">4. 唯一性分析</a>
+      <ul>
+        <li><a href="#41-年份分桶机制">4.1 年份分桶机制</a></li>
+        <li><a href="#42-单年桶内碰撞概率">4.2 单年桶内碰撞概率</a></li>
+        <li><a href="#43-容量规划建议">4.3 容量规划建议</a></li>
+        <li><a href="#44-与-8-位方案的碰撞对比">4.4 与 8 位方案的碰撞对比</a></li>
+        <li><a href="#45-数据库-unique-约束">4.5 数据库 UNIQUE 约束</a></li>
+        <li><a href="#46-重试策略">4.6 重试策略</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-性能分析">5. 性能分析</a>
+      <ul>
+        <li><a href="#51-单次生成耗时">5.1 单次生成耗时</a></li>
+        <li><a href="#52-吞吐量估算">5.2 吞吐量估算</a></li>
+        <li><a href="#53-validate-性能">5.3 Validate() 性能</a></li>
+        <li><a href="#54-多实例部署">5.4 多实例部署</a></li>
+        <li><a href="#55-优化建议">5.5 优化建议</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-安全分析">6. 安全分析</a>
+      <ul>
+        <li><a href="#61-可预测性">6.1 可预测性</a></li>
+        <li><a href="#62-二维码场景适配">6.2 二维码场景适配</a></li>
+        <li><a href="#63-资产编号场景适配">6.3 资产编号场景适配</a></li>
+        <li><a href="#64-校验码的安全防护价值">6.4 校验码的安全防护价值</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-代码包结构">7. 代码包结构</a>
+      <ul>
+        <li><a href="#71-接口设计">7.1 接口设计</a></li>
+        <li><a href="#72-测试要点">7.2 测试要点</a></li>
+        <li><a href="#73-benchmark-预期">7.3 Benchmark 预期</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-风险汇总">8. 风险汇总</a></li>
+    <li><a href="#9-演进路线">9. 演进路线</a></li>
+    <li><a href="#附录-a8-位-vs-10-位方案对比">附录 A：8 位 vs 10 位方案对比</a></li>
+    <li><a href="#附录-b校验码计算示例">附录 B：校验码计算示例</a></li>
+    <li><a href="#附录-c为何不用-ulid--uuidv7">附录 C：为何不用 ULID / UUIDv7</a></li>
+    <li><a href="#附录-djavascript-校验算法">附录 D：JavaScript 校验算法</a>
+      <ul>
+        <li><a href="#d1-字符集与解码映射">D.1 字符集与解码映射</a></li>
+        <li><a href="#d2-校验函数返回详细结果">D.2 校验函数（返回详细结果）</a></li>
+        <li><a href="#d3-快速校验版返回-boolean">D.3 快速校验版（返回 boolean）</a></li>
+        <li><a href="#d4-使用示例">D.4 使用示例</a></li>
+        <li><a href="#d5-go-与-js-互操作验证">D.5 Go 与 JS 互操作验证</a></li>
+        <li><a href="#d6-harmonyos-扫码端集成示例">D.6 HarmonyOS 扫码端集成示例</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p><strong>版本</strong> 1.0
+<strong>日期</strong> 2026-07-07</p>
+<hr>
+<h2 id="1-设计目标">1. 设计目标</h2>
+<table>
+<thead>
+<tr>
+<th>目标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10 位固定长度</strong></td>
+<td>短小精悍，适合标签打印和二维码嵌入</td>
+</tr>
+<tr>
+<td><strong>第1位</strong></td>
+<td>首位，对当前年份与 31 取余数，利于数据库索引和减少碰撞概率</td>
+</tr>
+<tr>
+<td><strong>第2–9位</strong></td>
+<td>8 位随机负载，39 bit 编码输入，提供唯一性核心</td>
+</tr>
+<tr>
+<td><strong>第10位</strong></td>
+<td>末位，对前 9 个字符进行 mod-31 求和校验，尽早拦截输入错误</td>
+</tr>
+<tr>
+<td><strong>Base31 编码</strong></td>
+<td>排除 <code>0/O/1/I/L</code>，零混淆</td>
+</tr>
+<tr>
+<td><strong>二维码友好</strong></td>
+<td>10 字符，Version 1 QR 可容纳（最大 25 字母数字）</td>
+</tr>
+<tr>
+<td><strong>人工易输入</strong></td>
+<td>无大小写歧义，无数字字母混淆</td>
+</tr>
+<tr>
+<td><strong>概率唯一</strong></td>
+<td>种子哈希 + 年份分桶 + 数据库 UNIQUE 约束三道防线</td>
+</tr>
+</tbody>
+</table>
+<h3 id="适用场景">适用场景</h3>
+<ul>
+<li><strong>二维码令牌</strong>：嵌入二维码，扫描后查找对应业务实体</li>
+<li><strong>短期操作凭证</strong>：入库确认、验收签收等一次性操作</li>
+<li><strong>不适用场景</strong>：资产编号（推荐使用 PRD 定义的 <code>ASSET+日期+流水</code>）、合同编号等需要精确日期可读性的场景</li>
+</ul>
+<h3 id="格式示意">格式示意</h3>
+<pre tabindex="0"><code>┌──────────┬──────────────────────────┬──────────┐
+│  Pos 1   │        Pos 2–9           │  Pos 10  │
+│ 年份前缀  │      随机负载 (8 chars)    │  校验码   │
+│year % 31 │      39 bit 输入          │ mod-31 和│
+└──────────┴──────────────────────────┴──────────┘
+</code></pre><p><strong>示例</strong>：年份 2026 → <code>2026 % 31 = 12</code> → 字符 <code>D</code></p>
+<pre tabindex="0"><code>D 8 K 3 D 7 P W N T
+│ └── 8 chars random ──┘ │
+│               checksum ─┘
+year prefix (12 -&gt; &#39;D&#39;)
+</code></pre><hr>
+<h2 id="2-字符集设计">2. 字符集设计</h2>
+<h3 id="21-完整字符集">2.1 完整字符集</h3>
+<p>从标准字母数字集合（A-Z, 0-9 = 36 个字符）中剔除易混淆字符：</p>
+<table>
+<thead>
+<tr>
+<th>被排除</th>
+<th>原因</th>
+<th>易混淆为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>数字 0</td>
+<td><code>O</code> / <code>D</code></td>
+</tr>
+<tr>
+<td><code>O</code></td>
+<td>大写 O</td>
+<td><code>0</code> / <code>D</code></td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>数字 1</td>
+<td><code>I</code> / <code>L</code></td>
+</tr>
+<tr>
+<td><code>I</code></td>
+<td>大写 I</td>
+<td><code>1</code> / <code>L</code></td>
+</tr>
+<tr>
+<td><code>L</code></td>
+<td>大写 L</td>
+<td><code>1</code> / <code>I</code></td>
+</tr>
+</tbody>
+</table>
+<p>保留字符（31 个）：</p>
+<pre tabindex="0"><code>2  3  4  5  6  7  8  9
+A  B  C  D  E  F  G  H
+J  K  M  N  P  Q  R  S
+T  U  V  W  X  Y  Z
+</code></pre><h3 id="22-字符--索引映射表">2.2 字符 → 索引映射表</h3>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th>字符</th>
+<th>索引</th>
+<th>字符</th>
+<th>索引</th>
+<th>字符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>2</td>
+<td>11</td>
+<td>D</td>
+<td>22</td>
+<td>R</td>
+</tr>
+<tr>
+<td>1</td>
+<td>3</td>
+<td>12</td>
+<td>E</td>
+<td>23</td>
+<td>S</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+<td>13</td>
+<td>F</td>
+<td>24</td>
+<td>T</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5</td>
+<td>14</td>
+<td>G</td>
+<td>25</td>
+<td>U</td>
+</tr>
+<tr>
+<td>4</td>
+<td>6</td>
+<td>15</td>
+<td>H</td>
+<td>26</td>
+<td>V</td>
+</tr>
+<tr>
+<td>5</td>
+<td>7</td>
+<td>16</td>
+<td>J</td>
+<td>27</td>
+<td>W</td>
+</tr>
+<tr>
+<td>6</td>
+<td>8</td>
+<td>17</td>
+<td>K</td>
+<td>28</td>
+<td>X</td>
+</tr>
+<tr>
+<td>7</td>
+<td>9</td>
+<td>18</td>
+<td>M</td>
+<td>29</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>8</td>
+<td>A</td>
+<td>19</td>
+<td>N</td>
+<td>30</td>
+<td>Z</td>
+</tr>
+<tr>
+<td>9</td>
+<td>B</td>
+<td>20</td>
+<td>P</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>C</td>
+<td>21</td>
+<td>Q</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-为什么选择-31-个字符">2.3 为什么选择 31 个字符</h3>
+<table>
+<thead>
+<tr>
+<th>基数</th>
+<th>8 位容量（有效比特）</th>
+<th>剔除易混淆字符</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base36</td>
+<td>41.4 bit</td>
+<td>否</td>
+<td>包含 <code>0/O/1/I/L</code>，人工输入易错</td>
+</tr>
+<tr>
+<td>Base32 (RFC 4648)</td>
+<td>40.0 bit</td>
+<td>否（含 <code>O/0/1/L</code>）</td>
+<td>标准编码，但字符集对人工不友好</td>
+</tr>
+<tr>
+<td>Base32 (Crockford)</td>
+<td>40.0 bit</td>
+<td>部分（无 <code>I/L/O</code>，但有 <code>0/1</code>）</td>
+<td>接近理想，含数字 0/1 仍有混淆风险</td>
+</tr>
+<tr>
+<td><strong>Base31</strong></td>
+<td><strong>39.6 bit</strong></td>
+<td><strong>完全</strong></td>
+<td>所有易混淆字符全部剔除</td>
+</tr>
+</tbody>
+</table>
+<p>31 是剔除 5 个易混淆字符后自然剩余的数量。容量损失极小（Base32 → Base31 仅损失 ~0.4 bit），换取了零歧义的人工输入体验。</p>
+<h3 id="24-容量计算">2.4 容量计算</h3>
+<table>
+<thead>
+<tr>
+<th>分量</th>
+<th>公式</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>总编码空间</td>
+<td>31^10</td>
+<td>~8.20 × 10^14</td>
+</tr>
+<tr>
+<td>年份前缀占用</td>
+<td>1 char，31 有效值</td>
+<td>31 桶</td>
+</tr>
+<tr>
+<td>随机负载空间</td>
+<td>31^8 (Pos 2–9)</td>
+<td>~8.53 × 10^12 = 39.63 bit</td>
+</tr>
+<tr>
+<td>校验码占用</td>
+<td>1 char（确定性）</td>
+<td>0 额外容量</td>
+</tr>
+<tr>
+<td><strong>有效随机位数</strong></td>
+<td><strong>39 bit</strong></td>
+<td>~5.50 × 10^11 个值</td>
+</tr>
+</tbody>
+</table>
+<p>注意：年份前缀和校验码<strong>不增加随机容量</strong>，它们是结构性字段。核心随机空间仍为 39 bit。10 位方案相比 8 位的增益在于<strong>结构性防护</strong>（年份分桶 + 校验码）而非容量扩张。</p>
+<hr>
+<h2 id="3-编码算法设计">3. 编码算法设计</h2>
+<h3 id="31-generator-算法流程">3.1 Generator 算法流程</h3>
+<pre tabindex="0"><code>输入: 年份 year (e.g., 2026)
+输出: token string (10 字符)
+
+Step 0 — 年份前缀
+    yearIdx  = year % 31
+    yearChar = base31Chars[yearIdx]             // 2026 → &#39;D&#39;
+
+Step 1 — 构造种子
+    mono  = runtime.nanotime() - processStart   // 单调纳秒
+    rand  = crypto.Read([8]byte)                // 64 bit 真随机
+    seed  = binary.LittleEndian.Uint64(rand) ^ uint64(mono)
+
+Step 2 — 哈希打散
+    hash  = CityHash64(seed)
+
+Step 3 — 截取 &amp; 编码负载
+    bits    = hash &amp; 0x7F_FFFF_FFFF             // 低 39 bit
+    payload = Base31Encode(bits)                // 8 字符,左填充 &#39;2&#39;
+
+Step 4 — 计算校验码
+    sum = 0
+    for c in (yearChar + payload):              // 遍历前 9 字符
+        sum += base31DecodeMap[c]
+    checksumIdx  = sum % 31
+    checksumChar = base31Chars[checksumIdx]
+
+Step 5 — 组装
+    token = yearChar + payload + checksumChar   // 1 + 8 + 1 = 10
+</code></pre><h3 id="32-seed-组成详解">3.2 Seed 组成详解</h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>来源</th>
+<th>熵 (bits)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>monotonic nanos</td>
+<td><code>runtime.nanotime()</code> - 进程启动时间</td>
+<td>~0.03/ns</td>
+<td>单调递增，不受 NTP 时钟跳变影响，防止时钟回拨导致种子重复</td>
+</tr>
+<tr>
+<td>crypto/rand</td>
+<td>CSPRNG</td>
+<td>64</td>
+<td>真随机性来源，保证多实例并行生成时无冲突</td>
+</tr>
+<tr>
+<td>year</td>
+<td>传入参数</td>
+<td>0</td>
+<td>确定性参数，不计入熵。作为输出结构的一部分嵌入</td>
+</tr>
+</tbody>
+</table>
+<p>相较于原 8 位方案，移除了 UTC 日期。理由：</p>
+<ul>
+<li>UTC 日期的精度为 1 天，对同日调用贡献 0 额外熵</li>
+<li>monotonic nanos 已提供更细粒度的时序信息</li>
+<li>year 作为确定性前缀嵌入码值，不参与随机种子构造</li>
+</ul>
+<h3 id="33-cityhash64-选择理由">3.3 CityHash64 选择理由</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>CityHash64</th>
+<th>SipHash</th>
+<th>XXH64</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>雪崩效应</td>
+<td>优秀 — 1 bit 输入翻转导致 ~32 bit 输出翻转</td>
+<td>同样优秀</td>
+<td>短输入较弱</td>
+</tr>
+<tr>
+<td>吞吐量（单核）</td>
+<td>~1.5 GB/s</td>
+<td>~0.5 GB/s</td>
+<td>~2.5 GB/s</td>
+</tr>
+<tr>
+<td>Go 实现</td>
+<td>~300 行纯 Go，无 CGO</td>
+<td>~370 行</td>
+<td>需 CGO 或质量不确定的端口</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>非加密哈希</td>
+<td>加密级哈希</td>
+<td>非加密哈希</td>
+</tr>
+<tr>
+<td>结论</td>
+<td><strong>选择</strong></td>
+<td>过度（加密级，慢 3×）</td>
+<td>不选（短输入分布不匀）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么不选 SipHash</strong>：SipHash 设计目标是防 Hash DoS 攻击（带密钥），速度慢约 3 倍。本方案不需要加密强度哈希，CityHash 的速度优势更关键。</p>
+<p><strong>为什么不选 XXH64</strong>：XXH64 在单字节输入下雪崩效应较弱。本方案的种子仅 16 字节，CityHash 在短输入上表现更稳定。</p>
+<h3 id="34-base31-编码器实现要点">3.4 Base31 编码器实现要点</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">base31Chars</span> = <span style="color:#e6db74">&#34;23456789ABCDEFGHJKMNPQRSTUVWXYZ&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">payloadLen</span> = <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bitMask</span> = <span style="color:#ae81ff">0x7F_FFFF_FFFF</span> <span style="color:#75715e">// 39 bits
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">decodeMap</span> [<span style="color:#ae81ff">256</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">decodeMap</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">decodeMap</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#ae81ff">0xFF</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">base31Chars</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">decodeMap</span>[<span style="color:#a6e22e">base31Chars</span>[<span style="color:#a6e22e">i</span>]] = byte(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">uint64</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;22222222&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buf</span> [<span style="color:#a6e22e">payloadLen</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">payloadLen</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">n</span> &gt; <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">buf</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">base31Chars</span>[<span style="color:#a6e22e">n</span><span style="color:#f92672">%</span><span style="color:#ae81ff">31</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">n</span> <span style="color:#f92672">/=</span> <span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">buf</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#e6db74">&#39;2&#39;</span> <span style="color:#75715e">// 左填充，&#39;2&#39; = 索引 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">buf</span>[:])
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Decode</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">uint64</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">s</span>) <span style="color:#f92672">!=</span> <span style="color:#a6e22e">payloadLen</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;expected %d chars, got %d&#34;</span>, <span style="color:#a6e22e">payloadLen</span>, len(<span style="color:#a6e22e">s</span>))
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#66d9ef">uint64</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">payloadLen</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">decodeMap</span>[<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>]]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0xFF</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;invalid char &#39;%c&#39; at position %d&#34;</span>, <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">n</span> = <span style="color:#a6e22e">n</span><span style="color:#f92672">*</span><span style="color:#ae81ff">31</span> <span style="color:#f92672">+</span> uint64(<span style="color:#a6e22e">v</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="35-校验码算法">3.5 校验码算法</h3>
+<p><strong>算法</strong>：前 9 个字符的索引值求和，取模 31。</p>
+<pre tabindex="0"><code>checksum = (index(yearChar) + sum(index(payload[i])) for i in 0..7) % 31
+</code></pre><p><strong>检测能力</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>错误类型</th>
+<th>检测率</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单字符替换（A → B）</td>
+<td>100%</td>
+<td>差值不为 31 的倍数时为 100% 检测。在索引值 0–30 范围内，差值不可能为 31 的倍数</td>
+</tr>
+<tr>
+<td>相邻字符对调（AB → BA）</td>
+<td>0%</td>
+<td>简单求和无法检测顺序变化</td>
+</tr>
+<tr>
+<td>任意双字符错误</td>
+<td>~97%</td>
+<td>1 - 1/31</td>
+</tr>
+<tr>
+<td>长度错误</td>
+<td>100%</td>
+<td>长度校验独立于 checksum</td>
+</tr>
+</tbody>
+</table>
+<p><strong>限制说明</strong>：简单 mod-31 求和无法检测字符顺序调换。如需检测相邻对调，可升级为加权校验 <code>sum((i+1) * value[i]) % 31</code>。当前选择简单求和，满足基本需求。</p>
+<h3 id="36-校验器实现要点">3.6 校验器实现要点</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TokenLen</span> = <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Validate</span>(<span style="color:#a6e22e">token</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">token</span>) <span style="color:#f92672">!=</span> <span style="color:#a6e22e">TokenLen</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">TokenLen</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">decodeMap</span>[<span style="color:#a6e22e">token</span>[<span style="color:#a6e22e">i</span>]]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0xFF</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> int(<span style="color:#a6e22e">v</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">expected</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">decodeMap</span>[<span style="color:#a6e22e">token</span>[<span style="color:#a6e22e">TokenLen</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">expected</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0xFF</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sum</span><span style="color:#f92672">%</span><span style="color:#ae81ff">31</span> <span style="color:#f92672">==</span> int(<span style="color:#a6e22e">expected</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="37-generator-实现要点">3.7 Generator 实现要点</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">processStart</span> = uint64(<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">Nanotime</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Generate</span>(<span style="color:#a6e22e">year</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Step 0: 年份前缀
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">yearIdx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">year</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">yearChar</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">base31Chars</span>[<span style="color:#a6e22e">yearIdx</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Step 1: 构造种子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">mono</span> <span style="color:#f92672">:=</span> uint64(<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">Nanotime</span>()) <span style="color:#f92672">-</span> <span style="color:#a6e22e">processStart</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rnd</span> [<span style="color:#ae81ff">8</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">rnd</span>[:]); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">mono</span> ^= <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">FastRand64</span>()
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">mono</span> ^= <span style="color:#a6e22e">binary</span>.<span style="color:#a6e22e">LittleEndian</span>.<span style="color:#a6e22e">Uint64</span>(<span style="color:#a6e22e">rnd</span>[:])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Step 2-3: 哈希 + 编码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">hash</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cityhash</span>.<span style="color:#a6e22e">CityHash64</span>(<span style="color:#a6e22e">mono</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">payload</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">hash</span> <span style="color:#f92672">&amp;</span> <span style="color:#a6e22e">bitMask</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Step 4: 校验码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> int(<span style="color:#a6e22e">decodeMap</span>[<span style="color:#a6e22e">yearChar</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">payload</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> int(<span style="color:#a6e22e">decodeMap</span>[<span style="color:#a6e22e">payload</span>[<span style="color:#a6e22e">i</span>]])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">checksumChar</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">base31Chars</span>[<span style="color:#a6e22e">sum</span><span style="color:#f92672">%</span><span style="color:#ae81ff">31</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Step 5: 组装
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">yearChar</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">+</span> string(<span style="color:#a6e22e">checksumChar</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="4-唯一性分析">4. 唯一性分析</h2>
+<h3 id="41-年份分桶机制">4.1 年份分桶机制</h3>
+<p>年份前缀 <code>year % 31</code> 将码空间分为 31 个桶。不同年份桶之间的码<strong>永远不会碰撞</strong>（前缀不同）。</p>
+<p>示例：</p>
+<ul>
+<li>2026 年 → <code>2026 % 31 = 12</code> → 前缀 <code>D</code>，码值 <code>D·········</code></li>
+<li>2027 年 → <code>2027 % 31 = 13</code> → 前缀 <code>E</code>，码值 <code>E·········</code></li>
+<li><code>D</code> 和 <code>E</code> 前缀的码天然不冲突</li>
+</ul>
+<p><strong>31 年回环</strong>：2057 年 <code>2057 % 31 = 12</code> → 前缀再次为 <code>D</code>，与 2026 年共享前缀桶。但在实际 WMS 业务中，31 年前的资产码索引已退役，此冲突无实际影响。</p>
+<h3 id="42-单年桶内碰撞概率">4.2 单年桶内碰撞概率</h3>
+<p>每桶内随机分量为 39 bit（2^39 ≈ 5.50 × 10^11 个不同值）。</p>
+<p>基于生日悖论，单年桶内生成 N 个码后至少出现一次碰撞的概率：</p>
+<pre tabindex="0"><code>P(collision) ≈ 1 - exp(-N² / (2 × 2^39))
+</code></pre><table>
+<thead>
+<tr>
+<th>单年生成 N</th>
+<th>碰撞概率</th>
+<th>平均每插入重试次数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1,000</td>
+<td>~0.00009%</td>
+<td>~1.0</td>
+</tr>
+<tr>
+<td>10,000</td>
+<td>~0.009%</td>
+<td>~1.0</td>
+</tr>
+<tr>
+<td>100,000</td>
+<td>~0.9%</td>
+<td>~1.01</td>
+</tr>
+<tr>
+<td>500,000</td>
+<td>~20%</td>
+<td>~1.25</td>
+</tr>
+<tr>
+<td><strong>740,000</strong></td>
+<td><strong>~50%</strong></td>
+<td>~2.0</td>
+</tr>
+<tr>
+<td>1,000,000</td>
+<td>~60%</td>
+<td>~2.5</td>
+</tr>
+<tr>
+<td>2,000,000</td>
+<td>~97%</td>
+<td>~33</td>
+</tr>
+<tr>
+<td>5,000,000</td>
+<td>~99.9999%</td>
+<td>不可用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-容量规划建议">4.3 容量规划建议</h3>
+<table>
+<thead>
+<tr>
+<th>单年规模</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 100,000 码/年</td>
+<td>直接使用，无需额外措施</td>
+</tr>
+<tr>
+<td>100,000 ~ 500,000 码/年</td>
+<td>监控碰撞率</td>
+</tr>
+<tr>
+<td>500,000 ~ 1,000,000 码/年</td>
+<td>日志告警，考虑扩展</td>
+</tr>
+<tr>
+<td>&gt; 1,000,000 码/年</td>
+<td>不推荐。升级为更多随机位（如改为 9 位随机负载）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="44-与-8-位方案的碰撞对比">4.4 与 8 位方案的碰撞对比</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>8 位方案（全局空间）</th>
+<th>10 位方案（年桶隔离）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100K/年 × 5 年</td>
+<td>500K 全局 → 20% 碰撞</td>
+<td>100K/年/桶 → ~0.9%/年</td>
+</tr>
+<tr>
+<td>100K/年 × 10 年</td>
+<td>1M 全局 → 60% 碰撞</td>
+<td>100K/年/桶 → ~0.9%/年（跨年零碰撞）</td>
+</tr>
+<tr>
+<td>P50 碰撞点</td>
+<td>740K 全局</td>
+<td>740K/单年桶</td>
+</tr>
+<tr>
+<td><strong>实际可用年限</strong></td>
+<td>5–7 年</td>
+<td>&gt;31 年（回环前）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论</strong>：年份分桶将&quot;全局累积&quot;转化为&quot;年度累积&quot;，使方案在 100K 码/年的典型 WMS 场景下可用期延长至 31 年以上。</p>
+<h3 id="45-数据库-unique-约束">4.5 数据库 UNIQUE 约束</h3>
+<p>CityHash64 是确定性函数：相同的种子输入产生相同的输出。可能产生相同码的场景：</p>
+<ol>
+<li>两个不同种子经 CityHash64 后低 39 bit 相同 → 概率性碰撞</li>
+<li><code>crypto/rand</code> 调用失败且 monotonic nanos 相同 → 极度罕见</li>
+<li>同种子同 CityHash 输出 → 确定性（预期行为）</li>
+</ol>
+<p>数据库 <code>UNIQUE</code> 约束作为最后防线：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> tokens (code) <span style="color:#66d9ef">VALUES</span> (<span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> CONFLICT (code) <span style="color:#66d9ef">DO</span> <span style="color:#66d9ef">NOTHING</span> RETURNING id
+</span></span></code></pre></div><p>受影响的航数为 0 时，重新生成（最多重试 10 次）。10 次重试后冲突则返回明确错误。</p>
+<h3 id="46-重试策略">4.6 重试策略</h3>
+<pre tabindex="0"><code>// Layer 1: 内存去重（测试/benchmark 环境）
+if inMemorySet.exists(token):
+    retry++
+
+// Layer 2: 校验码验证（内存快速过滤）
+if !Validate(token):
+    // 不会因生成逻辑产生，但作为防御性检查
+    retry++
+
+// Layer 3: 数据库 UNIQUE 约束（生产环境）
+INSERT ... ON CONFLICT DO NOTHING RETURNING id
+if no rows returned:
+    retry++
+</code></pre><hr>
+<h2 id="5-性能分析">5. 性能分析</h2>
+<h3 id="51-单次生成耗时">5.1 单次生成耗时</h3>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>耗时 (µs)</th>
+<th>占比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>runtime.nanotime()</code></td>
+<td>~0.02</td>
+<td>&lt;1%</td>
+</tr>
+<tr>
+<td><code>crypto/rand</code> (8 bytes)</td>
+<td>1–5</td>
+<td>55–80%</td>
+</tr>
+<tr>
+<td>CityHash64</td>
+<td>~0.05</td>
+<td>~1%</td>
+</tr>
+<tr>
+<td>Base31 编码 (8 chars)</td>
+<td>~0.1</td>
+<td>~2%</td>
+</tr>
+<tr>
+<td>校验码计算 (9 char 求和)</td>
+<td>~0.05</td>
+<td>~1%</td>
+</tr>
+<tr>
+<td>组装字符串</td>
+<td>~0.1</td>
+<td>~2%</td>
+</tr>
+<tr>
+<td><strong>总计（纯生成）</strong></td>
+<td><strong>~2–6</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>数据库 INSERT + UNIQUE</td>
+<td>~1000</td>
+<td>DB 瓶颈</td>
+</tr>
+</tbody>
+</table>
+<p>与 8 位方案相比，额外的校验码计算开销可忽略（+0.05 µs）。</p>
+<h3 id="52-吞吐量估算">5.2 吞吐量估算</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>吞吐量</th>
+<th>瓶颈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>纯生成（无冲突检查）</td>
+<td>~170K–500K/s 单核</td>
+<td><code>crypto/rand</code> 速率</td>
+</tr>
+<tr>
+<td>生成 + 内存去重（N=100K）</td>
+<td>~200K/s 单核</td>
+<td>~1.01 次平均重试</td>
+</tr>
+<tr>
+<td>生成 + DB 写入</td>
+<td>~1,000/s 单连接</td>
+<td>数据库 I/O</td>
+</tr>
+<tr>
+<td>生成 + DB + 连接池（10 连接）</td>
+<td>~8,000/s</td>
+<td>数据库并发能力</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-validate-性能">5.3 Validate() 性能</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>耗时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>合法码（完整验证）</td>
+<td>~30 ns</td>
+</tr>
+<tr>
+<td>长度错误（早期返回）</td>
+<td>~2 ns</td>
+</tr>
+<tr>
+<td>非法字符（首字符检测）</td>
+<td>~20 ns</td>
+</tr>
+<tr>
+<td>批量验证 100 万码</td>
+<td>~30 ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54-多实例部署">5.4 多实例部署</h3>
+<p>多实例并行生成时碰撞概率增加，但分布式特性不会引入新风险：</p>
+<ul>
+<li>各实例独立调用 <code>crypto/rand</code>，种子天然不相关</li>
+<li>年份前缀由 year 参数统一决定（所有实例生成同年码时前缀一致）</li>
+<li>碰撞概率仅取决于总生成数量，与实例数目无关</li>
+<li>数据库 UNIQUE 约束跨实例统一生效</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>实例数</th>
+<th>每实例码数</th>
+<th>总码数</th>
+<th>单年桶碰撞概率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>100,000</td>
+<td>100,000</td>
+<td>~0.9%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>100,000</td>
+<td>200,000</td>
+<td>~3.5%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>100,000</td>
+<td>500,000</td>
+<td>~20%</td>
+</tr>
+<tr>
+<td>10</td>
+<td>50,000</td>
+<td>500,000</td>
+<td>~20%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="55-优化建议">5.5 优化建议</h3>
+<p>若 <code>crypto/rand</code> 成为瓶颈（&gt;1M/s 需求），可使用缓冲区池：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">RandPool</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pool</span> <span style="color:#66d9ef">chan</span> []<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">RandPool</span>) <span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">p</span> []<span style="color:#66d9ef">byte</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">buf</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">pool</span>
+</span></span><span style="display:flex;"><span>    copy(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">buf</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">pool</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">buf</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>预读取放大因子 8×，将 <code>crypto/rand</code> 调用次数压缩至 1/8。</p>
+<hr>
+<h2 id="6-安全分析">6. 安全分析</h2>
+<h3 id="61-可预测性">6.1 可预测性</h3>
+<table>
+<thead>
+<tr>
+<th>攻击向量</th>
+<th>难度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>从已观察码值反推种子</td>
+<td>不可行</td>
+<td>CityHash 是单射函数，无法逆推；即使反推出种子，<code>crypto/rand</code> 每个种子都不同</td>
+</tr>
+<tr>
+<td>暴力枚举 2^39 空间</td>
+<td>~17 年/1000 QPS</td>
+<td>实际不可行，但空间只有 39 bit，不抗超级计算机</td>
+</tr>
+<tr>
+<td>生日攻击（寻找碰撞）</td>
+<td>O(2^(39/2)) = O(2^19.5) = 740K 次尝试</td>
+<td>如有已知码，可理论寻找碰撞。但攻击者无利可图 — 无会话劫持、权限提升等价值</td>
+</tr>
+<tr>
+<td>时序攻击（猜测下一码）</td>
+<td>不可行</td>
+<td>每码独立随机生成，无序列关系</td>
+</tr>
+<tr>
+<td>年份前缀泄露时间信息</td>
+<td>低风险</td>
+<td>可推断码的大致年份（±15 年模糊度，因 mod 30 回环）。每个码值泄露 ~4.9 bit 时间信息。WMS 资产年份非敏感信息</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论</strong>：39 bit 空间不满足加密安全（cryptographic security）要求（通常需要 ≥128 bit），但对于 WMS 二维码令牌场景完全足够。攻击者没有经济利益动机进行碰撞攻击。</p>
+<h3 id="62-二维码场景适配">6.2 二维码场景适配</h3>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>满足度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>固定长度，适合小尺寸打印</td>
+<td>10 字符，Version 1 QR 码（21×21 模块，最大 25 字母数字）</td>
+</tr>
+<tr>
+<td>非连接场景可读取</td>
+<td>短码扫描成功率高</td>
+</tr>
+<tr>
+<td>无隐私数据泄露</td>
+<td>码值不含日期、流水号等有意义信息（除年份前缀的 ±15 年模糊度）</td>
+</tr>
+<tr>
+<td>可撤销</td>
+<td>数据库 soft delete + 标记已用</td>
+</tr>
+<tr>
+<td>输入错误检测</td>
+<td>内置校验码，即刻拒绝 100% 单字符错误</td>
+</tr>
+</tbody>
+</table>
+<p><strong>建议</strong>：二维码内容直接使用 10 位码值，不附加 URL 前缀。由扫描端应用层决定如何路由。</p>
+<h3 id="63-资产编号场景适配">6.3 资产编号场景适配</h3>
+<p><strong>不推荐使用</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>10 位 Base31 码</th>
+<th>PRD 格式 <code>ASSET+日期+流水</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>按日期排序</td>
+<td>可（年份桶内无内部排序）</td>
+<td>可（精确日期排序）</td>
+</tr>
+<tr>
+<td>人员可读日期</td>
+<td>模糊（year % 31 → ±15 年模糊度）</td>
+<td>精确（年月日明确）</td>
+</tr>
+<tr>
+<td>大规模无碰撞</td>
+<td>概率性（&gt;500K/年风险）</td>
+<td>确定性（流水号保证）</td>
+</tr>
+<tr>
+<td>固定长度</td>
+<td>10 字符</td>
+<td>否</td>
+</tr>
+<tr>
+<td>错误检测</td>
+<td>内置校验码</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p><strong>建议</strong>：资产编号继续使用 PRD 定义的 <code>ASSET+日期+流水</code> 格式。10 位 Base31 码作为<strong>二维码令牌</strong>嵌入标签，通过映射表关联资产记录。</p>
+<h3 id="64-校验码的安全防护价值">6.4 校验码的安全防护价值</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>无校验码（8 位方案）</th>
+<th>有校验码（10 位方案）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>人工输入错误 1 字符</td>
+<td>需 DB 查询才知无效</td>
+<td>前端 ~30ns 即可判断</td>
+</tr>
+<tr>
+<td>扫描错误后手动校正</td>
+<td>无提示</td>
+<td>校验码不匹配 → 要求重输</td>
+</tr>
+<tr>
+<td>批量导入逐条验证</td>
+<td>需 N 次 DB 查询</td>
+<td>内存 O(n) 批量校验</td>
+</tr>
+<tr>
+<td>防伪造码（非生成器产出）</td>
+<td>无</td>
+<td>随机猜测 10 位合法码概率 = 1/31 ≈ 3.2%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>实际收益</strong>：对于移动端手动输入码值的回退场景，校验码可立即拒绝 ≥97% 的输入错误，避免无效 DB 查询。这是 10 位方案相比 8 位方案的<strong>最大实际增益</strong>。</p>
+<hr>
+<h2 id="7-代码包结构">7. 代码包结构</h2>
+<pre tabindex="0"><code>js.api-wms/pkg/token/
+├── doc.go               // 包文档
+├── base31.go            // Base31 编码/解码实现 + decodeMap
+├── base31_test.go       // 编码往返测试、填充测试、非法字符测试
+├── generator.go         // Generate(year) + Validate(token) + ExtractPayload
+├── generator_test.go    // 唯一性测试、校验码正确性测试、并发测试
+└── benchmark_test.go    // 性能基准：生成、编码、校验
+</code></pre><h3 id="71-接口设计">7.1 接口设计</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">token</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">TokenLen</span>   = <span style="color:#ae81ff">10</span>   <span style="color:#75715e">// 完整码长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">PayloadLen</span> = <span style="color:#ae81ff">8</span>    <span style="color:#75715e">// 随机负载长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Base</span>       = <span style="color:#ae81ff">31</span>   <span style="color:#75715e">// 编码基数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Chars</span>      = <span style="color:#e6db74">&#34;23456789ABCDEFGHJKMNPQRSTUVWXYZ&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">BitMask</span>    = <span style="color:#ae81ff">0x7F_FFFF_FFFF</span> <span style="color:#75715e">// 39 bits
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Encode 将 uint64 编码为 8 位 Base31 字符串（负载部分）。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 左填充为 &#39;2&#39;（字符集中索引 0 的字符）。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">uint64</span>) <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Decode 将 8 位 Base31 字符串解码为 uint64。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 返回错误如果字符不在合法字符集中。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Decode</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">uint64</span>, <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Generate 生成一个带指定年份前缀和校验码的 10 位令牌。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Generate</span>(<span style="color:#a6e22e">year</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// MustGenerate 同 Generate，随机源不可用时 panic。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">MustGenerate</span>(<span style="color:#a6e22e">year</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Validate 验证 10 位令牌的校验码是否正确。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 在访问数据库前使用，快速拦截输入错误。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Validate</span>(<span style="color:#a6e22e">token</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ExtractPayload 从 10 位令牌中提取 8 位随机负载部分。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ExtractPayload</span>(<span style="color:#a6e22e">token</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>)
+</span></span></code></pre></div><h3 id="72-测试要点">7.2 测试要点</h3>
+<table>
+<thead>
+<tr>
+<th>测试</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TestEncodeDecodeRoundtrip</code></td>
+<td>往返编码一致性：0, 1, 2^39-1, 1000 个随机值</td>
+</tr>
+<tr>
+<td><code>TestEncodePadding</code></td>
+<td>小输入值左填充至 8 位</td>
+</tr>
+<tr>
+<td><code>TestDecodeInvalidChar</code></td>
+<td>非法字符错误处理</td>
+</tr>
+<tr>
+<td><code>TestDecodeInvalidLength</code></td>
+<td>非 8 位输入错误处理</td>
+</tr>
+<tr>
+<td><code>TestGenerateFormat</code></td>
+<td>输出长度为 10，前 9 字符校验和 = 第 10 字符</td>
+</tr>
+<tr>
+<td><code>TestValidate</code></td>
+<td>合法码通过、单字符错误不通过、双字符错误不通过、长度错误不通过</td>
+</tr>
+<tr>
+<td><code>TestGenerateYearPrefix</code></td>
+<td>year 2026 → 前缀 &lsquo;D&rsquo;, year 2027 → 前缀 &lsquo;E&rsquo;, year 2057 → 前缀 &lsquo;D&rsquo; (同余)</td>
+</tr>
+<tr>
+<td><code>TestGenerateNoCollision</code></td>
+<td>连续 50,000 生成无碰撞（单桶内）</td>
+</tr>
+<tr>
+<td><code>TestConcurrentGenerate</code></td>
+<td>100 goroutine × 10,000 = 100 万生成无碰撞（单桶内）</td>
+</tr>
+<tr>
+<td><code>TestValidateRejectsSwap</code></td>
+<td>对调相邻字符 → 期望通过（基于简单求和的已知限制）</td>
+</tr>
+<tr>
+<td><code>BenchmarkGenerate</code></td>
+<td>单线程生成吞吐量</td>
+</tr>
+<tr>
+<td><code>BenchmarkGenerateParallel</code></td>
+<td>并发生成吞吐量</td>
+</tr>
+<tr>
+<td><code>BenchmarkEncode</code></td>
+<td>编码微基准</td>
+</tr>
+<tr>
+<td><code>BenchmarkValidate</code></td>
+<td>校验微基准（合法/非法）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="73-benchmark-预期">7.3 Benchmark 预期</h3>
+<table>
+<thead>
+<tr>
+<th>基准</th>
+<th>目标值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BenchmarkGenerate-8</code></td>
+<td>≤5 µs/op</td>
+</tr>
+<tr>
+<td><code>BenchmarkGenerateParallel-8</code></td>
+<td>≥500,000 ops/s</td>
+</tr>
+<tr>
+<td><code>BenchmarkEncode-8</code></td>
+<td>≤20 ns/op</td>
+</tr>
+<tr>
+<td><code>BenchmarkValidate-8</code></td>
+<td>≤30 ns/op</td>
+</tr>
+<tr>
+<td>并发 100 万生成测试</td>
+<td>≤30 秒 (with -race)</td>
+</tr>
+<tr>
+<td>内存分配</td>
+<td>0 B/op, 0 allocs/op（所有缓冲区栈分配）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="8-风险汇总">8. 风险汇总</h2>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>等级</th>
+<th>缓解措施</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>39 bit 容量上限（单桶 ~55B）</strong></td>
+<td>高</td>
+<td>年份分桶将碰撞限制在单年内；单年 &gt;500K 日志告警；&gt;1M 拒绝使用</td>
+</tr>
+<tr>
+<td><strong>年份前缀 31 年回环</strong></td>
+<td>低</td>
+<td>2057 年回环前退役旧码</td>
+</tr>
+<tr>
+<td><strong>校验码无法检测字符对调</strong></td>
+<td>低</td>
+<td>简单求和的已知限制；如需检测对调，可升级为加权校验（1 行代码改动）</td>
+</tr>
+<tr>
+<td><strong>无精确时间可读性</strong></td>
+<td>低</td>
+<td>设计权衡：短码优先于信息密度。年份前缀提供模糊时间可见性</td>
+</tr>
+<tr>
+<td><code>crypto/rand</code> 在容器环境可能阻塞</td>
+<td>低</td>
+<td>降级方案：<code>runtime.FastRand64()</code></td>
+</tr>
+<tr>
+<td>随机 ID 写入导致数据库页分裂</td>
+<td>中</td>
+<td>年份前缀提供粗粒度 B-tree 局部性（同年前缀码聚集在同一区域）；&lt;500K 记录可接受</td>
+</tr>
+<tr>
+<td>年份前缀泄露资产大致年龄</td>
+<td>低</td>
+<td>WMS 资产年份非敏感信息；如需隐藏，可改用随机前缀（代价：丢失 DB 索引局部性）</td>
+</tr>
+<tr>
+<td>无校验位导致输入错误延迟发现</td>
+<td>—</td>
+<td><strong>已解决</strong>：10 位方案内置校验码，前端即刻验证</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="9-演进路线">9. 演进路线</h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase 1（当前）</td>
+<td>实现 Base31 编码器 + Generator + Validator + 内存去重测试</td>
+</tr>
+<tr>
+<td>Phase 2</td>
+<td>数据库集成：UNIQUE 约束 + INSERT ON CONFLICT 重试</td>
+</tr>
+<tr>
+<td>Phase 3</td>
+<td>可选：加权校验升级（如业务需要检测对调错误）</td>
+</tr>
+<tr>
+<td>Phase 4</td>
+<td>可选：9 位随机负载扩展方案（如单年 &gt;1M 码需求，提供 ~49 bit 随机空间）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="附录-a8-位-vs-10-位方案对比">附录 A：8 位 vs 10 位方案对比</h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>8 位方案</th>
+<th>10 位方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>长度</td>
+<td>8 chars</td>
+<td>10 chars</td>
+</tr>
+<tr>
+<td>有效随机位</td>
+<td>39 bit</td>
+<td>39 bit（相同）</td>
+</tr>
+<tr>
+<td>年份可见性</td>
+<td>无</td>
+<td><code>year % 31</code>（模糊 ±15 年）</td>
+</tr>
+<tr>
+<td>错误检测</td>
+<td>无</td>
+<td>校验码（100% 单字符替换检测）</td>
+</tr>
+<tr>
+<td>DB 索引局部性</td>
+<td>无（完全随机）</td>
+<td>有（同年前缀聚集）</td>
+</tr>
+<tr>
+<td>单年碰撞隔离</td>
+<td>无（全局累积）</td>
+<td>有（年桶隔离）</td>
+</tr>
+<tr>
+<td>QR 密度</td>
+<td>Version 1 (21×21)</td>
+<td>Version 1 (21×21) — 均低于 25 char 限制</td>
+</tr>
+<tr>
+<td>可用年限（100K 码/年）</td>
+<td>~5–7 年</td>
+<td>&gt;31 年</td>
+</tr>
+<tr>
+<td>核心选择理由</td>
+<td>最短长度</td>
+<td>最长可用寿命 + 输入防护</td>
+</tr>
+</tbody>
+</table>
+<h2 id="附录-b校验码计算示例">附录 B：校验码计算示例</h2>
+<pre tabindex="0"><code>给定 token = &#34;D8K3D7PWNT&#34;
+前 9 字符：D, 8, K, 3, D, 7, P, W, N
+索引值：   11, 6, 17, 1, 11, 5, 20, 27, 19
+
+sum = 11+6+17+1+11+5+20+27+19 = 117
+117 % 31 = 24 → 索引 24 = char &#39;T&#39;
+
+验证时：重新计算前 9 位 sum % 31，与第 10 位字符索引比较
+若结果匹配 → token 合法
+</code></pre><h2 id="附录-c为何不用-ulid--uuidv7">附录 C：为何不用 ULID / UUIDv7</h2>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>长度</th>
+<th>排序</th>
+<th>可读性</th>
+<th>适用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UUIDv4</td>
+<td>36 chars</td>
+<td>否</td>
+<td>差</td>
+<td>不适合人工/二维码</td>
+</tr>
+<tr>
+<td>UUIDv7</td>
+<td>36 chars</td>
+<td>时间排序</td>
+<td>差</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>ULID</td>
+<td>26 chars</td>
+<td>时间排序</td>
+<td>中</td>
+<td>过长，对打印标签不友好</td>
+</tr>
+<tr>
+<td>NanoID (21)</td>
+<td>21 chars</td>
+<td>否</td>
+<td>中</td>
+<td>仍偏长</td>
+</tr>
+<tr>
+<td><strong>Base31 (10)</strong></td>
+<td><strong>10 chars</strong></td>
+<td>年份桶内</td>
+<td>优</td>
+<td>专为二维码 + 校验 + DB 局部性优化</td>
+</tr>
+<tr>
+<td><strong>Base31 (8)</strong></td>
+<td><strong>8 chars</strong></td>
+<td>否</td>
+<td>优</td>
+<td>最短长度优化</td>
+</tr>
+</tbody>
+</table>
+<h2 id="附录-djavascript-校验算法">附录 D：JavaScript 校验算法</h2>
+<p>用于 HarmonyOS 客户端 (<code>js.terminal</code>) 和 Web 前端的扫码输入校验，在请求后端 API 之前快速拦截格式错误和输入错误。</p>
+<h3 id="d1-字符集与解码映射">D.1 字符集与解码映射</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">BASE31_CHARS</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;23456789ABCDEFGHJKMNPQRSTUVWXYZ&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/** @type {Object&lt;string, number&gt;} */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DECODE_MAP</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">freeze</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;2&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,  <span style="color:#e6db74">&#39;3&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,  <span style="color:#e6db74">&#39;4&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>,  <span style="color:#e6db74">&#39;5&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>,  <span style="color:#e6db74">&#39;6&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>,  <span style="color:#e6db74">&#39;7&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">5</span>,  <span style="color:#e6db74">&#39;8&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">6</span>,  <span style="color:#e6db74">&#39;9&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">7</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">8</span>,  <span style="color:#e6db74">&#39;B&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">9</span>,  <span style="color:#e6db74">&#39;C&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>, <span style="color:#e6db74">&#39;D&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">11</span>, <span style="color:#e6db74">&#39;E&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">12</span>, <span style="color:#e6db74">&#39;F&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">13</span>, <span style="color:#e6db74">&#39;G&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">14</span>, <span style="color:#e6db74">&#39;H&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">15</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;J&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">16</span>, <span style="color:#e6db74">&#39;K&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">17</span>, <span style="color:#e6db74">&#39;M&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>, <span style="color:#e6db74">&#39;N&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">19</span>, <span style="color:#e6db74">&#39;P&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">20</span>, <span style="color:#e6db74">&#39;Q&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">21</span>, <span style="color:#e6db74">&#39;R&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">22</span>, <span style="color:#e6db74">&#39;S&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">23</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;T&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">24</span>, <span style="color:#e6db74">&#39;U&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">25</span>, <span style="color:#e6db74">&#39;V&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">26</span>, <span style="color:#e6db74">&#39;W&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">27</span>, <span style="color:#e6db74">&#39;X&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">28</span>, <span style="color:#e6db74">&#39;Y&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">29</span>, <span style="color:#e6db74">&#39;Z&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><h3 id="d2-校验函数返回详细结果">D.2 校验函数（返回详细结果）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 验证 10 位 Base31 令牌的校验码是否正确。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 在请求后端 API 之前使用，立即拦截输入错误。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param {string} token - 10 位令牌字符串
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @returns {{ valid: boolean, reason?: string }}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">validateToken</span>(<span style="color:#a6e22e">token</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">token</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">!==</span> <span style="color:#ae81ff">10</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">valid</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">reason</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;长度必须为10位&#34;</span> };
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sum</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">9</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">token</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">DECODE_MAP</span>[<span style="color:#a6e22e">ch</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">v</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">undefined</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">valid</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">reason</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;第&#34;</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;位字符 &#39;&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#39; 不合法&#34;</span> };
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">v</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">checksumChar</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">token</span>[<span style="color:#ae81ff">9</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">expected</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">DECODE_MAP</span>[<span style="color:#a6e22e">checksumChar</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">expected</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">undefined</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">valid</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">reason</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;校验位字符 &#39;&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">checksumChar</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#39; 不合法&#34;</span> };
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">sum</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">31</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">expected</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">valid</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">reason</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;校验码不匹配，请检查输入&#34;</span> };
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">valid</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> };
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="d3-快速校验版返回-boolean">D.3 快速校验版（返回 boolean）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 快速校验，适合高频调用场景（如扫码回调、表单 oninput）。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param {string} token
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @returns {boolean}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">isValidToken</span>(<span style="color:#a6e22e">token</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">token</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">!==</span> <span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sum</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">9</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">DECODE_MAP</span>[<span style="color:#a6e22e">token</span>[<span style="color:#a6e22e">i</span>]];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">v</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">undefined</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">v</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">expected</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">DECODE_MAP</span>[<span style="color:#a6e22e">token</span>[<span style="color:#ae81ff">9</span>]];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">expected</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">undefined</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sum</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">31</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">expected</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="d4-使用示例">D.4 使用示例</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// 合法令牌
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">validateToken</span>(<span style="color:#e6db74">&#34;D8K3D7PWNT&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// → { valid: true }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">isValidToken</span>(<span style="color:#e6db74">&#34;D8K3D7PWNT&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// → true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 单字符输入错误
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">validateToken</span>(<span style="color:#e6db74">&#34;D8K3D7PWNX&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// → { valid: false, reason: &#34;校验码不匹配，请检查输入&#34; }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 长度错误
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">validateToken</span>(<span style="color:#e6db74">&#34;D8K3D7P&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// → { valid: false, reason: &#34;长度必须为10位&#34; }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 非法字符（含被排除的字符 &#39;0&#39;, &#39;1&#39;, &#39;O&#39;, &#39;I&#39;, &#39;L&#39;）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">validateToken</span>(<span style="color:#e6db74">&#34;D8K3D7PN01&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// → { valid: false, reason: &#34;第9位字符 &#39;0&#39; 不合法&#34; }
+</span></span></span></code></pre></div><h3 id="d5-go-与-js-互操作验证">D.5 Go 与 JS 互操作验证</h3>
+<p>两种语言基于相同的 Base31 字符集和 mod-31 求和规则，同一令牌在两端的校验结果一致：</p>
+<pre tabindex="0"><code>token:  D8K3D7PWNT
+
+Go:
+  sum = 11+6+17+1+11+5+20+27+19 = 117
+  117 % 31 = 24 → char[24] = &#39;T&#39;  → 通过
+
+JS:
+  sum = 11+6+17+1+11+5+20+27+19 = 117
+  117 % 31 = 24 → char[24] = &#39;T&#39;  → 通过
+
+两者结果一致 ✓
+</code></pre><h3 id="d6-harmonyos-扫码端集成示例">D.6 HarmonyOS 扫码端集成示例</h3>
+<p>在 <code>js.terminal</code> 扫码回调中使用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// 扫码回调
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onQRCodeScanned</span>(<span style="color:#a6e22e">code</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">validateToken</span>(<span style="color:#a6e22e">code</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">valid</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 前端立即拒绝，不发起网络请求
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">vibrate</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">showToast</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">reason</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 校验通过，调用后端 API 查询令牌对应的业务实体
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;/api/v1/token/lookup&#39;</span>, {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;POST&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> { <span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/json&#39;</span> },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({ <span style="color:#a6e22e">token</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">code</span> })
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">res</span> =&gt; <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>())
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">data</span> =&gt; <span style="color:#a6e22e">handleLookupResult</span>(<span style="color:#a6e22e">data</span>))
+</span></span><span style="display:flex;"><span>    .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">err</span> =&gt; <span style="color:#a6e22e">handleNetworkError</span>(<span style="color:#a6e22e">err</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 手动输入时的实时校验
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">inputField</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;input&#39;</span>, (<span style="color:#a6e22e">e</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">toUpperCase</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">10</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ok</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">isValidToken</span>(<span style="color:#a6e22e">value</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">inputField</span>.<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">toggle</span>(<span style="color:#e6db74">&#39;invalid&#39;</span>, <span style="color:#f92672">!</span><span style="color:#a6e22e">ok</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div></div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content surface">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rewardModalLabel"><i class="fas fa-fw fa-coffee"></i>Buy me a coffee</h5>
+        <a href="#" data-bs-dismiss="modal" class="btn btn-sm btn-outline-primary" aria-label="Close"><i class="fas fa-times"></i></a>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs flex-nowrap mb-3" role="tablist"><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link active" id="reward-alipay-tab" data-bs-toggle="tab" href="#reward-alipay" role="tab" aria-controls="reward-alipay" aria-selected="true">
+              <i class="fab fa-fw fa-alipay"></i>Alipay
+            </a>
+          </li><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link" id="reward-wechat-tab" data-bs-toggle="tab" href="#reward-wechat" role="tab" aria-controls="reward-wechat" aria-selected="true">
+              <i class="fab fa-fw fa-weixin"></i>WeChat
+            </a>
+          </li></ul>
+        <div class="tab-content" id="rewardTabContent"><div class="tab-pane fade post-reward-content show active" id="reward-alipay" role="tabpanel" aria-labelledby="reward-alipay-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/alipay.webp" loading="lazy" />
+          </div><div class="tab-pane fade post-reward-content show" id="reward-wechat" role="tabpanel" aria-labelledby="reward-wechat-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/wechat.webp" loading="lazy" />
+          </div></div>
+      </div>
+    </div>
+  </div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
+</a>
+  </div></div><section class="related-posts-wrapper">
+    <h3>Related Posts</h3>
+    <ul class="related-posts"><li><a href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
+</a></li><li><a href="https://fabletang.github.io/en/posts/2023-04-14-tbtest/">微信to-淘宝
+</a></li><li><a href="https://fabletang.github.io/en/posts/2021-12-06-golang_gmp/">Golang GMP调度
+</a></li><li><a href="https://fabletang.github.io/en/posts/2021-12-06-concurrency_parallelism/">并发与并行
+</a></li><li><a href="https://fabletang.github.io/en/posts/2021-11-18-introduce_of_golang/">Golang介绍
+</a></li></ul>
+  </section></div>
+    </article><div class="card component row post-comments">
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="fabletang/fabletang.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="preferred-color-scheme"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container">
+    
+    <section class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="Fable Tang" src="https://fabletang.github.io/images/hai.webp" loading="lazy"
+   width="150" height="149"
+   />
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name">Fable Tang</div><div class="profile-bio">知行合一</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
+  </div>
+</section>
+  <section class="recent-posts row card component">
+  <div class="card-body">
+    <h2 class="card-title">Recent Posts</h2>
+    <ul><li><a href="https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/">10位短码方案设计
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
+</a></li><li><a href="https://fabletang.github.io/en/posts/2025-10-15-hammerspoon_config/">hammerspoon config for mac
+</a></li><li><a href="https://fabletang.github.io/en/posts/2023-07-23-vscode_shortcut_keyboard/">vscode shortcut key for mac
+</a></li></ul>
+  </div>
+</section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/en/categories">Categories</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="技术">
+            技术
+          </a><a href="https://fabletang.github.io/en/categories/%E7%AE%A1%E7%90%86/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="管理">
+            管理
+          </a><a href="https://fabletang.github.io/en/categories/game/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="game">
+            game
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/en/series">Series</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="工具">
+            工具
+          </a><a href="https://fabletang.github.io/en/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="概念">
+            概念
+          </a><a href="https://fabletang.github.io/en/series/%E5%BF%83%E5%BE%97/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="心得">
+            心得
+          </a><a href="https://fabletang.github.io/en/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="编程">
+            编程
+          </a><a href="https://fabletang.github.io/en/series/eve/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="eve">
+            eve
+          </a><a href="https://fabletang.github.io/en/series/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="数据库">
+            数据库
+          </a><a href="https://fabletang.github.io/en/series/%E6%A1%86%E6%9E%B6/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="框架">
+            框架
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/en/tags">Tags</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/en/tags/golang/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="golang">
+            golang
+          </a><a href="https://fabletang.github.io/en/tags/vim/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vim">
+            vim
+          </a><a href="https://fabletang.github.io/en/tags/practice/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="practice">
+            practice
+          </a><a href="https://fabletang.github.io/en/tags/project/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="project">
+            project
+          </a><a href="https://fabletang.github.io/en/tags/tips/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="tips">
+            tips
+          </a><a href="https://fabletang.github.io/en/tags/android/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="android">
+            android
+          </a><a href="https://fabletang.github.io/en/tags/docker/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="docker">
+            docker
+          </a><a href="https://fabletang.github.io/en/tags/java/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="java">
+            java
+          </a><a href="https://fabletang.github.io/en/tags/others/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="others">
+            others
+          </a><a href="https://fabletang.github.io/en/tags/uuid/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="uuid">
+            uuid
+          </a></div>
+      </div>
+    </section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:fabletang@outlook.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a><a class="nav-link social-link" target="_blank" href="https://github.com/fabletang" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2026 Fable Tang. All Rights Reserved.
+</div>
+</footer>
+
+</body>
+</html>
