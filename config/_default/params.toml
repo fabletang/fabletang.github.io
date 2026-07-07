@@ -100,3 +100,5 @@ tocSticky = false
   # small = ".9rem"
   # large = "1.1rem"
   # extraLarge = "1.2rem"
+[post]
+excerptMaxLength = 220
