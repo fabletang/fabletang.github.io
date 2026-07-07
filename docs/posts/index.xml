@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Fri, 26 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PostgreSQL可以做到Redis绝大部分功能</title>
+      <link>https://fabletang.github.io/posts/2026-07-07-8char-base31-token-design/</link>
+      <pubDate>Tue, 07 Jul 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2026-07-07-8char-base31-token-design/</guid>
+      <description>8位UUID, Base31 编码方案设计 版本 1.0 日期 2026-07-07 1. 设计目标 目标 说明 8 位固定长度 短小精悍，适合标签打印和二维码嵌入 Base31 编码 排除易混淆字符，提升人工输入准</description>
+    </item>
+    
     <item>
       <title>PostgreSQL可以做到Redis绝大部分功能</title>
       <link>https://fabletang.github.io/posts/2026-06-26-postgres-redis/</link>

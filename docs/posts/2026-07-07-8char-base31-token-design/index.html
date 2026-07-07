@@ -1,0 +1,1288 @@
+<!doctype html><html lang="zh-cn"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PostgreSQL可以做到Redis绝大部分功能 - Fable&#39;s blog</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="Replaced Redis with PostgreSQL" /><meta itemprop="name" content="PostgreSQL可以做到Redis绝大部分功能">
+<meta itemprop="description" content="Replaced Redis with PostgreSQL"><meta itemprop="datePublished" content="2026-07-07T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2026-07-07T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3903">
+<meta itemprop="keywords" content="golang,uuid," /><meta property="og:title" content="PostgreSQL可以做到Redis绝大部分功能" />
+<meta property="og:description" content="Replaced Redis with PostgreSQL" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fabletang.github.io/posts/2026-07-07-8char-base31-token-design/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-07-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-07-07T00:00:00+00:00" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PostgreSQL可以做到Redis绝大部分功能"/>
+<meta name="twitter:description" content="Replaced Redis with PostgreSQL"/>
+<link rel="preload" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.9adac0978f28fd01634b12c6b047737d767c368d96813de01c527aa26cf82fc6.js" integrity="sha256-mtrAl48o/QFjSxLGsEdzfXZ8No2WgT3gHFJ6omz4L8Y=" crossorigin="anonymous" defer></script></head>
+  <body><script src="https://fabletang.github.io/js/bootstrap.min.062c2e66b557cb779d59cedff7e0cc76e84beb665a1076e474e87d940be44245.js" integrity="sha256-BiwuZrVXy3edWc7f9&#43;DMduhL62ZaEHbkdOh9lAvkQkU=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand me-3" href="https://fabletang.github.io/"><img class="logo" alt="Logo" src="https://fabletang.github.io/images/logo-blog.webp" loading="lazy"
+   width="120" height="120"
+   />
+Fable&#39;s Blog
+    </a>
+    <button class="navbar-social-share" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+  aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+  <i class="fas fa-share"></i>
+</button>
+
+<div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=PostgreSQL%e5%8f%af%e4%bb%a5%e5%81%9a%e5%88%b0Redis%e7%bb%9d%e5%a4%a7%e9%83%a8%e5%88%86%e5%8a%9f%e8%83%bd&url=https%3a%2f%2ffabletang.github.io%2fposts%2f2026-07-07-8char-base31-token-design%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ffabletang.github.io%2fposts%2f2026-07-07-8char-base31-token-design%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">设置</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-language"></i> 语言</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="dropdown">
+        <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          简体中文
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li><a class="dropdown-item" href="https://fabletang.github.io/en/">English</a></li><li><a class="dropdown-item" href="https://fabletang.github.io/zh-tw/">繁體中文</a></li></ul>
+      </div>
+    </div>
+  </form>
+</section>
+
+
+<section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> 配色</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="蓝色"
+        class="btn btn-sm palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="蓝灰色"
+        class="btn btn-sm palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="棕色"
+        class="btn btn-sm palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="青色"
+        class="btn btn-sm palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="绿色"
+        class="btn btn-sm palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="靛青色"
+        class="btn btn-sm palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="橙色"
+        class="btn btn-sm palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="粉色"
+        class="btn btn-sm palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="紫色"
+        class="btn btn-sm palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="红色"
+        class="btn btn-sm palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="蓝绿色"
+        class="btn btn-sm palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="黄色"
+        class="btn btn-sm palette" data-palette="yellow">
+      </button></div>
+</section>
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://fabletang.github.io/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/archives/">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/categories/">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/tags/">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/series/">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/">主页</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/posts/">文章</a></li><li class="breadcrumb-item active">PostgreSQL可以做到Redis绝大部分功能</li></ol>
+  </div>
+</nav>    <article class="row card component mb-4 post"><div class="post-panel-wrapper">
+  <div class="d-flex flex-column component rounded post-panel">
+    
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+  
+    
+  <div class="post-translations nav-item dropdown action">
+    <a class="nav-link p-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-fw fa-language"></i>
+    </a>
+    <div class="dropdown-menu"><a class="dropdown-item post-translation" href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">English</a></div>
+  </div>
+
+
+    <a class="action btn-reward" role="button" data-bs-toggle="modal" data-bs-target="#rewardModal" title="打赏">
+  <i class="fas fa-fw fa-coffee"></i>
+</a>
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0" type="button" aria-label="Copyright" 
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<div class="card-body">
+        <h1 class="card-title my-3">PostgreSQL可以做到Redis绝大部分功能
+</h1><div class="post-meta"><span class="post-date" title="">
+    <i class="fas fa-fw fa-calendar-alt"></i>2026-07-07
+  </span><span class="post-reading-time" title="">
+    <i class="fas fa-fw fa-coffee"></i>8 分钟阅读
+  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy">golang</a><a href="https://fabletang.github.io/tags/uuid/" class="post-taxonomy">uuid</a></div>
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+      <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-设计目标">1. 设计目标</a>
+      <ul>
+        <li><a href="#适用场景">适用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-字符集设计">2. 字符集设计</a>
+      <ul>
+        <li><a href="#21-完整字符集">2.1 完整字符集</a></li>
+        <li><a href="#22-为什么选择-31-个字符">2.2 为什么选择 31 个字符</a></li>
+        <li><a href="#23-容量计算">2.3 容量计算</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-编码算法设计">3. 编码算法设计</a>
+      <ul>
+        <li><a href="#31-算法流程">3.1 算法流程</a></li>
+        <li><a href="#32-seed-组成详解">3.2 Seed 组成详解</a></li>
+        <li><a href="#33-cityhash64-选择理由">3.3 CityHash64 选择理由</a></li>
+        <li><a href="#34-编码表">3.4 编码表</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-唯一性分析">4. 唯一性分析</a>
+      <ul>
+        <li><a href="#41-容量与碰撞概率">4.1 容量与碰撞概率</a></li>
+        <li><a href="#42-容量规划建议">4.2 容量规划建议</a></li>
+        <li><a href="#43-为什么需要数据库-unique-约束">4.3 为什么需要数据库 UNIQUE 约束</a></li>
+        <li><a href="#44-重试策略两层保障">4.4 重试策略（两层保障）</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-性能分析">5. 性能分析</a>
+      <ul>
+        <li><a href="#51-单次生成耗时">5.1 单次生成耗时</a></li>
+        <li><a href="#52-吞吐量估算">5.2 吞吐量估算</a></li>
+        <li><a href="#53-多实例部署">5.3 多实例部署</a></li>
+        <li><a href="#54-优化建议">5.4 优化建议</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-安全分析">6. 安全分析</a>
+      <ul>
+        <li><a href="#61-可预测性">6.1 可预测性</a></li>
+        <li><a href="#62-二维码场景适配">6.2 二维码场景适配</a></li>
+        <li><a href="#63-资产编号场景适配">6.3 资产编号场景适配</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-代码包结构">7. 代码包结构</a>
+      <ul>
+        <li><a href="#71-接口设计">7.1 接口设计</a></li>
+        <li><a href="#72-base31-编码实现要点">7.2 Base31 编码实现要点</a></li>
+        <li><a href="#73-生成器实现要点">7.3 生成器实现要点</a></li>
+        <li><a href="#74-测试要点">7.4 测试要点</a></li>
+        <li><a href="#75-benchmark-预期">7.5 Benchmark 预期</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-风险汇总">8. 风险汇总</a></li>
+    <li><a href="#9-演进路线">9. 演进路线</a></li>
+    <li><a href="#附录-a字符集对比">附录 A：字符集对比</a></li>
+    <li><a href="#附录-b为何不用-ulid--uuidv7">附录 B：为何不用 ULID / UUIDv7</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h1 id="8位uuid-base31-编码方案设计">8位UUID, Base31 编码方案设计</h1>
+<p><strong>版本</strong> 1.0
+<strong>日期</strong> 2026-07-07</p>
+<hr>
+<h2 id="1-设计目标">1. 设计目标</h2>
+<table>
+<thead>
+<tr>
+<th>目标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>8 位固定长度</strong></td>
+<td>短小精悍，适合标签打印和二维码嵌入</td>
+</tr>
+<tr>
+<td><strong>Base31 编码</strong></td>
+<td>排除易混淆字符，提升人工输入准确率</td>
+</tr>
+<tr>
+<td><strong>二维码友好</strong></td>
+<td>短码可嵌入最小版本二维码（Version 1, 21×21）</td>
+</tr>
+<tr>
+<td><strong>人工易输入</strong></td>
+<td>无大小写歧义，无数字字母混淆</td>
+</tr>
+<tr>
+<td><strong>概率唯一</strong></td>
+<td>基于种子哈希的概率唯一性 + 数据库 UNIQUE 约束兜底</td>
+</tr>
+</tbody>
+</table>
+<h3 id="适用场景">适用场景</h3>
+<ul>
+<li><strong>二维码令牌</strong>：嵌入二维码，扫描后查找对应业务实体</li>
+<li><strong>短期操作凭证</strong>：入库确认、验收签收等一次性操作</li>
+<li><strong>不适用场景</strong>：资产编号（推荐使用 PRD 定义的 <code>ASSET+日期+流水</code>）、合同编号等需要排序和日期可读性的场景</li>
+</ul>
+<hr>
+<h2 id="2-字符集设计">2. 字符集设计</h2>
+<h3 id="21-完整字符集">2.1 完整字符集</h3>
+<p>从标准字母数字集合（A-Z, 0-9 = 36 个字符）中剔除易混淆字符：</p>
+<table>
+<thead>
+<tr>
+<th>被排除</th>
+<th>原因</th>
+<th>易混淆为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>数字 0</td>
+<td><code>O</code> / <code>D</code></td>
+</tr>
+<tr>
+<td><code>O</code></td>
+<td>大写 O</td>
+<td><code>0</code> / <code>D</code></td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>数字 1</td>
+<td><code>I</code> / <code>L</code></td>
+</tr>
+<tr>
+<td><code>I</code></td>
+<td>大写 I</td>
+<td><code>1</code> / <code>L</code></td>
+</tr>
+<tr>
+<td><code>L</code></td>
+<td>大写 L</td>
+<td><code>1</code> / <code>I</code></td>
+</tr>
+</tbody>
+</table>
+<p>保留字符（31 个）：</p>
+<pre tabindex="0"><code>2  3  4  5  6  7  8  9
+A  B  C  D  E  F  G  H
+J  K  M  N  P  Q  R  S
+T  U  V  W  X  Y  Z
+</code></pre><h3 id="22-为什么选择-31-个字符">2.2 为什么选择 31 个字符</h3>
+<table>
+<thead>
+<tr>
+<th>基数</th>
+<th>8 位容量（有效比特）</th>
+<th>剔除易混淆字符</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base36</td>
+<td>41.4 bit</td>
+<td>否</td>
+<td>包含 <code>0/O/1/I/L</code>，人工输入易错</td>
+</tr>
+<tr>
+<td>Base32 (RFC 4648)</td>
+<td>40.0 bit</td>
+<td>否（含 <code>O/0/1/L</code>）</td>
+<td>标准编码，但字符集对人工不友好</td>
+</tr>
+<tr>
+<td>Base32 (Crockford)</td>
+<td>40.0 bit</td>
+<td>部分（无 <code>I/L/O</code>，但有 <code>0/1</code>）</td>
+<td>接近理想，含数字 0/1 仍有混淆风险</td>
+</tr>
+<tr>
+<td><strong>Base31</strong></td>
+<td><strong>39.6 bit</strong></td>
+<td><strong>完全</strong></td>
+<td>所有易混淆字符全部剔除</td>
+</tr>
+</tbody>
+</table>
+<p>31 是剔除 5 个易混淆字符后自然剩余的数量。容量损失极小（Base32 → Base31 仅损失 ~0.4 bit），换取了零歧义的人工输入体验。</p>
+<h3 id="23-容量计算">2.3 容量计算</h3>
+<pre tabindex="0"><code>31^8 = 8,528,530,058,560 = 8.53 * 10^12 = 39.63 bit
+</code></pre><p>实际使用的 39-bit 输入空间：</p>
+<pre tabindex="0"><code>2^39 = 549,755,813,888 = 5.50 * 10^11
+利用率 = 39.0 / 39.63 = 98.4%
+</code></pre><p>39 bit 占用 8 位编码空间的 6.4%，留有充裕扩展余量（但无法超过 39.63 bit 天花板）。</p>
+<hr>
+<h2 id="3-编码算法设计">3. 编码算法设计</h2>
+<h3 id="31-算法流程">3.1 算法流程</h3>
+<pre tabindex="0"><code>输入: (无参数)
+输出: token string (8 字符)
+
+Step 1 — 构造种子
+    monotonic = runtime.nanotime() - processStartNano     // 单调递增，不受 NTP 影响
+    random    = crypto.Read([8]byte)                        // CSPRNG 64 bit 真随机
+    seed      = binary.LittleEndian.Uint64(random) ^ uint64(monotonic)
+
+Step 2 — 哈希打散
+    hash = CityHash64(seed)       // CityHash 提供优秀的雪崩效应
+
+Step 3 — 截取
+    bits = hash &amp; 0x7F_FFFF_FFFF  // 取低 39 bit
+
+Step 4 — Base31 编码
+    token = Base31Encode(bits)    // 固定 8 字符，左填充 &#39;2&#39;
+</code></pre><h3 id="32-seed-组成详解">3.2 Seed 组成详解</h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>来源</th>
+<th>熵贡献</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>monotonic_nanos</strong></td>
+<td><code>runtime.nanotime()</code> - 进程启动时间</td>
+<td>~0.03 bit/ns</td>
+<td>单调递增，不受 NTP 时钟跳变影响，防止时钟回拨导致种子重复</td>
+</tr>
+<tr>
+<td><strong>crypto/rand</strong></td>
+<td>CSPRNG</td>
+<td>64 bit</td>
+<td>真随机性来源，保证多实例并行生成时无冲突</td>
+</tr>
+<tr>
+<td><del>UTC 日期</del></td>
+<td><em>已移除</em></td>
+<td>0 bit</td>
+<td>对同一天的生成无熵贡献，被 monotonic_nanos 完全覆盖</td>
+</tr>
+</tbody>
+</table>
+<p>相较于原方案，移除了 UTC 日期。理由：</p>
+<ul>
+<li>UTC 日期的精度为 1 天，对于同一天的生成调用贡献 0 额外熵</li>
+<li><code>monotonic_nanos</code> 已经提供了更细粒度的时间信息</li>
+<li>减少一次系统调用和字符串格式化开销</li>
+</ul>
+<h3 id="33-cityhash64-选择理由">3.3 CityHash64 选择理由</h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>CityHash64</th>
+<th>替代方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>雪崩效应</td>
+<td>优秀 — 1 bit 输入翻转导致 ~32 bit 输出翻转</td>
+<td>SipHash 同样优秀（但用于安全场景）</td>
+</tr>
+<tr>
+<td>吞吐量</td>
+<td>~1.5 GB/s（单核）</td>
+<td>XXH64 更快但质量略逊</td>
+</tr>
+<tr>
+<td>实现复杂度</td>
+<td>~300 行纯 Go，无 CGO</td>
+<td>可直接内嵌，零依赖</td>
+</tr>
+<tr>
+<td>输出分布</td>
+<td>均匀 — chi-squared 检验通过</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么不选 SipHash</strong>：SipHash 设计目标是防 Hash DoS 攻击（带密钥），速度慢约 3 倍。本方案不需要加密强度哈希，CityHash 的速度优势更关键。</p>
+<p><strong>为什么不选 XXH64</strong>：XXH64 在单字节输入下雪崩效应较弱。本方案的种子仅 16 字节，CityHash 在短输入上表现更稳定。</p>
+<h3 id="34-编码表">3.4 编码表</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">base31Chars</span> = <span style="color:#e6db74">&#34;23456789ABCDEFGHJKMNPQRSTUVWXYZ&#34;</span>
+</span></span></code></pre></div><p>编码方式：除基取余法（类 Base64 编码），结果反转后左填充至 8 位。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Base31Encode</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">uint64</span>) <span style="color:#66d9ef">string</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;22222222&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">buf</span>[<span style="color:#ae81ff">8</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">i</span> = <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">while</span> <span style="color:#a6e22e">n</span> &gt; <span style="color:#ae81ff">0</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">buf</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">base31Chars</span>[<span style="color:#a6e22e">n</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">31</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">n</span> <span style="color:#f92672">/=</span> <span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 左填充 &#39;2&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> = <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">buf</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#e6db74">&#39;2&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">buf</span>[:])
+</span></span></code></pre></div><hr>
+<h2 id="4-唯一性分析">4. 唯一性分析</h2>
+<h3 id="41-容量与碰撞概率">4.1 容量与碰撞概率</h3>
+<p>39 bit 空间总计 549,755,813,888 个不同值。</p>
+<p>基于生日悖论，在生成 N 个随机码后，至少出现一次碰撞的概率：</p>
+<pre tabindex="0"><code>P(collision) ~ 1 - exp(-N^2 / (2 * 2^39))
+</code></pre><table>
+<thead>
+<tr>
+<th>生成数量 N</th>
+<th>碰撞概率</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1,000</td>
+<td>~0.00009%</td>
+<td>可忽略</td>
+</tr>
+<tr>
+<td>10,000</td>
+<td>~0.009%</td>
+<td>可忽略</td>
+</tr>
+<tr>
+<td>100,000</td>
+<td>~0.9%</td>
+<td>约每 110 次插入需 1 次重试</td>
+</tr>
+<tr>
+<td>500,000</td>
+<td>~20%</td>
+<td>约每 5 次插入需 1 次重试</td>
+</tr>
+<tr>
+<td><strong>740,000</strong></td>
+<td><strong>~50%</strong></td>
+<td>碰撞概率的分水岭</td>
+</tr>
+<tr>
+<td>1,000,000</td>
+<td>~60%</td>
+<td>每次插入约需 1.5 次重试</td>
+</tr>
+<tr>
+<td>2,000,000</td>
+<td>~97%</td>
+<td>重试开销开始不可接受</td>
+</tr>
+<tr>
+<td>5,000,000</td>
+<td>~99.9999%</td>
+<td>方案基本不可用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-容量规划建议">4.2 容量规划建议</h3>
+<table>
+<thead>
+<tr>
+<th>场景规模</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 500,000（总码数）</td>
+<td>直接使用，无需额外措施</td>
+</tr>
+<tr>
+<td>500,000 ~ 1,000,000</td>
+<td>监控碰撞率，日志告警</td>
+</tr>
+<tr>
+<td>&gt; 1,000,000</td>
+<td>强烈不建议。改用 9 位 Base31（~45 bit）或 8 位 + 更高基数编码</td>
+</tr>
+<tr>
+<td>&gt; 2,000,000</td>
+<td>禁用此方案</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-为什么需要数据库-unique-约束">4.3 为什么需要数据库 UNIQUE 约束</h3>
+<p>CityHash64 是确定性函数：相同的种子输入产生相同的输出。在以下场景中，两个不同请求可能产生相同的种子：</p>
+<ol>
+<li>同一纳秒内，多个 goroutine 读取 <code>crypto/rand</code> 的不同字节 → 产生不同种子（安全）</li>
+<li><code>crypto/rand</code> 调用失败（极度罕见），monotonic_nanos 相同 → 种子相同</li>
+<li>两个不同种子经过 CityHash64 后恰好低 39 bit 相同 → 概率性碰撞</li>
+</ol>
+<p>数据库 <code>UNIQUE</code> 约束作为最后防线：</p>
+<ul>
+<li>INSERT 时使用 <code>ON CONFLICT (token) DO NOTHING RETURNING id</code></li>
+<li>受影响的行数为 0 时，重新生成（最多重试 10 次）</li>
+<li>10 次重试后仍然冲突，返回明确错误</li>
+</ul>
+<h3 id="44-重试策略两层保障">4.4 重试策略（两层保障）</h3>
+<pre tabindex="0"><code>// Layer 1: 内存去重（测试/benchmark 环境）
+if inMemorySet.exists(token):
+    retry++
+
+// Layer 2: 数据库 UNIQUE 约束（生产环境）
+INSERT INTO tokens (code) VALUES ($1) ON CONFLICT (code) DO NOTHING RETURNING id
+if no rows returned:
+    retry++
+</code></pre><hr>
+<h2 id="5-性能分析">5. 性能分析</h2>
+<h3 id="51-单次生成耗时">5.1 单次生成耗时</h3>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>耗时</th>
+<th>占比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>runtime.nanotime()</code></td>
+<td>~0.02 us</td>
+<td>&lt; 0.1%</td>
+</tr>
+<tr>
+<td><code>crypto/rand</code> (8 bytes)</td>
+<td>1–5 us</td>
+<td>60–80%</td>
+</tr>
+<tr>
+<td>CityHash64</td>
+<td>~0.05 us</td>
+<td>~1%</td>
+</tr>
+<tr>
+<td>Base31 编码</td>
+<td>~0.1 us</td>
+<td>~2%</td>
+</tr>
+<tr>
+<td><strong>总计（生成）</strong></td>
+<td><strong>~2–6 us</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>数据库 INSERT + UNIQUE 检查</td>
+<td>~1 ms</td>
+<td>瓶颈</td>
+</tr>
+<tr>
+<td><strong>总计（含 DB）</strong></td>
+<td><strong>~1 ms</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-吞吐量估算">5.2 吞吐量估算</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>吞吐量</th>
+<th>瓶颈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>纯生成（无冲突检查）</td>
+<td>~170K–500K/s 单核</td>
+<td><code>crypto/rand</code> 速率</td>
+</tr>
+<tr>
+<td>生成 + 内存去重（N=1M）</td>
+<td>~200K/s 单核</td>
+<td>~1.5 次平均重试</td>
+</tr>
+<tr>
+<td>生成 + DB 写入</td>
+<td>~1,000/s 单连接</td>
+<td>数据库 I/O</td>
+</tr>
+<tr>
+<td>生成 + DB + 连接池（10 连接）</td>
+<td>~8,000/s</td>
+<td>数据库并发能力</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-多实例部署">5.3 多实例部署</h3>
+<p>多实例并行生成时碰撞概率增加，但分布式特性不会引入新风险：</p>
+<ul>
+<li>各实例独立调用 <code>crypto/rand</code>，种子天然不相关</li>
+<li>碰撞概率仅取决于<strong>总生成数量</strong>，与实例数目无关</li>
+<li>数据库 UNIQUE 约束跨实例统一生效</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>实例数</th>
+<th>每实例码数</th>
+<th>总码数</th>
+<th>碰撞概率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>100,000</td>
+<td>100,000</td>
+<td>~0.9%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>100,000</td>
+<td>200,000</td>
+<td>~3.5%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>100,000</td>
+<td>500,000</td>
+<td>~20%</td>
+</tr>
+<tr>
+<td>10</td>
+<td>50,000</td>
+<td>500,000</td>
+<td>~20%</td>
+</tr>
+<tr>
+<td>20</td>
+<td>50,000</td>
+<td>1,000,000</td>
+<td>~60%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54-优化建议">5.4 优化建议</h3>
+<p>若 <code>crypto/rand</code> 成为瓶颈（&gt;1M/s 需求），可使用缓冲区池：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">RandPool</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pool</span> <span style="color:#66d9ef">chan</span> []<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">RandPool</span>) <span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">p</span> []<span style="color:#66d9ef">byte</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">buf</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">pool</span>
+</span></span><span style="display:flex;"><span>    copy(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">buf</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">pool</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">buf</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>预读取放大因子 8x，将 <code>crypto/rand</code> 调用次数压缩至 1/8。</p>
+<hr>
+<h2 id="6-安全分析">6. 安全分析</h2>
+<h3 id="61-可预测性">6.1 可预测性</h3>
+<table>
+<thead>
+<tr>
+<th>攻击向量</th>
+<th>难度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>从已观察码值反推种子</td>
+<td>不可行</td>
+<td>CityHash 是单射函数，无法逆推；即使反推出种子，<code>crypto/rand</code> 每个种子都不同</td>
+</tr>
+<tr>
+<td>暴力枚举 2^39 空间</td>
+<td>~17 年/1000 QPS</td>
+<td>实际不可行，但空间只有 39 bit，不抗超级计算机</td>
+</tr>
+<tr>
+<td>生日攻击（寻找碰撞）</td>
+<td>O(2^(39/2)) = O(2^19.5) = 740K 次尝试</td>
+<td>若有观察到的已知码，理论可找到碰撞。但攻击者无利可图 — 没有会话劫持、权限提升等价值</td>
+</tr>
+<tr>
+<td>时序攻击（猜测下一码）</td>
+<td>不可行</td>
+<td>每码独立随机生成，无序列关系</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论</strong>：39 bit 空间不满足加密安全（cryptographic security）要求（通常需要 &gt;=128 bit），但对于 WMS 二维码令牌场景完全足够。攻击者没有经济利益动机进行碰撞攻击。</p>
+<h3 id="62-二维码场景适配">6.2 二维码场景适配</h3>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>满足度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>固定长度，适合小尺寸打印</td>
+<td>8 字符，Version 1 QR 码（21x21 模块，25 字母数字）</td>
+</tr>
+<tr>
+<td>非连接场景可读取</td>
+<td>短码扫描成功率高</td>
+</tr>
+<tr>
+<td>无隐私数据泄露</td>
+<td>码值不含日期、流水号等有意义信息</td>
+</tr>
+<tr>
+<td>可撤销</td>
+<td>数据库 soft delete + 标记已用</td>
+</tr>
+</tbody>
+</table>
+<p><strong>建议</strong>：二维码内容直接使用 8 位码值，不附加 URL 前缀。由扫描端应用层决定如何路由。</p>
+<h3 id="63-资产编号场景适配">6.3 资产编号场景适配</h3>
+<p><strong>不推荐使用</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>8 位 Base31 码</th>
+<th>PRD 格式 <code>ASSET+日期+流水</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>按日期排序</td>
+<td>不可，随机顺序</td>
+<td>可，日期前缀天然有序</td>
+</tr>
+<tr>
+<td>生成时间可视化</td>
+<td>不可</td>
+<td>可，日期段直接可读</td>
+</tr>
+<tr>
+<td>大规模无碰撞</td>
+<td>概率性（&gt;500K 风险）</td>
+<td>确定性（流水号保证）</td>
+</tr>
+<tr>
+<td>固定长度</td>
+<td>是</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<p><strong>建议</strong>：资产编号继续使用 PRD 定义的 <code>ASSET+日期+流水</code> 格式。8 位 Base31 码作为<strong>二维码令牌</strong>嵌入标签，通过映射表关联到资产记录。</p>
+<hr>
+<h2 id="7-代码包结构">7. 代码包结构</h2>
+<pre tabindex="0"><code>js.api-wms/pkg/token/
+├── doc.go              // 包文档
+├── base31.go           // Base31 编码/解码实现
+├── base31_test.go      // 编码往返测试、边界测试
+├── generator.go        // Token 生成器、种子构造
+├── generator_test.go   // 唯一性测试、确定性测试
+└── benchmark_test.go   // 性能基准：单体生成、并发 100 万生成
+</code></pre><h3 id="71-接口设计">7.1 接口设计</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">token</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Encode 将 uint64 编码为 8 位 Base31 字符串。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 左填充为 &#39;2&#39;（字符集中第 0 个字符）。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">uint64</span>) <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Decode 将 8 位 Base31 字符串解码为 uint64。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 返回错误如果字符不在合法字符集中。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Decode</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">uint64</span>, <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Generate 生成一个随机唯一令牌。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Generate</span>() <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// MustGenerate 生成令牌，若随机源不可用则 panic。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">MustGenerate</span>() <span style="color:#66d9ef">string</span>
+</span></span></code></pre></div><h3 id="72-base31-编码实现要点">7.2 Base31 编码实现要点</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">base</span>      = <span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">chars</span>     = <span style="color:#e6db74">&#34;23456789ABCDEFGHJKMNPQRSTUVWXYZ&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tokenLen</span>  = <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bitMask</span>   = <span style="color:#ae81ff">0x7F_FFFF_FFFF</span> <span style="color:#75715e">// 39 bits
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">decodeMap</span> [<span style="color:#ae81ff">256</span>]<span style="color:#66d9ef">byte</span> <span style="color:#75715e">// 初始化时填充，ASCII -&gt; 值映射
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">decodeMap</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">decodeMap</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#ae81ff">0xFF</span> <span style="color:#75715e">// 非法字符标记
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> []byte(<span style="color:#a6e22e">chars</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">decodeMap</span>[<span style="color:#a6e22e">c</span>] = byte(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="73-生成器实现要点">7.3 生成器实现要点</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">processStart</span> = uint64(<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">Nanotime</span>()) <span style="color:#75715e">// 包初始化时记录
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Generate</span>() <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mono</span> <span style="color:#f92672">:=</span> uint64(<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">Nanotime</span>()) <span style="color:#f92672">-</span> <span style="color:#a6e22e">processStart</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">randBytes</span> [<span style="color:#ae81ff">8</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">randBytes</span>[:])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 降级：使用 runtime.fastrand64() 作为最后防线
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">mono</span> ^= <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">FastRand64</span>()
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">mono</span> ^= <span style="color:#a6e22e">binary</span>.<span style="color:#a6e22e">LittleEndian</span>.<span style="color:#a6e22e">Uint64</span>(<span style="color:#a6e22e">randBytes</span>[:])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">seed</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makeSeed</span>(<span style="color:#a6e22e">mono</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">hash</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cityhash</span>.<span style="color:#a6e22e">CityHash64</span>(<span style="color:#a6e22e">seed</span>, uint32(len(<span style="color:#a6e22e">seed</span>)))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">hash</span> <span style="color:#f92672">&amp;</span> <span style="color:#a6e22e">bitMask</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="74-测试要点">7.4 测试要点</h3>
+<table>
+<thead>
+<tr>
+<th>测试</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TestEncodeDecode</code></td>
+<td>往返编码一致性（0, 1, 2^39-1, 随机值 x 1000）</td>
+</tr>
+<tr>
+<td><code>TestEncodePadding</code></td>
+<td>小数值左填充至 8 位</td>
+</tr>
+<tr>
+<td><code>TestDecodeInvalidChar</code></td>
+<td>非法字符错误处理</td>
+</tr>
+<tr>
+<td><code>TestGenerate</code></td>
+<td>连续 10 万生成无碰撞</td>
+</tr>
+<tr>
+<td><code>TestConcurrentGenerate</code></td>
+<td>100 goroutine x 10,000 = 100 万生成无碰撞</td>
+</tr>
+<tr>
+<td><code>BenchmarkGenerate</code></td>
+<td>单线程生成吞吐量</td>
+</tr>
+<tr>
+<td><code>BenchmarkGenerateParallel</code></td>
+<td>多线程生成吞吐量</td>
+</tr>
+<tr>
+<td><code>BenchmarkEncode</code></td>
+<td>编码微基准</td>
+</tr>
+</tbody>
+</table>
+<h3 id="75-benchmark-预期">7.5 Benchmark 预期</h3>
+<table>
+<thead>
+<tr>
+<th>基准</th>
+<th>目标值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BenchmarkGenerate-8</code></td>
+<td>&gt;=200,000 ns/op</td>
+</tr>
+<tr>
+<td><code>BenchmarkGenerateParallel-8</code></td>
+<td>&gt;=1,000,000 ops/s</td>
+</tr>
+<tr>
+<td><code>BenchmarkEncode-8</code></td>
+<td>&lt;=20 ns/op</td>
+</tr>
+<tr>
+<td>并发 100 万测试</td>
+<td>&lt;=30 s (with -race)</td>
+</tr>
+<tr>
+<td>内存分配</td>
+<td>0 B/op, 0 allocs/op（所有缓冲区栈分配）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="8-风险汇总">8. 风险汇总</h2>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>等级</th>
+<th>缓解措施</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>39 bit 容量上限（~55B 最大值）</td>
+<td><strong>高</strong></td>
+<td>文档明确容量限制；日志告警阈值 500K；&gt;1M 拒绝使用</td>
+</tr>
+<tr>
+<td>无校验位，人工输入无防错</td>
+<td>中</td>
+<td>确认设计决策：8 位不加长。依赖数据库查询验证</td>
+</tr>
+<tr>
+<td><code>crypto/rand</code> 在容器环境可能阻塞</td>
+<td>低</td>
+<td>降级方案：<code>runtime.FastRand64()</code></td>
+</tr>
+<tr>
+<td>无时间排序能力（不适用资产编号）</td>
+<td>低</td>
+<td>明确场景分离：资产编号用 <code>ASSET+日期+流水</code></td>
+</tr>
+<tr>
+<td>CityHash 确定性：同种子-&gt;同码</td>
+<td>低</td>
+<td>种子含真随机分量，实际不可行触发</td>
+</tr>
+<tr>
+<td>随机 ID 写入导致数据库页分裂</td>
+<td>中</td>
+<td>&lt;500K 记录可接受；超量建议时间前缀设计</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="9-演进路线">9. 演进路线</h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase 1（当前）</td>
+<td>实现基础生成器 + 内存去重测试</td>
+</tr>
+<tr>
+<td>Phase 2</td>
+<td>数据库集成：UNIQUE 约束 + INSERT 重试</td>
+</tr>
+<tr>
+<td>Phase 3</td>
+<td>可选：生成器缓冲池优化 <code>crypto/rand</code> 调用</td>
+</tr>
+<tr>
+<td>Phase 4</td>
+<td>可选：9 位扩展方案（如需 &gt;1M 码容量）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="附录-a字符集对比">附录 A：字符集对比</h2>
+<pre tabindex="0"><code>            1 2 3 4 5 6 7 8 9 0 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+Base36      1 2 3 4 5 6 7 8 9 0 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+Crockford   1 2 3 4 5 6 7 8 9 0 A B C D E F G H - J K L M N - P Q R S T - V W X Y Z
+Base31      - 2 3 4 5 6 7 8 9 - A B C D E F G H - J K - M N - P Q R S T U V W X Y Z
+</code></pre><p>Crockford 排除 <code>I/L/O</code> 但保留 <code>0/1</code>；Base31 额外排除 <code>0/1</code>，仅含无混淆字符。</p>
+<h2 id="附录-b为何不用-ulid--uuidv7">附录 B：为何不用 ULID / UUIDv7</h2>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>长度</th>
+<th>排序</th>
+<th>可读性</th>
+<th>适用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UUIDv4</td>
+<td>36 chars</td>
+<td>否</td>
+<td>差</td>
+<td>不适合人工/二维码</td>
+</tr>
+<tr>
+<td>UUIDv7</td>
+<td>36 chars</td>
+<td>时间排序</td>
+<td>差</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>ULID</td>
+<td>26 chars</td>
+<td>时间排序</td>
+<td>中</td>
+<td>过长，对打印标签不友好</td>
+</tr>
+<tr>
+<td>NanoID (21)</td>
+<td>21 chars</td>
+<td>否</td>
+<td>中</td>
+<td>仍偏长</td>
+</tr>
+<tr>
+<td><strong>Base31 (8)</strong></td>
+<td><strong>8 chars</strong></td>
+<td>否</td>
+<td>优</td>
+<td>专为二维码/人工优化</td>
+</tr>
+</tbody>
+</table>
+</div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content surface">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rewardModalLabel"><i class="fas fa-fw fa-coffee"></i>打赏</h5>
+        <a href="#" data-bs-dismiss="modal" class="btn btn-sm btn-outline-primary" aria-label="Close"><i class="fas fa-times"></i></a>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs flex-nowrap mb-3" role="tablist"><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link active" id="reward-alipay-tab" data-bs-toggle="tab" href="#reward-alipay" role="tab" aria-controls="reward-alipay" aria-selected="true">
+              <i class="fab fa-fw fa-alipay"></i>支付宝
+            </a>
+          </li><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link" id="reward-wechat-tab" data-bs-toggle="tab" href="#reward-wechat" role="tab" aria-controls="reward-wechat" aria-selected="true">
+              <i class="fab fa-fw fa-weixin"></i>微信
+            </a>
+          </li></ul>
+        <div class="tab-content" id="rewardTabContent"><div class="tab-pane fade post-reward-content show active" id="reward-alipay" role="tabpanel" aria-labelledby="reward-alipay-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/alipay.webp" loading="lazy" />
+          </div><div class="tab-pane fade post-reward-content show" id="reward-wechat" role="tabpanel" aria-labelledby="reward-wechat-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/wechat.webp" loading="lazy" />
+          </div></div>
+      </div>
+    </div>
+  </div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://fabletang.github.io/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
+</a>
+  </div></div><section class="related-posts-wrapper">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="https://fabletang.github.io/posts/2023-04-14-tbtest/">微信to-淘宝
+</a></li><li><a href="https://fabletang.github.io/posts/2021-12-06-golang_gmp/">Golang GMP调度
+</a></li><li><a href="https://fabletang.github.io/posts/2021-12-06-concurrency_parallelism/">并发与并行
+</a></li><li><a href="https://fabletang.github.io/posts/2021-11-18-introduce_of_golang/">Golang介绍
+</a></li><li><a href="https://fabletang.github.io/posts/2017-05-01-the_struct_of_go_project/">Golang代码结构
+</a></li></ul>
+  </section></div>
+    </article><div class="card component row post-comments">
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="fabletang/fabletang.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="preferred-color-scheme"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container">
+    
+    <section class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="Fable Tang" src="https://fabletang.github.io/images/hai.webp" loading="lazy"
+   width="150" height="149"
+   />
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name">Fable Tang</div><div class="profile-bio">知行合一</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
+  </div>
+</section>
+  <section class="recent-posts row card component">
+  <div class="card-body">
+    <h2 class="card-title">最近文章</h2>
+    <ul><li><a href="https://fabletang.github.io/posts/2026-07-07-8char-base31-token-design/">PostgreSQL可以做到Redis绝大部分功能
+</a></li><li><a href="https://fabletang.github.io/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
+</a></li><li><a href="https://fabletang.github.io/posts/2025-10-15-hammerspoon_config/">hammerspoon config for mac
+</a></li><li><a href="https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/">vscode shortcut key for mac
+</a></li><li><a href="https://fabletang.github.io/posts/2023-05-30-vscode-golang/">为Go开发配置vscode
+</a></li></ul>
+  </div>
+</section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/categories">分类</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="技术">
+            技术
+          </a><a href="https://fabletang.github.io/categories/%E7%AE%A1%E7%90%86/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="管理">
+            管理
+          </a><a href="https://fabletang.github.io/categories/game/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="game">
+            game
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/series">专栏</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="工具">
+            工具
+          </a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="概念">
+            概念
+          </a><a href="https://fabletang.github.io/series/%E5%BF%83%E5%BE%97/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="心得">
+            心得
+          </a><a href="https://fabletang.github.io/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="编程">
+            编程
+          </a><a href="https://fabletang.github.io/series/eve/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="eve">
+            eve
+          </a><a href="https://fabletang.github.io/series/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="数据库">
+            数据库
+          </a><a href="https://fabletang.github.io/series/%E6%A1%86%E6%9E%B6/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="框架">
+            框架
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/tags">标签</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/tags/golang/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="golang">
+            golang
+          </a><a href="https://fabletang.github.io/tags/vim/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vim">
+            vim
+          </a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="practice">
+            practice
+          </a><a href="https://fabletang.github.io/tags/project/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="project">
+            project
+          </a><a href="https://fabletang.github.io/tags/tips/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="tips">
+            tips
+          </a><a href="https://fabletang.github.io/tags/android/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="android">
+            android
+          </a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="docker">
+            docker
+          </a><a href="https://fabletang.github.io/tags/java/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="java">
+            java
+          </a><a href="https://fabletang.github.io/tags/others/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="others">
+            others
+          </a><a href="https://fabletang.github.io/tags/vscode/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vscode">
+            vscode
+          </a></div>
+      </div>
+    </section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:fabletang@outlook.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a><a class="nav-link social-link" target="_blank" href="https://github.com/fabletang" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2026 Fable Tang. All Rights Reserved.
+</div>
+</footer>
+
+</body>
+</html>
