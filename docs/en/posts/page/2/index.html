@@ -196,7 +196,7 @@ Fable&#39;s Blog
           
           1. 安装 Go 按照以下步骤安装 Go：
 在 Web 浏览器中，转到 “go.dev/doc/install”。 下载操作系统的版本。 下载后，运行安装程序。 打开命令提示符，然后运行 go version 以确认已安装 Go。 2. 安装Visual Studio Code 按照以下步骤安装Visual Studio Code：
-在 Web 浏览器中，转到 “code.visualstudio.com”。 3. 安装 Go 扩展 在“Visual Studio Code”中，单击活动栏中的“扩展”图标，打开“扩展”视图。 或者 (Ctrl+Shift+X) 使用键盘快捷方式。 搜索 Go 扩展，然后选择“安装” 4. 更新 Go …
+在 Web 浏览器中，转到 “code.visualstudio.com”。 3. 安装 Go 扩展  …
         </div>
       </div>
     </article><article class="row card post component">
@@ -224,8 +224,7 @@ Fable&#39;s Blog
           
           一、GMP “调度器” 的由来 单进程时代不需要调度器 早期的操作系统每个程序就是一个进程，直到一个程序运行完，才能进行下一个进程，就是 “单进程时代”.自动化控制中的PLC也是典型的单进程操作系统。
 多进程 / 线程时代有了调度器需求 典型的操作系统unix/linux,对进程/线程进行了管理。
-goroutine是比线程更轻量级的协程 goroutine是golang独有的概念,是为了更少的内存和cpu开销，比线程更加轻量，可以看作是线程的&quot;son&quot;.很明显操作系统管理不了，所以出现了GMP.
-二、GMP 定义 G=goroutine,M=mechine,P=processor. 三、GMP 模型 在 Go  …
+goroutine是比线程更轻量级的协程 goroutine是golang独有的概念,是为了更少的内存和cpu开销，比线程更加轻量，可以看作 …
         </div>
       </div>
     </article><article class="row card post component">
@@ -239,9 +238,7 @@ goroutine是比线程更轻量级的协程 goroutine是golang独有的概念,是
 <div class="post-summary">
           
           为了让程序更好地利用计算机资源，出现了进程/线程，以及并发模式和并行模式的概念。
-一、进程和线程 A. 进程是程序在操作系统中的一次执行过程，系统进行资源分配和调度的一个独立单位。 B. 线程是进程的一个执行实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位。 C. 一个进程可以创建和撤销多个线程;同一个进程中的多个线程之间可以并发执行。 二、并发和并行 A. 多线程程序在一个核的cpu上运行，就是并发。 B. 多线程程序在多个核的cpu上运行，就是并行。
-如图所示: 三、并发和并行的效率比较 如上图所示，假定任务A/B/C均衡分配，并行效率更高，因为并发切换线程需要cpu开销(图中树立的双虚线)。
-但是为什么 …
+一、进程和线程 A. 进程是程序在操作系统中的一次执行过程，系统进行资源分配和调度的一个独立单位。 B. 线程是进程的一个执行实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位。 C. 一个进程可以创建和撤销多个线程;同一个进程中的多个线程之间可以并发执行。 二、并发和并行 A. 多线程程序在一个核的cpu上运行，就是并发。 B. 多 …
         </div>
       </div>
     </article><article class="row card post component">
@@ -254,7 +251,7 @@ goroutine是比线程更轻量级的协程 goroutine是golang独有的概念,是
   </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/en/tags/vim/" class="post-taxonomy">vim</a></div>
 <div class="post-summary">
           
-          一、vim 文件管理相关 插件: &#34; 文件管理插件 Plug &#39;preservim/nerdtree&#39; Plug &#39;Xuyuanp/nerdtree-git-plugin&#39; &#34; 历史文件增强 :browse oldfiles Plug &#39;gpanders/vim-oldfiles&#39; 配置: &#34; NERDTree插件的快捷键 nn &lt;silent&gt; &lt;F5&gt; :NERDTreeToggle&lt;CR&gt; &#34;自动启动nerdtree autocmd VimEnter * NERDTree | wincmd p …
+          一、vim 文件管理相关 插件: &#34; 文件管理插件 Plug &#39;preservim/nerdtree&#39; Plug &#39;Xuyuanp/nerdtree-git-plugin&#39; &#34; 历史文件增强 :browse oldfiles Plug &#39;gpanders/vim-oldfiles&#39; 配置: &#34; NERDTree插件的快捷键 nn &lt;silent&gt; …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3">

@@ -196,9 +196,7 @@ Fable&#39;s Blog
           
           stateless server 即无状态服务。相对与传统的http server存在session,无session的 http server称为stateless server，现在一般应用于restful service.
 Why: session的概念存在这么多年，一定有其合理之处,为什么要抛弃它?
-session的起源: session根源于http的cookie. http协议本身是无状态的协议，server是一问一答，答后不管。为了加入 状态，来辨识是否访问／是否登录的需要，加入了cookie。服务器的session就是对应浏览器端的cookie.
-为什么抛弃session:
-高并发的访问，session制约 …
+session的起源: session根源于http的cookie. http协议本身是无状态的协议，server是一问一答，答后 …
         </div>
       </div>
     </article><article class="row card post component">
@@ -212,7 +210,7 @@ session的起源: session根源于http的cookie. http协议本身是无状态的
 <div class="post-summary">
           
           Grails是一套用于快速Web应用开发的开源框架，它基于Groovy编程语言，并构建于Spring、Hibernate等开源框架之上，是一个高生产力一站式框架。其官方网站上的煽情介绍为：The search is over!, 即为不要再苦苦寻找web开发框架了，Grails是终结者。
-如果web项目组大部分懂java，又没有旧的web项目负担。Grails是明智的选择。 缺点: groovy是类java的脚本解释动态语言，尽管其兼容java所有语法，最终也运行于JVM,但是速度有所影响.总体grails 比rails快，慢于传统ssh(struts/spring/hiberate)框架. 除了稍慢的运行速度，grails相 …
+如果web项目组大部分懂java，又没有旧的web项目负担。Grails是明智的选择。 缺点: groovy是类java的脚本解释动态语言，尽管其兼 …
         </div>
       </div>
     </article><article class="row card post component">
@@ -229,9 +227,7 @@ session的起源: session根源于http的cookie. http协议本身是无状态的
 公司项目的打算，但是现在时机到了。gradle已经是最好的java自动构建工具，没有之一。
 一、gradle基于动态语言groovy groovy是java的动态版，闭包的特性让其编译脚本更加自由。
 比如你可以指定项目的某个目录用特定jdk版本编译。
-二、gradle 可以完全利用已有的maven库资源 maven库资源已经发展非常成熟，几乎没有找不到的开源库。
-三、gradle插件非常丰富，已经支持android项目构建。 没错，你现在可以用gradle一个命令实现android项目的编译，打包，上传，运行。
-插件: …
+二、gradle 可以完全利用已有的maven库资源 maven库资源已经发展非常成熟，几乎 …
         </div>
       </div>
     </article><article class="row card post component">
@@ -245,10 +241,7 @@ session的起源: session根源于http的cookie. http协议本身是无状态的
 <div class="post-summary">
           
           由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开始我使用的是eclipse ADT, linux 的usb联机调试也 搞定了，一切似乎都很顺利，usb联机上传也成功了，app出来了，点击，然后就崩溃了，logcat 提示找不到 XXX.so。本来就对eclipse这个老破车有成见，利用这个借口，开始用android studio
-环境说明:
-Ubuntu /Windows, android studio 0.8.6+
-以下是要点：
-一、studio 可以直接从eclipse导入,gradle build成功，但是出现编码错误（\78XXX) …
+环境说明: …
         </div>
       </div>
     </article><article class="row card post component">
@@ -264,7 +257,7 @@ Ubuntu /Windows, android studio 0.8.6+
           环境说明: Ubuntu 14.04, android ADT 4.2.2
 Linux 下 ADT usb联机调试出现 device unknown 的解决办法:
 一、使用lsusb命令查看设备的vendorId和productId。 插入usb线前后用lsusb查看，找出多出的信息。
-$ lsusb Bus 003 Device 005: ID 0bb4:0c03 HTC (High Tech Computer Corp.) 二、在/etc/udev/rules.d/目录下面新建一个规则文件 51-android.rules 添加一行 SUBSYSTEM==&#34;usb&#34;,ATTRS …
+$ lsusb Bus 003 Device 005: ID 0bb4:0c03 HTC (High Tech Computer Corp.) 二、 …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3">

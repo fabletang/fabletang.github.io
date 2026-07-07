@@ -195,8 +195,7 @@ Fable&#39;s Blog
 <div class="post-summary">
           
           java单例模式有5种实现方式,推荐以下3种方式. 一、单例-饿汉式: 特点:线程安全，不能延时加载
-public enum SingletonDemo1 { //枚举元素本身就是单例 INSTANCE; //添加自己需要的操作 public void singletonOperation(){ } } 二、单例-懒汉式-双重锁检查: 特点:线程安全，延时加载。 ps: java1.5后,volatile可以避免jvm初始化内存分配可能乱序的问题。
-public class SingletonDemo2 { private static volatile SingletonDemo2 SingletonDemo2; private …
+public enum SingletonDemo1 { //枚举元素本身就是单例 INSTANCE; //添加自己需要的操作 public void singletonOperation(){ } } 二、单例-懒汉式-双重锁检查: 特点:线程安全，延时加载。 ps: java1.5后,volatile可以避免jvm初始化内存分配可能 …
         </div>
       </div>
     </article><article class="row card post component">
@@ -210,7 +209,7 @@ public class SingletonDemo2 { private static volatile SingletonDemo2 SingletonDe
 <div class="post-summary">
           
           Grails是一套用于快速Web应用开发的开源框架，它基于Groovy编程语言，并构建于Spring、Hibernate等开源框架之上，是一个高生产力一站式框架。其官方网站上的煽情介绍为：The search is over!, 即为不要再苦苦寻找web开发框架了，Grails是终结者。
-如果web项目组大部分懂java，又没有旧的web项目负担。Grails是明智的选择。 缺点: groovy是类java的脚本解释动态语言，尽管其兼容java所有语法，最终也运行于JVM,但是速度有所影响.总体grails 比rails快，慢于传统ssh(struts/spring/hiberate)框架. 除了稍慢的运行速度，grails相 …
+如果web项目组大部分懂java，又没有旧的web项目负担。Grails是明智的选择。 缺点: groovy是类java的脚本解释动态语言，尽管其兼 …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3"></div>

@@ -194,7 +194,7 @@ Fable&#39;s Blog
   </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/en/tags/docker/" class="post-taxonomy">docker</a><a href="https://fabletang.github.io/en/tags/tips/" class="post-taxonomy">tips</a></div>
 <div class="post-summary">
           
-          一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除 docker rmi -f $(docker images | grep &#34;fabletang/test-*&#34; | awk &#34;{print \$3}&#34;) docker rmi -f $(docker images | grep &#34;&lt;none&gt;&#34; | awk &#34;{print \$3}&#34;) 根据版本号删除 docker rmi -f $(docker …
+          一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除 docker rmi -f $(docker images | grep &#34;fabletang/test-*&#34; | awk &#34;{print \$3}&#34;) docker rmi -f $(docker …
         </div>
       </div>
     </article><article class="row card post component">
@@ -208,10 +208,7 @@ Fable&#39;s Blog
 <div class="post-summary">
           
           由于长期在linux下做开发，严重依赖linux的各种小方便，然而需要参与一个Android项目。 项目里有公司开发的.so，涉及了JNI。开始我使用的是eclipse ADT, linux 的usb联机调试也 搞定了，一切似乎都很顺利，usb联机上传也成功了，app出来了，点击，然后就崩溃了，logcat 提示找不到 XXX.so。本来就对eclipse这个老破车有成见，利用这个借口，开始用android studio
-环境说明:
-Ubuntu /Windows, android studio 0.8.6+
-以下是要点：
-一、studio 可以直接从eclipse导入,gradle build成功，但是出现编码错误（\78XXX) …
+环境说明: …
         </div>
       </div>
     </article><article class="row card post component">
@@ -227,7 +224,7 @@ Ubuntu /Windows, android studio 0.8.6+
           环境说明: Ubuntu 14.04, android ADT 4.2.2
 Linux 下 ADT usb联机调试出现 device unknown 的解决办法:
 一、使用lsusb命令查看设备的vendorId和productId。 插入usb线前后用lsusb查看，找出多出的信息。
-$ lsusb Bus 003 Device 005: ID 0bb4:0c03 HTC (High Tech Computer Corp.) 二、在/etc/udev/rules.d/目录下面新建一个规则文件 51-android.rules 添加一行 SUBSYSTEM==&#34;usb&#34;,ATTRS …
+$ lsusb Bus 003 Device 005: ID 0bb4:0c03 HTC (High Tech Computer Corp.) 二、 …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3"></div>
