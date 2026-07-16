@@ -186,6 +186,19 @@ Fable&#39;s Blog
   </div>
 </nav><div class="posts mb-4"><article class="row card post component">
       <div class="card-body">
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2017-09-16-docker_tips/">docker tips
+</a></h2><div class="post-meta"><span class="post-date" title="">
+    <i class="fas fa-fw fa-calendar-alt"></i>2017-09-16
+  </span><span class="post-reading-time" title="">
+    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
+  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/tags/docker/" class="post-taxonomy">docker</a><a href="https://fabletang.github.io/tags/tips/" class="post-taxonomy">tips</a></div>
+<div class="post-summary">
+          
+          一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除 docker rmi -f $(docker images | grep &#34;fabletang/test-*&#34; | awk &#34;{print \$3}&#34;) docker rmi -f $(docker …
+        </div>
+      </div>
+    </article><article class="row card post component">
+      <div class="card-body">
         <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2017-09-01-docker_registry/">docker私有仓库搭建
 </a></h2><div class="post-meta"><span class="post-date" title="">
     <i class="fas fa-fw fa-calendar-alt"></i>2017-09-01
@@ -221,19 +234,6 @@ Fable&#39;s Blog
 <div class="post-summary">
           
           得益于nginx等反向代理的流行以及metrics/endpoit规范的成熟。微服务的理念开始流行了。 但是微服务究竟要多&quot;微&quot;才合适？以下是我的个人实践。 不能按接口分: 这样的粒度太细.比如新增订单/查询订单分为两个microservice,优点是可以根据各自的负载合理分配服务器 资源。缺点是microservice数量过多，这样拆分的话，至少存在几十个service，这样对service的依赖关系，监控 ／部署 …
-        </div>
-      </div>
-    </article><article class="row card post component">
-      <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/posts/2017-01-01-stateless_server/">stateless server 最佳实践
-</a></h2><div class="post-meta"><span class="post-date" title="">
-    <i class="fas fa-fw fa-calendar-alt"></i>2017-01-01
-  </span><span class="post-reading-time" title="">
-    <i class="fas fa-fw fa-coffee"></i>2 分钟阅读
-  </span><a href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/tags/practice/" class="post-taxonomy">practice</a></div>
-<div class="post-summary">
-          
-          stateless server 即无状态服务。相对与传统的http server存在session,无session的 http server称为stateless server，现在一般应用于restful service. Why: session的概念存在这么多年，一定有其合理之处,为什么要抛弃它? session的起源: session根源于http的cookie. http协议本身是无状态的协议，server是一问一答，答后 …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3">
@@ -283,11 +283,11 @@ Fable&#39;s Blog
   <section class="recent-posts row card component">
   <div class="card-body">
     <h2 class="card-title">最近文章</h2>
-    <ul><li><a href="https://fabletang.github.io/posts/2026-07-07-10char-base31-token-design/">10位短码方案设计
+    <ul><li><a href="https://fabletang.github.io/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/">ubuntu下搭建Gitea代码托管平台
+</a></li><li><a href="https://fabletang.github.io/posts/2026-07-07-10char-base31-token-design/">10位短码方案设计
 </a></li><li><a href="https://fabletang.github.io/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
 </a></li><li><a href="https://fabletang.github.io/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
 </a></li><li><a href="https://fabletang.github.io/posts/2025-10-15-hammerspoon_config/">hammerspoon config for mac
-</a></li><li><a href="https://fabletang.github.io/posts/2023-07-23-vscode_shortcut_keyboard/">vscode shortcut key for mac
 </a></li></ul>
   </div>
 </section><section class="taxonomies row card component">

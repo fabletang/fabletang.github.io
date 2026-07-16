@@ -7,7 +7,41 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Tue, 07 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ubuntu下搭建Gitea代码托管平台</title>
+      <link>https://fabletang.github.io/en/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/</link>
+      <pubDate>Thu, 16 Jul 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/</guid>
+      <description>ubuntu下搭建Gitea代码托管平台 在 Ubuntu 上部署 Gitea 是设置本地代码托管平台的简洁和高效选择。 以二进制安装/配置. 以下是详细步骤：
+环境 # lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 24.04.4 LTS Release: 24.04 Codename: noble # gitea --version gitea version 1.26.4 built with go1.26.3-X:jsonv2 : bindata, sqlite, sqlite_unlock_notify 步骤 1：更新系统 sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y 步骤 2：安装依赖 sudo apt install git sqlite3 curl -y Gitea 支持多种数据库，默认使用 SQLite。如果需要 MySQL 或 PostgreSQL，可以先安装这些数据库。
+步骤 3：创建用户用于运行 Gitea sudo adduser --system --shell /bin/bash --gecos &amp;#39;Git Version Control&amp;#39; --group --disabled-password --home /home/git git 新建了一个系统用户/home/git,用户控制运行Gitea
+步骤 4：下载 Gitea 从官方站点下载最新版本的 Gitea：
+wget -O gitea https://dl.gitea.com/gitea/1.26.4/gitea-1.26.4-linux-amd64 需要替换最新版本，可以在 Gitea 的官方下载页面找到最新版本的下载链接
+步骤 5：安装 Gitea sudo mv gitea /usr/local/bin/ sudo chmod +x /usr/local/bin/gitea 步骤 6：创建必要的目录 sudo mkdir -p /var/lib/gitea/{custom,data,log} sudo chown -R git:git /var/lib/gitea/ sudo chmod -R 750 /var/lib/gitea/ sudo mkdir -p /etc/gitea sudo touch -p /etc/gitea/app.ini sudo chown -R root:git /etc/gitea sudo chmod 770 /etc/gitea 步骤 7：配置app.ini sudo vi /etc/gitea/app.ini 因为没启动安装,所以以下文本是新增的,第一次启动配置后,内容会追加.
+[server] # 新增一行，启用内置 SSH 服务器 START_SSH_SERVER = true # 显示在网页中的 SSH 端口,因为路由器配置了端口转发 18084:8084 SSH_PORT = 18084 # 内置 SSH 服务器的监听端口 SSH_LISTEN_PORT = 8084 SSH_DOMAIN = git.seantang.top DOMAIN = git.seantang.top HTTP_PORT = 3000 步骤 8：创建 Systemd 服务文件 创建服务配置文件：
+sudo nano /etc/systemd/system/gitea.service 内容如下：
+[Unit] Description=Gitea (Git with a cup of tea) After=syslog.target After=network.target [Service] RestartSec=2s Type=simple User=git Group=git WorkingDirectory=/var/lib/gitea ExecStart=/usr/local/bin/gitea web --config /etc/gitea/app.ini Restart=always Environment=USER=git HOME=/home/git GITEA_WORK_DIR=/var/lib/gitea [Install] WantedBy=multi-user.target 保存并退出。
+步骤 9：启动和启用 Gitea 服务 sudo systemctl enable gitea sudo systemctl start gitea 步骤 10：配置防火墙 默认情况下，Gitea 运行在端口 3000。允许此端口访问： ufw不是必须的,ubuntu可能就没启动.
+sudo ufw allow 3000/tcp sudo ufw enable 检查端口
+# nc -zv localhost 3000 Connection to localhost (127.0.0.1) 3000 port [tcp/*] succeeded! 或者
+# netstat -ant | grep 3000 tcp 0 0 127.0.0.1:47336 127.0.0.1:3000 ESTABLISHED tcp 0 0 127.0.0.1:56306 127.0.0.1:3000 TIME_WAIT 步骤 11：访问 Gitea 打开浏览器，访问 http://&amp;lt;your-server-ip&amp;gt;:3000。 按照界面完成安装配置，使用默认或手动配置数据库。使用sqlite已经足够了.
+完成后即可使用 Gitea 提供的 Web 界面进行代码托管和管理。
+首次登陆时需要设置文件目录等。 注意设置管理员账号密码. 如果是企业内部使用,建议关闭openid注册. 3000端口是默认http端口,处于安全考虑,一般都需要配置https,建议采用 caddy进行端口转发,自动配置tls证书. 常见问题解决： 1. 服务器IP变更后导致的无法登录问题解决 Gitea 由于 IP 修改导致无法登录，可能的原因包括配置文件绑定了旧 IP、数据库中的回调地址未更新，或者缓存问题。可以尝试以下方法解决：
+检查 Gitea 配置文件 Gitea 的配置文件通常位于：
+/etc/gitea/app.ini # Linux 找到 app.ini 文件，并检查 [server] 部分：
+[server] DOMAIN = &amp;lt;新IP地址&amp;gt; ROOT_URL = http://&amp;lt;新IP地址&amp;gt;:3000/ 修改 DOMAIN 和 ROOT_URL 为新的 IP 地址，确保端口号正确。
+保存文件后，重启 Gitea：
+systemctl restart gitea # Linux 2. 重置管理员密码 使用命令行重置管理员密码 如果你可以访问服务器，可以使用 Gitea 内置的命令工具重置密码。
+切换到 Gitea 运行用户（如果是 git 用户运行 Gitea）：
+sudo -u git -H sh -c &amp;#39;/path/to/gitea admin user change-password --username admin --password &amp;#34;newpassword&amp;#34;&amp;#39; 例如：
+sudo -u git -H sh -c &amp;#39;/usr/local/bin/gitea --config /etc/gitea/app.ini admin user change-password --username admin --password &amp;#34;newpassword&amp;#34;&amp;#39; 如果 Gitea 运行在 root 账户下，可以直接运行：
+/path/to/gitea admin user change-password --username admin --password &amp;#34;newpassword&amp;#34; --config /etc/gitea/app.ini手动指定配置文件的路径
+重启 Gitea
+systemctl restart gitea # 如果是 systemd 方式运行 使用新密码登录</description>
+    </item>
+    
     <item>
       <title>10位短码方案设计</title>
       <link>https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/</link>

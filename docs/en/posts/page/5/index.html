@@ -186,6 +186,21 @@ Fable&#39;s Blog
   </div>
 </nav><div class="posts mb-4"><article class="row card post component">
       <div class="card-body">
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2021-11-09-practice_of_db/">关系型数据库实践
+</a></h2><div class="post-meta"><span class="post-date" title="created on">
+    <i class="fas fa-fw fa-calendar-alt"></i>Nov 9, 2021
+  </span><span class="post-reading-time" title="reading time">
+    <i class="fas fa-fw fa-coffee"></i>1 min read
+  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/en/tags/practice/" class="post-taxonomy">practice</a></div>
+<div class="post-summary">
+          
+          关系型数据库是绝大多数系统的数据核心,这个关键设施也往往是性能的瓶颈。以下是一些使用建议。
+按业务场景设计表结构 业务场景: 一个mysql的用户表，1000万条记录，如何查询出当天生日的用户？
+表结构通用规则 所有字段必须非空而且有默认值。 一般都有创建时间和更新时间字段，mysql5.6+ 支持数据库本身更新此字段。 尽可能不使用TEXT、BLOB类型. 表字符集尽量选择UTF8MB4,mysql的utf8不是标准的字符 …
+        </div>
+      </div>
+    </article><article class="row card post component">
+      <div class="card-body">
         <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2021-04-22-methodology_2/">技术管理-管理、人性与OKR
 </a></h2><div class="post-meta"><span class="post-date" title="created on">
     <i class="fas fa-fw fa-calendar-alt"></i>Apr 22, 2021
@@ -222,19 +237,6 @@ public enum SingletonDemo1 { //枚举元素本身就是单例 INSTANCE; //添加
 <div class="post-summary">
           
            很多技术人不喜欢管理，就像古代书生怕碰到铜钱，沾染了“铜臭”变得不纯洁了。 管理，第一是对自我的管理,自己的工作方式。不要把管理想象成奴役他人的皮鞭，可以认为管理首先是规范自己的 戒尺，然后把这根戒尺变成指挥棒去协调团队。 某些同学看了这些书，甚至考试认证都过了，还是没找到管理的感觉。 今天跟大家探讨一下，怎么学习管理理论。 一、学习的广度 站在巨人肩膀上做事是理所当然的，所以管理相关的理论知识要先学习。这方面的权威书籍有很多， 比如 …
-        </div>
-      </div>
-    </article><article class="row card post component">
-      <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2017-09-16-docker_tips/">docker tips
-</a></h2><div class="post-meta"><span class="post-date" title="created on">
-    <i class="fas fa-fw fa-calendar-alt"></i>Sep 16, 2017
-  </span><span class="post-reading-time" title="reading time">
-    <i class="fas fa-fw fa-coffee"></i>1 min read
-  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/en/tags/docker/" class="post-taxonomy">docker</a><a href="https://fabletang.github.io/en/tags/tips/" class="post-taxonomy">tips</a></div>
-<div class="post-summary">
-          
-          一、docker rmi: 使用多个images id删除,前四位、空格区分 docker rmi 861b 7d51 过滤批量删除镜像, 对docker images 显示的行进行过滤。 根据tag名删除 docker rmi -f $(docker images | grep &#34;fabletang/test-*&#34; | awk &#34;{print \$3}&#34;) docker rmi -f $(docker …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3">
@@ -284,11 +286,11 @@ public enum SingletonDemo1 { //枚举元素本身就是单例 INSTANCE; //添加
   <section class="recent-posts row card component">
   <div class="card-body">
     <h2 class="card-title">Recent Posts</h2>
-    <ul><li><a href="https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/">10位短码方案设计
+    <ul><li><a href="https://fabletang.github.io/en/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/">ubuntu下搭建Gitea代码托管平台
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/">10位短码方案设计
 </a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
 </a></li><li><a href="https://fabletang.github.io/en/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
 </a></li><li><a href="https://fabletang.github.io/en/posts/2025-10-15-hammerspoon_config/">hammerspoon config for mac
-</a></li><li><a href="https://fabletang.github.io/en/posts/2023-07-23-vscode_shortcut_keyboard/">vscode shortcut key for mac
 </a></li></ul>
   </div>
 </section><section class="taxonomies row card component">

@@ -2,6 +2,143 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://fabletang.github.io/</loc>
+    <lastmod>2026-07-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://fabletang.github.io/zh-tw/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/tags/gitea/</loc>
+    <lastmod>2026-07-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/tags/gitea/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/tags/gitea/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/</loc>
+    <lastmod>2026-07-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/tags/</loc>
+    <lastmod>2026-07-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://fabletang.github.io/zh-tw/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/tags/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/categories/</loc>
+    <lastmod>2026-07-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://fabletang.github.io/zh-tw/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/categories/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2026-07-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2026-07-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/posts/</loc>
+    <lastmod>2026-07-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/posts/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/series/</loc>
+    <lastmod>2026-07-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://fabletang.github.io/zh-tw/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/series/"
+                />
+  </url><url>
     <loc>https://fabletang.github.io/posts/2026-07-07-10char-base31-token-design/</loc>
     <lastmod>2026-07-07T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -26,24 +163,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/posts/2026-07-07-8char-base31-token-design/"
-                />
-  </url><url>
-    <loc>https://fabletang.github.io/</loc>
-    <lastmod>2026-07-07T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="https://fabletang.github.io/zh-tw/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/"
                 />
   </url><url>
     <loc>https://fabletang.github.io/tags/golang/</loc>
@@ -72,42 +191,6 @@
                 href="https://fabletang.github.io/tags/uuid/"
                 />
   </url><url>
-    <loc>https://fabletang.github.io/tags/</loc>
-    <lastmod>2026-07-07T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="https://fabletang.github.io/zh-tw/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/tags/"
-                />
-  </url><url>
-    <loc>https://fabletang.github.io/categories/</loc>
-    <lastmod>2026-07-07T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="https://fabletang.github.io/zh-tw/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/categories/"
-                />
-  </url><url>
     <loc>https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/</loc>
     <lastmod>2026-07-07T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -119,50 +202,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/series/%E6%A6%82%E5%BF%B5/"
-                />
-  </url><url>
-    <loc>https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2026-07-07T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/categories/%E6%8A%80%E6%9C%AF/"
-                />
-  </url><url>
-    <loc>https://fabletang.github.io/posts/</loc>
-    <lastmod>2026-07-07T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/"
-                />
-  </url><url>
-    <loc>https://fabletang.github.io/series/</loc>
-    <lastmod>2026-07-07T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/series/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="https://fabletang.github.io/zh-tw/series/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/series/"
                 />
   </url><url>
     <loc>https://fabletang.github.io/tags/database/</loc>
@@ -254,19 +293,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://fabletang.github.io/posts/2025-10-15-hammerspoon_config/"
-                />
-  </url><url>
-    <loc>https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2025-10-15T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/"
                 />
   </url><url>
     <loc>https://fabletang.github.io/tags/vscode/</loc>

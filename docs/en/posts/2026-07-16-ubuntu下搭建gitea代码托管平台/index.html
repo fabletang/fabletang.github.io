@@ -1,0 +1,549 @@
+<!doctype html><html lang="en"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ubuntu下搭建Gitea代码托管平台 - 知行合一</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="docker registry 2" /><meta itemprop="name" content="ubuntu下搭建Gitea代码托管平台">
+<meta itemprop="description" content="docker registry 2"><meta itemprop="datePublished" content="2026-07-16T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2026-07-16T00:00:00+00:00" />
+<meta itemprop="wordCount" content="398">
+<meta itemprop="keywords" content="gitea," /><meta property="og:title" content="ubuntu下搭建Gitea代码托管平台" />
+<meta property="og:description" content="docker registry 2" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fabletang.github.io/en/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-07-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-07-16T00:00:00+00:00" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ubuntu下搭建Gitea代码托管平台"/>
+<meta name="twitter:description" content="docker registry 2"/>
+<link rel="preload" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.9adac0978f28fd01634b12c6b047737d767c368d96813de01c527aa26cf82fc6.js" integrity="sha256-mtrAl48o/QFjSxLGsEdzfXZ8No2WgT3gHFJ6omz4L8Y=" crossorigin="anonymous" defer></script></head>
+  <body><script src="https://fabletang.github.io/js/bootstrap.min.062c2e66b557cb779d59cedff7e0cc76e84beb665a1076e474e87d940be44245.js" integrity="sha256-BiwuZrVXy3edWc7f9&#43;DMduhL62ZaEHbkdOh9lAvkQkU=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand me-3" href="https://fabletang.github.io/en/"><img class="logo" alt="Logo" src="https://fabletang.github.io/images/logo-blog.webp" loading="lazy"
+   width="120" height="120"
+   />
+Fable&#39;s Blog
+    </a>
+    <button class="navbar-social-share" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+  aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+  <i class="fas fa-share"></i>
+</button>
+
+<div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=ubuntu%e4%b8%8b%e6%90%ad%e5%bb%baGitea%e4%bb%a3%e7%a0%81%e6%89%98%e7%ae%a1%e5%b9%b3%e5%8f%b0&url=https%3a%2f%2ffabletang.github.io%2fen%2fposts%2f2026-07-16-ubuntu%25E4%25B8%258B%25E6%2590%25AD%25E5%25BB%25BAgitea%25E4%25BB%25A3%25E7%25A0%2581%25E6%2589%2598%25E7%25AE%25A1%25E5%25B9%25B3%25E5%258F%25B0%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ffabletang.github.io%2fen%2fposts%2f2026-07-16-ubuntu%25E4%25B8%258B%25E6%2590%25AD%25E5%25BB%25BAgitea%25E4%25BB%25A3%25E7%25A0%2581%25E6%2589%2598%25E7%25AE%25A1%25E5%25B9%25B3%25E5%258F%25B0%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-language"></i> Language</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="dropdown">
+        <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          English
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li><a class="dropdown-item" href="https://fabletang.github.io/">简体中文</a></li><li><a class="dropdown-item" href="https://fabletang.github.io/zh-tw/">繁體中文</a></li></ul>
+      </div>
+    </div>
+  </form>
+</section>
+
+
+<section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> Font Size</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm palette" data-palette="yellow">
+      </button></div>
+</section>
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://fabletang.github.io/en/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/archives/">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/categories/">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/tags/">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/series/">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/en/">Home</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/en/posts/">文章</a></li><li class="breadcrumb-item active">ubuntu下搭建Gitea代码托管平台</li></ol>
+  </div>
+</nav>    <article class="row card component mb-4 post"><div class="post-panel-wrapper">
+  <div class="d-flex flex-column component rounded post-panel">
+    
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+  
+    
+  <div class="post-translations nav-item dropdown action">
+    <a class="nav-link p-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-fw fa-language"></i>
+    </a>
+    <div class="dropdown-menu"><a class="dropdown-item post-translation" href="https://fabletang.github.io/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/">简体中文</a></div>
+  </div>
+
+
+    <a class="action btn-reward" role="button" data-bs-toggle="modal" data-bs-target="#rewardModal" title="Buy me a coffee">
+  <i class="fas fa-fw fa-coffee"></i>
+</a>
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0" type="button" aria-label="Copyright" 
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<div class="card-body">
+        <h1 class="card-title my-3">ubuntu下搭建Gitea代码托管平台
+</h1><div class="post-meta"><span class="post-date" title="created on">
+    <i class="fas fa-fw fa-calendar-alt"></i>Jul 16, 2026
+  </span><span class="post-reading-time" title="reading time">
+    <i class="fas fa-fw fa-coffee"></i>2 min read
+  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/en/tags/gitea/" class="post-taxonomy">gitea</a></div>
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+      <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#环境"><strong>环境</strong></a></li>
+        <li><a href="#步骤-1更新系统"><strong>步骤 1：更新系统</strong></a></li>
+        <li><a href="#步骤-2安装依赖"><strong>步骤 2：安装依赖</strong></a></li>
+        <li><a href="#步骤-3创建用户用于运行-gitea"><strong>步骤 3：创建用户用于运行 Gitea</strong></a></li>
+        <li><a href="#步骤-4下载-gitea"><strong>步骤 4：下载 Gitea</strong></a></li>
+        <li><a href="#步骤-5安装-gitea"><strong>步骤 5：安装 Gitea</strong></a></li>
+        <li><a href="#步骤-6创建必要的目录"><strong>步骤 6：创建必要的目录</strong></a></li>
+        <li><a href="#步骤-7配置appini"><strong>步骤 7：配置app.ini</strong></a></li>
+        <li><a href="#步骤-8创建-systemd-服务文件"><strong>步骤 8：创建 Systemd 服务文件</strong></a></li>
+        <li><a href="#步骤-9启动和启用-gitea-服务"><strong>步骤 9：启动和启用 Gitea 服务</strong></a></li>
+        <li><a href="#步骤-10配置防火墙"><strong>步骤 10：配置防火墙</strong></a></li>
+        <li><a href="#步骤-11访问-gitea"><strong>步骤 11：访问 Gitea</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#常见问题解决">常见问题解决：</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h1 id="ubuntu下搭建gitea代码托管平台">ubuntu下搭建Gitea代码托管平台</h1>
+<p>在 Ubuntu 上部署 <strong>Gitea</strong> 是设置本地代码托管平台的简洁和高效选择。
+以二进制安装/配置. 以下是详细步骤：</p>
+<h3 id="环境"><strong>环境</strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># lsb_release -a</span>
+</span></span><span style="display:flex;"><span>No LSB modules are available.
+</span></span><span style="display:flex;"><span>Distributor ID: Ubuntu
+</span></span><span style="display:flex;"><span>Description:    Ubuntu 24.04.4 LTS
+</span></span><span style="display:flex;"><span>Release:        24.04
+</span></span><span style="display:flex;"><span>Codename:       noble
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># gitea --version</span>
+</span></span><span style="display:flex;"><span>gitea version 1.26.4 built with go1.26.3-X:jsonv2 : bindata, sqlite, sqlite_unlock_notify
+</span></span></code></pre></div><h3 id="步骤-1更新系统"><strong>步骤 1：更新系统</strong></h3>
+<pre tabindex="0"><code>sudo apt update &amp;&amp; sudo apt upgrade -y
+</code></pre><h3 id="步骤-2安装依赖"><strong>步骤 2：安装依赖</strong></h3>
+<pre tabindex="0"><code>sudo apt install git sqlite3 curl -y
+</code></pre><p>Gitea 支持多种数据库，默认使用 SQLite。如果需要 MySQL 或 PostgreSQL，可以先安装这些数据库。</p>
+<h3 id="步骤-3创建用户用于运行-gitea"><strong>步骤 3：创建用户用于运行 Gitea</strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo adduser --system --shell /bin/bash --gecos <span style="color:#e6db74">&#39;Git Version Control&#39;</span> --group --disabled-password --home /home/git git
+</span></span></code></pre></div><p>新建了一个系统用户/home/git,用户控制运行Gitea</p>
+<h3 id="步骤-4下载-gitea"><strong>步骤 4：下载 Gitea</strong></h3>
+<p>从官方站点下载最新版本的 Gitea：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget -O gitea https://dl.gitea.com/gitea/1.26.4/gitea-1.26.4-linux-amd64
+</span></span></code></pre></div><p>需要替换最新版本，可以在 <a href="https://github.com/go-gitea/gitea/releases" target="_blank" rel="noopener noreferrer">Gitea</a>
+ 的官方下载页面找到最新版本的下载链接</p>
+<h3 id="步骤-5安装-gitea"><strong>步骤 5：安装 Gitea</strong></h3>
+<pre tabindex="0"><code>sudo mv gitea /usr/local/bin/
+sudo chmod +x /usr/local/bin/gitea
+</code></pre><h3 id="步骤-6创建必要的目录"><strong>步骤 6：创建必要的目录</strong></h3>
+<pre tabindex="0"><code>sudo mkdir -p /var/lib/gitea/{custom,data,log}
+sudo chown -R git:git /var/lib/gitea/
+sudo chmod -R 750 /var/lib/gitea/
+sudo mkdir -p /etc/gitea
+sudo touch -p /etc/gitea/app.ini
+sudo chown -R root:git /etc/gitea
+sudo chmod 770 /etc/gitea
+</code></pre><h3 id="步骤-7配置appini"><strong>步骤 7：配置app.ini</strong></h3>
+<p>sudo vi /etc/gitea/app.ini <!-- raw HTML omitted -->
+因为没启动安装,所以以下文本是新增的,第一次启动配置后,内容会追加.</p>
+<pre tabindex="0"><code>[server]
+# 新增一行，启用内置 SSH 服务器
+START_SSH_SERVER = true
+# 显示在网页中的 SSH 端口,因为路由器配置了端口转发 18084:8084
+SSH_PORT = 18084
+# 内置 SSH 服务器的监听端口
+SSH_LISTEN_PORT = 8084
+SSH_DOMAIN = git.seantang.top
+DOMAIN = git.seantang.top
+HTTP_PORT = 3000
+</code></pre><h3 id="步骤-8创建-systemd-服务文件"><strong>步骤 8：创建 Systemd 服务文件</strong></h3>
+<p>创建服务配置文件：</p>
+<pre tabindex="0"><code>sudo nano /etc/systemd/system/gitea.service
+</code></pre><p>内容如下：</p>
+<pre tabindex="0"><code>[Unit]
+Description=Gitea (Git with a cup of tea)
+After=syslog.target
+After=network.target
+[Service]
+RestartSec=2s
+Type=simple
+User=git
+Group=git
+WorkingDirectory=/var/lib/gitea
+ExecStart=/usr/local/bin/gitea web --config /etc/gitea/app.ini
+Restart=always
+Environment=USER=git HOME=/home/git GITEA_WORK_DIR=/var/lib/gitea
+[Install]
+WantedBy=multi-user.target
+</code></pre><p>保存并退出。</p>
+<h3 id="步骤-9启动和启用-gitea-服务"><strong>步骤 9：启动和启用 Gitea 服务</strong></h3>
+<pre tabindex="0"><code>sudo systemctl enable gitea
+sudo systemctl start gitea
+</code></pre><h3 id="步骤-10配置防火墙"><strong>步骤 10：配置防火墙</strong></h3>
+<p>默认情况下，Gitea 运行在端口 <code>3000</code>。允许此端口访问：
+ufw不是必须的,ubuntu可能就没启动.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo ufw allow 3000/tcp
+</span></span><span style="display:flex;"><span>sudo ufw enable
+</span></span></code></pre></div><p>检查端口</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># nc -zv localhost 3000</span>
+</span></span><span style="display:flex;"><span>Connection to localhost <span style="color:#f92672">(</span>127.0.0.1<span style="color:#f92672">)</span> <span style="color:#ae81ff">3000</span> port <span style="color:#f92672">[</span>tcp/*<span style="color:#f92672">]</span> succeeded!
+</span></span></code></pre></div><p>或者</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># netstat -ant | grep 3000</span>
+</span></span><span style="display:flex;"><span>tcp        <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span> 127.0.0.1:47336         127.0.0.1:3000          ESTABLISHED
+</span></span><span style="display:flex;"><span>tcp        <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span> 127.0.0.1:56306         127.0.0.1:3000          TIME_WAIT
+</span></span></code></pre></div><h3 id="步骤-11访问-gitea"><strong>步骤 11：访问 Gitea</strong></h3>
+<p>打开浏览器，访问 <code>http://&lt;your-server-ip&gt;:3000</code>。
+按照界面完成安装配置，使用默认或手动配置数据库。使用sqlite已经足够了.</p>
+<p>完成后即可使用 Gitea 提供的 Web 界面进行代码托管和管理。</p>
+<ul>
+<li>首次登陆时需要设置文件目录等。<!-- raw HTML omitted --></li>
+<li>注意设置管理员账号密码.</li>
+<li>如果是企业内部使用,建议关闭openid注册.</li>
+<li>3000端口是默认http端口,处于安全考虑,一般都需要配置https,建议采用 caddy进行端口转发,自动配置tls证书.</li>
+</ul>
+<hr>
+<h2 id="常见问题解决">常见问题解决：</h2>
+<h4 id="1-服务器ip变更后导致的无法登录问题解决">1. 服务器IP变更后导致的无法登录问题解决</h4>
+<p>Gitea 由于 IP 修改导致无法登录，可能的原因包括配置文件绑定了旧 IP、数据库中的回调地址未更新，或者缓存问题。可以尝试以下方法解决：</p>
+<h4 id="检查-gitea-配置文件"><strong>检查 Gitea 配置文件</strong></h4>
+<p>Gitea 的配置文件通常位于：</p>
+<pre tabindex="0"><code>/etc/gitea/app.ini  # Linux
+</code></pre><ul>
+<li>
+<p>找到 <code>app.ini</code> 文件，并检查 <code>[server]</code> 部分：</p>
+<pre tabindex="0"><code>[server]
+DOMAIN = &lt;新IP地址&gt;
+ROOT_URL = http://&lt;新IP地址&gt;:3000/
+</code></pre></li>
+<li>
+<p>修改 <code>DOMAIN</code> 和 <code>ROOT_URL</code> 为新的 IP 地址，确保端口号正确。</p>
+</li>
+<li>
+<p>保存文件后，重启 Gitea：</p>
+<pre tabindex="0"><code>systemctl restart gitea  # Linux
+</code></pre></li>
+</ul>
+<h4 id="2-重置管理员密码">2. 重置管理员密码</h4>
+<h4 id="使用命令行重置管理员密码"><strong>使用命令行重置管理员密码</strong></h4>
+<p>如果你可以访问服务器，可以使用 Gitea 内置的命令工具重置密码。</p>
+<ol>
+<li>
+<p><strong>切换到 Gitea 运行用户</strong>（如果是 <code>git</code> 用户运行 Gitea）：</p>
+<pre tabindex="0"><code>sudo -u git -H sh -c &#39;/path/to/gitea admin user change-password --username admin --password &#34;newpassword&#34;&#39;
+</code></pre><ul>
+<li>
+<p>例如：</p>
+<pre tabindex="0"><code>sudo -u git -H sh -c &#39;/usr/local/bin/gitea --config /etc/gitea/app.ini admin user change-password --username admin --password &#34;newpassword&#34;&#39;
+</code></pre></li>
+<li>
+<p>如果 Gitea 运行在 <code>root</code> 账户下，可以直接运行：</p>
+<pre tabindex="0"><code>/path/to/gitea admin user change-password --username admin --password &#34;newpassword&#34;
+</code></pre></li>
+</ul>
+</li>
+</ol>
+<p><code>--config /etc/gitea/app.ini</code>手动指定配置文件的路径</p>
+<ol start="2">
+<li>
+<p><strong>重启 Gitea</strong></p>
+<pre tabindex="0"><code>systemctl restart gitea  # 如果是 systemd 方式运行
+</code></pre></li>
+<li>
+<p><strong>使用新密码登录</strong></p>
+</li>
+</ol>
+</div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content surface">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rewardModalLabel"><i class="fas fa-fw fa-coffee"></i>Buy me a coffee</h5>
+        <a href="#" data-bs-dismiss="modal" class="btn btn-sm btn-outline-primary" aria-label="Close"><i class="fas fa-times"></i></a>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs flex-nowrap mb-3" role="tablist"><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link active" id="reward-alipay-tab" data-bs-toggle="tab" href="#reward-alipay" role="tab" aria-controls="reward-alipay" aria-selected="true">
+              <i class="fab fa-fw fa-alipay"></i>Alipay
+            </a>
+          </li><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link" id="reward-wechat-tab" data-bs-toggle="tab" href="#reward-wechat" role="tab" aria-controls="reward-wechat" aria-selected="true">
+              <i class="fab fa-fw fa-weixin"></i>WeChat
+            </a>
+          </li></ul>
+        <div class="tab-content" id="rewardTabContent"><div class="tab-pane fade post-reward-content show active" id="reward-alipay" role="tabpanel" aria-labelledby="reward-alipay-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/alipay.webp" loading="lazy" />
+          </div><div class="tab-pane fade post-reward-content show" id="reward-wechat" role="tabpanel" aria-labelledby="reward-wechat-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/wechat.webp" loading="lazy" />
+          </div></div>
+      </div>
+    </div>
+  </div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/">10位短码方案设计
+</a>
+  </div></div></div>
+    </article><div class="card component row post-comments">
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="fabletang/fabletang.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="preferred-color-scheme"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container">
+    
+    <section class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="Fable Tang" src="https://fabletang.github.io/images/hai.webp" loading="lazy"
+   width="150" height="149"
+   />
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name">Fable Tang</div><div class="profile-bio">知行合一</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
+  </div>
+</section>
+  <section class="recent-posts row card component">
+  <div class="card-body">
+    <h2 class="card-title">Recent Posts</h2>
+    <ul><li><a href="https://fabletang.github.io/en/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/">ubuntu下搭建Gitea代码托管平台
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/">10位短码方案设计
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
+</a></li><li><a href="https://fabletang.github.io/en/posts/2025-10-15-hammerspoon_config/">hammerspoon config for mac
+</a></li></ul>
+  </div>
+</section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/en/categories">Categories</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="技术">
+            技术
+          </a><a href="https://fabletang.github.io/en/categories/%E7%AE%A1%E7%90%86/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="管理">
+            管理
+          </a><a href="https://fabletang.github.io/en/categories/game/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="game">
+            game
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/en/series">Series</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="工具">
+            工具
+          </a><a href="https://fabletang.github.io/en/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="概念">
+            概念
+          </a><a href="https://fabletang.github.io/en/series/%E5%BF%83%E5%BE%97/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="心得">
+            心得
+          </a><a href="https://fabletang.github.io/en/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="编程">
+            编程
+          </a><a href="https://fabletang.github.io/en/series/eve/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="eve">
+            eve
+          </a><a href="https://fabletang.github.io/en/series/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="数据库">
+            数据库
+          </a><a href="https://fabletang.github.io/en/series/%E6%A1%86%E6%9E%B6/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="框架">
+            框架
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/en/tags">Tags</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/en/tags/golang/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="golang">
+            golang
+          </a><a href="https://fabletang.github.io/en/tags/vim/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vim">
+            vim
+          </a><a href="https://fabletang.github.io/en/tags/practice/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="practice">
+            practice
+          </a><a href="https://fabletang.github.io/en/tags/project/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="project">
+            project
+          </a><a href="https://fabletang.github.io/en/tags/tips/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="tips">
+            tips
+          </a><a href="https://fabletang.github.io/en/tags/android/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="android">
+            android
+          </a><a href="https://fabletang.github.io/en/tags/docker/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="docker">
+            docker
+          </a><a href="https://fabletang.github.io/en/tags/java/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="java">
+            java
+          </a><a href="https://fabletang.github.io/en/tags/others/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="others">
+            others
+          </a><a href="https://fabletang.github.io/en/tags/uuid/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="uuid">
+            uuid
+          </a></div>
+      </div>
+    </section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:fabletang@outlook.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a><a class="nav-link social-link" target="_blank" href="https://github.com/fabletang" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2026 Fable Tang. All Rights Reserved.
+</div>
+</footer>
+
+</body>
+</html>
