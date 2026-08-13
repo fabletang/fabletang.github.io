@@ -1,7 +1,7 @@
 +++
 title= "Tailscale 私有网络方案：A 内网服务器 + S 公网 Gateway + W 异地工作站"
-description= "Tailscale 私有网络方案"
-date = "2026-08-13"
+description= "Tailscale  private network"
+date = "2026-08-12"
 tags = [
     "vpn",
 ]
@@ -13,8 +13,7 @@ series = [
 ]
 +++
 
-##  目标：A 不开放公网入站端口；W 可以通过 Tailscale 访问 A；同时允许非 Tailscale 用户通过公网访问 A 的 8080 Web 服务。
-
+# 目标：A 不开放公网入站端口；W 可以通过 Tailscale 访问 A；同时允许非 Tailscale 用户通过公网访问 A 的 8080 Web 服务。
 
 ## 1. 网络环境
 
@@ -64,7 +63,7 @@ series = [
              │ 内网服务器  │  Tailscale   │ 公网Gateway │
              │             │              │ 固定公网 IP │
              └─────────────┘              └─────────────┘
-                    │                          │
+                    │                           │
                     └────── Web :8080 ─────────┘
 ```
 
@@ -1329,4 +1328,5 @@ ssh ubuntu@server-a
 - SSH over Tailscale：https://tailscale.com/docs/reference/ssh-over-tailscale
 - Tailscale CLI：https://tailscale.com/docs/reference/tailscale-cli
 - Tailscale 安全与访问控制：https://tailscale.com/kb/1429/secure
+
 

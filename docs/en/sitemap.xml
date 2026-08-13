@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://fabletang.github.io/en/posts/2026-08-13-tailscale_private_network_a_s_w_v2/</loc>
+    <loc>https://fabletang.github.io/en/posts/2026-08-13-netbird_private_network_a_s_w_v2/</loc>
     <lastmod>2026-08-13T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://fabletang.github.io/posts/2026-08-13-tailscale_private_network_a_s_w_v2/"
+                href="https://fabletang.github.io/posts/2026-08-13-netbird_private_network_a_s_w_v2/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://fabletang.github.io/en/posts/2026-08-13-tailscale_private_network_a_s_w_v2/"
+                href="https://fabletang.github.io/en/posts/2026-08-13-netbird_private_network_a_s_w_v2/"
                 />
   </url><url>
     <loc>https://fabletang.github.io/en/tags/vpn/</loc>
@@ -137,6 +137,19 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://fabletang.github.io/en/"
+                />
+  </url><url>
+    <loc>https://fabletang.github.io/en/posts/2026-08-13-tailscale_private_network_a_s_w_v2/</loc>
+    <lastmod>2026-08-12T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://fabletang.github.io/posts/2026-08-13-tailscale_private_network_a_s_w_v2/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://fabletang.github.io/en/posts/2026-08-13-tailscale_private_network_a_s_w_v2/"
                 />
   </url><url>
     <loc>https://fabletang.github.io/en/tags/gitea/</loc>

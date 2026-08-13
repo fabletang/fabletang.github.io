@@ -9,9 +9,18 @@
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
     <lastBuildDate>Thu, 13 Aug 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/series/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Netbird 私有网络搭建完整指南</title>
+      <link>https://fabletang.github.io/posts/2026-08-13-netbird_private_network_a_s_w_v2/</link>
+      <pubDate>Thu, 13 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/posts/2026-08-13-netbird_private_network_a_s_w_v2/</guid>
+      <description>Netbird 私有网络搭建完整指南 1. 架构概述 本方案通过在三台设备上部署 Netbird，组建一个安全的私有网状网络： 设备 角色 网络状况 服务器 S (Linux, 有公网IP) 控制平面 + 中继节点 部署 Netbird 管理服务、信令服务和中继服务 服务器 A (Ubuntu, 内网) 目标服务端 安装 Netbird 客户端，加入私有网络 工作站 W (macOS, 异地) 客户端 安装 Netbird 客户端，加入私有网络 最终效果： 工作站 W 可通过 netbird ssh 或原生 SSH 客户端访问服务器 A 服务器 A 上 8080 端口的 Web 服务可通过 netbird expose 命令生成公网可访问的 URL Netbird 是基于 WireGuard 的开源点对点 VPN 平台，能在分布式基础设施间建立加密的网状网络，无需手动配置防火墙或端口转发。 2. 前提条件 2.1 硬件要求 控制平面服务器 S：至少 1 CPU、2GB 内存 中继服务器（可与控制平面共用）：至少 1 CPU、1GB 内存 服务器 A 和工作站 W：无特殊硬件要求 2.2 软件要求 服务器 S 和 A 均运行 Ubuntu（推荐 20.04 LTS 或更高版本） 服务器 S 需安装 Docker 和 Docker Compose 服务器 S 需有一个域名（用于 TLS 证书），DNS A 记录指向其公网 IP 2.3 防火墙端口要求 在服务器 S（控制平面）上开放以下端口： 端口 协议 用途 80 TCP HTTP（重定向到 HTTPS） 443 TCP HTTPS（控制台、管理 API、信令、中继） 33073 TCP 管理服务 gRPC 10000 TCP 管理服务 HTTP 33080 TCP 中继（WebSocke</description>
+    </item>
+    
+    <item>
       <title>Tailscale 私有网络方案：A 内网服务器 &#43; S 公网 Gateway &#43; W 异地工作站</title>
       <link>https://fabletang.github.io/posts/2026-08-13-tailscale_private_network_a_s_w_v2/</link>
-      <pubDate>Thu, 13 Aug 2026 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 12 Aug 2026 00:00:00 +0000</pubDate>
       
       <guid>https://fabletang.github.io/posts/2026-08-13-tailscale_private_network_a_s_w_v2/</guid>
       <description>目标：A 不开放公网入站端口；W 可以通过 Tailscale 访问 A；同时允许非 Tailscale 用户通过公网访问 A 的 8080 Web 服务。 1. 网络环境 有三台服务器/工作站： 设备 系统 网络 作用 A Ubuntu 内网，防火墙禁止公网入站，但可访问 Internet 内部业务服务器 S Linux 固定公网 IP，可访问 Internet 公网 Web Gateway / 反向代理 W macOS 异地网络，可访问 Internet 运维工作站 需求： W 可以 SSH 到 A。 W 可以访问 A 的 8080 Web 服务。 A 不开放公网 22。 A 不开放公网 8080。 A 不需要端口映射。 其他非 Tailscale 用户也可以访问 A 的 Web 8080 服务。 W 启用 Tailscale 后，仍然正常访问普通 Internet。 S 有固定公网 IP，可以作为公网 Web 入口。 2. 最终推荐架构 这里建议把 S 定位为： 公网 Web Gateway / Reverse Proxy 而不是传统的 VPN Server。 Internet │ ┌─────────────┴─────────────┐ │ │ ▼ ▼ macOS W 普通 Internet 用户 Tailscale 成员 非成员 │ │ │ Tailscale │ HTTPS :443 │ │ ▼ ▼ ┌─────────────┐ ┌─────────────┐ │ Ubuntu A │◄─────────────│ Linux S │ │ 内网服务器 │ Tailscale │ 公网Gateway │ │ │ │ 固定公网 IP │ └─────────────┘ └─────────────┘ │ │ └────── Web :8080 ─────────┘ 实际访问关系： W │ │ Tailscale ├───────────────</description>

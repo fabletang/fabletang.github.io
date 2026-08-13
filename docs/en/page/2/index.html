@@ -183,6 +183,20 @@ Fable&#39;s Blog
 <div class="col-lg-8">
   <div class="container"><div class="posts mb-4"><article class="row card post component">
       <div class="card-body">
+        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
+</a></h2><div class="post-meta"><span class="post-date" title="created on">
+    <i class="fas fa-fw fa-calendar-alt"></i>Jul 7, 2026
+  </span><span class="post-reading-time" title="reading time">
+    <i class="fas fa-fw fa-coffee"></i>7 min read
+  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy">概念</a><a href="https://fabletang.github.io/en/tags/golang/" class="post-taxonomy">golang</a><a href="https://fabletang.github.io/en/tags/uuid/" class="post-taxonomy">uuid</a></div>
+<div class="post-summary">
+          
+          8位UUID, Base31 编码方案设计 版本 1.0 日期 2026-07-07
+1. 设计目标 目标 说明 8 位固定长度 短小精悍，适合标签打印和二维码嵌入 Base31 编码 排除易混淆字符，提升人工输入准确率 二维码友好 短码可嵌入最小版本二维码（Version 1, 21×21） 人工易输入 无大小写歧义，无数字字母混淆 概率唯一 基于种子哈希的概率唯一性 + 数据库 UNIQUE 约束兜底 适用场景 二维码令牌：嵌入二维 …
+        </div>
+      </div>
+    </article><article class="row card post component">
+      <div class="card-body">
         <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
 </a></h2><div class="post-meta"><span class="post-date" title="created on">
     <i class="fas fa-fw fa-calendar-alt"></i>Jun 26, 2026
@@ -224,21 +238,6 @@ PostgreSQL负责持久化数据存储 Redis负责缓存、发布订阅以及后�
 <div class="post-summary">
           
           说明 如果快捷键不起作用，切换输入法为英文. 以下快捷键，里面有“+”号，表示分段，不代表键盘，先按前面部分，在1秒内再按后面部分。 vscode版本:1.80.1. 安装了golang,vim插件。macos 12.6. 一、文件切换 打开中的文本tab左右切换 : ⌥ ⌘ ←/→ 打开上次打开的文件(连续按tab选择) : ⌃ ⇥(tab) 关闭当前的文件 : ⌘ w 左侧文件浏览器选择文件,打开文件O : ↑/↓ 二、窗口 打开/ …
-        </div>
-      </div>
-    </article><article class="row card post component">
-      <div class="card-body">
-        <h2 class="card-title post-title"><a href="https://fabletang.github.io/en/posts/2023-05-30-vscode-golang/">为Go开发配置vscode
-</a></h2><div class="post-meta"><span class="post-date" title="created on">
-    <i class="fas fa-fw fa-calendar-alt"></i>May 30, 2023
-  </span><span class="post-reading-time" title="reading time">
-    <i class="fas fa-fw fa-coffee"></i>1 min read
-  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/en/tags/vscode/" class="post-taxonomy">vscode</a></div>
-<div class="post-summary">
-          
-          1. 安装 Go 按照以下步骤安装 Go：
-在 Web 浏览器中，转到 “go.dev/doc/install”。 下载操作系统的版本。 下载后，运行安装程序。 打开命令提示符，然后运行 go version 以确认已安装 Go。 2. 安装Visual Studio Code 按照以下步骤安装Visual Studio Code：
-在 Web 浏览器中，转到 “code.visualstudio.com”。 3. 安装 Go 扩展  …
         </div>
       </div>
     </article></div><div class="row table-responsive mb-3">
@@ -288,11 +287,11 @@ PostgreSQL负责持久化数据存储 Redis负责缓存、发布订阅以及后�
   <section class="recent-posts row card component">
   <div class="card-body">
     <h2 class="card-title">Recent Posts</h2>
-    <ul><li><a href="https://fabletang.github.io/en/posts/2026-08-13-tailscale_private_network_a_s_w_v2/">Tailscale 私有网络方案：A 内网服务器 &#43; S 公网 Gateway &#43; W 异地工作站
+    <ul><li><a href="https://fabletang.github.io/en/posts/2026-08-13-netbird_private_network_a_s_w_v2/">Netbird 私有网络搭建完整指南
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-08-13-tailscale_private_network_a_s_w_v2/">Tailscale 私有网络方案：A 内网服务器 &#43; S 公网 Gateway &#43; W 异地工作站
 </a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/">ubuntu下搭建Gitea代码托管平台
 </a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/">10位短码方案设计
 </a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
-</a></li><li><a href="https://fabletang.github.io/en/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
 </a></li></ul>
   </div>
 </section><section class="taxonomies row card component">
