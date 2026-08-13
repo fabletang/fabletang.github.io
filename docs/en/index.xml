@@ -7,7 +7,67 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2016-{year} Fable Tang. All Rights Reserved.</copyright>
-    <lastBuildDate>Thu, 16 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Aug 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://fabletang.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tailscale 私有网络方案：A 内网服务器 &#43; S 公网 Gateway &#43; W 异地工作站</title>
+      <link>https://fabletang.github.io/en/posts/2026-08-13-tailscale_private_network_a_s_w_v2/</link>
+      <pubDate>Thu, 13 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabletang.github.io/en/posts/2026-08-13-tailscale_private_network_a_s_w_v2/</guid>
+      <description>目标：A 不开放公网入站端口；W 可以通过 Tailscale 访问 A；同时允许非 Tailscale 用户通过公网访问 A 的 8080 Web 服务。 1. 网络环境 有三台服务器/工作站：
+设备 系统 网络 作用 A Ubuntu 内网，防火墙禁止公网入站，但可访问 Internet 内部业务服务器 S Linux 固定公网 IP，可访问 Internet 公网 Web Gateway / 反向代理 W macOS 异地网络，可访问 Internet 运维工作站 需求：
+W 可以 SSH 到 A。 W 可以访问 A 的 8080 Web 服务。 A 不开放公网 22。 A 不开放公网 8080。 A 不需要端口映射。 其他非 Tailscale 用户也可以访问 A 的 Web 8080 服务。 W 启用 Tailscale 后，仍然正常访问普通 Internet。 S 有固定公网 IP，可以作为公网 Web 入口。 2. 最终推荐架构 这里建议把 S 定位为：
+公网 Web Gateway / Reverse Proxy
+而不是传统的 VPN Server。
+Internet │ ┌─────────────┴─────────────┐ │ │ ▼ ▼ macOS W 普通 Internet 用户 Tailscale 成员 非成员 │ │ │ Tailscale │ HTTPS :443 │ │ ▼ ▼ ┌─────────────┐ ┌─────────────┐ │ Ubuntu A │◄─────────────│ Linux S │ │ 内网服务器 │ Tailscale │ 公网Gateway │ │ │ │ 固定公网 IP │ └─────────────┘ └─────────────┘ │ │ └────── Web :8080 ─────────┘ 实际访问关系：
+W │ │ Tailscale ├──────────────────────► A:22 │ └──────────────────────► A:8080 普通 Internet 用户 │ │ HTTPS ▼ S:443 │ │ Tailscale ▼ A:8080 因此：
+A 公网 TCP/22 = 不开放 A 公网 TCP/8080 = 不开放 S 公网 TCP/443 = 开放 S → A = Tailscale 私有网络 W → A = Tailscale 私有网络 这是本场景最推荐的生产架构。
+3. 为什么 S 不应该作为传统 VPN Server 传统方案：
+W │ │ WireGuard ▼ S │ │ NAT / Routing ▼ A 需要维护：
+WireGuard UDP 监听端口 IP forwarding iptables/nftables NAT 路由 客户端密钥 返回路径 而使用 Tailscale：
+W ──────────┐ │ S ──────────┼── Tailnet │ A ──────────┘ A、S、W 都成为 Tailnet 节点。
+S 不需要作为 VPN Server。
+S 只负责：
+公网 HTTPS │ ▼ Reverse Proxy │ ▼ Tailscale │ ▼ A:8080 4. Tailscale 网络 建议三台机器都加入同一个 Tailnet：
+A = 100.x.x.10 S = 100.x.x.20 W = 100.x.x.30 这些只是示例地址，实际地址由 Tailscale 分配。
+拓扑：
+Tailnet │ ┌─────────┼─────────┐ │ │ │ ▼ ▼ ▼ A S W 100.x.10 100.x.20 100.x.30 Tailscale 节点之间优先尝试建立直接连接；如果网络条件不允许，也可以使用 Tailscale 的中继机制。
+5. A 安装 Tailscale Ubuntu A：
+curl -fsSL https://tailscale.com/install.sh | sh 启动：
+sudo systemctl enable --now tailscaled 登录：
+sudo tailscale up 查看状态：
+tailscale status 查看 Tailscale IP：
+tailscale ip 例如：
+100.64.10.10 6. S 安装 Tailscale S：
+curl -fsSL https://tailscale.com/install.sh | sh 启动：
+sudo systemctl enable --now tailscaled 登录：
+sudo tailscale up 检查：
+tailscale status 例如：
+A 100.64.10.10 S 100.64.10.20 7. W 安装 Tailscale macOS W 安装 Tailscale 客户端。
+登录同一个 Tailnet。
+确认：
+tailscale status 应该可以看到 A：
+100.64.10.10 server-a 8. W SSH 到 A 最简单：
+ssh ubuntu@100.64.10.10 如果启用了 MagicDNS：
+ssh ubuntu@server-a 流量：
+W │ │ Tailscale ▼ A:22 A 不需要开放公网 TCP/22。
+Tailscale 官方文档也支持直接通过 Tailscale IP 或 MagicDNS 主机名使用普通 SSH。citeturn0search1
+9. SSH 推荐：先使用普通 OpenSSH 建议第一阶段：
+普通 OpenSSH + Tailscale 网络 例如：
+ssh ubuntu@server-a 这样 A 上原来的：
+/etc/ssh/sshd_config ~/.ssh/authorized_keys 全部可以继续使用。
+这是改造风险最低的方式。
+10. 可选：Tailscale SSH 如果希望由 Tailscale 管理 SSH 身份认证和授权，可以使用：
+sudo tailscale set --ssh 然后使用：
+ssh ubuntu@server-a Tailscale SSH 可以利用 Tailnet 的访问控制策略管理 SSH 权限。官方文档说明，启用后 Tailscale 会接管来自 Tailnet 的目标端口 22，而不会修改原来的 sshd_config 和 authorized_keys。citeturn0search0
+对于已有生产环境，建议：
+第一阶段： 普通 SSH + Tailscale 第二阶段： 根据权限管理需求考虑 Tailscale SSH 11. A 的 8080 Web 服务 假设 A：
+Web Application │ ▼ 127.0.0.1:8080 例如：
+curl http://127.0.0.1:8080 正常。
+现在有两个需求：
+W W → A:8080 普通用户 Internet → S:443 → A:8080 因此推荐不要让 A 直接暴露公网 8080。</description>
+    </item>
+    
     <item>
       <title>ubuntu下搭建Gitea代码托管平台</title>
       <link>https://fabletang.github.io/en/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/</link>

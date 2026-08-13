@@ -1,0 +1,1260 @@
+<!doctype html><html lang="en"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tailscale 私有网络方案：A 内网服务器 &#43; S 公网 Gateway &#43; W 异地工作站 - 知行合一</title><link rel="apple-touch-icon" href="https://fabletang.github.io/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="https://fabletang.github.io/images/favicons/manifest.json">
+<link rel="icon" href="https://fabletang.github.io/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="Tailscale 私有网络方案" /><meta itemprop="name" content="Tailscale 私有网络方案：A 内网服务器 &#43; S 公网 Gateway &#43; W 异地工作站">
+<meta itemprop="description" content="Tailscale 私有网络方案"><meta itemprop="datePublished" content="2026-08-13T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2026-08-13T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1583">
+<meta itemprop="keywords" content="vpn," /><meta property="og:title" content="Tailscale 私有网络方案：A 内网服务器 &#43; S 公网 Gateway &#43; W 异地工作站" />
+<meta property="og:description" content="Tailscale 私有网络方案" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fabletang.github.io/en/posts/2026-08-13-tailscale_private_network_a_s_w_v2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-08-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-08-13T00:00:00+00:00" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tailscale 私有网络方案：A 内网服务器 &#43; S 公网 Gateway &#43; W 异地工作站"/>
+<meta name="twitter:description" content="Tailscale 私有网络方案"/>
+<link rel="preload" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fabletang.github.io/css/bundle.min.5b7e7c1968c4c2d683f8030e426c55a2218fa20b4ac22e806595da288d6a7641.css" integrity="sha256-W358GWjEwtaD&#43;AMOQmxVoiGPogtKwi6AZZXaKI1qdkE=" crossorigin="anonymous"></noscript><script src="https://fabletang.github.io/js/bundle.min.9adac0978f28fd01634b12c6b047737d767c368d96813de01c527aa26cf82fc6.js" integrity="sha256-mtrAl48o/QFjSxLGsEdzfXZ8No2WgT3gHFJ6omz4L8Y=" crossorigin="anonymous" defer></script></head>
+  <body><script src="https://fabletang.github.io/js/bootstrap.min.062c2e66b557cb779d59cedff7e0cc76e84beb665a1076e474e87d940be44245.js" integrity="sha256-BiwuZrVXy3edWc7f9&#43;DMduhL62ZaEHbkdOh9lAvkQkU=" crossorigin="anonymous"></script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand me-3" href="https://fabletang.github.io/en/"><img class="logo" alt="Logo" src="https://fabletang.github.io/images/logo-blog.webp" loading="lazy"
+   width="120" height="120"
+   />
+Fable&#39;s Blog
+    </a>
+    <button class="navbar-social-share" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+  aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+  <i class="fas fa-share"></i>
+</button>
+
+<div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Tailscale%20%e7%a7%81%e6%9c%89%e7%bd%91%e7%bb%9c%e6%96%b9%e6%a1%88%ef%bc%9aA%20%e5%86%85%e7%bd%91%e6%9c%8d%e5%8a%a1%e5%99%a8%20%2b%20S%20%e5%85%ac%e7%bd%91%20Gateway%20%2b%20W%20%e5%bc%82%e5%9c%b0%e5%b7%a5%e4%bd%9c%e7%ab%99&url=https%3a%2f%2ffabletang.github.io%2fen%2fposts%2f2026-08-13-tailscale_private_network_a_s_w_v2%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2ffabletang.github.io%2fen%2fposts%2f2026-08-13-tailscale_private_network_a_s_w_v2%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-language"></i> Language</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="dropdown">
+        <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          English
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li><a class="dropdown-item" href="https://fabletang.github.io/">简体中文</a></li><li><a class="dropdown-item" href="https://fabletang.github.io/zh-tw/">繁體中文</a></li></ul>
+      </div>
+    </div>
+  </form>
+</section>
+
+
+<section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> Font Size</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm palette" data-palette="yellow">
+      </button></div>
+</section>
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://fabletang.github.io/en/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/archives/">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/categories/">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/tags/">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://fabletang.github.io/en/series/">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://fabletang.github.io/en/">Home</a></li><li class="breadcrumb-item"><a href="https://fabletang.github.io/en/posts/">文章</a></li><li class="breadcrumb-item active">Tailscale 私有网络方案：A 内网服务器 &#43; S 公网 Gateway &#43; W 异地工作站</li></ol>
+  </div>
+</nav>    <article class="row card component mb-4 post"><div class="post-panel-wrapper">
+  <div class="d-flex flex-column component rounded post-panel">
+    
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+  
+    
+  <div class="post-translations nav-item dropdown action">
+    <a class="nav-link p-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-fw fa-language"></i>
+    </a>
+    <div class="dropdown-menu"><a class="dropdown-item post-translation" href="https://fabletang.github.io/posts/2026-08-13-tailscale_private_network_a_s_w_v2/">简体中文</a></div>
+  </div>
+
+
+    <a class="action btn-reward" role="button" data-bs-toggle="modal" data-bs-target="#rewardModal" title="Buy me a coffee">
+  <i class="fas fa-fw fa-coffee"></i>
+</a>
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0" type="button" aria-label="Copyright" 
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<div class="card-body">
+        <h1 class="card-title my-3">Tailscale 私有网络方案：A 内网服务器 &#43; S 公网 Gateway &#43; W 异地工作站
+</h1><div class="post-meta"><span class="post-date" title="created on">
+    <i class="fas fa-fw fa-calendar-alt"></i>Aug 13, 2026
+  </span><span class="post-reading-time" title="reading time">
+    <i class="fas fa-fw fa-coffee"></i>8 min read
+  </span><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy">技术</a><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy">工具</a><a href="https://fabletang.github.io/en/tags/vpn/" class="post-taxonomy">vpn</a></div>
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title" id="offcanvasTOCLabel">Table Of Contents</h5>
+      <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#目标a-不开放公网入站端口w-可以通过-tailscale-访问-a同时允许非-tailscale-用户通过公网访问-a-的-8080-web-服务">目标：A 不开放公网入站端口；W 可以通过 Tailscale 访问 A；同时允许非 Tailscale 用户通过公网访问 A 的 8080 Web 服务。</a></li>
+    <li><a href="#1-网络环境">1. 网络环境</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#w">W</a></li>
+        <li><a href="#普通用户">普通用户</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#方案-aa-运行反向代理">方案 A：A 运行反向代理</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#a-是否在线">A 是否在线</a></li>
+    <li><a href="#w-是否能到-a">W 是否能到 A</a></li>
+    <li><a href="#查看-a-的地址">查看 A 的地址</a></li>
+    <li><a href="#ssh">SSH</a></li>
+    <li><a href="#a-本地-web">A 本地 Web</a></li>
+    <li><a href="#a-的-tailscale-web">A 的 Tailscale Web</a></li>
+    <li><a href="#s--a">S → A</a></li>
+    <li><a href="#公网-web">公网 Web</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#a">A</a></li>
+    <li><a href="#s">S</a></li>
+    <li><a href="#w-1">W</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h2 id="目标a-不开放公网入站端口w-可以通过-tailscale-访问-a同时允许非-tailscale-用户通过公网访问-a-的-8080-web-服务">目标：A 不开放公网入站端口；W 可以通过 Tailscale 访问 A；同时允许非 Tailscale 用户通过公网访问 A 的 8080 Web 服务。</h2>
+<h2 id="1-网络环境">1. 网络环境</h2>
+<p>有三台服务器/工作站：</p>
+<table>
+<thead>
+<tr>
+<th>设备</th>
+<th>系统</th>
+<th>网络</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Ubuntu</td>
+<td>内网，防火墙禁止公网入站，但可访问 Internet</td>
+<td>内部业务服务器</td>
+</tr>
+<tr>
+<td>S</td>
+<td>Linux</td>
+<td>固定公网 IP，可访问 Internet</td>
+<td>公网 Web Gateway / 反向代理</td>
+</tr>
+<tr>
+<td>W</td>
+<td>macOS</td>
+<td>异地网络，可访问 Internet</td>
+<td>运维工作站</td>
+</tr>
+</tbody>
+</table>
+<p>需求：</p>
+<ol>
+<li>W 可以 SSH 到 A。</li>
+<li>W 可以访问 A 的 <code>8080</code> Web 服务。</li>
+<li>A 不开放公网 <code>22</code>。</li>
+<li>A 不开放公网 <code>8080</code>。</li>
+<li>A 不需要端口映射。</li>
+<li>其他非 Tailscale 用户也可以访问 A 的 Web <code>8080</code> 服务。</li>
+<li>W 启用 Tailscale 后，仍然正常访问普通 Internet。</li>
+<li>S 有固定公网 IP，可以作为公网 Web 入口。</li>
+</ol>
+<hr>
+<h1 id="2-最终推荐架构">2. 最终推荐架构</h1>
+<p>这里建议把 S 定位为：</p>
+<blockquote>
+<p><strong>公网 Web Gateway / Reverse Proxy</strong></p>
+</blockquote>
+<p>而不是传统的 VPN Server。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>                              Internet
+</span></span><span style="display:flex;"><span>                                  │
+</span></span><span style="display:flex;"><span>                    ┌─────────────┴─────────────┐
+</span></span><span style="display:flex;"><span>                    │                           │
+</span></span><span style="display:flex;"><span>                    ▼                           ▼
+</span></span><span style="display:flex;"><span>              macOS W                     普通 Internet 用户
+</span></span><span style="display:flex;"><span>            Tailscale 成员                    非成员
+</span></span><span style="display:flex;"><span>                    │                           │
+</span></span><span style="display:flex;"><span>                    │ Tailscale                 │ HTTPS :443
+</span></span><span style="display:flex;"><span>                    │                           │
+</span></span><span style="display:flex;"><span>                    ▼                           ▼
+</span></span><span style="display:flex;"><span>             ┌─────────────┐              ┌─────────────┐
+</span></span><span style="display:flex;"><span>             │ Ubuntu A    │◄─────────────│ Linux S     │
+</span></span><span style="display:flex;"><span>             │ 内网服务器  │  Tailscale   │ 公网Gateway │
+</span></span><span style="display:flex;"><span>             │             │              │ 固定公网 IP │
+</span></span><span style="display:flex;"><span>             └─────────────┘              └─────────────┘
+</span></span><span style="display:flex;"><span>                    │                          │
+</span></span><span style="display:flex;"><span>                    └────── Web :8080 ─────────┘
+</span></span></code></pre></div><p>实际访问关系：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> │ Tailscale
+</span></span><span style="display:flex;"><span> ├──────────────────────► A:22
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> └──────────────────────► A:8080
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>普通 Internet 用户
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> │ HTTPS
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>S:443
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> │ Tailscale
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>A:8080
+</span></span></code></pre></div><p>因此：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>A 公网 TCP/22       = 不开放
+</span></span><span style="display:flex;"><span>A 公网 TCP/8080     = 不开放
+</span></span><span style="display:flex;"><span>S 公网 TCP/443      = 开放
+</span></span><span style="display:flex;"><span>S → A               = Tailscale 私有网络
+</span></span><span style="display:flex;"><span>W → A               = Tailscale 私有网络
+</span></span></code></pre></div><p>这是本场景最推荐的生产架构。</p>
+<hr>
+<h1 id="3-为什么-s-不应该作为传统-vpn-server">3. 为什么 S 不应该作为传统 VPN Server</h1>
+<p>传统方案：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> │ WireGuard
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>S
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> │ NAT / Routing
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>A
+</span></span></code></pre></div><p>需要维护：</p>
+<ul>
+<li>WireGuard</li>
+<li>UDP 监听端口</li>
+<li>IP forwarding</li>
+<li>iptables/nftables</li>
+<li>NAT</li>
+<li>路由</li>
+<li>客户端密钥</li>
+<li>返回路径</li>
+</ul>
+<p>而使用 Tailscale：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W ──────────┐
+</span></span><span style="display:flex;"><span>            │
+</span></span><span style="display:flex;"><span>S ──────────┼── Tailnet
+</span></span><span style="display:flex;"><span>            │
+</span></span><span style="display:flex;"><span>A ──────────┘
+</span></span></code></pre></div><p>A、S、W 都成为 Tailnet 节点。</p>
+<p>S 不需要作为 VPN Server。</p>
+<p>S 只负责：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>公网 HTTPS
+</span></span><span style="display:flex;"><span>    │
+</span></span><span style="display:flex;"><span>    ▼
+</span></span><span style="display:flex;"><span>Reverse Proxy
+</span></span><span style="display:flex;"><span>    │
+</span></span><span style="display:flex;"><span>    ▼
+</span></span><span style="display:flex;"><span>Tailscale
+</span></span><span style="display:flex;"><span>    │
+</span></span><span style="display:flex;"><span>    ▼
+</span></span><span style="display:flex;"><span>A:8080
+</span></span></code></pre></div><hr>
+<h1 id="4-tailscale-网络">4. Tailscale 网络</h1>
+<p>建议三台机器都加入同一个 Tailnet：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>A = 100.x.x.10
+</span></span><span style="display:flex;"><span>S = 100.x.x.20
+</span></span><span style="display:flex;"><span>W = 100.x.x.30
+</span></span></code></pre></div><p>这些只是示例地址，实际地址由 Tailscale 分配。</p>
+<p>拓扑：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>                 Tailnet
+</span></span><span style="display:flex;"><span>                    │
+</span></span><span style="display:flex;"><span>          ┌─────────┼─────────┐
+</span></span><span style="display:flex;"><span>          │         │         │
+</span></span><span style="display:flex;"><span>          ▼         ▼         ▼
+</span></span><span style="display:flex;"><span>          A         S         W
+</span></span><span style="display:flex;"><span>       100.x.10  100.x.20  100.x.30
+</span></span></code></pre></div><p>Tailscale 节点之间优先尝试建立直接连接；如果网络条件不允许，也可以使用 Tailscale 的中继机制。</p>
+<hr>
+<h1 id="5-a-安装-tailscale">5. A 安装 Tailscale</h1>
+<p>Ubuntu A：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://tailscale.com/install.sh | sh
+</span></span></code></pre></div><p>启动：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl enable --now tailscaled
+</span></span></code></pre></div><p>登录：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo tailscale up
+</span></span></code></pre></div><p>查看状态：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tailscale status
+</span></span></code></pre></div><p>查看 Tailscale IP：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tailscale ip
+</span></span></code></pre></div><p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>100.64.10.10
+</span></span></code></pre></div><hr>
+<h1 id="6-s-安装-tailscale">6. S 安装 Tailscale</h1>
+<p>S：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://tailscale.com/install.sh | sh
+</span></span></code></pre></div><p>启动：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl enable --now tailscaled
+</span></span></code></pre></div><p>登录：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo tailscale up
+</span></span></code></pre></div><p>检查：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tailscale status
+</span></span></code></pre></div><p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>A    100.64.10.10
+</span></span><span style="display:flex;"><span>S    100.64.10.20
+</span></span></code></pre></div><hr>
+<h1 id="7-w-安装-tailscale">7. W 安装 Tailscale</h1>
+<p>macOS W 安装 Tailscale 客户端。</p>
+<p>登录同一个 Tailnet。</p>
+<p>确认：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tailscale status
+</span></span></code></pre></div><p>应该可以看到 A：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>100.64.10.10   server-a
+</span></span></code></pre></div><hr>
+<h1 id="8-w-ssh-到-a">8. W SSH 到 A</h1>
+<p>最简单：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh ubuntu@100.64.10.10
+</span></span></code></pre></div><p>如果启用了 MagicDNS：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh ubuntu@server-a
+</span></span></code></pre></div><p>流量：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> │ Tailscale
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>A:22
+</span></span></code></pre></div><p>A 不需要开放公网 TCP/22。</p>
+<p>Tailscale 官方文档也支持直接通过 Tailscale IP 或 MagicDNS 主机名使用普通 SSH。citeturn0search1</p>
+<hr>
+<h1 id="9-ssh-推荐先使用普通-openssh">9. SSH 推荐：先使用普通 OpenSSH</h1>
+<p>建议第一阶段：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>普通 OpenSSH
+</span></span><span style="display:flex;"><span>        +
+</span></span><span style="display:flex;"><span>Tailscale 网络
+</span></span></code></pre></div><p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh ubuntu@server-a
+</span></span></code></pre></div><p>这样 A 上原来的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>/etc/ssh/sshd_config
+</span></span><span style="display:flex;"><span>~/.ssh/authorized_keys
+</span></span></code></pre></div><p>全部可以继续使用。</p>
+<p>这是改造风险最低的方式。</p>
+<hr>
+<h1 id="10-可选tailscale-ssh">10. 可选：Tailscale SSH</h1>
+<p>如果希望由 Tailscale 管理 SSH 身份认证和授权，可以使用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo tailscale set --ssh
+</span></span></code></pre></div><p>然后使用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh ubuntu@server-a
+</span></span></code></pre></div><p>Tailscale SSH 可以利用 Tailnet 的访问控制策略管理 SSH 权限。官方文档说明，启用后 Tailscale 会接管来自 Tailnet 的目标端口 22，而不会修改原来的 <code>sshd_config</code> 和 <code>authorized_keys</code>。citeturn0search0</p>
+<p>对于已有生产环境，建议：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>第一阶段：
+</span></span><span style="display:flex;"><span>普通 SSH + Tailscale
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>第二阶段：
+</span></span><span style="display:flex;"><span>根据权限管理需求考虑 Tailscale SSH
+</span></span></code></pre></div><hr>
+<h1 id="11-a-的-8080-web-服务">11. A 的 8080 Web 服务</h1>
+<p>假设 A：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Web Application
+</span></span><span style="display:flex;"><span>       │
+</span></span><span style="display:flex;"><span>       ▼
+</span></span><span style="display:flex;"><span>127.0.0.1:8080
+</span></span></code></pre></div><p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://127.0.0.1:8080
+</span></span></code></pre></div><p>正常。</p>
+<p>现在有两个需求：</p>
+<h3 id="w">W</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W → A:8080
+</span></span></code></pre></div><h3 id="普通用户">普通用户</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Internet → S:443 → A:8080
+</span></span></code></pre></div><p>因此推荐不要让 A 直接暴露公网 8080。</p>
+<hr>
+<h1 id="12-w-访问-a8080">12. W 访问 A:8080</h1>
+<p>如果 Web 服务可以监听：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>0.0.0.0:8080
+</span></span></code></pre></div><p>那么 W 可以：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>http://server-a:8080
+</span></span></code></pre></div><p>或者：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>http://100.64.10.10:8080
+</span></span></code></pre></div><p>但是生产环境更推荐让 A 的 Web 服务继续只监听：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>127.0.0.1:8080
+</span></span></code></pre></div><p>然后使用反向代理。</p>
+<hr>
+<h1 id="13-a--本机反向代理">13. A → 本机反向代理</h1>
+<p>A 可以运行 Caddy/Nginx：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Tailscale
+</span></span><span style="display:flex;"><span>    │
+</span></span><span style="display:flex;"><span>    ▼
+</span></span><span style="display:flex;"><span>A reverse proxy
+</span></span><span style="display:flex;"><span>    │
+</span></span><span style="display:flex;"><span>    ▼
+</span></span><span style="display:flex;"><span>127.0.0.1:8080
+</span></span></code></pre></div><p>例如 A 上 Caddy：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-caddyfile" data-lang="caddyfile"><span style="display:flex;"><span>:8081 {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">reverse_proxy</span> 127.0.0.1:<span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>但是，如果 W 需要直接访问 A 的 Web，可以让 Caddy 监听 Tailscale IP 或使用 Tailscale Serve。</p>
+<hr>
+<h1 id="14-更推荐tailscale-serve">14. 更推荐：Tailscale Serve</h1>
+<p>如果只希望：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Tailnet 用户
+</span></span><span style="display:flex;"><span>      │
+</span></span><span style="display:flex;"><span>      ▼
+</span></span><span style="display:flex;"><span>A Web
+</span></span></code></pre></div><p>可以使用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tailscale serve <span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><p>这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> │ Tailscale
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>Tailscale Serve
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>127.0.0.1:8080
+</span></span></code></pre></div><p>优点：</p>
+<ul>
+<li>Web 应用可以继续监听 localhost</li>
+<li>不需要开放公网 8080</li>
+<li>不需要额外公网端口</li>
+<li>Tailnet 内部访问</li>
+</ul>
+<p>但本方案还有一个额外需求：</p>
+<blockquote>
+<p><strong>非 Tailscale 用户也必须能访问 Web。</strong></p>
+</blockquote>
+<p>所以公网用户不应该直接使用 Serve，而应该经过 S。</p>
+<hr>
+<h1 id="15-s-作为公网-web-gateway">15. S 作为公网 Web Gateway</h1>
+<p>S：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>公网 IP
+</span></span><span style="display:flex;"><span>    │
+</span></span><span style="display:flex;"><span>    │ TCP/443
+</span></span><span style="display:flex;"><span>    ▼
+</span></span><span style="display:flex;"><span>Caddy / Nginx
+</span></span><span style="display:flex;"><span>    │
+</span></span><span style="display:flex;"><span>    │ Tailscale
+</span></span><span style="display:flex;"><span>    ▼
+</span></span><span style="display:flex;"><span>A:8080
+</span></span></code></pre></div><p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>https://web.example.com
+</span></span></code></pre></div><p>DNS：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>web.example.com
+</span></span><span style="display:flex;"><span>       │
+</span></span><span style="display:flex;"><span>       ▼
+</span></span><span style="display:flex;"><span>S 公网 IP
+</span></span></code></pre></div><p>用户访问：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>https://web.example.com
+</span></span></code></pre></div><p>进入：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>S:443
+</span></span></code></pre></div><p>然后：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>S
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> │ Tailscale
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>A:8080
+</span></span></code></pre></div><hr>
+<h1 id="16-s-使用-caddy">16. S 使用 Caddy</h1>
+<p>如果 S 已经使用 Caddy，配置非常简单。</p>
+<p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-caddyfile" data-lang="caddyfile"><span style="display:flex;"><span>web.example.com {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">reverse_proxy</span> 100.64.10.10:<span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其中：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>100.64.10.10
+</span></span></code></pre></div><p>是 A 的 Tailscale IP。</p>
+<p>完整流量：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Internet
+</span></span><span style="display:flex;"><span>    │
+</span></span><span style="display:flex;"><span>    │ HTTPS :443
+</span></span><span style="display:flex;"><span>    ▼
+</span></span><span style="display:flex;"><span>S
+</span></span><span style="display:flex;"><span>    │
+</span></span><span style="display:flex;"><span>    │ Caddy reverse_proxy
+</span></span><span style="display:flex;"><span>    │
+</span></span><span style="display:flex;"><span>    │ Tailscale
+</span></span><span style="display:flex;"><span>    ▼
+</span></span><span style="display:flex;"><span>A:8080
+</span></span></code></pre></div><hr>
+<h1 id="17-如果-a8080-只监听-127001">17. 如果 A:8080 只监听 127.0.0.1</h1>
+<p>此时 S 不能直接：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>S → A:8080
+</span></span></code></pre></div><p>因为 A 的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>127.0.0.1:8080
+</span></span></code></pre></div><p>只接受 A 本机连接。</p>
+<p>这时有两种选择。</p>
+<h2 id="方案-aa-运行反向代理">方案 A：A 运行反向代理</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>S
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> │ Tailscale
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>A:Caddy
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>127.0.0.1:8080
+</span></span></code></pre></div><p>例如 A：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-caddyfile" data-lang="caddyfile"><span style="display:flex;"><span>:8081 {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bind</span> <span style="color:#ae81ff">100</span><span style="color:#e6db74">.64.10.10</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">reverse_proxy</span> 127.0.0.1:<span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>S：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-caddyfile" data-lang="caddyfile"><span style="display:flex;"><span>web.example.com {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">reverse_proxy</span> 100.64.10.10:<span style="color:#ae81ff">8081</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这是很清晰的生产架构。</p>
+<hr>
+<h1 id="18-推荐的-web-双入口架构">18. 推荐的 Web 双入口架构</h1>
+<p>最终：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>                         ┌──────────────────────┐
+</span></span><span style="display:flex;"><span>                         │       Ubuntu A       │
+</span></span><span style="display:flex;"><span>                         │                      │
+</span></span><span style="display:flex;"><span>                         │  Web Application     │
+</span></span><span style="display:flex;"><span>                         │       :8080          │
+</span></span><span style="display:flex;"><span>                         │          ▲           │
+</span></span><span style="display:flex;"><span>                         │          │           │
+</span></span><span style="display:flex;"><span>                         │      Reverse Proxy   │
+</span></span><span style="display:flex;"><span>                         │       :8081          │
+</span></span><span style="display:flex;"><span>                         └──────────▲───────────┘
+</span></span><span style="display:flex;"><span>                                    │
+</span></span><span style="display:flex;"><span>                              Tailscale
+</span></span><span style="display:flex;"><span>                                    │
+</span></span><span style="display:flex;"><span>                   ┌────────────────┴────────────────┐
+</span></span><span style="display:flex;"><span>                   │                                 │
+</span></span><span style="display:flex;"><span>                   │                                 │
+</span></span><span style="display:flex;"><span>                   │                                 ▼
+</span></span><span style="display:flex;"><span>              macOS W                         Linux S
+</span></span><span style="display:flex;"><span>            Tailscale                         公网 Gateway
+</span></span><span style="display:flex;"><span>                   │                                 │
+</span></span><span style="display:flex;"><span>                   │                                 │
+</span></span><span style="display:flex;"><span>                   ▼                                 │
+</span></span><span style="display:flex;"><span>             A Web :8081                             │
+</span></span><span style="display:flex;"><span>                                                     │
+</span></span><span style="display:flex;"><span>                                              HTTPS :443
+</span></span><span style="display:flex;"><span>                                                     ▲
+</span></span><span style="display:flex;"><span>                                                     │
+</span></span><span style="display:flex;"><span>                                              Internet 用户
+</span></span></code></pre></div><p>更简单地理解：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W ──────────► Tailscale ──────────► A
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Internet ───► S:443
+</span></span><span style="display:flex;"><span>                 │
+</span></span><span style="display:flex;"><span>                 ▼
+</span></span><span style="display:flex;"><span>             Tailscale
+</span></span><span style="display:flex;"><span>                 │
+</span></span><span style="display:flex;"><span>                 ▼
+</span></span><span style="display:flex;"><span>                 A
+</span></span></code></pre></div><hr>
+<h1 id="19-a-的防火墙">19. A 的防火墙</h1>
+<p>A：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>公网：
+</span></span><span style="display:flex;"><span>22       CLOSED
+</span></span><span style="display:flex;"><span>8080     CLOSED
+</span></span><span style="display:flex;"><span>8081     CLOSED
+</span></span><span style="display:flex;"><span>443      CLOSED
+</span></span></code></pre></div><p>但 Tailnet：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W ─────────────► A
+</span></span><span style="display:flex;"><span>S ─────────────► A
+</span></span></code></pre></div><p>可以访问指定服务。</p>
+<p>重点：</p>
+<blockquote>
+<p>S 到 A 的连接也是通过 Tailscale，而不是通过 A 的公网 IP。</p>
+</blockquote>
+<p>所以 A 仍然没有公网入站端口。</p>
+<hr>
+<h1 id="20-非-tailscale-用户访问-web">20. 非 Tailscale 用户访问 Web</h1>
+<p>普通用户：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>浏览器
+</span></span><span style="display:flex;"><span>   │
+</span></span><span style="display:flex;"><span>   │ HTTPS
+</span></span><span style="display:flex;"><span>   ▼
+</span></span><span style="display:flex;"><span>https://web.example.com
+</span></span><span style="display:flex;"><span>   │
+</span></span><span style="display:flex;"><span>   ▼
+</span></span><span style="display:flex;"><span>S 公网 IP
+</span></span><span style="display:flex;"><span>   │
+</span></span><span style="display:flex;"><span>   ▼
+</span></span><span style="display:flex;"><span>Caddy :443
+</span></span><span style="display:flex;"><span>   │
+</span></span><span style="display:flex;"><span>   │ Tailscale
+</span></span><span style="display:flex;"><span>   ▼
+</span></span><span style="display:flex;"><span>A
+</span></span><span style="display:flex;"><span>   │
+</span></span><span style="display:flex;"><span>   ▼
+</span></span><span style="display:flex;"><span>Web :8080
+</span></span></code></pre></div><p>用户完全不需要安装 Tailscale。</p>
+<p>这是本方案和“纯 Tailscale Serve”最大的区别。</p>
+<hr>
+<h1 id="21-w-访问普通-internet-是否受到影响">21. W 访问普通 Internet 是否受到影响？</h1>
+<p><strong>默认不会。</strong></p>
+<p>W 启动 Tailscale 后：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W
+</span></span><span style="display:flex;"><span>├──────────────► Internet
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>└── Tailscale ─► A
+</span></span></code></pre></div><p>访问：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Google
+</span></span><span style="display:flex;"><span>GitHub
+</span></span><span style="display:flex;"><span>普通网站
+</span></span><span style="display:flex;"><span>公司 SaaS
+</span></span></code></pre></div><p>仍然走 W 当前网络的普通 Internet 出口。</p>
+<p>只有访问：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>A
+</span></span><span style="display:flex;"><span>S
+</span></span><span style="display:flex;"><span>其他 Tailnet 设备
+</span></span></code></pre></div><p>等 Tailnet 目标时，才使用 Tailscale 路径。</p>
+<hr>
+<h1 id="22-不要把-s-设置成-exit-node">22. 不要把 S 设置成 Exit Node</h1>
+<p>如果 S 被设置为 Exit Node：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> ├──► A
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> └──► S ──► Internet
+</span></span></code></pre></div><p>W 的普通 Internet 流量也会经过 S。</p>
+<p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W → Google
+</span></span><span style="display:flex;"><span>      │
+</span></span><span style="display:flex;"><span>      ▼
+</span></span><span style="display:flex;"><span>      S
+</span></span><span style="display:flex;"><span>      │
+</span></span><span style="display:flex;"><span>      ▼
+</span></span><span style="display:flex;"><span>    Google
+</span></span></code></pre></div><p>这不是本方案默认需要的功能。</p>
+<p>推荐：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W：
+</span></span><span style="display:flex;"><span>Tailscale = ON
+</span></span><span style="display:flex;"><span>Exit Node = OFF
+</span></span></code></pre></div><p>这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W → Internet
+</span></span></code></pre></div><p>仍然走本地 Internet。</p>
+<p>而：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W → A
+</span></span></code></pre></div><p>走 Tailscale。</p>
+<hr>
+<h1 id="23-tailnet-acl--grants">23. Tailnet ACL / Grants</h1>
+<p>建议限制：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W → A
+</span></span><span style="display:flex;"><span>S → A
+</span></span></code></pre></div><p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> ├── TCP 22 ─────► A
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> └── TCP 8081 ───► A
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>S
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> └── TCP 8081 ───► A
+</span></span></code></pre></div><p>不建议：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W ─────────► A:*
+</span></span><span style="display:flex;"><span>S ─────────► A:*
+</span></span></code></pre></div><p>应该遵循最小权限原则。</p>
+<p>Tailscale 的访问控制策略可以精确限制用户/设备对目标设备和服务的访问。citeturn0search6</p>
+<hr>
+<h1 id="24-推荐-acl-思路">24. 推荐 ACL 思路</h1>
+<p>逻辑上：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>              A
+</span></span><span style="display:flex;"><span>              │
+</span></span><span style="display:flex;"><span>       ┌──────┴──────┐
+</span></span><span style="display:flex;"><span>       │             │
+</span></span><span style="display:flex;"><span>      SSH           Web
+</span></span><span style="display:flex;"><span>       │             │
+</span></span><span style="display:flex;"><span>       ▼             ▼
+</span></span><span style="display:flex;"><span>       W             W
+</span></span><span style="display:flex;"><span>                     S
+</span></span></code></pre></div><p>即：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W → A:22
+</span></span><span style="display:flex;"><span>W → A:8081
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>S → A:8081
+</span></span></code></pre></div><p>而：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>S → A:22
+</span></span></code></pre></div><p>如果没有必要就不要允许。</p>
+<hr>
+<h1 id="25-server-s-的公网防火墙">25. Server S 的公网防火墙</h1>
+<p>S 是真正需要公网开放 Web 端口的机器。</p>
+<p>建议：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>S:
+</span></span><span style="display:flex;"><span>TCP/443   ALLOW
+</span></span><span style="display:flex;"><span>TCP/80    ALLOW（如果需要 ACME HTTP challenge）
+</span></span><span style="display:flex;"><span>TCP/22    根据实际运维需求限制
+</span></span></code></pre></div><p>而：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>A:
+</span></span><span style="display:flex;"><span>TCP/22    公网禁止
+</span></span><span style="display:flex;"><span>TCP/8080  公网禁止
+</span></span><span style="display:flex;"><span>TCP/8081  公网禁止
+</span></span><span style="display:flex;"><span>TCP/443   公网禁止
+</span></span></code></pre></div><hr>
+<h1 id="26-如果使用-caddy">26. 如果使用 Caddy</h1>
+<p>推荐：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>S
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>├── Caddy
+</span></span><span style="display:flex;"><span>│     │
+</span></span><span style="display:flex;"><span>│     └── :443
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>└── Tailscale
+</span></span><span style="display:flex;"><span>      │
+</span></span><span style="display:flex;"><span>      ▼
+</span></span><span style="display:flex;"><span>      A
+</span></span></code></pre></div><p>Caddy：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-caddyfile" data-lang="caddyfile"><span style="display:flex;"><span>web.example.com {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">reverse_proxy</span> 100.64.10.10:<span style="color:#ae81ff">8081</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>A：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Web
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>127.0.0.1:8080
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Caddy
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>100.64.10.10:8081
+</span></span></code></pre></div><p>这样 Web 应用本身不需要暴露到外部网络。</p>
+<hr>
+<h1 id="27-https">27. HTTPS</h1>
+<p>公网访问：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>https://web.example.com
+</span></span></code></pre></div><p>HTTPS 终止在 S：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Internet
+</span></span><span style="display:flex;"><span>   │
+</span></span><span style="display:flex;"><span> HTTPS
+</span></span><span style="display:flex;"><span>   ▼
+</span></span><span style="display:flex;"><span>S / Caddy
+</span></span><span style="display:flex;"><span>   │
+</span></span><span style="display:flex;"><span>   │ HTTP over Tailscale
+</span></span><span style="display:flex;"><span>   ▼
+</span></span><span style="display:flex;"><span>A
+</span></span></code></pre></div><p>Tailscale 本身已经提供加密的节点间通信。</p>
+<p>如果对端应用也要求 HTTPS，可以继续：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>S
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> │ HTTPS
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>A
+</span></span></code></pre></div><p>即：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-caddyfile" data-lang="caddyfile"><span style="display:flex;"><span>web.example.com {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">reverse_proxy</span> https://100.64.10.10:<span style="color:#ae81ff">8443</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>具体是否需要端到端 HTTPS，取决于应用和安全要求。</p>
+<hr>
+<h1 id="28-subnet-router-扩展">28. Subnet Router 扩展</h1>
+<p>如果以后需要：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> ▼
+</span></span><span style="display:flex;"><span>A
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> ├── 192.168.10.30 NAS
+</span></span><span style="display:flex;"><span> ├── 192.168.10.40 Switch
+</span></span><span style="display:flex;"><span> └── 192.168.10.50 Printer
+</span></span></code></pre></div><p>可以让 A 成为 Subnet Router。</p>
+<p>开启：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;net.ipv4.ip_forward = 1&#39;</span> | <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>sudo tee /etc/sysctl.d/99-tailscale.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
+</span></span></code></pre></div><p>然后：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo tailscale set --advertise-routes<span style="color:#f92672">=</span>192.168.10.0/24
+</span></span></code></pre></div><p>在 Tailscale Admin Console 批准该路由。</p>
+<hr>
+<h1 id="29-s-是否可以做-subnet-router">29. S 是否可以做 Subnet Router？</h1>
+<p>可以。</p>
+<p>但在本场景：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>A → 内网
+</span></span></code></pre></div><p>更自然的是让 A 或 A 所在内网的一台 Linux 机器作为 Subnet Router。</p>
+<p>S 位于公网，通常不适合承担公司内网的 Subnet Router，除非网络拓扑确实需要这样设计。</p>
+<hr>
+<h1 id="30-故障排查">30. 故障排查</h1>
+<h2 id="a-是否在线">A 是否在线</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tailscale status
+</span></span></code></pre></div><h2 id="w-是否能到-a">W 是否能到 A</h2>
+<p>W：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tailscale ping server-a
+</span></span></code></pre></div><h2 id="查看-a-的地址">查看 A 的地址</h2>
+<p>A：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tailscale ip
+</span></span></code></pre></div><h2 id="ssh">SSH</h2>
+<p>W：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -v ubuntu@server-a
+</span></span></code></pre></div><h2 id="a-本地-web">A 本地 Web</h2>
+<p>A：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://127.0.0.1:8080
+</span></span></code></pre></div><h2 id="a-的-tailscale-web">A 的 Tailscale Web</h2>
+<p>W：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://100.64.10.10:8081
+</span></span></code></pre></div><h2 id="s--a">S → A</h2>
+<p>S：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://100.64.10.10:8081
+</span></span></code></pre></div><h2 id="公网-web">公网 Web</h2>
+<p>任意普通 Internet 机器：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -vk https://web.example.com
+</span></span></code></pre></div><p>建议按照：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>A 本地
+</span></span><span style="display:flex;"><span> ↓
+</span></span><span style="display:flex;"><span>W → A
+</span></span><span style="display:flex;"><span> ↓
+</span></span><span style="display:flex;"><span>S → A
+</span></span><span style="display:flex;"><span> ↓
+</span></span><span style="display:flex;"><span>Internet → S → A
+</span></span></code></pre></div><p>逐层测试。</p>
+<hr>
+<h1 id="31-安全边界">31. 安全边界</h1>
+<p>最终安全边界应该是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>                Internet
+</span></span><span style="display:flex;"><span>                   │
+</span></span><span style="display:flex;"><span>                   │
+</span></span><span style="display:flex;"><span>              ┌────▼────┐
+</span></span><span style="display:flex;"><span>              │    S    │
+</span></span><span style="display:flex;"><span>              │  :443   │
+</span></span><span style="display:flex;"><span>              └────┬────┘
+</span></span><span style="display:flex;"><span>                   │
+</span></span><span style="display:flex;"><span>                Tailscale
+</span></span><span style="display:flex;"><span>                   │
+</span></span><span style="display:flex;"><span>              ┌────▼────┐
+</span></span><span style="display:flex;"><span>              │    A    │
+</span></span><span style="display:flex;"><span>              │         │
+</span></span><span style="display:flex;"><span>              │  :8080  │
+</span></span><span style="display:flex;"><span>              │  :8081  │
+</span></span><span style="display:flex;"><span>              │  :22    │
+</span></span><span style="display:flex;"><span>              └─────────┘
+</span></span></code></pre></div><p>公网只看到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>S:443
+</span></span></code></pre></div><p>公网看不到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>A:22
+</span></span><span style="display:flex;"><span>A:8080
+</span></span><span style="display:flex;"><span>A:8081
+</span></span></code></pre></div><hr>
+<h1 id="32-推荐最终配置">32. 推荐最终配置</h1>
+<h2 id="a">A</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Tailscale：启用
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>公网：
+</span></span><span style="display:flex;"><span>22     CLOSED
+</span></span><span style="display:flex;"><span>8080   CLOSED
+</span></span><span style="display:flex;"><span>8081   CLOSED
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>业务：
+</span></span><span style="display:flex;"><span>127.0.0.1:8080
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>内部 Gateway：
+</span></span><span style="display:flex;"><span>Tailscale IP:8081
+</span></span></code></pre></div><h2 id="s">S</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Tailscale：启用
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>公网：
+</span></span><span style="display:flex;"><span>443 OPEN
+</span></span><span style="display:flex;"><span>80  可选
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Caddy：
+</span></span><span style="display:flex;"><span>web.example.com
+</span></span><span style="display:flex;"><span>        ↓
+</span></span><span style="display:flex;"><span>A-Tailscale-IP:8081
+</span></span></code></pre></div><h2 id="w-1">W</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Tailscale：启用
+</span></span><span style="display:flex;"><span>Exit Node：不使用
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SSH：
+</span></span><span style="display:flex;"><span>ssh ubuntu@server-a
+</span></span></code></pre></div><hr>
+<h1 id="33-最终访问矩阵">33. 最终访问矩阵</h1>
+<table>
+<thead>
+<tr>
+<th>来源</th>
+<th>目标</th>
+<th style="text-align:right">是否需要 Tailscale</th>
+<th>推荐路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>W</td>
+<td>A:22</td>
+<td style="text-align:right">是</td>
+<td>W → Tailscale → A</td>
+</tr>
+<tr>
+<td>W</td>
+<td>A Web</td>
+<td style="text-align:right">是</td>
+<td>W → Tailscale → A</td>
+</tr>
+<tr>
+<td>S</td>
+<td>A Web</td>
+<td style="text-align:right">是</td>
+<td>S → Tailscale → A</td>
+</tr>
+<tr>
+<td>普通 Internet 用户</td>
+<td>A Web</td>
+<td style="text-align:right">否</td>
+<td>Internet → S:443 → Tailscale → A</td>
+</tr>
+<tr>
+<td>普通 Internet 用户</td>
+<td>A:22</td>
+<td style="text-align:right">否</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td>普通 Internet 用户</td>
+<td>A:8080</td>
+<td style="text-align:right">否</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td>W</td>
+<td>Google/GitHub 等 Internet</td>
+<td style="text-align:right">否</td>
+<td>W 本地 Internet</td>
+</tr>
+<tr>
+<td>W</td>
+<td>S</td>
+<td style="text-align:right">是</td>
+<td>W → Tailscale → S</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="34-最终架构总结">34. 最终架构总结</h1>
+<p>推荐最终架构：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>                         Internet
+</span></span><span style="display:flex;"><span>                            │
+</span></span><span style="display:flex;"><span>             ┌──────────────┴──────────────┐
+</span></span><span style="display:flex;"><span>             │                             │
+</span></span><span style="display:flex;"><span>             │                             │
+</span></span><span style="display:flex;"><span>             ▼                             ▼
+</span></span><span style="display:flex;"><span>       macOS W                        普通用户
+</span></span><span style="display:flex;"><span>       Tailscale                      非 Tailscale
+</span></span><span style="display:flex;"><span>             │                             │
+</span></span><span style="display:flex;"><span>             │                             │ HTTPS
+</span></span><span style="display:flex;"><span>             │                             ▼
+</span></span><span style="display:flex;"><span>             │                       ┌───────────┐
+</span></span><span style="display:flex;"><span>             │                       │ Server S  │
+</span></span><span style="display:flex;"><span>             │                       │ Caddy     │
+</span></span><span style="display:flex;"><span>             │                       │ :443      │
+</span></span><span style="display:flex;"><span>             │                       └─────┬─────┘
+</span></span><span style="display:flex;"><span>             │                             │
+</span></span><span style="display:flex;"><span>             │                         Tailscale
+</span></span><span style="display:flex;"><span>             │                             │
+</span></span><span style="display:flex;"><span>             │                             ▼
+</span></span><span style="display:flex;"><span>             │                       ┌───────────┐
+</span></span><span style="display:flex;"><span>             └────── Tailscale ─────►│ Server A  │
+</span></span><span style="display:flex;"><span>                                     │ 内网      │
+</span></span><span style="display:flex;"><span>                                     │           │
+</span></span><span style="display:flex;"><span>                                     │ Web :8080 │
+</span></span><span style="display:flex;"><span>                                     │           │
+</span></span><span style="display:flex;"><span>                                     │ SSH :22   │
+</span></span><span style="display:flex;"><span>                                     └───────────┘
+</span></span></code></pre></div><p>核心原则：</p>
+<ol>
+<li><strong>A 永远不需要开放公网入站端口。</strong></li>
+<li><strong>W 使用 Tailscale 访问 A。</strong></li>
+<li><strong>S 使用 Tailscale 访问 A。</strong></li>
+<li><strong>非 Tailscale 用户通过 S 的公网 HTTPS 访问 Web。</strong></li>
+<li><strong>S 是公网 Web Gateway，不是传统 VPN Server。</strong></li>
+<li><strong>W 不设置 Exit Node，因此正常 Internet 访问不受影响。</strong></li>
+<li><strong>通过 Tailscale ACL/Grants 限制 W、S 对 A 的访问范围。</strong></li>
+<li><strong>A 的 Web 应用最好只监听 localhost，再由 A 上的 Gateway 暴露给 Tailscale。</strong></li>
+</ol>
+<hr>
+<h1 id="35-官方参考">35. 官方参考</h1>
+<ul>
+<li>Tailscale 文档：https://tailscale.com/docs</li>
+<li>Tailscale SSH：https://tailscale.com/docs/features/tailscale-ssh</li>
+<li>SSH over Tailscale：https://tailscale.com/docs/reference/ssh-over-tailscale</li>
+<li>Tailscale CLI：https://tailscale.com/docs/reference/tailscale-cli</li>
+<li>Tailscale 安全与访问控制：https://tailscale.com/kb/1429/secure</li>
+</ul>
+</div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content surface">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rewardModalLabel"><i class="fas fa-fw fa-coffee"></i>Buy me a coffee</h5>
+        <a href="#" data-bs-dismiss="modal" class="btn btn-sm btn-outline-primary" aria-label="Close"><i class="fas fa-times"></i></a>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs flex-nowrap mb-3" role="tablist"><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link active" id="reward-alipay-tab" data-bs-toggle="tab" href="#reward-alipay" role="tab" aria-controls="reward-alipay" aria-selected="true">
+              <i class="fab fa-fw fa-alipay"></i>Alipay
+            </a>
+          </li><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link" id="reward-wechat-tab" data-bs-toggle="tab" href="#reward-wechat" role="tab" aria-controls="reward-wechat" aria-selected="true">
+              <i class="fab fa-fw fa-weixin"></i>WeChat
+            </a>
+          </li></ul>
+        <div class="tab-content" id="rewardTabContent"><div class="tab-pane fade post-reward-content show active" id="reward-alipay" role="tabpanel" aria-labelledby="reward-alipay-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/alipay.webp" loading="lazy" />
+          </div><div class="tab-pane fade post-reward-content show" id="reward-wechat" role="tabpanel" aria-labelledby="reward-wechat-tab">
+            <img class="img-fluid post-reward-img" src="https://fabletang.github.io/images/reward/wechat.webp" loading="lazy" />
+          </div></div>
+      </div>
+    </div>
+  </div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://fabletang.github.io/en/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/">ubuntu下搭建Gitea代码托管平台
+</a>
+  </div></div></div>
+    </article><div class="card component row post-comments">
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="fabletang/fabletang.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="preferred-color-scheme"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container">
+    
+    <section class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="Fable Tang" src="https://fabletang.github.io/images/hai.webp" loading="lazy"
+   width="150" height="149"
+   />
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name">Fable Tang</div><div class="profile-bio">知行合一</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
+  </div>
+</section>
+  <section class="recent-posts row card component">
+  <div class="card-body">
+    <h2 class="card-title">Recent Posts</h2>
+    <ul><li><a href="https://fabletang.github.io/en/posts/2026-08-13-tailscale_private_network_a_s_w_v2/">Tailscale 私有网络方案：A 内网服务器 &#43; S 公网 Gateway &#43; W 异地工作站
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-16-ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BAgitea%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0/">ubuntu下搭建Gitea代码托管平台
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-07-10char-base31-token-design/">10位短码方案设计
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-07-07-8char-base31-token-design/">8位UUID, Base31 编码方案设计
+</a></li><li><a href="https://fabletang.github.io/en/posts/2026-06-26-postgres-redis/">PostgreSQL可以做到Redis绝大部分功能
+</a></li></ul>
+  </div>
+</section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/en/categories">Categories</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/en/categories/%E6%8A%80%E6%9C%AF/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="技术">
+            技术
+          </a><a href="https://fabletang.github.io/en/categories/%E7%AE%A1%E7%90%86/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="管理">
+            管理
+          </a><a href="https://fabletang.github.io/en/categories/game/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="game">
+            game
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/en/series">Series</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/en/series/%E5%B7%A5%E5%85%B7/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="工具">
+            工具
+          </a><a href="https://fabletang.github.io/en/series/%E6%A6%82%E5%BF%B5/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="概念">
+            概念
+          </a><a href="https://fabletang.github.io/en/series/%E5%BF%83%E5%BE%97/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="心得">
+            心得
+          </a><a href="https://fabletang.github.io/en/series/%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="编程">
+            编程
+          </a><a href="https://fabletang.github.io/en/series/eve/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="eve">
+            eve
+          </a><a href="https://fabletang.github.io/en/series/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="数据库">
+            数据库
+          </a><a href="https://fabletang.github.io/en/series/%E6%A1%86%E6%9E%B6/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="框架">
+            框架
+          </a></div>
+      </div>
+    </section><section class="taxonomies row card component">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="https://fabletang.github.io/en/tags">Tags</a>
+        </h2>
+        <div><a href="https://fabletang.github.io/en/tags/golang/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="golang">
+            golang
+          </a><a href="https://fabletang.github.io/en/tags/vim/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="vim">
+            vim
+          </a><a href="https://fabletang.github.io/en/tags/practice/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="practice">
+            practice
+          </a><a href="https://fabletang.github.io/en/tags/project/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="project">
+            project
+          </a><a href="https://fabletang.github.io/en/tags/tips/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="tips">
+            tips
+          </a><a href="https://fabletang.github.io/en/tags/android/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="android">
+            android
+          </a><a href="https://fabletang.github.io/en/tags/docker/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="docker">
+            docker
+          </a><a href="https://fabletang.github.io/en/tags/java/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="java">
+            java
+          </a><a href="https://fabletang.github.io/en/tags/others/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="others">
+            others
+          </a><a href="https://fabletang.github.io/en/tags/uuid/" class="post-taxonomy rounded btn btn-sm btn-outline-primary me-2 mb-2" title="uuid">
+            uuid
+          </a></div>
+      </div>
+    </section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:fabletang@outlook.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a><a class="nav-link social-link" target="_blank" href="https://github.com/fabletang" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2026 Fable Tang. All Rights Reserved.
+</div>
+</footer>
+
+</body>
+</html>
